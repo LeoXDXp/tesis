@@ -1,4 +1,5 @@
 \documentclass[upright, contnum]{umemoria}
+\usepackage[english,spanish,portuguese]{babel} 
 
 %fix for the oneside argument
 \makeatletter
@@ -29,7 +30,8 @@
 \frontmatter
 \maketitle
 
-\begin{abstract}{
+\begin{abstract}
+%\addcontentsline{toc}{chapter}{Resumen}
 En la naturaleza, es posible encontrar de forma ubicua, estructuras alargadas (filamentos), las que conforman redes entre s\'i.  La conformaci\'on de estas estructuras complejas y din\'amicas se puede observar en ejemplos
 particulares como en una red de prote\'inas de una c\'elula eucariota, as\'i como en bacterias, ya que a pesar que pertenecer a distintas familias, ambas tienen estructuras formada por filamentos. La individualizaci\'on de filamentos permite cuantificar las propiedades de la red tales como n\'umero de filamentos, largo de estos, volumen, o curvatura, y  puede ser categorizado en: basado en procesamiento de im\'agenes o como un problema de optimizaci\'on.
 
@@ -39,9 +41,12 @@ computacional en los m\'etodos basados en optimizaci\'on, y falta de descriptore
 Esta investigación se centra en el desarrollo un modelo de optimizaci\'on para la individualizaci\'on de filamentos a partir de un grafo representativo de la red de filamentos, evaluando la variaci\'on en el resultado con distintas combinaciones entre las propiedades de cada segmento de filamento como el grosor, largo, \'angulo de bifurcaci\'on o direcci\'on.
 
 Como resultado, se obtiene una herramienta para el an\'alisis automatizado de estructuras de filamentos, permitiendo mejorar el seguimiento de procesos din\'amicos o la identificaci\'on de procesos patol\'ogicos de forma autom\'atica.
-}
 \end{abstract}
 
+%\begin{abstractt}
+%\addcontentsline{toc}{chapter}{Abstract}
+%    anglais
+%\end{abstractt}
 \begin{dedicatoria} % opcional
 Dedicado a todos
 \end{dedicatoria}
@@ -58,9 +63,9 @@ A todos
 \mainmatter
 
 \input{intro.tex}
-%\input{cap1.tex}
-%\input{cap2.tex}
-%\input{conclu.tex}
+\input{cap1.tex}
+\input{cap2.tex}
+\input{conclu.tex}
 
 % \input{glosario.tex} % opcional
 
