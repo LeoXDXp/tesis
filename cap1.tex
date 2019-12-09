@@ -64,7 +64,7 @@ La clasificaci\'on topol\'ogica consiste en el an\'alisis a nivel de p\'ixel y s
 Como resultados de \cite{qiu2014quantitative}, se obtienen caracter\'isticas geom\'etricas como el largo de los filamentos y la distribuci\'on de la orientaci\'on de los filamentos, as\'i como la variaci\'on de estos valores para variaciones en la relaci\'on entre la se\~nal y el ruido de la imagen.
 
 %SOAX, extraccion y cuantifiacion de la red
-Por su parte, la investigaci\'on de \cite{xu2015soax}, llamada SOAX, utiliza curvas param\'etricas de contorno abierto (SOAC en ingl\'es) en conjunto con una funci\'on de minimizaci\'on para obtener un peque\~no set de candidatos de soluciones \'optimas, de las que el usuario puede elegir una. Las curvas param\'etricas de contorno abierto son reguladas por 2 par\'ametros: $\tau$, que fija el umbral de intensidad desde el que se inicializa una SOAC, siendo los puntos de intensidad m\'aximos locales de la imagen. El segundo par\'ametro, $K_str$, es el factor que regula la elongaci\'on/evoluci\'on de cada SOAC. Una vez concluida la inicializacio\'on y evoluci\'on de curvas SOAC, se identifican las junciones/intersecciones generadas entre diversas curvas SOAC, agrup\'andose seg\'un su cercan\'ia.  
+Por su parte, la investigaci\'on de \cite{xu2015soax}, llamada SOAX, utiliza curvas param\'etricas de contorno abierto (SOAC en ingl\'es) en conjunto con una funci\'on de minimizaci\'on para obtener un peque\~no set de candidatos de soluciones \'optimas, de las que el usuario puede elegir una. Las curvas param\'etricas de contorno abierto son reguladas por 2 par\'ametros: $\tau$, que fija el umbral de intensidad desde el que se inicializa una SOAC, siendo los puntos de intensidad m\'aximos locales de la imagen. El segundo par\'ametro, $K_str$, es el factor que regula la elongaci\'on/evoluci\'on de cada SOAC. Una vez concluida la inicializacio\'on y evoluci\'on de curvas SOAC, se identifican las junciones/intersecciones generadas entre diversas curvas SOAC, agrup\'andose seg\'un su cercan\'ia. Lo anterior se puede observar en la figura \ref{fig:SOAX}.
 
 \begin{figure}[h]
         \centering
@@ -73,12 +73,14 @@ Por su parte, la investigaci\'on de \cite{xu2015soax}, llamada SOAX, utiliza cur
         \label{fig:SOAX}
 \end{figure}
 
-La funcio\'on de minimizaci\'on que los autores denominan como  \textit{F-Function}\eqref{eq:FFunction}, se encuentra definida por otros 2 par\'ametros: El factor $c$ ($c > 1$) que regula la penalizaci\'on de las SOACs con bajo \textit{Signal to Noise Ratio}, y el umbral $t$, que define bajo que n\'umero se considera como bajo el \textit{Signal to Noise Ratio}. El umbral $t$ se ve reflejado en $L_<t$ dentro de la \textit{F-Function}, como el largo de SOACs en una regi\'on de la imagen con \textit{Signal to Noise Ratio} por debajo de $t$.
+La funcio\'on de minimizaci\'on que los autores denominan como  \textit{F-Function}\eqref{eq:FFunction}, se encuentra definida por otros 2 par\'ametros: El factor $c$ ($c > 1$) que regula la penalizaci\'on de las SOACs con bajo \textit{Signal to Noise Ratio (SNR}, y el umbral $t$, que define el valor mínimo de SNR necesario para no descartar una SOAC. El umbral $t$ se ve reflejado en $L_<t$ dentro de la \textit{F-Function}, como el largo de SOACs en una regi\'on de la imagen con SNR por debajo de $t$, y que ser\'an penalizados dado que son calificados como de baja certeza. $L_total$ representa el largo total de las SOACs en el resultado final.
 
 \begin{equation}
    \label{eq:FFunction}
     F = -L_total + {c}{L_<t} 
 \end{equation}
+
+
 
 Para estos m\'etodos, se han indicado como cr\'iticas la dificultad para identificar correctamente un filamento de otro, en los casos de  superposici\'on, fragmentaci\'on, o variaciones de intensidad en la imagen.
 % describir alguno de estos papers 
@@ -131,6 +133,9 @@ Con la demostraci\'on de que FCP es NP-Hard, dado que la cantidad de caminos cre
     
     
 Este enfoque faculta que al tener un grafo que representa la red de filamentos, como en la figura \ref{Fig1d}, sea posible llegar a resultados como los que aparecen en las figuras \ref{Fig2a} o \ref{Fig2b} a trav\'es de la asignaci\'on de pesos a la aristas, y de restricciones a las uniones entre las mismas. Cabe destacar que el {\it FCP} s\'olo utiliza 2 caracter\'isticas independientes para describir los segmentos de los filamentos, siendo el \'angulo de deflexi\'on entre aristas usado en la etapa de selecci\'on de subconjuntos de caminos s\'olo si es seleccionada la heur\'istica {\it BFS}, y el grosor, empleado para describir el peso de las aristas.  
+
+En resumen...
+
 %es de complejidad $\mathcal{O}(N^{(2K+2)})$, con $N$ como n\'umero de nodos y $k$ como el n\'umero m\'aximo de caminos que pasan por cada v\'ertice. 
 % Aquello permitir\'ia pasar de Fig1d a Fig2b por ejemplo
 

@@ -1,2 +1,35 @@
-\chapter{Segundo}
-\lipsum[50-60]
+\chapter{Modelo de Optimizaci\'on para la Identificaci\'on de Filamentos}
+
+%problema previo
+\section{Extracci\'on de un Grafo desde una Imagen}
+% presentar el problema previo, como un puente necesario en la 
+% automatizaci\'on de la extracci\'on,  para analizar un grafo que representa la red de filamentos, que de lo contrario tendria que ser realizado a mano, implicando que la persona realizando el análisis podría llevar a cabo la individualizaci\'on de filamentos en el mismo acto.
+\subsection{Generador Aproximado de Grafos a partir de una Imagen}
+% presento el extractor aproximado de grafos, la noción de puntos cluster/superPixels/blobs y el centro de masa como representante, dado que se puede obtener de forma simple mediante los "image moments". Además, distintos niveles de image moments permiten obtener información adicional útil en la descripción del cluster.
+% La noción ppal es generar vecindarios, ya que el grafo debe contener información topológica como geométrica, ya que cada será la base para distintos criterios de categorización durante el proceso de individualización de filamentos. 
+% opcional: Un ejemplo de aquello pueden ser los ciclos, ya que con el grado de los nodos se puede determinar aquello (fuente: wilkisongraphbook)
+% Veselness: Se estudió el filtro Frangi para "Veselness" (fuente: frangi1998, frangiNet) utilizados para filtrar estructuras alargadas, como lo son arterias y venas. Este filtro se basa en la matriz Hessiana, y sus eigenvectores y eigenvalores para ponderar el "veselness value" (agregar formulas), 2nd order structurness, y R_b blobness measure...
+% Dado que se puede llegar a algo similar mediante los image momentos ....
+% se analizaron filtros como Gaboro Gaussian kernels siendo descartados ya que pierden detalles mediante el blurring (fuente: A coronary artery segmentation method based on multiscale analysis and region growing 2015). Por otra parte, el filtro  anistropic Difusion fue descartado por requerir de múltiples parámetros. 
+% Lo anterior se destaca ya que dentro de los criterios del generador aproximado de grafos a partir de una imagen se busca evitar perder información de la imagen, así como tener un costo computacional bajo, en conjunto con disminuir la interacción del usuario. 
+
+% numero de nodos depende de apMaxThickness, q representa la resoluci\'ón, es decir, cuantos micrometros se observan por pixel.
+
+\subsubsection{Heurística para limitar el n\'umero de nodos}
+% Un grafo completamente conectado puede tener n(n-1)/2 aristas, lo que para un n muy grande puede implicar un costo computacional se aplicó como estrategía: 
+% % Node Pruning: parametro apMaxThickness y connectivityThreshold manuales. Arbitrariamente n° neighbors > 2. también se fija un límite de memoria ram
+
+\subsubsection{Generaci\'on de Aristas}
+
+
+
+\section{Generaci\'on de Caminos}
+% definir que los filamentos con conjuntos de segmentos/caminos/path
+% definir camino como un conjunto de aristas adyacentes y conectadas, que cumplen con restricciones, como la restricción angular o restricciones de ciclos
+% Comparándose con define, el problema acá está en la generación de P' subconjunto de P (caminos totales) , ya que al usar una sola propiedad, como lo puede ser el ángulo entre aristas, el largo o el ancho, se pierden soluciones. Ejemplo camino verde en Spinning Marchantia (imagenes)
+
+% Heurística: hay alguna aca? pareciera solo satisfacci\'on de restricciones
+% garantizar que al satisfacer las restricciones los caminos son solo soluciones factibles y que la unión de caminos también entrega múltiples opciones de filamentos, los que deben ser medidos para determinar cual es mejor
+
+\section{Modelo de Optimización}
+%dado que se tienen muchos filamentos, se debe evaluar cual es mejor. Explicar como propiedades topológicas y geométricas tienen. Y como se ponderan para un peso que será minimizado o maximizado
