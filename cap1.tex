@@ -38,7 +38,7 @@ t = (t_x,t_y) = (
  
 Los autores de FibriTool desarrollan este m\'etodo para evitar el uso de derivadas de segundo orden, que presentan sensibilidad al ruido, necesitando de pasos previos en la limpieza de la imagen.
 
-\begin{figure}[H]
+\begin{figure}[h!]
         \centering
         \includegraphics[scale=0.6]{imagenes/fibritool.jpg}
         \caption{\'Area de inter\'es seleccionada manualmente en amarillo, y resultado de FibriTool en rojo o verde. Fuente: \cite{boudaoud2014fibriltool}}
@@ -47,7 +47,7 @@ Los autores de FibriTool desarrollan este m\'etodo para evitar el uso de derivad
 
 % Quantitative IFS
 Otra investigaci\'on de extracci\'on e individualizaci\'on de filamentos es \cite{qiu2014quantitative}, la que propone un filtro de detecci\'on de caracter\'isticas de 6 pasos m\'as un algoritmo llamado \textit{SBDA} que busca eliminar segmentos de filamentos menores a 2 p\'ixeles (Figura \ref{fig:IFS}). 
-\begin{figure}[H]
+\begin{figure}[h]
         \centering
         \includegraphics[scale=0.75]{imagenes/QuantitativeIFS.png}
         \caption{Etapas de individualizaci\'on de filamentos de \cite{qiu2014quantitative}. (A): Imagen de red de fibras de un osteoblasto .(B, C, D, E, F): Filtros de limpieza, tubularidad, segmentaci\'on, conectividad y esqueletonizaci\'on. (G): Clasificaci\'on topol\'ogica de intersecciones a nivel de pixel. (H): Resultado de algoritmo SBDA. (I): Individualizaci\'on de segmentos de filamentos seg\'un forma estructural: aislado (verde), solapado (morado) u otro (azul). Fuente: \cite{qiu2014quantitative}}

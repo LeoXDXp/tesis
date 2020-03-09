@@ -1,35 +1,146 @@
-\chapter{Modelo de Optimizaci\'on para la Identificaci\'on de Filamentos}
+\chapter{Problem\'atica de la Identificaci\'on de Filamentos a partir de un Grafo}
+
+problema previo, o problema 0 que consiste en la generaci\'on de un grafo a partir de una imagen que contenga una red, que en este caso, representaria a una red de filamentos. 
+
+el primer problema esta en que dado el desconocimiento a priori del origen y el final de un filamento, y que estos se representan como un conjunto de aristas adyacentes denominadas caminos, de los cuales en un grafo se pueden tener n! combinaciones...
+
+Problema 2 o final lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, teniendo un problema de optimizaci\'on, teniendo un problema de optimizaci\'on combinatorial.
+
+Este cap\'itulo presenta una definici\'on formal de los 3 problemas presentados.
 
 %problema previo
-\section{Extracci\'on de un Grafo desde una Imagen}
-% presentar el problema previo, como un puente necesario en la 
-% automatizaci\'on de la extracci\'on,  para analizar un grafo que representa la red de filamentos, que de lo contrario tendria que ser realizado a mano, implicando que la persona realizando el análisis podría llevar a cabo la individualizaci\'on de filamentos en el mismo acto.
-\subsection{Generador Aproximado de Grafos a partir de una Imagen}
-% presento el extractor aproximado de grafos, la noción de puntos cluster/superPixels/blobs y el centro de masa como representante, dado que se puede obtener de forma simple mediante los "image moments". Además, distintos niveles de image moments permiten obtener información adicional útil en la descripción del cluster.
-% La noción ppal es generar vecindarios, ya que el grafo debe contener información topológica como geométrica, ya que cada será la base para distintos criterios de categorización durante el proceso de individualización de filamentos. 
-% opcional: Un ejemplo de aquello pueden ser los ciclos, ya que con el grado de los nodos se puede determinar aquello (fuente: wilkisongraphbook)
-% Veselness: Se estudió el filtro Frangi para "Veselness" (fuente: frangi1998, frangiNet) utilizados para filtrar estructuras alargadas, como lo son arterias y venas. Este filtro se basa en la matriz Hessiana, y sus eigenvectores y eigenvalores para ponderar el "veselness value" (agregar formulas), 2nd order structurness, y R_b blobness measure...
-% Dado que se puede llegar a algo similar mediante los image momentos ....
-% se analizaron filtros como Gaboro Gaussian kernels siendo descartados ya que pierden detalles mediante el blurring (fuente: A coronary artery segmentation method based on multiscale analysis and region growing 2015). Por otra parte, el filtro  anistropic Difusion fue descartado por requerir de múltiples parámetros. 
-% Lo anterior se destaca ya que dentro de los criterios del generador aproximado de grafos a partir de una imagen se busca evitar perder información de la imagen, así como tener un costo computacional bajo, en conjunto con disminuir la interacción del usuario. 
+\section{Generaci\'on de un Grafo desde una Imagen}
+presentar el problema previo, como un puente necesario en la 
+automatizaci\'on de la extracci\'on,  para analizar un grafo que representa la red de filamentos, que de lo contrario tendria que ser realizado a mano, implicando que la persona realizando el análisis podría llevar a cabo la individualizaci\'on de filamentos en el mismo acto.
 
-% numero de nodos depende de apMaxThickness, q representa la resoluci\'ón, es decir, cuantos micrometros se observan por pixel.
+Es posible distinguir en 2 conjuntos los m\'etodos utilizados para extraer la informaci\'on escencial que permite la construcci\'on de un grafo a partir de una imagen, como lo son los nodos y las aristas. Estos conjuntos son los que se basan en esqueletonizaci\'on\ref{tesis esqueleton} y los que no. En este trabajo se presenta un enfoque del segundo tipo.
+
+\subsection{Generador Aproximado de Grafos a partir de una Imagen}
+presento el extractor aproximado de grafos, la noción de puntos cluster/superPixels/blobs y el centro de masa como representante, dado que se puede obtener de forma simple mediante los "image moments". Además, distintos niveles de image moments permiten obtener información adicional útil en la descripción del cluster.
+
+La noción ppal es generar vecindarios, ya que el grafo debe contener información topológica como geométrica, ya que cada será la base para distintos criterios de categorización durante el proceso de individualización de filamentos. 
+
+opcional: Un ejemplo de aquello pueden ser los ciclos, ya que con el grado de los nodos se puede determinar aquello (fuente: wilkisongraphbook)
+
+Veselness: Se estudió el filtro Frangi para "Veselness" (fuente: frangi1998, frangiNet) utilizados para filtrar estructuras alargadas, como lo son arterias y venas. Este filtro se basa en la matriz Hessiana, y sus eigenvectores y eigenvalores para ponderar el "veselness value" (agregar formulas), 2nd order structurness, y $R_b$ blobness measure...
+
+Dado que se puede llegar a algo similar mediante los image momentos ....
+
+se analizaron filtros como Gabor Gaussian kernels siendo descartados ya que pierden detalles mediante el blurring (fuente: A coronary artery segmentation method based on multiscale analysis and region growing 2015). Por otra parte, el filtro  anistropic Difusion fue descartado por requerir de múltiples parámetros. 
+Lo anterior se destaca ya que dentro de los criterios del generador aproximado de grafos a partir de una imagen se busca evitar perder información de la imagen, así como tener un costo computacional bajo, en conjunto con disminuir la interacción del usuario. 
+
+numero de nodos depende de apMaxThickness, q representa la resoluci\'on, es decir, cuantos micrometros se observan por pixel.
+
+finalmente Generaci\'on de Aristas se realiza mediante la uni\'on nodos, obtener informaci\'on angular, trabajo a futuro ser\'ia agregar curvatura 
 
 \subsubsection{Heurística para limitar el n\'umero de nodos}
-% Un grafo completamente conectado puede tener n(n-1)/2 aristas, lo que para un n muy grande puede implicar un costo computacional se aplicó como estrategía: 
-% % Node Pruning: parametro apMaxThickness y connectivityThreshold manuales. Arbitrariamente n° neighbors > 2. también se fija un límite de memoria ram
-
-\subsubsection{Generaci\'on de Aristas}
-
+Un grafo completamente conectado puede tener n(n-1)/2 aristas, lo que para un n muy grande puede implicar un costo computacional se aplicó como estrategía: 
+Node Pruning: parametro apMaxThickness y connectivityThreshold manuales. Arbitrariamente n\textdegree neighbors > 2. también se fija un límite de memoria ram
 
 
 \section{Generaci\'on de Caminos}
-% definir que los filamentos con conjuntos de segmentos/caminos/path
-% definir camino como un conjunto de aristas adyacentes y conectadas, que cumplen con restricciones, como la restricción angular o restricciones de ciclos
-% Comparándose con define, el problema acá está en la generación de P' subconjunto de P (caminos totales) , ya que al usar una sola propiedad, como lo puede ser el ángulo entre aristas, el largo o el ancho, se pierden soluciones. Ejemplo camino verde en Spinning Marchantia (imagenes)
+definir que los segmentos/caminos/path son conjuntos de aristas adyacentes conectadas, o de nodos ..., que cumplen con restricciones, como la restricción angular o restricciones de ciclos (formula matem\'atica) y que los filamento son elegidos entre los caminos de mayor calidad
+Un camino simple es equivalente a un \'arbol simple, ac\'clico...
+
+
+En un grafo con n aristas, en el cual se desconoce el origen y el final los caminos, el n\'umero de combinaciones crece exponencialmente (agregar \cite{101 y 102 de define}). Denominamos todas estas opciones de caminos como el conjunto $P$, del cual debemos extraer un subconjunto $P'$ mediante una estrategia que permita realizar esto en tiempo polinomial independientemente de la cantidad de aristas del grafo.
+
+\begin{equation}
+p = (e_1, e_2,..., e_n)\\
+p = ((v_1,v_2), (v_2,v_4),..., (v_n-1,v_n))
+\label{eq:path}
+\end{equation}
+
+% explicar define
+El m\'etodo presentado en \cite{breuer2015define} se basa en lo definido por \cite{lin2006vertex}, indicando que dado un problema de {\it covering}, existe un {\it set system}$(S,C)$, donde S es el conjunto total y finito de sets, y C es un conjunto de subsets pertenecientes a S. En el caso espec\'ifico del {\it Minimum Set Cover}(SC), el objetivo es encontrar un subconjunto $C'$ de $C$ tal que cada elemento de $S$ pertenezca al menos 1 vez a uno de los miembros de $C'$.
+
+Para un {\it set system}$(S,C)$ que pueda ser representando por un \'arbol $T$, es posible modificar la definici\'on de $S$ al conjunto de nodos que componen un grafo $G$ y que cada subset $c \in C$ representa un camino\ref{eq:path} simple en $G$. Se destaca que no necesariamente estar\'an todos los caminos simples de $G$ est\'an representados en $C$. Esta representaci\'on de {\it covering} de caminos, o {\it Path Cover}, es denominada {\it Vertex Covering by Paths on Graphs}(VcpG) y difiere de un {\it Path Cover} tradicional al permitir caminos que compartan nodos. Luego, para el caso de \'arboles, VcpG se renombra a VcpT ({\it Vertex Covering by Paths on Trees}), y si se reemplazan los nodos por aristas, lo no genera cambios significativos en el planteamiento del problema, se denomina EcpT {\it Edge Covering by Paths on Trees}. %recordar mas adelante como posible perdida de soluciones factibles
+
+
+Lo anterior establece las bases para que los autores de DeFiNe\cite{breuer2015define} utilicen EcpT como base, teniendo un m\'aximo de caminos $n(n)-1/2 = \mathcal{O}(n^{2})$, con una complejidad $\mathcal{O}(n^{4})$ para obtener esos caminos, para caminos que no comparten nodos o aristas, es decir, no se sobrelapan.
+
+La obtenci\'on de caminos a partir de un \'arbol $T$ que representa un grafo $G$ se realiza mediante la divisi\'on continua del \'arbol en m\'ultiples bosques, hasta que los bosques resultantes sean s\'olo caminos simples.
+
+%aca entran las formas de obtener esos arboles simples y bosques, con las heuristicas de define
+...
+
+
+% Comparándose con define,
+el problema acá está en la generación de P' subconjunto de P (caminos totales) , ya que al usar una sola propiedad, como lo puede ser el ángulo entre aristas, el largo o el ancho, se pierden soluciones. Ejemplo camino verde en Spinning Marchantia (imagenes)
 
 % Heurística: hay alguna aca? pareciera solo satisfacci\'on de restricciones
 % garantizar que al satisfacer las restricciones los caminos son solo soluciones factibles y que la unión de caminos también entrega múltiples opciones de filamentos, los que deben ser medidos para determinar cual es mejor
 
+
+
+
 \section{Modelo de Optimización}
 %dado que se tienen muchos filamentos, se debe evaluar cual es mejor. Explicar como propiedades topológicas y geométricas tienen. Y como se ponderan para un peso que será minimizado o maximizado
+
+En base a lo recopilado en las secciones previas de esta investigaci\'on, es posible destacar los siguientes aspectos al problema a resolver:
+
+\begin{itemize}
+    \item Se desconoce a priori el n\'umero de filamentos a buscar, dado que una imagen puede tener individualizaciones distintas para 2 expertos.
+    \item Generalmente, se busca individualizar m\'as de un filamento por imagen, lo que conlleva a elegir los mejores filamentos entre las soluciones que se encuentren.
+    \item El uso de un grafo para representar la red de filamentos puede implicar que las combinaciones de soluciones crezca de manera exponencial.
+\end{itemize}
+
+Lo anterior implica que el problema de identificar filamentos a partir de un grafo puede ser clasificado como un problema de optimizaci\'on de restricciones.
+
+
+Un problema de optimización de restricciones, (COP por su sigla en ingl\'es) puede ser representado como $P = (S,\omega ,F)$, donde S es el espacio de soluciones, definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}_^{1} \dotsc  v_{i}_^{|D_{i}|}\}$. Una solución candidata $s \in S$, es una soluci\'on factible si satisface las restricciones del set $\omega$. La funci\'on objetio $F: S\rightarrow \mathbb R_{\ne 0}^{+}$, es la funci\'on de evaluaci\'on que asigna valores a las soluciones candidatas. Por su parte, $s^{*} \in S^{*} \subseteq S $, $s^{*}$ es una soluci\'on \'optima y $S^{*}$ es un conjunto de soluciones \'optimas\cite{socha2008ant}.
+Esta definici\'on permite aplicar la metaheur\'istica ACO a un {\it COP}.
+%COP es un CSP con función objetivo: https://en.wikipedia.org/wiki/Constrained_optimization#Constraint_optimization_problems
+
+%Arreglar o sacar D_i
+El proposito de la metaheur\'istica ACO es encontrar una soluci\'on o un set de soluciones. Una soluci\'on particular $s$ consiste en un conjunto de componentes de soluci\'on $c_{ij} \in C, i = 1 \dotsc n, j = 1 \dotsc |D_i|$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino o {\it tour} que recorre una hormiga, desde un nodo o arista inicial hasta un nodo o arista final. La metaheur\'istica ACO se muestra en el algoritmo \ref{ACO-Algo}.
+
+ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no tienen un orden espec\'ifico:
+
+\begin{itemize}
+    \item {\it Construccion_de_soluci\'on_de_cada_hormiga()}: \\ 
+    Para la selecci\'on del componente $c_{ij}$ a elegir por una hormiga durante la construcci\'on de un camino, la elecci\'on entre los caminos compuestos por el conjunto de vecinos factibles $N(s^{P}) \subseteq C$, se lleva a cabo mediante el c\'alculo de una probabilidad para cada componente $c_{ij}$ posible de elegir. En la probabilidad influye el camino ya escogido, denominado soluci\'on parcial $s^{P}$.
+
+    La elecci\'on de los vecinos que pertenecen a $N(s^{P})$ se realiza mediante
+    
+    \item {\it M\'etodo_de_b\'usqueda_local()}
+    
+    \item {\it Actualizaci\'on_global_de_feromona()}
+\end{itemize}
+
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwResult{Inicio del Algoritmo ACO}
+ Ajuste de Par\'ametros & inicializaci\'on de feromonas \;
+ \While{Criterio de finalización no se cumple}{
+   Planificaci\'on_de_Pasos\;
+    Construccion_de_soluci\'on_de_cada_hormiga()\;
+    M\'etodo_de_b\'usqueda_local() \% opcional (DaemonActions)\;
+    Actualizaci\'on_global_de_feromona()\;  
+   Fin_Planificaci\'on_de_Pasos\;
+ }
+ \caption{Algoritmo ACO}
+ \label{ACO-Algo}
+\end{algorithm}
+
+% \begin{algorithm}[H]
+% \SetAlgoLined
+% %\SetKwData{1}{}
+% \KwResult{Inicio del Algoritmo H\'ibrido ACO con Satisfacci\'on de Restricciones para Filamentos}
+%  inicializaci\'on\;
+%  \While{Criterio de finalización no se cumple}{
+%   Construccion_de_soluci\'on_de_cada_hormiga\;
+%   M\'etodo_de_b\'usqueda_local \% optional \;
+%   Actualizaci\'on_global_de_feromona\;  
+%  }
+%  \caption{Algoritmo H\'ibrido ACO con Satisfacci\'on de Restricciones para Filamentos}
+%  \label{ACO-CP-Algo}
+% \end{algorithm}
+
+\begin{equation}
+P(C_{ij} | s^{P}) = P_{n_{i},n_{j}} = P_{e_{x}}
+    
+\label{eq:antProbabilities}
+\end{equation}
+
