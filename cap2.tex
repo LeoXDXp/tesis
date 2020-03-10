@@ -88,40 +88,66 @@ En base a lo recopilado en las secciones previas de esta investigaci\'on, es pos
 Lo anterior implica que el problema de identificar filamentos a partir de un grafo puede ser clasificado como un problema de optimizaci\'on de restricciones.
 
 
-Un problema de optimización de restricciones, (COP por su sigla en ingl\'es) puede ser representado como $P = (S,\omega ,F)$, donde S es el espacio de soluciones, definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}_^{1} \dotsc  v_{i}_^{|D_{i}|}\}$. Una solución candidata $s \in S$, es una soluci\'on factible si satisface las restricciones del set $\omega$. La funci\'on objetio $F: S\rightarrow \mathbb R_{\ne 0}^{+}$, es la funci\'on de evaluaci\'on que asigna valores a las soluciones candidatas. Por su parte, $s^{*} \in S^{*} \subseteq S $, $s^{*}$ es una soluci\'on \'optima y $S^{*}$ es un conjunto de soluciones \'optimas\cite{socha2008ant}.
+Un problema de optimización de restricciones, (COP por su sigla en ingl\'es) puede ser representado como $P = (S,\Omega ,F)$, donde S es el espacio de soluciones, definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Una solución candidata $s \in S$, es una soluci\'on factible si satisface las restricciones del set $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna valores a las soluciones candidatas. Por su parte, $s^{*} \in S^{*} \subseteq S $, $s^{*}$ es una soluci\'on \'optima y $S^{*}$ es un conjunto de soluciones \'optimas\cite{socha2008ant}.
 Esta definici\'on permite aplicar la metaheur\'istica ACO a un {\it COP}.
 %COP es un CSP con función objetivo: https://en.wikipedia.org/wiki/Constrained_optimization#Constraint_optimization_problems
 
 %Arreglar o sacar D_i
 El proposito de la metaheur\'istica ACO es encontrar una soluci\'on o un set de soluciones. Una soluci\'on particular $s$ consiste en un conjunto de componentes de soluci\'on $c_{ij} \in C, i = 1 \dotsc n, j = 1 \dotsc |D_i|$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino o {\it tour} que recorre una hormiga, desde un nodo o arista inicial hasta un nodo o arista final. La metaheur\'istica ACO se muestra en el algoritmo \ref{ACO-Algo}.
 
-ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no tienen un orden espec\'ifico:
+ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no tienen un orden espec\'ifico.  
 
 \begin{itemize}
-    \item {\it Construccion_de_soluci\'on_de_cada_hormiga()}: \\ 
-    Para la selecci\'on del componente $c_{ij}$ a elegir por una hormiga durante la construcci\'on de un camino, la elecci\'on entre los caminos compuestos por el conjunto de vecinos factibles $N(s^{P}) \subseteq C$, se lleva a cabo mediante el c\'alculo de una probabilidad para cada componente $c_{ij}$ posible de elegir. En la probabilidad influye el camino ya escogido, denominado soluci\'on parcial $s^{P}$.
-
-    La elecci\'on de los vecinos que pertenecen a $N(s^{P})$ se realiza mediante
+    \item {\it Construccion\_de\_soluci\'on\_de\_cada\_hormiga()}: \\ 
+    Para la selecci\'on del componente $c_{ij}$ a elegir por una hormiga durante la construcci\'on de un camino, la elecci\'on entre los caminos compuestos por el conjunto de vecinos factibles $N(s^{P}) \subseteq C$, se lleva a cabo mediante el c\'alculo de una probabilidad para cada componente $c_{ij}$ posible de elegir. En la probabilidad influye el camino ya escogido, denominado soluci\'on parcial $s^{P}$. Cada hormiga al comenzar se le asigna una arista donde uno de sus nodos tiene grado 1, indicando que es el inicio o final de una parte del grafo. 
     
-    \item {\it M\'etodo_de_b\'usqueda_local()}
+    Para el caso de la individualizaci\'on de filamentos, lo descrito en la ecuaci\'on \ref{eq:antProbabilities} corresponde a la probabilidad de elegir una arista de un conjunto de aristas vecinas (conjunto $N(s^{P})$) dadas la aristas que ya pertenecen al {\it tour} de la hormiga ($s^P$), mediante la heur\'istica miope (ecuaci\'on \ref{eq:heuristicaMiope})que privilegia los candidatos que causen la menor desviaci\'on en la rectitud del camino. Cabe destacar que en el caso de que el conjunto $N(s^{P})$ este compuesto s\'olo por $c_{ij} \in ]\theta, 90]$, la ecuaci\'on \ref{eq:heuristicaMiope} se multiplica por $\frac{1}{2}$ para agregar la opci\'on de no elegir ninguna arista con 50\% de probabilidad, quedando la heur\'istica miope como indica la ecuaci\'on \ref{eq:heuristicaMiopeSoloInterQua}.
     
-    \item {\it Actualizaci\'on_global_de_feromona()}
+    \item {\it M\'etodo\_de\_b\'usqueda\_no\_local()} \\
+    Una vez que la hormiga termina un {\it tour}, es posible agregar un m\'etodo de {\it feedback} sobre la calidad del recorrido realizado, basado en l\'ogicas globales/centralizadas que escapan de la b\'usqueda local que realiza cada hormiga. Estos m\'etodos, denominados {\it Daemon Actions} en ingles, permiten, por ejemplo, seleccionar las hormigas de mejor calidad para incrementar las feromonas m\'as alla de lo que la {\it Actualizaci\'on\_de\_feromonas()} lo hace. 
+    
+    Para la individualizaci\'on de filamentos, la evaluaci\'on global corresponde a eliminar soluciones candidatas que no aporten informaci\'on nueva. Sea $s_a$ y $s_b$ las soluciones de las hormigas $a$ y $b$ respectivamente. Si $s_a$ y $s_b$ cumplen con las siguientes condiciones:
+    
+    \begin{itemize}
+        \item $\forall c_{ij} \in s_a \in [0, \theta]$ y $\forall c_{ij} \in s_b \in [0, \theta]$
+        \item $\forall c_{ij} \in s_a$ fueron electos por la hormiga $a$ con $P(c_{ij} | s_{a}^{P}) = 1$ y $\forall c_{ij} \in s_b$ fueron electos por la hormiga $b$ con $P(c_{ij} | s_{b}^{P}) = 1$
+        \item $s_a \subseteq s_b$
+    \end{itemize}
+    
+    Se tiene que $s_a$ no aporta m\'as informaci\'on que $s_b$, por lo que $s_a$ puede descartarse. Se denomina a $s_b$ como un segmento, el cual se comporta como una secci\'on indivisible de filamento.
+    
+    %Si dos soluciones, $s_i$ y $s_j$ de las hormigas $i$,$j$, conformadas solamente por componentes $c_{ij} \in [0, \theta]$  (todos los componentes son de {\it buena calidad}), y que adem\'as eran la \'unica opci\'on posible en cada avance de la hormiga (probabilidad 1 de ser elegidas)
+    %tal que $s_i \subseteq s_j$ o viceversa, se tiene que una soluci\'on candidata no aporta nueva informaci\'on.
+    
+    \item {\it Actualizaci\'on\_de\_feromonas()}\\
+    Una vez que la hormiga termina un {\it tour}, esta debe actualizar las feromonas ($\tau_{ij}$) asociadas a los componentes de soluci\'on que la conforman, aumentando el valor en los $c_{ij}$ que construyen un camino de buena calidad, mientras que debe realizar lo contrario para los componentes de soluci\'on que son parte de un recorrido de mala calidad. Adem\'as, los valores de las feromonas sufren decaimiento en el tiempo, dado por el par\'ametro $\rho$, que busca evitar la convergencia que las feromonas pueden causar en caminos de buena soluci\'on obtenidos al inicio de las iteraciones.
+    
+    
+    Sin embargo, para el problema de individualizaci\'on de filamentos, se utilizan {\it anti-feromonas}, 
+    
+    
+    
+    \cite{montgomery2002anti} utiliza $\rho$ (decaimiento de las feromonas en el tiempo) con valor 0.5 
+    
 \end{itemize}
+
+Por otra parte, los par\'ametros $\alpha$ y $\beta$ representan la ponderaci\'on de la importancia entre las feromonas y la heur\'istica para el c\'alculo de probabilidad $P(c_{ij} | s^{P})$. 
+% TODO: Agregar valores de alpha y beta aca o en resultados
 
 
 \begin{algorithm}[H]
 \SetAlgoLined
-\KwResult{Inicio del Algoritmo ACO}
- Ajuste de Par\'ametros & inicializaci\'on de feromonas \;
+\KwData{Variables $X_i \dotsc X_n$, dominios $D_1 \dotsc D_n$, Restricciones $\in \Omega$}
+\KwResult{conjunto s\textquotesingle $ \subseteq S != \emptyset$, si existen soluciones factibles}
+ Ajuste de Par\'ametros \& inicializaci\'on de feromonas \;
  \While{Criterio de finalización no se cumple}{
-   Planificaci\'on_de_Pasos\;
-    Construccion_de_soluci\'on_de_cada_hormiga()\;
-    M\'etodo_de_b\'usqueda_local() \% opcional (DaemonActions)\;
-    Actualizaci\'on_global_de_feromona()\;  
-   Fin_Planificaci\'on_de_Pasos\;
+   Planificaci\'on\_de\_Pasos\;{
+   ~ Construccion\_de\_soluci\'on\_de\_cada\_hormiga()\;
+   ~ M\'etodo\_de\_b\'usqueda\_no\_local() \% opcional (DaemonActions)\;
+   ~ Actualizaci\'on\_de\_feromonas()\;
+   }Fin\_Planificaci\'on\_de\_Pasos\;
  }
- \caption{Algoritmo ACO}
- \label{ACO-Algo}
+ \caption{Algoritmo Metaheur\'istica ACO}\label{ACO-Algo}
 \end{algorithm}
 
 % \begin{algorithm}[H]
@@ -138,9 +164,29 @@ ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no ti
 %  \label{ACO-CP-Algo}
 % \end{algorithm}
 
+%P(C_{ij} | s^{P}) = P_{n_{i},n_{j}} = P_{e_{x}}
 \begin{equation}
-P(C_{ij} | s^{P}) = P_{n_{i},n_{j}} = P_{e_{x}}
-    
+P(c_{ij} | s^{P}) = \frac
+        {\tau_{ij}^{\alpha} \cdot \eta_{ij}^{\beta}}
+        {\sum\limits_{c_{il}\in N(s^p)}{\tau_{il}^{\alpha} \cdot \eta_{il}^{\beta} } }, \forall c_{ij} \in N(s^{P})
 \label{eq:antProbabilities}
 \end{equation}
 
+\begin{equation}
+    \eta_{ij} = 
+        \begin{cases} 
+        \text{MAX\_SCORE si} \measuredangle(c_{ij}, c_{(i-1)j}) \in [0, \theta]\text{; } c_{ij} \text{de buena calidad}. \\
+        
+        \text{1.5} - |\frac{\measuredangle(c_{ij}) - s^{P}_{averageAngle}} {2 \cdot s^{P}_{averageAngle}}| \text{si} \measuredangle(c_{ij}, c_{(i-1)j}) \in ]\theta, 90] \text{; }  c_{ij} \text{de calidad intermedia}.\\
+        
+        \text{0 en otro caso; } c_{ij} \text{de mala calidad}.
+        \end{cases}
+    \label{eq:heuristicaMiope}
+\end{equation}
+
+\begin{equation}
+P(c_{ij} | s^{P}) = \frac
+        {\tau_{ij}^{\alpha} \cdot \eta_{ij}^{\beta}}
+        {2 \cdot \sum\limits_{c_{il}\in N(s^p)}{\tau_{il}^{\alpha} \cdot \eta_{il}^{\beta} } }, \forall c_{ij} \in N(s^{P}) \in ]\theta, 90]
+    \label{eq:heuristicaMiopeSoloInterQua}
+\end{equation}
