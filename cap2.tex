@@ -87,13 +87,12 @@ En base a lo recopilado en las secciones previas de esta investigaci\'on, es pos
 
 Lo anterior implica que el problema de identificar filamentos a partir de un grafo puede ser clasificado como un problema de optimizaci\'on de restricciones\cite{blum2011hybrid}.
 
-
-Un problema de optimización de restricciones, (COP por su sigla en ingl\'es) puede ser representado como $P = (S,\Omega ,F)$, donde S es el espacio de soluciones, definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Una solución candidata $s \in S$, es una soluci\'on factible si satisface las restricciones del set $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna valores a las soluciones candidatas. Por su parte, $s^{*} \in S^{*} \subseteq S $, $s^{*}$ es una soluci\'on \'optima y $S^{*}$ es un conjunto de soluciones \'optimas\cite{socha2008ant}.
-Esta definici\'on permite aplicar la metaheur\'istica ACO a un {\it COP}.
+Un problema de optimización de restricciones, (COP por su sigla en ingl\'es) puede ser representado como $P = (S, \Omega, F)$, donde S es el espacio de soluciones, definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Se define como una variable {\it instanciada} la asignaci\'on a $X_i$ de un valor $v_{i}^{j} \in D_i$. Una solución candidata $s \in S$, es una soluci\'on factible si satisface las restricciones del set $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna valores a las soluciones candidatas. Por su parte, $s^{*} \in S^{*} \subseteq S $, $s^{*}$ es una soluci\'on \'optima y $S^{*}$ es un conjunto de soluciones \'optimas\cite{socha2008ant}.
+Esta definici\'on permite aplicar la metaheur\'istica de optimizaci\'on basada en colonia de hormigas (ACO por su sigla en ingl\'es) a un modelo de un {\it COP}.
 %COP es un CSP con función objetivo: https://en.wikipedia.org/wiki/Constrained_optimization#Constraint_optimization_problems
 
-%Arreglar o sacar D_i
-El proposito de la metaheur\'istica ACO es encontrar una soluci\'on o un set de soluciones. Una soluci\'on particular $s$ consiste en un conjunto de componentes de soluci\'on $c_{ij} \in C, i = 1 \dotsc n, j = 1 \dotsc |D_i|$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino o {\it tour} que recorre una hormiga, desde un nodo o arista inicial hasta un nodo o arista final. La metaheur\'istica ACO se muestra en el algoritmo \ref{ACO-Algo}.
+\section{Metaheur\'istica ACO}
+El proposito de la metaheur\'istica ACO es encontrar una soluci\'on o un set de soluciones. Una soluci\'on $s$ consiste en un conjunto de componentes de soluci\'on $c_{ij} \in C, i = 1 \dotsc n, j = 1 \dotsc |D_i|$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino o {\it tour} que recorre una hormiga, desde un nodo o arista inicial hasta un nodo o arista final. La metaheur\'istica ACO se muestra en el algoritmo \ref{ACO-Algo}. En base a la definici\'on de variable {\it instanciada} del modelo COP, se tiene que $X_i = v_{i}^{j}$ es el equivalente a $c_{ij}$ en ACO.
 
 ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no tienen un orden espec\'ifico.  
 
@@ -102,7 +101,7 @@ ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no ti
     Para la selecci\'on del componente $c_{ij}$ a elegir por una hormiga durante la construcci\'on de un camino, la elecci\'on entre los caminos compuestos por el conjunto de vecinos factibles $N(s^{P}) \subseteq C$, se lleva a cabo mediante el c\'alculo de una probabilidad para cada componente $c_{ij}$ posible de elegir. En la probabilidad influye el camino ya escogido, denominado soluci\'on parcial $s^{P}$. Cada hormiga al comenzar se le asigna una arista donde uno de sus nodos tiene grado 1, indicando que es el inicio o final de una parte del grafo. 
     % a diferencia de otros ACO, aca s^P != \emptyset al comienzo
     
-    Para el caso de la individualizaci\'on de filamentos, lo descrito en la ecuaci\'on \ref{eq:antProbabilities} corresponde a la probabilidad de elegir una arista de un conjunto de aristas vecinas (conjunto $N(s^{P})$) dadas la aristas que ya pertenecen al {\it tour} de la hormiga ($s^P$), mediante la heur\'istica miope (ecuaci\'on \ref{eq:heuristicaMiope})que privilegia los candidatos que causen la menor desviaci\'on en la rectitud del camino. Cabe destacar que en el caso de que el conjunto $N(s^{P})$ este compuesto s\'olo por $c_{ij} \in ]\theta, 90]$, la ecuaci\'on \ref{eq:heuristicaMiope} se multiplica por $\frac{1}{2}$ para agregar la opci\'on de no elegir ninguna arista con 50\% de probabilidad, quedando la heur\'istica miope como indica la ecuaci\'on \ref{eq:heuristicaMiopeSoloInterQua}.
+    Para el caso de la individualizaci\'on de filamentos, lo descrito en la ecuaci\'on \ref{eq:antProbabilities} corresponde a la probabilidad de elegir una arista de un conjunto de aristas vecinas (conjunto $N(s^{P})$) dadas la aristas que ya pertenecen al {\it tour} de la hormiga ($s^P$), mediante la heur\'istica miope (ecuaci\'on \ref{eq:heuristicaMiope}) que privilegia los candidatos que causen la menor desviaci\'on en la rectitud del camino. Cabe destacar que en el caso de que el conjunto $N(s^{P})$ este compuesto s\'olo por $c_{ij} \in ]\theta, 90]$, la ecuaci\'on \ref{eq:antProbabilities} se multiplica por $delta \in ]0,1]$, para agregar la opci\'on de no elegir ninguna arista con $\delta$ \% de probabilidad, quedando la heur\'istica miope como indica la ecuaci\'on \ref{eq:antProbInterQua}. El criterio de finalizaci\'on para la hormiga corresponde a que el conjunto $N(s^{P}) = \emptyset$.
     
     
     \smallskip
@@ -144,9 +143,18 @@ ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no ti
     
 \end{itemize}
 
+En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, es el caso de la individualizaci\'on de filamentos en esta investigaci\'on que existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
 
+\subsection{Inicializaci\'on de la metaheur\'istica ACO}
 
-Un aspecto de la ecuaci\'on \ref{eq:heuristicaMiope}/\ref{eq:heuristicaMiopeSoloInterQua} que corresponde a la inicializaci\'on son los par\'ametros $\alpha$ y $\beta$ que representan la ponderaci\'on de la importancia entre las feromonas y la heur\'istica para el c\'alculo de probabilidad $P(c_{ij} | s^{P})$. 
+En el paso de inicializaci\'on de ACO se deben definir valores para diversos par\'ametros, as\'i como margenes m\'aximos y m\'inimos para algunos. 
+
+\begin{itemize}
+    \item Par\'ametros de Feromonas: $\alpha$, valor inicial de $\tau_{ij}$, m\'argenes de $\tau_{ij}$: $\tau_{min}$ y $\tau_{max}$ y \\ {\it MAX\_AXIAL\_DISPLACEMENT}
+    \item Par\'ametros de Heur\'istica: $\beta$, $\delta$ y {\it MAX\_SCORE}
+\end{itemize}
+
+Un aspecto de la ecuaci\'on \ref{eq:antProbabilities}/\ref{eq:antProbInterQua} que corresponde a la inicializaci\'on son los par\'ametros $\alpha$ y $\beta$ que representan la ponderaci\'on de la importancia entre las feromonas y la heur\'istica para el c\'alculo de probabilidad $P(c_{ij} | s^{P})$. A su vez, los par\'ametros iniciales correspondientes a las feromonas son el valor inicial de $\tau_{ij}$
 % TODO: Agregar valores de alpha y beta aca o en resultados
 
 
@@ -200,13 +208,15 @@ P(c_{ij} | s^{P}) = \frac
 \end{equation}
 
 \begin{equation}
-P(c_{ij} | s^{P}) = \frac
+P(c_{ij} | s^{P}) = \delta \cdot \frac
         {\tau_{ij}^{\alpha} \cdot \eta_{ij}^{\beta}}
-        {2 \cdot \sum\limits_{c_{il}\in N(s^p)}{\tau_{il}^{\alpha} \cdot \eta_{il}^{\beta} } }, \forall c_{ij} \in N(s^{P}) \in ]\theta, 90]
-    \label{eq:heuristicaMiopeSoloInterQua}
+        {\sum\limits_{c_{il}\in N(s^p)}{\tau_{il}^{\alpha} \cdot \eta_{il}^{\beta} } }, \forall c_{ij} \in N(s^{P}) \in ]\theta, 90]
+    \label{eq:antProbInterQua}
 \end{equation}
 
 \begin{equation}
     \label{eq:antiPheroSAP}
     \tau_{ij} \leftarrow \tau_{ij} \cdot \gamma  \forall \langle c_{ij},seg_{n}\rangle > \textrm{MAX\_AXIAL\_DISPLACEMENT}
 \end{equation}
+
+\section{h}
