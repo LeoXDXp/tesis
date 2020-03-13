@@ -1,7 +1,7 @@
 \chapter{Estado del Arte}
-
+\label{chap:stateoftheart}
 De la recopilaci\'on de antecedentes encontrados en la literatura, es posible separar los m\'etodos en dos categor\'ias. En la primera categor\'ia se encuentran enfoques asociados al an\'alisis de la reconstrucci\'on de filamentos en base a sus segmentos, como \cite{zhang2017extracting}, que identifica el problema de discontinuidad de filamentos en una imagen, pudiendo atribuirse esto a factores experimentales como la densidad del componente fluorescente, ruido u otras. Para llevar a cabo la reconstrucci\'on de un filamento en base a segmentos, establecen el uso de dos filtros, denominados \textit{Filtro de Transformaci\'on Lineal} (LFT por su sigla en ingl\'es) y \textit{Filtro de Transformaci\'on en base a la Orientaci\'on} (OFT por su sigla en ingl\'es). 
-El filtro LFT busca resaltar caracter\'isticas lineales centr\'andose en cada p\'ixel y generando una serie de lineas con radio r, buscando la linea que contenga la mayor intensidad, seg\'un se observa en la figura \ref{fig:MTLFT}. El filtro OFT complementa lo anterior, mediante un criterio de similaridad en la direcci\'on proyectada de los segmentos, un criterio respecto a la distancia entre los extremos finales de cada segmentos y un criterio de continuidad, que limita el \'angulo entre vector proyectado de un extremo y el vector que representa la distancia entre los extremos de cada segmento. Lo anterior se puede observar en la figura \ref{fig:MTOFT}.
+El filtro LFT busca resaltar caracter\'isticas lineales centr\'andose en cada p\'ixel y generando una serie de lineas con radio r, buscando la linea que contenga la mayor intensidad, seg\'un se observa en la figura \ref{fig:MTLFT}. El filtro OFT complementa lo anterior, mediante un criterio de similaridad en la direcci\'on proyectada de los segmentos, un segundo criterio respecto a la distancia entre los extremos finales de cada segmentos y un tercer criterio de continuidad, que limita el \'angulo entre vector proyectado de un extremo y el vector que representa la distancia entre los extremos de cada segmento. Lo anterior se puede observar en la figura \ref{fig:MTOFT}.
 
 \begin{figure}[h]
         \centering
@@ -25,8 +25,21 @@ El fundamento de los criterios de OFT se basa en la asociaci\'on de las caracter
 En esta misma categor\'ia es posible clasificar a las investigaciones de extracci\'on e individualizaci\'on de cada uno de los filamentos que conforman la red a partir de una imagen \cite{doi:10.1021/ma502264c}\cite{boudaoud2014fibriltool}\cite{lichtenstein2003quantitative}\cite{alioscha2016robust}\cite{xu2015soax}.
 % hablar de fibritool, Quantitave IFS y SOAX
 %fibritool
-De este subgrupo, \cite{boudaoud2014fibriltool} desarrolla \textit{FibriTool}, un plugin para el software ImageJ, utilizado en an\'alisis cient\'ifico de im\'agenes. FibriTool calcula la orientaci\'on principal y la anistrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$\eqref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. As\'i, los componentes de $n$ son $n_x,x = (t_x)^2$, $n_y,y = (t_y)^2$ y $n_x,y = n_y,x = t_x \times t_y$. 
-A partir de la matriz $n$ se obtienen su primer eigenvector $e_1$ que representa la orientaci\'on principal de los filamentos en el \'area de inter\'es, mientras que la diferencia de los eigenvalores $n_1$ y $n_2$ ($n_1 > n_2$), $ q = n_1 - n_2$, define la anisotrop\'ia.
+De este subgrupo, \cite{boudaoud2014fibriltool} desarrolla \textit{FibriTool}, un plugin para el software ImageJ, utilizado en an\'alisis cient\'ifico de im\'agenes. FibriTool calcula la orientaci\'on principal y la anistrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$, ecuaci\'on \eqref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. Los componentes de $n$ se pueden observar en la ecuaci\'on \eqref{eq:fibritoolComps}.
+
+
+\begin{subequations}
+\label{eq:fibritoolComps}
+Componentes de $n$ para el tensor nem\'atico:
+\begin{align}
+    n_x,x = (t_x)^2 \\
+    n_y,y = (t_y)^2 \\
+    n_x,y = n_y,x = t_x \times t_y
+\end{align}
+\end{subequations}
+
+
+Luego, a partir de la matriz $n$ se obtiene su primer eigenvector $e_1$ que representa la orientaci\'on principal de los filamentos en el \'area de inter\'es, mientras que la diferencia de los eigenvalores $n_1$ y $n_2$ ($n_1 > n_2$), denominada $q = n_1 - n_2$, define la anisotrop\'ia.
 
 \begin{equation}
 \label{eq:fibritoolTensor}
@@ -55,16 +68,25 @@ Otra investigaci\'on de extracci\'on e individualizaci\'on de filamentos es \cit
 \end{figure}
 
 %describir filtros, intensidad es con fibre coefficient
-Las 6 etapas de filtro consideradas en este m\'etodo comienzan por reducir el ruido y realzar el contraste de la imagen, aumentando la intensidad de los p\'ixeles que est\'en sobre un umbral, al mismo tiempo que eliminan los p\'ixeles que se encuentren debajo del mismo umbral. El segundo paso consiste en filtrar informaci\'on estructural, que se basa en los eigenvalores de la matriz Hessiana, buscando descartar objetos en la imagen que no correspondan a una figura tubular. El tercer filtro ejecuta una limpieza sobre lo que se define como \textit{se\~nales d\'ebiles}, pudiendo ser estructuras con una intensidad baja y/o aisladas y por ende no corresponden a elementos en el plano focal de inter\'es. Finalmente, el filtro de esqueletonizaci\'on realiza un adelgazamiento de la imagen, en el que cada estructura pasa a tener 1 p\'ixel de ancho, facilitando el an\'alisis topol\'ogico posterior. \\
+Las 6 etapas del filtro consideradas en este m\'etodo consisten en 4 etapas de an\'alisis de la imagen y 2 de an\'alisis topol\'ogico que se resumen en lo siguiente:
+
+\begin{enumerate}
+    \item El primer filtro comienza por reducir el ruido y realzar el contraste de la imagen, aumentando la intensidad de los p\'ixeles que est\'en sobre un umbral, al mismo tiempo que eliminan los p\'ixeles que se encuentren debajo del mismo umbral.
+    \item El segundo paso consiste en filtrar informaci\'on estructural, que se basa en los eigenvalores de la matriz Hessiana, buscando descartar objetos en la imagen que no correspondan a una figura tubular.
+    \item El tercer filtro ejecuta una limpieza sobre lo que se define como \textit{se\~nales d\'ebiles}, pudiendo ser estructuras con una intensidad baja y/o aisladas y por ende no corresponden a elementos en el plano focal de inter\'es.
+    \item Finalmente dentro del an\'alisis sobre la imagen, el filtro de esqueletonizaci\'on realiza un adelgazamiento de la imagen, en el que cada estructura pasa a tener 1 p\'ixel de ancho, facilitando el an\'alisis topol\'ogico posterior.
+    \item La clasificaci\'on topol\'ogica consiste en el an\'alisis a nivel de p\'ixel y su vecindario de 8 p\'ixeles alrededor para determinar si este corresponde a un punto aislado, al final de un fragmento de filamento, a un punto interior de un filamento, o a una junci\'on de filamentos. Seguido de aquello, el algoritmo SBDA realiza otro an\'alisis topol\'ogico a nivel de p\'ixel que borra los segmentos menores a 3 p\'ixeles, adem\'as de realizar los calculos de distancia de cada segmento/fragmento.
+    \item Para finalizar el an\'alisis topol\'ogico y el proceso de filtrado, se lleva a cabo una combinaci\'on de segmentos para construir los filamentos basandose en el par\'ametro $W$, llamado \textit{ancho efectivo}, cuyo valor define si la uni\'on de 2 o m\'as segmentos se trata de una bifurcaci\'on, una intersecci\'on o un sobrelapamiento. 
+\end{enumerate}
 
 %describir SBDA, el analisis es a nivel de pixel
-La clasificaci\'on topol\'ogica consiste en el an\'alisis a nivel de p\'ixel y su vecindario de 8 p\'ixeles alrededor para determinar si este corresponde a un punto aislado, al final de un fragmento de filamento, a un punto interior de un filamento, o a una junci\'on de filamentos. Seguido de aquello, el algoritmo SBDA realiza otro an\'alisis topol\'ogico a nivel de p\'ixel que borra los segmentos menores a 3 p\'ixeles, adem\'as de realizar los calculos de distancia de cada segmento/fragmento. Por último, se lleva a cabo una combinaci\'on de segmentos para construir los filamentos basandose en el par\'ametro $W$, llamado \textit{ancho efectivo}, cuyo valor define si la uni\'on de 2 o m\'as segmentos se trata de una bifurcaci\'on, una intersecci\'on o un sobrelapamiento. 
 
 % se mide caracteristicas geometricas, como largo, distribucu\'on de la orientaci\'on, y como los resultados son afectados por el ruido.
-Como resultados de \cite{qiu2014quantitative}, se obtienen caracter\'isticas geom\'etricas como el largo de los filamentos y la distribuci\'on de la orientaci\'on de los filamentos, as\'i como la variaci\'on de estos valores para variaciones en la relaci\'on entre la se\~nal y el ruido de la imagen.
+Como resultados de \cite{qiu2014quantitative}, se obtienen caracter\'isticas geom\'etricas como el largo de los filamentos y la distribuci\'on de la orientaci\'on de los filamentos, as\'i como el cambio de estos valores para variaciones en la relaci\'on entre la se\~nal y el ruido de la imagen.
 
+\smallskip
 %SOAX, extraccion y cuantifiacion de la red
-Por su parte, la investigaci\'on de \cite{xu2015soax}, llamada SOAX, utiliza curvas param\'etricas de contorno abierto (SOAC en ingl\'es) en conjunto con una funci\'on de minimizaci\'on para obtener un peque\~no set de candidatos de soluciones \'optimas, de las que el usuario puede elegir una. Las curvas param\'etricas de contorno abierto son reguladas por 2 par\'ametros: $\tau$, que fija el umbral de intensidad desde el que se inicializa una SOAC, siendo los puntos de intensidad m\'aximos locales de la imagen. El segundo par\'ametro, $K_str$, es el factor que regula la elongaci\'on/evoluci\'on de cada SOAC. Una vez concluida la inicializacio\'on y evoluci\'on de curvas SOAC, se identifican las junciones/intersecciones generadas entre diversas curvas SOAC, agrup\'andose seg\'un su cercan\'ia. Lo anterior se puede observar en la figura \ref{fig:SOAX}.
+La investigaci\'on de \cite{xu2015soax}, llamada SOAX, utiliza curvas param\'etricas de contorno abierto (SOAC en ingl\'es) en conjunto con una funci\'on de minimizaci\'on para obtener un peque\~no set de candidatos de soluciones \'optimas, de las que el usuario puede elegir una. Las curvas param\'etricas de contorno abierto son reguladas por 2 par\'ametros: $\tau$, que fija el umbral de intensidad desde el que se inicializa una SOAC, lo que entrega los puntos de intensidad m\'aximos locales de la imagen para la inicializaci\'on. El segundo par\'ametro, $K_{str}$, es el factor que regula la elongaci\'on/evoluci\'on de cada SOAC. Una vez concluida la inicializacio\'on y evoluci\'on de curvas SOAC, se identifican las junciones/intersecciones generadas entre diversas curvas SOAC, agrup\'andose seg\'un su cercan\'ia. Lo anterior se puede observar en la figura \ref{fig:SOAX}.
 
 \begin{figure}[h]
         \centering
@@ -73,11 +95,11 @@ Por su parte, la investigaci\'on de \cite{xu2015soax}, llamada SOAX, utiliza cur
         \label{fig:SOAX}
 \end{figure}
 
-La funcio\'on de minimizaci\'on que los autores denominan como  \textit{F-Function}\eqref{eq:FFunction}, se encuentra definida por otros 2 par\'ametros: El factor $c$ ($c > 1$) que regula la penalizaci\'on de las SOACs con bajo \textit{Signal to Noise Ratio (SNR}, y el umbral $t$, que define el valor mínimo de SNR necesario para no descartar una SOAC. El umbral $t$ se ve reflejado en $L_<t$ dentro de la \textit{F-Function}, como el largo de SOACs en una regi\'on de la imagen con SNR por debajo de $t$, y que ser\'an penalizados dado que son calificados como de baja certeza. $L_total$ representa el largo total de las SOACs en el resultado final.
+La funci\'on de minimizaci\'on que los autores denominan como  \textit{F-Function}, ecuaci\'on \eqref{eq:FFunction}, se encuentra definida por otros 2 par\'ametros: El factor $c$ ($c > 1$) que regula la penalizaci\'on de las SOACs con bajo \textit{Signal to Noise Ratio (SNR)}, y el umbral $t$, que define el valor mínimo de SNR necesario para no descartar una SOAC. El umbral $t$ se ve reflejado en $L_{<t}$ dentro de la \textit{F-Function}, como el largo de SOACs en una regi\'on de la imagen con SNR por debajo de $t$, y que ser\'an penalizados dado que son calificados como de baja certeza. $L_{total}$ representa el largo total de las SOACs en el resultado final.
 
 \begin{equation}
    \label{eq:FFunction}
-    F = -L_total + {c}{L_<t} 
+    F = -L_{total} + {c}\cdot L_{<t} 
 \end{equation}
 
 
