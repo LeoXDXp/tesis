@@ -60,12 +60,6 @@ Los autores de FibriTool desarrollan este m\'etodo para evitar el uso de derivad
 
 % Quantitative IFS
 Otra investigaci\'on de extracci\'on e individualizaci\'on de filamentos es \cite{qiu2014quantitative}, la que propone un filtro de detecci\'on de caracter\'isticas de 6 pasos m\'as un algoritmo llamado \textit{SBDA} que busca eliminar segmentos de filamentos menores a 2 p\'ixeles (Figura \ref{fig:IFS}). 
-\begin{figure}[h]
-        \centering
-        \includegraphics[scale=0.75]{imagenes/QuantitativeIFS.png}
-        \caption{Etapas de individualizaci\'on de filamentos de \cite{qiu2014quantitative}. (A): Imagen de red de fibras de un osteoblasto .(B, C, D, E, F): Filtros de limpieza, tubularidad, segmentaci\'on, conectividad y esqueletonizaci\'on. (G): Clasificaci\'on topol\'ogica de intersecciones a nivel de pixel. (H): Resultado de algoritmo SBDA. (I): Individualizaci\'on de segmentos de filamentos seg\'un forma estructural: aislado (verde), solapado (morado) u otro (azul). Fuente: \cite{qiu2014quantitative}}
-        \label{fig:IFS}
-\end{figure}
 
 %describir filtros, intensidad es con fibre coefficient
 Las 6 etapas del filtro consideradas en este m\'etodo consisten en 4 etapas de an\'alisis de la imagen y 2 de an\'alisis topol\'ogico que se resumen en lo siguiente:
@@ -79,6 +73,12 @@ Las 6 etapas del filtro consideradas en este m\'etodo consisten en 4 etapas de a
     \item Para finalizar el an\'alisis topol\'ogico y el proceso de filtrado, se lleva a cabo una combinaci\'on de segmentos para construir los filamentos basandose en el par\'ametro $W$, llamado \textit{ancho efectivo}, cuyo valor define si la uni\'on de 2 o m\'as segmentos se trata de una bifurcaci\'on, una intersecci\'on o un sobrelapamiento. 
 \end{enumerate}
 
+\begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{imagenes/QuantitativeIFS.png}
+        \caption{Etapas de individualizaci\'on de filamentos de \cite{qiu2014quantitative}. (A): Imagen de red de fibras de un osteoblasto .(B, C, D, E, F): Filtros de limpieza, tubularidad, segmentaci\'on, conectividad y esqueletonizaci\'on. (G): Clasificaci\'on topol\'ogica de intersecciones a nivel de pixel. (H): Resultado de algoritmo SBDA. (I): Individualizaci\'on de segmentos de filamentos seg\'un forma estructural: aislado (verde), solapado (morado) u otro (azul). Fuente: \cite{qiu2014quantitative}}
+        \label{fig:IFS}
+\end{figure}
 %describir SBDA, el analisis es a nivel de pixel
 
 % se mide caracteristicas geometricas, como largo, distribucu\'on de la orientaci\'on, y como los resultados son afectados por el ruido.
@@ -107,6 +107,7 @@ La funci\'on de minimizaci\'on que los autores denominan como  \textit{F-Functio
 Para estos m\'etodos, se han indicado como cr\'iticas la dificultad para identificar correctamente un filamento de otro, en los casos de  superposici\'on, fragmentaci\'on, o variaciones de intensidad en la imagen.
 % describir alguno de estos papers 
 
+\newpage
 En la segunda categor\'ia, \cite{cerda2014geometrical} plantea la identificaci\'on de segmentos de filamentos como un problema de asignaci\'on, utilizando las medidas de distancia euclidiana y angular como restricciones, y el algoritmo h\'ungaro para su resoluci\'on. En la misma categor\'ia, \cite{breuer2015define} realiza la asociaci\'on de la red con un grafo no dirigido con pesos, en el que cada filamento es equivalente a un camino en el grafo. Esto permite que la b\'usqueda e individualizaci\'on de filamentos, con un segmento de filamento representado por una arista del grafo, sumado a las restricciones que plantea el autor, sea tratado como un problema de {\it Set Cover}. En el caso de los m\'etodos de la segunda categor\'ia, la mayor cr\'itica es su costo computacional alto, lo que limita en parte aquel enfoque. Se debe agregar que los par\'ametros utilizados por estas t\'ecnicas (\'angulos o  distancias m\'aximas entre filamentos) son complejas de obtener de los expertos directamente. Sin embargo, una de sus ventajas es que automatizan la recuperaci\'on de informaci\'on incluyendo una mayor cantidad de propiedades a cada arista. 
 
 
@@ -134,7 +135,7 @@ Encontrar un subconjunto $S_{set} \subseteq S$ con costo m\'inimo (o promedio, d
 
 Con la demostraci\'on de que FCP es NP-Hard, dado que la cantidad de caminos crece de forma exponencial respecto al n\'umero de nodos, los autores de \cite{breuer2015define} plantean la elecci\'on de un subconjunto de caminos, con los que pueden expresar el problema de {\it Set Cover} como algoritmo de aproximaci\'on lineal fraccional binario. El subconjunto de caminos puede obtenerse con la heur\'istica de recorrer el grafo por su anchura ({\it Breadth-First Search}), deteni\'endose al momento que el \'angulo de deflexi\'on entre aristas adyacentes supere 60\degree, o de caminos generados a partir de 100 \'arboles de expansi\'on m\'inima aleatoria ({\it RMST}), aportando cada uno de los 100 con $N(N-1)/2$ caminos no triviales y sin direcci\'on. El flujo de decisiones para generar el subconjunto de caminos puede observarse en la figura \ref{fig:define-set-cover}.
 
-\begin{figure*}[h!]
+\begin{figure*}[h]
     \centering
     \label{fig:flujo-expected}
     \begin{subfigure}[t]{\textwidth}
@@ -156,7 +157,11 @@ Con la demostraci\'on de que FCP es NP-Hard, dado que la cantidad de caminos cre
     
 Este enfoque faculta que al tener un grafo que representa la red de filamentos, como en la figura \ref{Fig1d}, sea posible llegar a resultados como los que aparecen en las figuras \ref{Fig2a} o \ref{Fig2b} a trav\'es de la asignaci\'on de pesos a la aristas, y de restricciones a las uniones entre las mismas. Cabe destacar que el {\it FCP} s\'olo utiliza 2 caracter\'isticas independientes para describir los segmentos de los filamentos, siendo el \'angulo de deflexi\'on entre aristas usado en la etapa de selecci\'on de subconjuntos de caminos s\'olo si es seleccionada la heur\'istica {\it BFS}, y el grosor, empleado para describir el peso de las aristas.  
 
-En resumen...
+
+%resolucion, cantidad parametros, descriptores, costo computacional
+En resumen, el problema de identificar filamentos en im\'agenes de microscop\'ia esta limitado por la resoluci\'on, y los problemas de m\'ultiples par\'ametros a ajustar, para los m\'etodos basados en procesamiento de im\'agenes, el costo computacional en los m\'etodos basados en optimizaci\'on, y falta de descriptores cuantitativos en ambas. La revisi\'on bibliogr\'afica da cuenta tambi\'en de pocas herramientas disponibles. Todo lo anterior implica que parte del an\'alisis deba ser manual, lo que para grandes cantidades de datos, hace los estudios m\'as propensos a errores. 
+%La falta de herramientas analíticas para cuantificar las estructuras sigue siendo un cuello de botella, ya que el análisis manual de grandes conjuntos de datos requiere una gran cantidad de tiempo y son propensos a sesgos y errores.
+%Por otra parte, la soluci\'on a problemas de superposici\'on se soluciona mediante la sintonizaci\'on de par\'ametros, los que var\'ian dependiendo de la c\'elula observada. En el caso del uso de \textit{thinning} en una imagen, la informaci\'on respecto al grosor de la estructura se pierde.
 
 %es de complejidad $\mathcal{O}(N^{(2K+2)})$, con $N$ como n\'umero de nodos y $k$ como el n\'umero m\'aximo de caminos que pasan por cada v\'ertice. 
 % Aquello permitir\'ia pasar de Fig1d a Fig2b por ejemplo
