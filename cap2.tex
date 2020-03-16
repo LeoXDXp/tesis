@@ -1,22 +1,31 @@
 \chapter{Problem\'atica de la Identificaci\'on de Filamentos a partir de un Grafo}
 \label{chap:cap2}
 
-problema previo, o problema 0 que consiste en la generaci\'on de un grafo a partir de una imagen que contenga una red, que en este caso, representaria a una red de filamentos. 
+%problema previo, o problema 0 que consiste en la generaci\'on de un grafo a partir de una imagen que contenga una red, que en este caso, representaria a una red de filamentos. 
 
-el primer problema esta en que dado el desconocimiento a priori del origen y el final de un filamento, y que estos se representan como un conjunto de aristas adyacentes denominadas caminos, de los cuales en un grafo se pueden tener n! combinaciones...
+En base lo expuesto en el cap\'itulo \ref{chap:stateoftheart}, para el enfoque de utilizar grafos para la individualizaci\'on de filamentos existe una brecha entre la obtenci\'on del grafo y su an\'alisis. Esta paso previo, la extracci\'on de un grafo a partir de una imagen, lo denominamos como el problema previo o problema 0 y consiste en extraer un grafo $G = (V,E)$ de una imagen tal que $G$ sea un grafo simple, no dirigido, ponderado, conectado o desconectado, con o sin ciclos. Esto implica que exista a lo m\'as 1 arista por cada par de nodos adyacentes, prohibi\'endose la existencia de nodos conectados consigo mismos. Se definen los v\'ertices/nodos del grafo $G$ como $V(G)$ y las aristas de $G$ como $E(G)$. 
+Que el grafo $G$ sea ponderado se puede definir en $\forall e \in E(G)  \exists $ caracter\'isticas asociadas que se expresan como caracter\'isticas geom\'etricas, topol\'ogicas, espaciales y/u otras. Es importante evitar que $G$ sea un grafo completo, dado que con n nodos/v\'ertices $G$ tenga $\frac{n(n-1)}{2}$ aristas. 
 
-Problema 2 o final lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, teniendo un problema de optimizaci\'on, teniendo un problema de optimizaci\'on combinatorial.
+Algunas de las dificultades involucradas en la extracci\'on de informaci\'on a partir de una imagen se encuentran en los m\'etodos presentados en el cap\'itulo \ref{chap:stateoftheart}, dentro de las que destacan el ruido y la resoluci\'on.
 
-Este cap\'itulo presenta una definici\'on formal de los 3 problemas presentados.
+Una vez obtenido el grafo que representa una red de filamentos, el problema siguiente se encuentra en el que 2 expertos pueden discernir con respecto a los filamentos identificables en una imagen, por lo que no es posible conocer a priori del origen y el final de un filamento, para las resoluciones actuales de las imagenes obtenidas a partir de la microscop\'ia. Se añade como dificultad que dada la representaci\'on de un filamento en un grafo es en base a un conjuntos de aristas adyacentes (denominadas caminos), esto puede significar la b\'usqueda en un universo de hasta $n!$ posibles combinaciones.
+
+A partir del problema anterior, el problema final lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, pudiendo representarse como un problema de optimizaci\'on combinatorial.
+
+Los 3 problemas presentados se formalizan a continuaci\'on.
 
 %problema previo
 \section{Generaci\'on de un Grafo desde una Imagen}
+La extraci\'on o generaci\'on de un grafo que representa una red de filamentos a partir de una imagen es el paso que define la cantidad de informaci\'on disponible para llevar a cabo la individualizaci\'on de filamentos. La importancia de este procedimiento radica en que a partir de la imagen es posible obtener una cantidad de caracter\'isticas de distinta \'indole, lo que permite desagregar el grafo $G$ en subgrafos, siendo la primera forma de disminuir el espacio de b\'usqueda.. 
+
+
 presentar el problema previo, como un puente necesario en la 
 automatizaci\'on de la extracci\'on,  para analizar un grafo que representa la red de filamentos, que de lo contrario tendria que ser realizado a mano, implicando que la persona realizando el análisis podría llevar a cabo la individualizaci\'on de filamentos en el mismo acto.
 
 Es posible distinguir en 2 conjuntos los m\'etodos utilizados para extraer la informaci\'on escencial que permite la construcci\'on de un grafo a partir de una imagen, como lo son los nodos y las aristas. Estos conjuntos son los que se basan en esqueletonizaci\'on\cite{lavado2018comparacion} y los que no. En este trabajo se presenta un enfoque del segundo tipo.
 
 \subsection{Generador Aproximado de Grafos a partir de una Imagen}
+% explicar que el hecho de G completo mediante lo q la arista es al problema de identificación de filamentos
 presento el extractor aproximado de grafos, la noción de puntos cluster/superPixels/blobs y el centro de masa como representante, dado que se puede obtener de forma simple mediante los "image moments". Además, distintos niveles de image moments permiten obtener información adicional útil en la descripción del cluster.
 
 La noción ppal es generar vecindarios, ya que el grafo debe contener información topológica como geométrica, ya que cada será la base para distintos criterios de categorización durante el proceso de individualización de filamentos. 
