@@ -8,6 +8,42 @@ Que el grafo $G$ sea ponderado se puede definir en $\forall e \in E(G)  \exists 
 
 Algunas de las dificultades involucradas en la extracci\'on de informaci\'on a partir de una imagen se encuentran en los m\'etodos presentados en el cap\'itulo \ref{chap:stateoftheart}, dentro de las que destacan el ruido y la resoluci\'on.
 
+\begin{figure*}[h]
+    \label{fig:NoConsenso}
+    \begin{tabular}{c c c}
+        \multirow[c]{2}{*}[2.5cm]{
+        \begin{subfigure}[t]{0.4\textwidth}
+        \includegraphics[scale=0.5]{imagenes/NoConsenso.png}
+        \caption{Microt\'ubulos en planta {\it Marchantia}.\\Fuente: Paula Llanos}
+        \label{fig:NoConsensoGeneral}
+        \end{subfigure}  
+        }
+        &
+        \multirow[c]{2}{*}[2cm]{
+        \begin{subfigure}[t]{0.25\textwidth}
+        \includegraphics[]{imagenes/NoConsenso2.png}
+        \caption{Secci\'on resaltada en rojo de \ref{fig:NoConsensoGeneral}}
+        \label{fig:NoConsensoRect}
+        \end{subfigure}
+        }
+        &
+        \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[scale=0.8]{imagenes/NoConsenso3.png}
+        \caption{Opci\'on 1 de microt\'ubulos en \ref{fig:NoConsensoRect}}
+        \label{fig:NoConsensoOpcion1}
+        \end{subfigure} \\
+        & &
+        \begin{subfigure}[b]{0.21\textwidth}
+        \includegraphics[scale=0.8]{imagenes/NoConsenso4.png}
+        \caption{Opci\'on 2 de microt\'ubulos en \ref{fig:NoConsensoRect}}
+        \label{fig:NoConsensoOpcion2}
+        \end{subfigure} \\
+    \end{tabular}{}
+    
+    \caption{Dificultad de individualizaci\'on que enfretan los expertos al analizar manualmente una imagen de filamentos, en particular, microt\'ubulos.}
+\end{figure*}
+
+
 Una vez obtenido el grafo que representa una red de filamentos, el problema siguiente se encuentra en el que 2 expertos pueden discernir con respecto a los filamentos identificables en una imagen, por lo que no es posible conocer a priori del origen y el final de un filamento, para las resoluciones actuales de las imagenes obtenidas a partir de la microscop\'ia. Se añade como dificultad que dada la representaci\'on de un filamento en un grafo es en base a un conjuntos de aristas adyacentes (denominadas caminos), esto puede significar la b\'usqueda en un universo de hasta $n!$ posibles combinaciones.
 
 A partir del problema anterior, el problema final lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, pudiendo representarse como un problema de optimizaci\'on combinatorial.
