@@ -6,10 +6,9 @@
 En base lo expuesto en el cap\'itulo \ref{chap:stateoftheart}, para el enfoque de utilizar grafos para la individualizaci\'on de filamentos existe una brecha entre la obtenci\'on del grafo y su an\'alisis. Esta paso previo, la extracci\'on de un grafo a partir de una imagen, lo denominamos como el problema previo o problema 0 y consiste en extraer un grafo $G = (V,E)$ de una imagen tal que $G$ sea un grafo simple, no dirigido, ponderado, conectado o desconectado, con o sin ciclos. Esto implica que exista a lo m\'as 1 arista por cada par de nodos adyacentes, prohibi\'endose la existencia de nodos conectados consigo mismos. Se definen los v\'ertices/nodos del grafo $G$ como $V(G)$ y las aristas de $G$ como $E(G)$. 
 Que el grafo $G$ sea ponderado se puede definir en $\forall e \in E(G)  \exists $ caracter\'isticas asociadas que se expresan como caracter\'isticas geom\'etricas, topol\'ogicas, espaciales y/u otras. Es importante evitar que $G$ sea un grafo completo, dado que con n nodos/v\'ertices $G$ tenga $\frac{n(n-1)}{2}$ aristas. 
 
-Algunas de las dificultades involucradas en la extracci\'on de informaci\'on a partir de una imagen se encuentran en los m\'etodos presentados en el cap\'itulo \ref{chap:stateoftheart}, dentro de las que destacan el ruido y la resoluci\'on.
+Algunas de las dificultades involucradas en la extracci\'on de informaci\'on a partir de una imagen se encuentran en los m\'etodos presentados en el cap\'itulo \ref{chap:stateoftheart}, dentro de las que destacan el ruido y la resoluci\'on. Un ejemplo de aquello se observa en la figura \ref{fig:NoConsenso}.
 
 \begin{figure*}[h]
-    \label{fig:NoConsenso}
     \begin{tabular}{c c c}
         \multirow[c]{2}{*}[2.5cm]{
         \begin{subfigure}[t]{0.4\textwidth}
@@ -38,10 +37,14 @@ Algunas de las dificultades involucradas en la extracci\'on de informaci\'on a p
         \caption{Opci\'on 2 de microt\'ubulos en \ref{fig:NoConsensoRect}}
         \label{fig:NoConsensoOpcion2}
         \end{subfigure} \\
-    \end{tabular}{}
+    \end{tabular}
     
     \caption{Dificultad de individualizaci\'on que enfretan los expertos al analizar manualmente una imagen de filamentos, en particular, microt\'ubulos.}
+    \label{fig:NoConsenso}
 \end{figure*}
+
+Mientras que el ruido ha sido estudiado en la literatura, el problema de resoluci\'on de filamentos depende principalmente de la capacidad del microscopio que se utilice. Como se menciona en la introducci\'on, el l\'imite m\'aximo de resoluci\'on, denominado $\frac{\lambda}{2}$ determina  el tama\~no m\'inimo que 2 objetos que se encuentren juntos pueden tener para no observarse como un \'unico elemento. Lo anterior sucede para algunos tipos de filamentos como los microt\'ubulos que pueden medir tan solo 25 nan\'ometros, lo que se encuentra por debajo de $\frac{\lambda}{2}$ para diversos microscopios. 
+
 
 
 Una vez obtenido el grafo que representa una red de filamentos, el problema siguiente se encuentra en el que 2 expertos pueden discernir con respecto a los filamentos identificables en una imagen, por lo que no es posible conocer a priori del origen y el final de un filamento, para las resoluciones actuales de las imagenes obtenidas a partir de la microscop\'ia. Se añade como dificultad que dada la representaci\'on de un filamento en un grafo es en base a un conjuntos de aristas adyacentes (denominadas caminos), esto puede significar la b\'usqueda en un universo de hasta $n!$ posibles combinaciones.
@@ -51,16 +54,17 @@ A partir del problema anterior, el problema final lo constituye la elecci\'on de
 Los 3 problemas presentados se formalizan a continuaci\'on.
 
 %problema previo
+%presentar el problema previo, como un puente necesario en la automatizaci\'on de la extracci\'on,  para analizar un grafo que representa la red de filamentos, que de lo contrario tendria que ser realizado a mano, implicando que la persona realizando el análisis podría llevar a cabo la individualizaci\'on de filamentos en el mismo acto.
+
 \section{Generaci\'on de un Grafo desde una Imagen}
-La extraci\'on o generaci\'on de un grafo que representa una red de filamentos a partir de una imagen es el paso que define la cantidad de informaci\'on disponible para llevar a cabo la individualizaci\'on de filamentos. La importancia de este procedimiento radica en que a partir de la imagen es posible obtener una cantidad de caracter\'isticas de distinta \'indole, lo que permite desagregar el grafo $G$ en subgrafos, siendo la primera forma de disminuir el espacio de b\'usqueda.. 
-
-
-presentar el problema previo, como un puente necesario en la 
-automatizaci\'on de la extracci\'on,  para analizar un grafo que representa la red de filamentos, que de lo contrario tendria que ser realizado a mano, implicando que la persona realizando el análisis podría llevar a cabo la individualizaci\'on de filamentos en el mismo acto.
+La extraci\'on o generaci\'on de un grafo que representa una red de filamentos a partir de una imagen es el paso que define la cantidad de informaci\'on disponible para llevar a cabo la individualizaci\'on de filamentos. La importancia de este procedimiento radica en que a partir de la imagen es posible obtener una cantidad de caracter\'isticas de distinta \'indole, lo que permite desagregar el grafo $G$ en subgrafos, siendo la primera forma de disminuir el espacio de b\'usqueda. Con las herramientas actuales disponibles en la literatura es posible realizar una extracci\'on de un red de filamentos con algunas propiedades, siendo la conexi\'on con el an\'alisis de la red obtenida mediante un grafo un procedimiento no automatizado. Esto significa que al ser un paso manual, el experto realiz\'andolo puede simplemente realizar la individualizaci\'on de manera manual.
 
 Es posible distinguir en 2 conjuntos los m\'etodos utilizados para extraer la informaci\'on escencial que permite la construcci\'on de un grafo a partir de una imagen, como lo son los nodos y las aristas. Estos conjuntos son los que se basan en esqueletonizaci\'on\cite{lavado2018comparacion} y los que no. En este trabajo se presenta un enfoque del segundo tipo.
 
+
 \subsection{Generador Aproximado de Grafos a partir de una Imagen}
+
+Con el fin de aportar en automatizar la extracci\'on de informaci\'on de una imagen para la generaci\'on de un grafo que representa una red de filamentos, se cre\'o una herramienta que ...
 % explicar que el hecho de G completo mediante lo q la arista es al problema de identificación de filamentos
 presento el extractor aproximado de grafos, la noción de puntos cluster/superPixels/blobs y el centro de masa como representante, dado que se puede obtener de forma simple mediante los "image moments". Además, distintos niveles de image moments permiten obtener información adicional útil en la descripción del cluster.
 
@@ -89,7 +93,7 @@ definir que los segmentos/caminos/path son conjuntos de aristas adyacentes conec
 Un camino simple es equivalente a un \'arbol simple, ac\'clico...
 
 
-En un grafo con n aristas, en el cual se desconoce el origen y el final los caminos, el n\'umero de combinaciones crece exponencialmente (agregar \cite{101 y 102 de define}). Denominamos todas estas opciones de caminos como el conjunto $P$, del cual debemos extraer un subconjunto $P'$ mediante una estrategia que permita realizar esto en tiempo polinomial independientemente de la cantidad de aristas del grafo.
+En un grafo con n aristas, en el cual se desconoce el origen y el final los caminos, el n\'umero de combinaciones crece exponencialmente (agregar \cite{buchin2007number}\cite{biswas2012hamiltonian}). Denominamos todas estas opciones de caminos como el conjunto $P$, del cual debemos extraer un subconjunto $P'$ mediante una estrategia que permita realizar esto en tiempo polinomial independientemente de la cantidad de aristas del grafo.
 
 \begin{equation}
 p = (e_1, e_2,..., e_n)\\
