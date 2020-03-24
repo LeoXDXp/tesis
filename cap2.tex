@@ -3,8 +3,8 @@
 
 %problema previo, o problema 0 que consiste en la generaci\'on de un grafo a partir de una imagen que contenga una red, que en este caso, representaria a una red de filamentos. 
 
-En base lo expuesto en el cap\'itulo \ref{chap:stateoftheart}, para el enfoque de utilizar grafos para la individualizaci\'on de filamentos existe una brecha entre la obtenci\'on del grafo y su an\'alisis. Esta paso previo, la extracci\'on de un grafo a partir de una imagen, lo denominamos como el problema previo o problema 0 y consiste en extraer un grafo $G = (V,E)$ de una imagen tal que $G$ sea un grafo simple, no dirigido, ponderado, conectado o desconectado, con o sin ciclos. Esto implica que exista a lo m\'as 1 arista por cada par de nodos adyacentes, prohibi\'endose la existencia de nodos conectados consigo mismos. Se definen los v\'ertices/nodos del grafo $G$ como $V(G)$ y las aristas de $G$ como $E(G)$. 
-Que el grafo $G$ sea ponderado se puede definir en $\forall e \in E(G)  \exists $ caracter\'isticas asociadas que se expresan como caracter\'isticas geom\'etricas, topol\'ogicas, espaciales y/u otras. Es importante evitar que $G$ sea un grafo completo, dado que con n nodos/v\'ertices $G$ tenga $\frac{n(n-1)}{2}$ aristas. 
+En base lo expuesto en el cap\'itulo \ref{chap:stateoftheart}, para el enfoque de utilizar grafos para la individualizaci\'on de filamentos existe una brecha entre la obtenci\'on del grafo y su an\'alisis. Este paso previo, la extracci\'on de un grafo a partir de una imagen, lo denominamos como el problema previo o problema 0 y consiste en extraer un grafo $G = (V,E)$ de una imagen tal que $G$ sea un grafo simple, no dirigido, ponderado, conectado o desconectado, con o sin ciclos. Esto implica que exista a lo m\'as 1 arista por cada par de nodos adyacentes, prohibi\'endose la existencia de nodos conectados consigo mismos. Se definen los v\'ertices/nodos del grafo $G$ como $V(G)$ y las aristas de $G$ como $E(G)$. 
+Que el grafo $G$ sea ponderado se puede definir en $\forall e \in \quad E(G) \quad  \exists $ caracter\'isticas asociadas que se expresan como caracter\'isticas geom\'etricas, topol\'ogicas, espaciales y/u otras. Es importante evitar que $G$ sea un grafo completo, dado que con n nodos/v\'ertices $G$ tenga $\frac{n(n-1)}{2}$ aristas. 
 
 Algunas de las dificultades involucradas en la extracci\'on de informaci\'on a partir de una imagen se encuentran en los m\'etodos presentados en el cap\'itulo \ref{chap:stateoftheart}, dentro de las que destacan el ruido y la resoluci\'on. Un ejemplo de aquello se observa en la figura \ref{fig:NoConsenso}.
 
@@ -47,7 +47,7 @@ Mientras que el ruido ha sido estudiado en la literatura, el problema de resoluc
 
 
 
-Una vez obtenido el grafo que representa una red de filamentos, el problema siguiente se encuentra en el que 2 expertos pueden discernir con respecto a los filamentos identificables en una imagen, por lo que no es posible conocer a priori del origen y el final de un filamento, para las resoluciones actuales de las imagenes obtenidas a partir de la microscop\'ia. Se añade como dificultad que dada la representaci\'on de un filamento en un grafo es en base a un conjuntos de aristas adyacentes (denominadas caminos), esto puede significar la b\'usqueda en un universo de hasta $n!$ posibles combinaciones.
+Una vez obtenido el grafo que representa una red de filamentos, el problema siguiente se encuentra en el que 2 expertos pueden discernir con respecto a los filamentos identificables en una imagen, por lo que no es posible conocer a priori del origen y el final de un filamento, para las resoluciones actuales de las imagenes obtenidas a partir de la microscop\'ia. Se añade como dificultad que dada la representaci\'on de un filamento en un grafo se basa en un conjuntos de aristas adyacentes (denominadas caminos), pudiendo significar la b\'usqueda en un universo de hasta $n!$ posibles combinaciones.
 
 A partir del problema anterior, el problema final lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, pudiendo representarse como un problema de optimizaci\'on combinatorial.
 
@@ -57,35 +57,104 @@ Los 3 problemas presentados se formalizan a continuaci\'on.
 %presentar el problema previo, como un puente necesario en la automatizaci\'on de la extracci\'on,  para analizar un grafo que representa la red de filamentos, que de lo contrario tendria que ser realizado a mano, implicando que la persona realizando el análisis podría llevar a cabo la individualizaci\'on de filamentos en el mismo acto.
 
 \section{Generaci\'on de un Grafo desde una Imagen}
-La extraci\'on o generaci\'on de un grafo que representa una red de filamentos a partir de una imagen es el paso que define la cantidad de informaci\'on disponible para llevar a cabo la individualizaci\'on de filamentos. La importancia de este procedimiento radica en que a partir de la imagen es posible obtener una cantidad de caracter\'isticas de distinta \'indole, lo que permite desagregar el grafo $G$ en subgrafos, siendo la primera forma de disminuir el espacio de b\'usqueda. Con las herramientas actuales disponibles en la literatura es posible realizar una extracci\'on de un red de filamentos con algunas propiedades, siendo la conexi\'on con el an\'alisis de la red obtenida mediante un grafo un procedimiento no automatizado. Esto significa que al ser un paso manual, el experto realiz\'andolo puede simplemente realizar la individualizaci\'on de manera manual.
+La extraci\'on o generaci\'on de un grafo que representa una red de filamentos a partir de una imagen es el paso que define la cantidad de informaci\'on disponible para llevar a cabo la individualizaci\'on de filamentos. La importancia de este procedimiento radica en que a partir de la imagen es posible obtener una cantidad de caracter\'isticas de distinta \'indole, lo que permite en etapas posteriores desagregar el grafo $G$ en subgrafos mediante la clasificaci\'on de nodos y/o aristas, efectivamente disminuyendo el espacio de b\'usqueda. Con las herramientas actuales disponibles en la literatura es posible realizar la extracci\'on de una red de filamentos con algún nivel de informaci\'on como en \cite{xu2015soax}. Sin embargo, las transformaci\'on de aquella red a un grafo, as\'i como la incorporaci\'on de las caracter\'isticas y/o propiedades hacia el grafo son un procedimiento no automatizado, por lo que el esfuerzo que el experto debe realizar es cercano a individualizar los filamentos de manera manual.
 
 Es posible distinguir en 2 conjuntos los m\'etodos utilizados para extraer la informaci\'on escencial que permite la construcci\'on de un grafo a partir de una imagen, como lo son los nodos y las aristas. Estos conjuntos son los que se basan en esqueletonizaci\'on\cite{lavado2018comparacion} y los que no. En este trabajo se presenta un enfoque del segundo tipo.
 
 
 \subsection{Generador Aproximado de Grafos a partir de una Imagen}
 
-Con el fin de aportar en automatizar la extracci\'on de informaci\'on de una imagen para la generaci\'on de un grafo que representa una red de filamentos, se cre\'o una herramienta que ...
+Con el fin de aportar en automatizar la extracci\'on de informaci\'on de una imagen para la generaci\'on de un grafo que representa una red de filamentos, se construye una herramienta que en base a una imagen, construye lo que se denomina un grafo aproximado de la red de filamentos. El procedimiento consta de 3 pasos:
 % explicar que el hecho de G completo mediante lo q la arista es al problema de identificación de filamentos
-presento el extractor aproximado de grafos, la noción de puntos cluster/superPixels/blobs y el centro de masa como representante, dado que se puede obtener de forma simple mediante los "image moments". Además, distintos niveles de image moments permiten obtener información adicional útil en la descripción del cluster.
+%presento el extractor aproximado de grafos, la noción de puntos cluster/superPixels/blobs y el centro de masa como representante, dado que se puede obtener de forma simple mediante los "image moments". Además, distintos niveles de image moments permiten obtener información adicional útil en la descripción del cluster.
 
-La noción ppal es generar vecindarios, ya que el grafo debe contener información topológica como geométrica, ya que cada será la base para distintos criterios de categorización durante el proceso de individualización de filamentos. 
+\begin{enumerate}
+    \item Se generan clusters, tambi\'en llamados {\it Super Pixels} mediante una agrupaci\'on en base a un kernel 3x3, que busca separar de forma local los pixels que corresponden a {\it background} respecto a los de {\it foreground}, siendo estos \'ultimos los que concentran el inter\'es para an\'alisis. La creaci\'on de clusters permite establecer la primera informaci\'on de vecindarios.
+    \item Cada cluster es representado por un nodo, ubicado en el centro de masa del {\it super pixel}. En conjunto con el centro de masa es posible obtener informaci\'on geom\'etrica mediante los {\it raw image moments}\cite{chaumette2004image} del cluster. En este punto tambi\'en se procede a realizar una uni\'on de clusters que evita la creaci\'on de aristas demasiado cortas entre 2 nodos, as\'i como la identificaci\'on de ciclos triangulares, que generan aberraciones en el grafo generado.
+    \item A partir de la informaci\'on de vecindario de los nodos definitivos obtenidos en el paso anterior, se generan aristas entre nodos vecinos. Se obtiene informaci\'on angular y de largo para cada arista creada.
+\end{enumerate}
 
-opcional: Un ejemplo de aquello pueden ser los ciclos, ya que con el grado de los nodos se puede determinar aquello (fuente: wilkisongraphbook)
+Se define como generador {\it aproximado} de grafos debido a que puede sufrir de peque\~nas desviaciones en la ubicaci\'on de los nodos y las aristas con respecto a lo que otras herramientas de esqueletonizaci\'on e identificaci\'on de intersecciones en conjunto pueden hacer en la misma tarea. Uno de los objetivos en la creaci\'on del generador {\it aproximado} de grafos se debe a que facilita el uso de im\'agenes encontradas en el estado del arte.
 
-Veselness: Se estudió el filtro Frangi para "Veselness" (fuente: frangi1998, frangiNet) utilizados para filtrar estructuras alargadas, como lo son arterias y venas. Este filtro se basa en la matriz Hessiana, y sus eigenvectores y eigenvalores para ponderar el "veselness value" (agregar formulas), 2nd order structurness, y $R_b$ blobness measure...
+%La noción ppal es generar vecindarios, ya que el grafo debe contener información topológica como geométrica, ya que cada será la base para distintos criterios de categorización durante el proceso de individualización de filamentos. 
+El objetivo principal del generador en s\'i es el crear vecindarios, siendo esto la base de la informaci\'on topol\'ogica, que se suma a la informaci\'on geom\'etrica que se construye en los pasos descritos anteriormente. Un ejemplo de esto pueden ser los ciclos, dado que el n\'umero de vecinos que constituye el grado de cada nodo permite identificar la existencia de ciclos\cite{wilson1979introduction}, que son discriminantes importantes dependiendo del filamento que se analice. 
 
-Dado que se puede llegar a algo similar mediante los image momentos ....
+%se destaca dentro de los criterios del generador aproximado de grafos a partir de una imagen se busca evitar perder información de la imagen, así como tener un costo computacional bajo, en conjunto con disminuir la interacción del usuario. 
 
-se analizaron filtros como Gabor Gaussian kernels siendo descartados ya que pierden detalles mediante el blurring (fuente: A coronary artery segmentation method based on multiscale analysis and region growing 2015). Por otra parte, el filtro  anistropic Difusion fue descartado por requerir de múltiples parámetros. 
-Lo anterior se destaca ya que dentro de los criterios del generador aproximado de grafos a partir de una imagen se busca evitar perder información de la imagen, así como tener un costo computacional bajo, en conjunto con disminuir la interacción del usuario. 
+Otros objetivos del generador aproximado de grafos son evitar la perdida de informaci\'on durante la obtenci\'on del grafo, y evitar la perdida de informaci\'on. Esto \'ultimo puede suceder si se utiliza esqueletonizaci\'on de la imagen para obtener el grafo, dado que mediante el adelgazamiento utilizado se rompe la relaci\'on entre los p\'ixeles que conforman el elemento que se adelgaza y los p\'ixeles que constituyen el esqueleto obtenido. Se analizaron diversos filtros para obtener informaci\'on dentro de los que destacan {\it Gabor Gaussian kernels}, siendo descartado ya que se pierden detalles mediante el uso de {\it blurring} \cite{kerkeni2016coronary}, mientras que el filtro {\it Anistropic Diffusion} fue descartado por requerir de múltiples parámetros. En la misma linea, la elecci\'on de {\it image moments}\cite{flusser2009moments} se fundamenta en el estudio del filtro Frangi para {\it Veselness}\cite{frangi1998multiscale}\cite{fu2018frangi}, utilizado para filtrar estructuras alargadas, como lo son arterias y venas. Este filtro se basa en los eigenvectores y eigenvalores de la matriz Hessiana (ecuaci\'on \eqref{eq:HessianMat}) obtenida despu\'es de filtrar una imagen, obteniendo el {\it veselness value} o valor de cuan alargada es una estructura. 
 
-numero de nodos depende de apMaxThickness, q representa la resoluci\'on, es decir, cuantos micrometros se observan por pixel.
+\begin{equation}
+    \label{eq:HessianMat}
+    H = \begin{bmatrix}
+        H_{xx} & H_{xy} \\
+        H_{xy} & H_{yy} 
+        \end{bmatrix}
+\end{equation}
 
-finalmente Generaci\'on de Aristas se realiza mediante la uni\'on nodos, obtener informaci\'on angular, trabajo a futuro ser\'ia agregar curvatura 
+Un respuesta de {\it veselness value} que denota una estructura alargada se obtiene si los 2 eigenvalores, $\lambda_1$ y $\lambda_2$ ($|\lambda_2| \geq |\lambda_1|$) satisfacen $|\lambda_1| \approx 0 $ y $|\lambda_2| \gg |\lambda_1|$. Los eigenvalores se obtienen mediante la ecuaci\'on \ref{eq:lambdaFrangi}.
+
+\begin{equation}
+    \label{eq:lambdaFrangi}
+    \lambda_{1,2} = \dfrac{(H_{xx} + H_{yy}) \pm \sqrt{(H_{xx} - H_{yy})^{2} + 4\cdot H_{xy}^{2}     } }{2}
+\end{equation}
+
+Otra forma de obtener los valores de lambda de la ecuaci\'on \ref{eq:lambdaFrangi} es utilizando los {\it central image moments} o momentos centrales, que derivan de los {\it raw image moments} obtenidos en el segundo paso del generador aproximado de grafos. Se define un {\it raw image moment} de orden $p+q$ para una imagen en la ecuaci\'on \eqref{eq:rawImageMoment}, donde $f(x,y)$ corresponde a la intensidad de la imagen en un punto (x,y). El {\it raw moment} $M_{00}$ refleja la "masa" de la imagen, correspondiendo al \'area o volumen si se trata de una imagen binaria. 
+
+Para el c\'alculo de los momentos centrales se agregan los componentes del centroide, $\overline{x}$ e $\overline{y}$, basados en los {\it raw moments}, como indican las ecuaciones \eqref{eq:avgFromRawMomts} y \eqref{eq:centralImageMoment}.
+
+\begin{subequations}
+\begin{equation}
+    \label{eq:rawImageMoment}
+    M_{pq} = \sum\limits_{x} \sum\limits_{y} x^p \cdot y^q \cdot f(x,y)
+\end{equation}
+\begin{equation}
+    \label{eq:avgFromRawMomts}
+    \overline{x} = \frac{M_{10}}{M_{00}}, \quad
+    \overline{y} = \frac{M_{01}}{M_{00}}
+\end{equation}
+\begin{equation}
+    \label{eq:centralImageMoment}
+    \mu_{pq} = \sum\limits_{x} \sum\limits_{y} (x - \overline{x})^{p} \cdot (y - \overline{y})^{q} \cdot f(x,y)
+\end{equation}
+\end{subequations}
+
+As\'i, es posible construir una matriz de covarianza, equivalente a la matriz hessiana en la ecuaci\'on \eqref{eq:HessianMat}, utilizando los momentos centrales de segundo orden, $\mu_{20}$, $\mu_{02}$ y $\mu_{11}$ divididos por el momento central de orden cero $\mu_{00}$ (ecuaciones \eqref{eq:mu20}, \eqref{eq:mu02} y \eqref{eq:mu11}), obteniendo los eigenvalores mediante la ecuaci\'on \eqref{eq:lambdaMoments}.
+
+\begin{subequations}
+\begin{align}
+    \mu_{20}^{\prime} &= \frac{\mu_{20}}{\mu_{00}} = \frac{M_{20}}{M_{00}} - \overline{x}^{2} \label{eq:mu20} \\
+    \mu_{02}^{\prime} &= \frac{\mu_{02}}{\mu_{00}} = \frac{M_{02}}{M_{00}} - \overline{y}^{2} \label{eq:mu02} \\
+    \mu_{11}^{\prime} &= \frac{\mu_{11}}{\mu_{00}} = \frac{M_{11}}{M_{00}} - \overline{x}\cdot\overline{y} \label{eq:mu11}
+\end{align}
+
+\begin{equation}
+    \label{eq:covMatLambda}
+    cov[f(x,y)] = \begin{bmatrix}
+        \mu_{20}^{\prime} & \mu_{11}^{\prime} \\
+        \mu_{11}^{\prime} & \mu_{02}^{\prime} 
+        \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+    \label{eq:lambdaMoments}
+    \lambda_{1,2} = \dfrac{(\mu_{20}^{\prime} + \mu_{02}^{\prime}) \pm \sqrt{(\mu_{20}^{\prime} - \mu_{02}^{\prime})^{2} + 4\cdot \mu\prime_{11}^{2} }}{2}
+\end{equation}
+\end{subequations}
+
+La recopilaci\'on de informaci\'on de esta forma permite su posible uso en las etapas de la individualizaci\'on de filamentos.
+
 
 \subsubsection{Heurística para limitar el n\'umero de nodos}
-Un grafo completamente conectado puede tener n(n-1)/2 aristas, lo que para un n muy grande puede implicar un costo computacional se aplicó como estrategía: 
-Node Pruning: parametro apMaxThickness y connectivityThreshold manuales. Arbitrariamente n\textdegree neighbors > 2. también se fija un límite de memoria ram
+%numero de nodos depende de apMaxThickness, q representa la resoluci\'on, es decir, cuantos micrometros se observan por pixel.
+En concordancia con lo expresado al inicio de este cap\'itulo, es necesario evitar que el grafo $G$ extra\'ido a partir de la imagen, sea completo. Con el fin de evitar esa condici\'on se desarrollan las estrategias mencionadas en el segundo paso del generador aproximado de grafos. Para la construcci\'on del grafo aproximado, el usuario dispone de un par\'ametro denominado {\it maxThickness} asociado al grosor m\'aximo que un filamento en la imagen de entrada puede tener. Se define que la distancia m\'inima entre 2 nodos no podr\'a ser inferior a un porcentaje de {\it maxThickness}, variando el porcentaje depenendiendo de lo que el usuario indique que se esta observando (microt\'ubulo, neurona, ret\'iculo u otro). En caso de no superar el umbral, los nodos se unen. Otra componente de la heur\'istica que limita la cantidad de v\'ertices es el n\'umero m\'inimo de p\'ixeles que cada cluster debe contener, la cual debe ser mayor que 1.5 veces {\it maxThickness}. Esto con la finalidad de evitar clusters muy peque\~nos, que lleva a la creaci\'on de demasiados nodos. 
+
+%Finalmente, se hace un an\'alisis topol\'ogico que evita la formaci\'on de ciclos triangulares
+ 
+
+%A su vez, otro motivo para evitar que $G$ sea un grafo completo radica en que para los filamentos observados en la naturaleza no es una condici\'on comun... no encuentro la fuente de esto
+
+%Un grafo completamente conectado puede tener n(n-1)/2 aristas, lo que para un n muy grande puede implicar un costo computacional se aplicó como estrategía: Node Pruning: parametro apMaxThickness y connectivityThreshold manuales. Arbitrariamente n\textdegree neighbors > 2. también se fija un límite de memoria ram
+
 
 
 \section{Generaci\'on de Caminos}
@@ -173,7 +242,7 @@ Para el caso de la individualizaci\'on de filamentos, lo descrito en la ecuaci\'
 \begin{equation}
 P(c_{ij} | s^{P}) = \frac
         {\tau_{ij}^{\alpha} \cdot \eta_{ij}^{\beta}}
-        {\sum\limits_{c_{il}\in N(s^p)}{\tau_{il}^{\alpha} \cdot \eta_{il}^{\beta} } }, \forall c_{ij} \in N(s^{P})
+        {\sum\limits_{c_{ij}\in N(s^p)}{\tau_{ij}^{\alpha} \cdot \eta_{ij}^{\beta} } }, \forall c_{ij} \in N(s^{P})
 \label{eq:antProbabilities}
 \end{equation}
 
@@ -235,7 +304,7 @@ Finalmente, la ecuaci\'on \eqref{eq:antiPheroSAP} refleja la aplicaci\'on de las
 
 \begin{equation}
     \label{eq:antiPheroSAP}
-    \tau_{ij} \leftarrow \tau_{ij} \cdot \gamma  \forall \langle c_{ij},seg_{n}\rangle > \textrm{MAX\_AXIAL\_DISPLACEMENT}
+    \tau_{ij} \leftarrow \tau_{ij} \cdot \gamma \quad \forall \langle c_{ij},seg_{n}\rangle > \textrm{MAX\_AXIAL\_DISPLACEMENT}
 \end{equation}
 
 En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, es el caso de la individualizaci\'on de filamentos en esta investigaci\'on que existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
@@ -260,4 +329,4 @@ En el paso de inicializaci\'on de ACO se deben definir valores para diversos par
 \end{itemize}
 
 
-En resumen, las condiciones del problema de identificaci\'on de filamentos dan pie a establecer su representaci\'on mediante un problema de optimizaci\'on de restricciones (COP), estando el modelo para la resoluci\'on del COP basado en la metaheur\'istica ACA para su resoluci\'on.
+En resumen, las condiciones del problema de identificaci\'on de filamentos dan pie a establecer su representaci\'on mediante un problema de optimizaci\'on de restricciones (COP), estando el modelo para la resoluci\'on del COP basado en la metaheur\'istica ACO para su resoluci\'on.
