@@ -1,4 +1,5 @@
-\chapter{Problem\'atica de la Identificaci\'on de Filamentos a partir de un Grafo}
+%\chapter{Problem\'atica de la Individualizaci\'on de Filamentos a partir de un Grafo}
+\chapter{Antecedentes}
 \label{chap:cap2}
 
 %problema previo, o problema 0 que consiste en la generaci\'on de un grafo a partir de una imagen que contenga una red, que en este caso, representaria a una red de filamentos. 
@@ -59,7 +60,12 @@ Los 3 problemas presentados se formalizan a continuaci\'on.
 \section{Generaci\'on de un Grafo desde una Imagen}
 La extraci\'on o generaci\'on de un grafo que representa una red de filamentos a partir de una imagen es el paso que define la cantidad de informaci\'on disponible para llevar a cabo la individualizaci\'on de filamentos. La importancia de este procedimiento radica en que a partir de la imagen es posible obtener una cantidad de caracter\'isticas de distinta \'indole, lo que permite en etapas posteriores desagregar el grafo $G$ en subgrafos mediante la clasificaci\'on de nodos y/o aristas, efectivamente disminuyendo el espacio de b\'usqueda. Con las herramientas actuales disponibles en la literatura es posible realizar la extracci\'on de una red de filamentos con algún nivel de informaci\'on como en \cite{xu2015soax}. Sin embargo, las transformaci\'on de aquella red a un grafo, as\'i como la incorporaci\'on de las caracter\'isticas y/o propiedades hacia el grafo son un procedimiento no automatizado, por lo que el esfuerzo que el experto debe realizar es cercano a individualizar los filamentos de manera manual.
 
-Es posible distinguir en 2 conjuntos los m\'etodos utilizados para extraer la informaci\'on escencial que permite la construcci\'on de un grafo a partir de una imagen, como lo son los nodos y las aristas. Estos conjuntos son los que se basan en esqueletonizaci\'on\cite{lavado2018comparacion} y los que no. En este trabajo se presenta un enfoque del segundo tipo.
+Es posible distinguir en 2 conjuntos los m\'etodos utilizados para extraer la informaci\'on escencial que permite la construcci\'on de un grafo a partir de una imagen, como lo son los nodos y las aristas. Estos conjuntos son los que se basan en esqueletonizaci\'on\cite{lavado2018comparacion} y los que no. 
+
+%En este trabajo se presenta un enfoque del segundo tipo.
+
+
+\subsection{Extracci\'on de un Grafo mediante Esqueletonizaci\'on}
 
 
 \subsection{Generador Aproximado de Grafos a partir de una Imagen}
@@ -71,7 +77,7 @@ Con el fin de aportar en automatizar la extracci\'on de informaci\'on de una ima
 \begin{enumerate}
     \item Se generan clusters, tambi\'en llamados {\it Super Pixels} mediante una agrupaci\'on en base a un kernel 3x3, que busca separar de forma local los pixels que corresponden a {\it background} respecto a los de {\it foreground}, siendo estos \'ultimos los que concentran el inter\'es para an\'alisis. La creaci\'on de clusters permite establecer la primera informaci\'on de vecindarios.
     \item Cada cluster es representado por un nodo, ubicado en el centro de masa del {\it super pixel}. En conjunto con el centro de masa es posible obtener informaci\'on geom\'etrica mediante los {\it raw image moments}\cite{chaumette2004image} del cluster. En este punto tambi\'en se procede a realizar una uni\'on de clusters que evita la creaci\'on de aristas demasiado cortas entre 2 nodos, as\'i como la identificaci\'on de ciclos triangulares, que generan aberraciones en el grafo generado.
-    \item A partir de la informaci\'on de vecindario de los nodos definitivos obtenidos en el paso anterior, se generan aristas entre nodos vecinos. Se obtiene informaci\'on angular y de largo para cada arista creada.
+    \item A partir de la informaci\'on de vecindario de los nodos definitivos obtenidos en el paso anterior, se generan aristas entre nodos vecinos. Se obtiene el largo e  informaci\'on angular para cada arista creada. %Esta \'ultima es utilizada m\'as adelante para definir puntos de partida de las hormigas.
 \end{enumerate}
 
 Se define como generador {\it aproximado} de grafos debido a que puede sufrir de peque\~nas desviaciones en la ubicaci\'on de los nodos y las aristas con respecto a lo que otras herramientas de esqueletonizaci\'on e identificaci\'on de intersecciones en conjunto pueden hacer en la misma tarea. Uno de los objetivos en la creaci\'on del generador {\it aproximado} de grafos se debe a que facilita el uso de im\'agenes encontradas en el estado del arte.
@@ -156,8 +162,8 @@ En concordancia con lo expresado al inicio de este cap\'itulo, es necesario evit
 %Un grafo completamente conectado puede tener n(n-1)/2 aristas, lo que para un n muy grande puede implicar un costo computacional se aplicó como estrategía: Node Pruning: parametro apMaxThickness y connectivityThreshold manuales. Arbitrariamente n\textdegree neighbors > 2. también se fija un límite de memoria ram
 
 
-
-\section{Generaci\'on de Caminos}
+% ambas opciones generan degeneraciones/deformaciones q afectan
+\section{Exploraci\'on del Espacio de Soluciones}
 definir que los segmentos/caminos/path son conjuntos de aristas adyacentes conectadas, o de nodos ..., que cumplen con restricciones, como la restricción angular o restricciones de ciclos (formula matem\'atica) y que los filamento son elegidos entre los caminos de mayor calidad
 Un camino simple es equivalente a un \'arbol simple, ac\'clico...
 
@@ -201,17 +207,17 @@ En base a lo recopilado en las secciones previas de esta investigaci\'on, es pos
 \begin{itemize}
     \item Se desconoce a priori el n\'umero de filamentos a buscar, dado que una imagen puede tener individualizaciones distintas para 2 expertos.
     \item Generalmente, se busca individualizar m\'as de un filamento por imagen, lo que conlleva a elegir los mejores filamentos entre las soluciones que se encuentren.
-    \item El uso de un grafo para representar la red de filamentos puede implicar que las combinaciones de soluciones crezca de manera exponencial.
+    \item El uso de un grafo para representar la red de filamentos puede implicar que las combinaciones de soluciones crezcan de manera exponencial.
 \end{itemize}
 
 Lo anterior implica que el problema de identificar filamentos a partir de un grafo puede ser clasificado como un problema de optimizaci\'on de restricciones\cite{blum2011hybrid}.
 
-Un problema de optimización de restricciones, (COP por su sigla en ingl\'es) puede ser representado como $P = (S, \Omega, F)$, donde S es el espacio de soluciones, definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Se define como una variable {\it instanciada} la asignaci\'on a $X_i$ de un valor $v_{i}^{j} \in D_i$. Una solución candidata $s \in S$, es una soluci\'on factible si satisface las restricciones del set $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna valores a las soluciones candidatas. Por su parte, $s^{*} \in S^{*} \subseteq S $, $c$ es una soluci\'on \'optima y $S^{*}$ es un conjunto de soluciones \'optimas\cite{socha2008ant}.
+Un problema de optimización de restricciones, (COP por su sigla en ingl\'es) puede ser representado como $P = (S, \Omega, F)$, donde S es el espacio de soluciones, definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Se define como una variable {\it instanciada} la asignaci\'on a $X_i$ de un valor $v_{i}^{j} \in D_i$. Una solución candidata $s \in S$ es una soluci\'on factible si satisface las restricciones del set $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna valores a las soluciones candidatas. Al mismo tiempo, se define $s^{*}$ como una soluci\'on \'optima y $S^{*}$ como un conjunto de soluciones \'optimas, relacionados mediante $s^{*} \in S^{*} \subseteq S $\cite{socha2008ant}.
 Esta definici\'on permite aplicar la metaheur\'istica de optimizaci\'on basada en colonia de hormigas (ACO por su sigla en ingl\'es) a un modelo de un {\it COP}.
 %COP es un CSP con función objetivo: https://en.wikipedia.org/wiki/Constrained_optimization#Constraint_optimization_problems
 
 \subsection{Metaheur\'istica ACO}
-El proposito de la metaheur\'istica ACO es encontrar una soluci\'on o un set de soluciones. Una soluci\'on $s$ consiste en un conjunto de componentes de soluci\'on $c_{ij} \in C, i = 1 \dotsc n, j = 1 \dotsc |D_i|$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino o {\it tour} que recorre una hormiga, desde un nodo o arista inicial hasta un nodo o arista final. La metaheur\'istica ACO se muestra en el algoritmo \ref{ACO-Algo}. En base a la definici\'on de variable {\it instanciada} del modelo COP, se tiene que $X_i = v_{i}^{j}$ es el equivalente a $c_{ij}$ en ACO.
+El proposito de la metaheur\'istica ACO es encontrar una soluci\'on o un set de soluciones. Una soluci\'on $s$ consiste en un conjunto de componentes de soluci\'on $c_{ij} \in C, i = 1 \dotsc n, j = 1 \dotsc |D_i|$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino o {\it tour} que recorre una hormiga, desde un nodo o arista inicial hasta un nodo o arista final. La metaheur\'istica ACO se muestra en el algoritmo \ref{ACO-Algo}. En base a la definici\'on de variable {\it instanciada} del modelo COP, se tiene que la asignaci\'on $X_i = v_{i}^{j}$ es equivalente a seleccionar un componente $c_{ij}$ para una soluci\'on $s$ en ACO.
 
 ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no tienen un orden espec\'ifico: {\it Construccion\_de\_soluci\'on\_de\_cada\_hormiga(),  M\'etodo\_de\_b\'usqueda\_no\_local()} y {\it Actualizaci\'on\_de\_feromonas()}.
 
@@ -233,10 +239,18 @@ ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no ti
 
 
 \subsubsection{M\'etodo Construccion de soluci\'on de cada hormiga}
-Para la selecci\'on del componente $c_{ij}$ a elegir por una hormiga durante la construcci\'on de un camino, la elecci\'on entre los caminos compuestos por el conjunto de vecinos factibles $N(s^{P}) \subseteq C$, se lleva a cabo mediante el c\'alculo de una probabilidad para cada componente $c_{ij}$ posible de elegir. En la probabilidad influye el camino ya escogido, denominado soluci\'on parcial $s^{P}$. Cada hormiga al comenzar se le asigna una arista donde uno de sus nodos tiene grado 1, indicando que es el inicio o final de una parte del grafo. 
-% a diferencia de otros ACO, aca s^P != \emptyset al comienzo
+La elecci\'on de un componente $c_{ij}$ por una hormiga durante la construcci\'on de un camino,
+se lleva a cabo mediante el c\'alculo de una probabilidad para cada componente $c_{ij}$ posible de elegir. Este conjunto de vecinos factibles se denomina $N(s^{P}) \subseteq C$. En la probabilidad de selecci\'on influye el camino ya escogido, denominado soluci\'on parcial $s^{P}$. Al comenzar un recorrido, cada hormiga es asignada una arista de acuerdo a la heur\'istica de asignaci\'on, la cual analiza 3 situaciones:
+\begin{enumerate}
+\item La arista a asignar debe tener al menos uno de sus nodos con grado 1, indicando que es el inicio o final de una parte del grafo.
 
-Para el caso de la individualizaci\'on de filamentos, lo descrito en la ecuaci\'on \eqref{eq:antProbabilities} corresponde a la probabilidad de elegir una arista de un conjunto de aristas vecinas (conjunto $N(s^{P})$) dadas la aristas que ya pertenecen al {\it tour} de la hormiga ($s^P$), mediante la heur\'istica miope (ecuaci\'on \eqref{eq:heuristicaMiope}) que privilegia los candidatos que causen la menor desviaci\'on en la rectitud del camino. Cabe destacar que en el caso de que el conjunto $N(s^{P})$ este compuesto s\'olo por $c_{ij} \in ]\theta, 90]$, la ecuaci\'on \eqref{eq:antProbabilities} se multiplica por $delta \in ]0,1]$, para agregar la opci\'on de no elegir ninguna arista con $\delta$ \% de probabilidad, quedando la heur\'istica miope como indica la ecuaci\'on \eqref{eq:antProbInterQua}. El criterio de finalizaci\'on para la hormiga corresponde a que el conjunto $N(s^{P}) = \emptyset$.
+\item De no haber aristas con esas caracter\'isticas disponibles, se realiza una asignaci\'on inicial de una arista con uno de sus nodos con grado 2 o superior, siempre que uno de los nodos sea la uni\'on de esta arista con otra con la que conformen un \'angulo en el rango $]\theta, MAX\_ANGLE]$. $\theta$ es un umbral que define el \'angulo m\'aximo, en grados, bajo el que se considera que 2 aristas contiguas respetan la rectitud necesaria para formar parte del mismo filamento. $MAX\_ANGLE$ es un umbral que define el \'angulo m\'aximo, en grados, por sobre el cual se descarta de forma absoluta que 2 aristas contiguas forman parte del mismo filamentos. Este rango delimita los pares de aristas que a priori no representan combinaciones que respetan el criterio de rectitud, pero cuya explicaci\'on puede encontrarse en variaciones inducidas durante la extracci\'on del grafo desde la imagen, por lo que es necesario incorporar la exploraci\'on de estos pares de aristas.
+
+\item De no existir aristas con alg\'un nodo que cumpla con los dos criterios previos, es posible asignar una arista aleatoria siempre que esta no forme parte de un camino recorrido por otra hormiga que haya sido evaluado como de buena calidad.
+\end{enumerate}
+
+% a diferencia de otros ACO, aca s^P != \emptyset al comienzo
+Una vez asignada la primera arista seg\'un la heur\'istica previamente descrita, cada hormiga debe avanzar mediante la elecci\'on de nuevas aristas para a\~nadirlas a su recorrido. Este procedimiento se describe en la ecuaci\'on \eqref{eq:antProbabilities}, que corresponde a la probabilidad de elegir una arista a partir de un conjunto de aristas vecinas (conjunto $N(s^{P})$) dadas la aristas que ya pertenecen a la soluci\'on parcial de la hormiga ($s^P$), mediante la heur\'istica miope (ecuaci\'on \eqref{eq:heuristicaMiope}) que privilegia los candidatos que causen la menor desviaci\'on en la rectitud del camino. Se define que los componentes $c_{ij}$ que aportan con mayor probabilidad a la menor desviaci\'on son aquellos que en conjunto con el \'ultimo elemento elegido por la hormiga en ese punto ($c_{(i-1)j}$) forman un \'angulo en el rango $[0, \theta]$. El criterio de finalizaci\'on para la hormiga corresponde a que el conjunto $N(s^{P}) = \emptyset$.
 
 %P(C_{ij} | s^{P}) = P_{n_{i},n_{j}} = P_{e_{x}}
 \begin{equation}
@@ -246,31 +260,29 @@ P(c_{ij} | s^{P}) = \frac
 \label{eq:antProbabilities}
 \end{equation}
 
-Otro aspecto de la ecuaci\'on \eqref{eq:heuristicaMiope} radica en la asignaci\'on de probabilidad de elecci\'on a los elementos $c_{ij} \in ]\theta, 90]$ (de calidad intermedia), consistente en disminuir el puntaje a medida que la diferencia entre el \'angulo del elemento $c_{ij}$, que puntualmente representa a una arista en esta investigaci\'on, y el \'angulo promedio de la soluci\'on parcial $s^P$ tiende a los 180\textdegree. Al momento de que la diferencia sea 90\textdegree, la probabilidad de asignaci\'on se reduce al 50\% de la probabilidad de un componente $c_{ij} \in [0, \theta]$.
+Otro aspecto de la ecuaci\'on \eqref{eq:heuristicaMiope} radica en la posibilidad de elecci\'on de elementos $c_{ij}$ que tienen un \'angulo en el rango $]\theta, \text{MAX\_ANGLE}]$ con el componente de soluci\'on $c_{(i-1)j}$. Esto facilita la exploraci\'on de soluciones/caminos que de forma miope aparecen como de calidad no \'optima, y que para los efectos de este trabajo se denominan como de {\it calidad intermedia}. Esta evaluaci\'on consistente en disminuir la probabilidad de elecci\'on a medida que la diferencia entre el \'angulo que forman $c_{ij}$ y $c_{(i-1)j}$  , y la mitad de $\theta$ se incrementa.
+
+
+%donde cada uno representa a una arista en esta investigaci\'on, y . Al momento de que la diferencia sea 90\textdegree, la probabilidad de asignaci\'on se reduce al 50\% de la probabilidad de un componente $c_{ij} \in [0, \theta]$.
 
 \begin{equation}
     \eta_{ij} = 
         \begin{cases} 
         \text{MAX\_SCORE si } \measuredangle(c_{ij}, c_{(i-1)j}) \in [0, \theta]\\[3ex]
         
-        \text{MAX\_SCORE} \cdot \left(1 - \dfrac{ \left| |\measuredangle(c_{ij})| - |s^{P}_{avgAngle}| \right|} {180} \right)  \text{ si } \measuredangle(c_{ij}, c_{(i-1)j}) \in ]\theta, 90].\\[3ex]
+        \text{MAX\_SCORE} \cdot \left(1 - \dfrac{ \left| \measuredangle(c_{ij}, c_{(i-1)j}) - \frac{\theta}{2} \right|} {180} \right)  \text{ si } \measuredangle(c_{ij}, c_{(i-1)j}) \in \quad ]\theta, \text{MAX\_ANGLE}].\\[3ex]
         
         \text{0 en otro caso;}
         \end{cases}
     \label{eq:heuristicaMiope}
 \end{equation}
 
-\begin{equation}
-P(c_{ij} | s^{P}) = \delta \cdot \frac
-        {\tau_{ij}^{\alpha} \cdot \eta_{ij}^{\beta}}
-        {\sum\limits_{c_{il}\in N(s^p)}{\tau_{il}^{\alpha} \cdot \eta_{il}^{\beta} } }, \forall c_{ij} \in N(s^{P}) \in ]\theta, 90]
-    \label{eq:antProbInterQua}
-\end{equation}
+Con la finalidad de cuantificar la calidad de la soluci\'on construida por una hormiga, en cada selecci\'on de arista realizada, se suma el resultado de la heur\'istica miope al valor que la calidad de la hormiga lleva hasta ese punto. Cada hormiga comienza con una calidad 0, que al finalizar el {\it tour} es dividida por el n\'umero de aristas menos 1, para normalizar. Se establece que para ser considerada una soluci\'on de buena calidad, la hormiga debe tener una calidad mayor o igual a $\frac{MAX\_SCORE}{2}$.
     
 \subsubsection{M\'etodo de b\'usqueda no local}
-Una vez que la hormiga termina un {\it tour}, es posible agregar un m\'etodo de {\it feedback} sobre la calidad del recorrido realizado, basado en l\'ogicas globales/centralizadas que escapan de la b\'usqueda local que realiza cada hormiga. Estos m\'etodos, denominados {\it Daemon Actions} en ingles, permiten, por ejemplo, seleccionar las hormigas de mejor calidad para incrementar las feromonas m\'as alla de lo que la {\it Actualizaci\'on\_de\_feromonas()} lo hace. 
+Una vez que la hormiga termina un {\it tour}, es posible agregar un m\'etodo de {\it feedback} sobre la calidad del recorrido realizado, basado en l\'ogicas globales/centralizadas que escapan de la b\'usqueda local que realiza cada hormiga. Estos m\'etodos, denominados {\it Daemon Actions} en ingl\'es, permiten en el caso de una metaheur\'istica ACO gen\'erica seleccionar las hormigas de mejor calidad para incrementar las feromonas m\'as alla de lo que la {\it Actualizaci\'on\_de\_feromonas()} lo hace. 
 
-Para la individualizaci\'on de filamentos, la evaluaci\'on global corresponde a eliminar soluciones candidatas que no aporten informaci\'on nueva. Sea $s_a$ y $s_b$ las soluciones de las hormigas $a$ y $b$ respectivamente. Si $s_a$ y $s_b$ cumplen con las siguientes condiciones:
+Para la individualizaci\'on de filamentos, la evaluaci\'on global corresponde a eliminar soluciones candidatas que no aporten informaci\'on nueva. A modo de ejemplo, si $s_a$ y $s_b$ son las soluciones de las hormigas $a$ y $b$ respectivamente y cumplen con las siguientes condiciones:
 
 \begin{itemize}
     \item $\forall c_{ij} \in s_a \in [0, \theta]$ y $\forall c_{ij} \in s_b \in [0, \theta]$
@@ -278,34 +290,37 @@ Para la individualizaci\'on de filamentos, la evaluaci\'on global corresponde a 
     \item $s_a \subseteq s_b$
 \end{itemize}
 
-Se tiene que $s_a$ no aporta m\'as informaci\'on que $s_b$, por lo que $s_a$ puede descartarse. Se denomina a $s_b$ como un segmento, el cual se comporta como una secci\'on indivisible de filamento.
+Se tiene que $s_a$ no aporta m\'as informaci\'on que $s_b$, por lo que $s_a$ puede descartarse. Se denomina a $s_b$ como un segmento, el cual se comporta como una secci\'on indivisible de filamento. Este m\'etodo se ejecuta al comparar dos soluciones 
+%RIESGO ASOCIADO a overmatch!!
 
 %Si dos soluciones, $s_i$ y $s_j$ de las hormigas $i$,$j$, conformadas solamente por componentes $c_{ij} \in [0, \theta]$  (todos los componentes son de {\it buena calidad}), y que adem\'as eran la \'unica opci\'on posible en cada avance de la hormiga (probabilidad 1 de ser elegidas)
 %tal que $s_i \subseteq s_j$ o viceversa, se tiene que una soluci\'on candidata no aporta nueva informaci\'on.
     
 \subsubsection{M\'etodo Actualizaci\'on de feromonas}
 \label{subsec:pheroUpdate}
-Una vez que la hormiga termina un {\it tour}, esta debe actualizar las feromonas ($\tau_{ij}$) asociadas a los componentes de soluci\'on que la conforman, aumentando el valor en los $c_{ij}$ que construyen un camino de buena calidad, mientras que debe realizar lo contrario para los componentes de soluci\'on que son parte de un recorrido de mala calidad. Adem\'as, los valores de las feromonas sufren decaimiento en el tiempo, dado por el par\'ametro $\rho$, que busca evitar la convergencia que las feromonas pueden causar en caminos de buena soluci\'on obtenidos al inicio de las iteraciones.
+Una vez que la hormiga termina un {\it tour}, esta debe actualizar las feromonas ($\tau_{ij}$) asociadas a los componentes de soluci\'on que la conforman. En una metaheur\'istica ACO tradicional, se aumenta el valor en los $c_{ij}$ que construyen un camino de buena calidad, mientras que debe realizar lo contrario para los componentes de soluci\'on que son parte de un recorrido de mala calidad. Adem\'as, los valores de las feromonas sufren decaimiento en el tiempo, dado por el par\'ametro $\rho$, que busca evitar la convergencia que las feromonas pueden causar en caminos de buena soluci\'on obtenidos al inicio de las iteraciones.
 
 
-En la individualizaci\'on de filamentos, se utilizan {\it anti-feromonas}, con el proposito de indicar a las hormigas de futuras iteraciones cuales combinaciones de aristas/componentes de soluci\'n no llevan a resultados de buena calidad. Esto se fundamenta en al utilidad de las {\it anti-feromonas} para acotar el espacio de soluciones $S$. La forma de usar las {\it anti-feromonas} corresponde a {\it Substractive Anti-Pheromone} (SAP por su sigla en ingl\'es), la que introduce el par\'ametro $\gamma$ como factor de reducci\'on/penalizaci\'on. \cite{montgomery2002anti} indica que con $\gamma = 0.5$ SAP obtiene los mejores resultados. Por otra parte, el par\'ametro $\rho$ utilizado en las feromonas tradicionales no se utiliza en SAP.
+En la individualizaci\'on de filamentos, se utilizan {\it anti-feromonas}, con el proposito de indicar a las hormigas de futuras iteraciones cuales combinaciones de aristas/componentes de soluci\'n no llevan a resultados de buena calidad. Esto se fundamenta en la utilidad de las {\it anti-feromonas} para acotar el espacio de soluciones $S$. La forma de usar las {\it anti-feromonas} corresponde a {\it Substractive Anti-Pheromone} (SAP por su sigla en ingl\'es), la que introduce el par\'ametro $\gamma$ como factor de reducci\'on/penalizaci\'on. \cite{montgomery2002anti} indica que con $\gamma = 0.5$ SAP obtiene los mejores resultados. Por otra parte, el par\'ametro $\rho$ utilizado en las feromonas tradicionales no se utiliza en SAP.
 
 
-Una modificaci\'on que se introduce a la aplicaci\'on de  feromonas y anti-feromonas es que estas comunmnente solo se encuentran asociadas al componente $c_{ij}$ respectivo. Es posible desglosar una soluci\'on $s$ en segmentos $seg_{n}$ donde $n$ se\~nala el n\'umero de segmento que corresponde dentro de la soluci\'on $s$. Existen $N + 1$ segmentos en $s$ si la soluci\'on contiene $N$ elementos $c_{ij} \in ]\theta, 90]$ (de calidad intermedia). El segmento $seg_1$ comienza con la primera arista/componente $c_{ij}$ asignada a la hormiga y termina en el primer elemento $c_{ij}$ de calidad intermedia (sin incluirlo), siendo este mismo elemento el que inicia el segmento siguiente.
+Una modificaci\'on que se introduce en este trabajo con respecto a la aplicaci\'on de  feromonas y anti-feromonas es que estas com\'unmnente s\'olo se encuentran asociadas al componente $c_{ij}$ respectivo. Como variaci\'on para la individualizaci\'on/reconocimiento de filamentos, se propone asociar el valor de la anti-feromona no s\'olo con el componente $c_{ij}$, sino que adem\'as con uno o m\'as de los elementos que fueron elegidos en pasos anteriores por la hormiga que los selecciona. La explicaci\'on de lo anterior se basa en la posbilidad de desglosar una soluci\'on $s$ en segmentos $seg_{n}$ donde $n$ se\~nala el n\'umero de segmento al que corresponde dentro de la soluci\'on $s$. El segmento $seg_1$ comienza con la primera arista/componente $c_{ij}$ asignada a la hormiga de acuerdo a la heur\'istica de asignaci\'on, y termina en el primer elemento $c_{ij}$ de calidad intermedia (sin incluirlo), siendo este mismo elemento el que inicia el segmento siguiente.
+%Existen $N + 1$ segmentos en $s$ si la soluci\'on contiene $N$ elementos $c_{ij} \in ]\theta, 90]$ (de calidad intermedia). 
 
 
-Luego, mediante la anti-feromona se relaciona un segmento $seg_n \subset s$ y la componente de soluci\'on $c_{ij} \in seg_{n+1} \in s$, cuya combinaci\'on condujo a una soluci\'on de mala calidad y por ende, las hormigas de futuras iteraciones que pasen por $seg_n$ deben evitar. Se debe destacar que esto es necesario ya que si s\'olo se utiliza la anti-feromona para penalizar $c_{ij}$, esto puede ocasionar la perdida de capacidad de exploraci\'on de hormigas que provengan de otros recorridos parciales distintos a $seg_n$. 
+Luego, mediante la anti-feromona se relaciona un segmento $seg_n \subset s$ y la componente de soluci\'on $c_{ij} \in seg_{n+1} \in s$, cuya combinaci\'on es parte de una soluci\'on de mala calidad, con el fin de evitar que otras hormigas que pasen por $seg_n$ elijan $c_{ij}$. El rol de la anti-feromona es penalizar la probabilidad de elecci\'on de $c_{ij}$ para las hormigas que tengan al segmento $seg_n$ en la soluci\'on parcial $s^{P}$. Se debe destacar que esto es necesario ya que si s\'olo se utiliza la anti-feromona para penalizar $c_{ij}$, se puede ocasionar la perdida de capacidad de exploraci\'on de hormigas que provengan de otros recorridos parciales distintos a $seg_n$. 
 
 
-Los componentes $c_{ij} \in ]\theta, 90]$ (de calidad intermedia) son muy importantes, dado que es en estos elementos son los que representan la exploraci\'on de rutas de menor calidad en el corto plazo que pudiesen llevar a soluciones de buena calidad al finalizar el recorrido.
+%Los componentes $c_{ij} \in ]\theta, MAX_ANGLE]$ (de calidad intermedia) son muy importantes, dado que es en estos elementos son los que representan la exploraci\'on de rutas de menor calidad en el corto plazo que pudiesen llevar a soluciones de buena calidad al finalizar el recorrido.
 
 
-Finalmente, la ecuaci\'on \eqref{eq:antiPheroSAP} refleja la aplicaci\'on de las {\it anti-feromonas} sobre el par $\langle c_{ij}$,$ seg_{n}\rangle \forall c_{ij} \in ]\theta, 90]$  donde $c_{ij} \in seg_{n+1}$, y cuya elecci\'on dio lugar a $seg_{n+1}$ que se aleja del desplazamiento axial m\'aximo que un filamento puede soportar.
+Finalmente, la ecuaci\'on \eqref{eq:antiPheroSAP} refleja la aplicaci\'on de las {\it anti-feromonas} sobre el par $\langle c_{ij}$,$ seg_{n}\rangle \forall c_{ij} \in ]\theta, MAX_ANGLE]$  donde $c_{ij} \in seg_{n+1}$, y cuya elecci\'on dio lugar a $seg_{n+1}$ que se aleja del desplazamiento axial m\'aximo que un filamento puede soportar.
 
 \begin{equation}
     \label{eq:antiPheroSAP}
     \tau_{ij} \leftarrow \tau_{ij} \cdot \gamma \quad \forall \langle c_{ij},seg_{n}\rangle > \textrm{MAX\_AXIAL\_DISPLACEMENT}
 \end{equation}
+%AGREGAR OTRAS CONDICIONES
 
 En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, es el caso de la individualizaci\'on de filamentos en esta investigaci\'on que existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
 
@@ -325,7 +340,7 @@ En el paso de inicializaci\'on de ACO se deben definir valores para diversos par
 
 \begin{itemize}
     \item Par\'ametros de Feromonas: $\alpha$, $\gamma$, el valor inicial de $\tau_{ij}$ y {\it MAX\_AXIAL\_DISPLACEMENT}
-    \item Par\'ametros de Heur\'istica: $\beta$, $\delta$ y {\it MAX\_SCORE}
+    \item Par\'ametros de Heur\'istica: $\beta$, {\it MAX\_SCORE} y {\it MAX_ANGLE}
 \end{itemize}
 
 
