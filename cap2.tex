@@ -304,44 +304,66 @@ Una vez que la hormiga termina un {\it tour}, esta debe actualizar las feromonas
 En la individualizaci\'on de filamentos, se utilizan {\it anti-feromonas}, con el proposito de indicar a las hormigas de futuras iteraciones cuales combinaciones de aristas/componentes de soluci\'n no llevan a resultados de buena calidad. Esto se fundamenta en la utilidad de las {\it anti-feromonas} para acotar el espacio de soluciones $S$. La forma de usar las {\it anti-feromonas} corresponde a {\it Substractive Anti-Pheromone} (SAP por su sigla en ingl\'es), la que introduce el par\'ametro $\gamma$ como factor de reducci\'on/penalizaci\'on. \cite{montgomery2002anti} indica que con $\gamma = 0.5$ SAP obtiene los mejores resultados. Por otra parte, el par\'ametro $\rho$ utilizado en las feromonas tradicionales no se utiliza en SAP.
 
 
-Una modificaci\'on que se introduce en este trabajo con respecto a la aplicaci\'on de  feromonas y anti-feromonas es que estas com\'unmnente s\'olo se encuentran asociadas al componente $c_{ij}$ respectivo. Como variaci\'on para la individualizaci\'on/reconocimiento de filamentos, se propone asociar el valor de la anti-feromona no s\'olo con el componente $c_{ij}$, sino que adem\'as con uno o m\'as de los elementos que fueron elegidos en pasos anteriores por la hormiga que los selecciona. La explicaci\'on de lo anterior se basa en la posbilidad de desglosar una soluci\'on $s$ en segmentos $seg_{n}$ donde $n$ se\~nala el n\'umero de segmento al que corresponde dentro de la soluci\'on $s$. El segmento $seg_1$ comienza con la primera arista/componente $c_{ij}$ asignada a la hormiga de acuerdo a la heur\'istica de asignaci\'on, y termina en el primer elemento $c_{ij}$ de calidad intermedia (sin incluirlo), siendo este mismo elemento el que inicia el segmento siguiente.
+Una modificaci\'on que se introduce en este trabajo con respecto a la aplicaci\'on de  feromonas y anti-feromonas es que estas com\'unmnente s\'olo se encuentran asociadas al componente $c_{ij}$ respectivo. Como variaci\'on para la individualizaci\'on/reconocimiento de filamentos, se propone asociar el valor de la anti-feromona no s\'olo con el componente $c_{ij}$, sino que adem\'as con uno o m\'as de los elementos que fueron elegidos en pasos anteriores por la hormiga que los selecciona. La explicaci\'on de lo anterior se basa en la posbilidad de desglosar una soluci\'on $s$ en segmentos $seg_{n}$ donde $n$ se\~nala el n\'umero de segmento al que corresponde dentro de la soluci\'on $s$. El segmento $seg_1$ comienza con la primera arista/componente $c_{ij}$ asignada a la hormiga de acuerdo a la heur\'istica de asignaci\'on, y termina en el primer elemento $c_{ij}$ con el que forma un \'angulo de calidad intermedia (sin incluirlo), siendo este mismo elemento el que inicia el segmento siguiente.
 %Existen $N + 1$ segmentos en $s$ si la soluci\'on contiene $N$ elementos $c_{ij} \in ]\theta, 90]$ (de calidad intermedia). 
 
 
-Luego, mediante la anti-feromona se relaciona un segmento $seg_n \subset s$ y la componente de soluci\'on $c_{ij} \in seg_{n+1} \in s$, cuya combinaci\'on es parte de una soluci\'on de mala calidad, con el fin de evitar que otras hormigas que pasen por $seg_n$ elijan $c_{ij}$. El rol de la anti-feromona es penalizar la probabilidad de elecci\'on de $c_{ij}$ para las hormigas que tengan al segmento $seg_n$ en la soluci\'on parcial $s^{P}$. Se debe destacar que esto es necesario ya que si s\'olo se utiliza la anti-feromona para penalizar $c_{ij}$, se puede ocasionar la perdida de capacidad de exploraci\'on de hormigas que provengan de otros recorridos parciales distintos a $seg_n$. 
+Luego, mediante la anti-feromona se relaciona un segmento $seg_n \subset s$ y la componente de soluci\'on $c_{ij} \in seg_{n+1} \in s$, cuya combinaci\'on es parte de una soluci\'on de mala calidad, con el fin de evitar que otras hormigas que pasen por $seg_n$ elijan $c_{ij}$. El rol de la anti-feromona es penalizar la probabilidad de elecci\'on de $c_{ij}$ para las hormigas que tengan al segmento $seg_n$ en su soluci\'on parcial $s^{P}$. Se debe destacar que esto es necesario ya que si s\'olo se utiliza la anti-feromona para penalizar $c_{ij}$, se puede ocasionar la perdida de capacidad de exploraci\'on de hormigas que provengan de otros recorridos parciales distintos a $seg_n$. La perdida de exploraci\'on tambi\'en sucede en el caso que el segmento $seg_{n+1}$ contenga solo 1 arista y no sea el segmento en el que finaliza el recorrido de la hormiga. Para subsanar aquel caso, a este tipo de segmentos se le a\~naden los nodos del segmento que lo precede, $seg_{n}$, con el objetivo de evitar que el an\'alisis del par $seg_{n+1}$ con la componente $c_{ij}$ que inicia el segmento $n+2$ sea s\'olo de 2 aristas.
 
 
-%Los componentes $c_{ij} \in ]\theta, MAX_ANGLE]$ (de calidad intermedia) son muy importantes, dado que es en estos elementos son los que representan la exploraci\'on de rutas de menor calidad en el corto plazo que pudiesen llevar a soluciones de buena calidad al finalizar el recorrido.
+Adicionalmente a lo anterior, se ha agregado un l\'imite de 2 penalizaciones como m\'aximo para cada anti-feromona. Al alcanzar este l\'imite, se reduce el valor de la anti-feromona a 0, haciendo imposible la elecci\'on de la componente de soluci\'on $c_{ij}$ para las hormigas cuya soluci\'on parcial $s^{P}$ contenga el segmento en el par componente,segmento penalizado.
 
 
-Finalmente, la ecuaci\'on \eqref{eq:antiPheroSAP} refleja la aplicaci\'on de las {\it anti-feromonas} sobre el par $\langle c_{ij}$,$ seg_{n}\rangle \forall c_{ij} \in ]\theta, MAX_ANGLE]$  donde $c_{ij} \in seg_{n+1}$, y cuya elecci\'on dio lugar a $seg_{n+1}$ que se aleja del desplazamiento axial m\'aximo que un filamento puede soportar.
+La anti-feromona se aplica sobre hormigas que han finalizado su recorrido y cuya calidad normalizada sea menor a {\it MAX\_SCORE}, ya que esto implica que al menos 1 de las aristas del recorrido es de calidad intermedia, necesitando un an\'alisis adicional para determinar si corresponde a una soluci\'on de buena calidad. El an\'alisis adicional consiste en evaluar la curvatura del recorrido, as\'i como la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a otro segmento contiguo. 
+
+La curvatura de recorrido de una hormiga $a$ es el \'angulo formado por el nodo inicial ($n_{a1}$), el centro de masa ($mc_{a}$) y el nodo final ($n_{af}$). Este \'angulo no debe superar el umbral definido al multiplicar el \'angulo $\theta$ por un factor denominado {\it MAX\_AXIAL\_DISPLACEMENT}. Este factor permite flexibilizar la tolerancia de la curvatura en base a $\theta$. Si el recorrido de la hormiga tiene un \'angulo igual o mayor al umbral, implica que la soluci\'on encontrada es demasiado curva para representar un filamento, por lo que se penaliza el par $\langle c_{ij}$,$ seg_{n}\rangle$ donde $c_{ij}$ es la componente de soluci\'on/arista que inicia el \'ultimo segmento de la hormiga, mientras que $seg_{n}$ es el segmento que lo precede. Posterior a la penalizaci\'on, se desecha la soluci\'on.
+
+El criterio de curvatura se refleja en la ecuaci\'on \eqref{eq:antiPheroSAP_Angle}.
+%\begin{equation}
+%    \label{eq:antiPheroSAP_Angle}
+%    \tau_{ij} \leftarrow \tau_{ij} \cdot \gamma \quad \forall \langle c_{ij},seg_{n}\rangle > \textrm{MAX\_AXIAL\_DISPLACEMENT}
+%\end{equation}
 
 \begin{equation}
-    \label{eq:antiPheroSAP}
-    \tau_{ij} \leftarrow \tau_{ij} \cdot \gamma \quad \forall \langle c_{ij},seg_{n}\rangle > \textrm{MAX\_AXIAL\_DISPLACEMENT}
+    \tau_{ij} = 
+        \begin{cases}
+        \tau_{ij} \cdot \gamma \text{ si } \measuredangle((n_{a1}, mc_{a}), (mc_{a}, n_{af})) < \theta \cdot \text{MAX\_AXIAL\_DISPLACEMENT}\\[3ex]
+        
+        \text{0 si } \tau_{ij} \leq 0.25 \\[3ex]
+        \tau_{ij} \quad \text{en otro caso}
+        \end{cases}
+    \label{eq:antiPheroSAP_Angle}
 \end{equation}
-%AGREGAR OTRAS CONDICIONES
+
+El an\'alisis respecto a la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a otro segmento contiguo se basa ...
+
+tindemans rod straightness \cite{hawkins2010model} of MTs
+
+\begin{equation}
+    \tau_{ij} = 
+        \begin{cases}
+        \tau_{ij} \cdot \gamma \text{ si } \measuredangle(seg_{n-1}, seg_{n}) > \theta \land \sin(\measuredangle(seg_{n-1}, seg_{n})) > \text{MAX\_AXIAL\_DISPLACEMENT}\\[3ex]
+        
+        \text{0 si } \tau_{ij} \leq 0.25 \\[3ex]
+        \tau_{ij} \quad \text{en otro caso}
+        \end{cases}
+    \label{eq:antiPheroSAP_Axial}
+\end{equation}
+
+Si ambas evaluaciones son completadas correctamente, se declara a la soluci\'on como de buena calidad.
+
+%Finalmente, la ecuaci\'on \eqref{eq:antiPheroSAP} refleja la aplicaci\'on de las {\it anti-feromonas} sobre el par $\langle c_{ij}$,$ seg_{n}\rangle \forall c_{ij} \in ]\theta, MAX\_ANGLE]$  donde $c_{ij} \in seg_{n+1}$, y cuya elecci\'on dio lugar a $seg_{n+1}$ que se aleja del desplazamiento axial m\'aximo que un filamento puede soportar.
 
 En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, es el caso de la individualizaci\'on de filamentos en esta investigaci\'on que existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
 
 \subsubsection{Inicializaci\'on de la metaheur\'istica ACO}
 
-En el paso de inicializaci\'on de ACO se deben definir valores para diversos par\'ametros relacionados a las feromonas y la heur\'istica. Del primero, se configura el valor inicial de $\tau_{ij}$ en 1 para los pares $\langle c_{ij}$,$ seg_{n}\rangle \forall c_{ij} \in ]\theta, 90]$, dado que al usar SAP esta probabilidad se ir\'a reduciendo seg\'un lo explicado en la secci\'on \ref{subsec:pheroUpdate}. Los dem\'as, tanto de feromonas como de heur\'istica, son par\'ametros libres, siendo modificables seg\'un el criterio del usuario. Los valores que se le asignan para la identificaci\'on de filamentos se indican en el cap\'itulo \ref{chap:res}.
+En el paso de inicializaci\'on de ACO se deben definir los valores de los par\'ametros relacionados a las feromonas y las heur\'isticas utilizadas. Para las feromonas se configura el valor inicial de $\tau_{ij}$ en 1 para los pares $\langle c_{ij}$,$ seg_{n}\rangle \forall c_{ij} \in ]\theta, MAX\_ANGLE]$, dado que al usar SAP esta probabilidad se ir\'a reduciendo de acuerdo a un factor $\gamma$ seg\'un lo explicado en la secci\'on \ref{subsec:pheroUpdate}. El valor de $\gamma$ se define en 0.5, en base a lo encontrado en la literatura.
 
-% \begin{table}[h]
-%     \centering
-%     \begin{tabular}{|c|c|}
-%          &  \\
-%          & 
-%     \end{tabular}
-%     \caption{Par\'ametros de metaheur\'istica ACO en la individualizaci\'on de filamentos}
-%     \label{tab:ACOparams}
-% \end{table}{}
+En el caso de los par\'ametros utilizados en diversas partes del modelo de optimizaci\'on, $\theta$ y {\it MAX\_AXIAL_DISPLACEMENT} se encuentran asociados al tipo de c\'elula que se observa, lo que debe ser indicado como informaci\'on a priori. Los valores de $\theta$ son de 30\textdegree para microt\'ubulos de planta y neuronas. Por su parte, {\it MAX\_AXIAL_DISPLACEMENT} recibe un valor de 1.5 para el caso de los microt\'ublos de planta o de 2.5 para las neuronas. Existen otras opciones de c\'elulas disponibles en la implementaci\'on del modelo de optimizaci\'on. El par\'ametro {\it MAX\_ANGLE} se define como el m\'aximo entre 2.5 veces $\theta$ y 90. El par\'ametro {\it MAX\_SCORE} utilizado por la heur\'istica miope se fija en 2.
 
-\begin{itemize}
-    \item Par\'ametros de Feromonas: $\alpha$, $\gamma$, el valor inicial de $\tau_{ij}$ y {\it MAX\_AXIAL\_DISPLACEMENT}
-    \item Par\'ametros de Heur\'istica: $\beta$, {\it MAX\_SCORE} y {\it MAX_ANGLE}
-\end{itemize}
+
+Por su parte, el criterio de finalizaci\'on consiste en generar nuevas hormigas hasta que todas las aristas sean parte de al menos una soluci\'on de buena calidad, o que el n\'umero de hormigas generadas sea superior a 4 veces la cantidad de aristas.
 
 
 En resumen, las condiciones del problema de identificaci\'on de filamentos dan pie a establecer su representaci\'on mediante un problema de optimizaci\'on de restricciones (COP), estando el modelo para la resoluci\'on del COP basado en la metaheur\'istica ACO para su resoluci\'on.
