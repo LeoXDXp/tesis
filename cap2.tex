@@ -5,7 +5,8 @@
 %problema previo, o problema 0 que consiste en la generaci\'on de un grafo a partir de una imagen que contenga una red, que en este caso, representaria a una red de filamentos. 
 
 En base lo expuesto en el cap\'itulo \ref{chap:stateoftheart}, para el enfoque de utilizar grafos para la individualizaci\'on de filamentos existe una brecha entre la obtenci\'on del grafo y su an\'alisis. Este paso previo, la extracci\'on de un grafo a partir de una imagen, lo denominamos como el problema previo o problema 0 y consiste en extraer un grafo $G = (V,E)$ de una imagen tal que $G$ sea un grafo simple, no dirigido, ponderado, conectado o desconectado, con o sin ciclos. Esto implica que exista a lo m\'as 1 arista por cada par de nodos adyacentes, prohibi\'endose la existencia de nodos conectados consigo mismos. Se definen los v\'ertices/nodos del grafo $G$ como $V(G)$ y las aristas de $G$ como $E(G)$. 
-Que el grafo $G$ sea ponderado se puede definir en $\forall e \in \quad E(G) \quad  \exists $ caracter\'isticas asociadas que se expresan como caracter\'isticas geom\'etricas, topol\'ogicas, espaciales y/u otras. Es importante evitar que $G$ sea un grafo completo, dado que con n nodos/v\'ertices $G$ tenga $\frac{n(n-1)}{2}$ aristas. 
+Que el grafo $G$ sea ponderado implica que para las aristas del grafo ($E(G)$), existen caracter\'isticas asociadas que se expresan como caracter\'isticas geom\'etricas, topol\'ogicas, espaciales y/u otras. Es importante evitar que $G$ sea un grafo completo, dado que con n nodos/v\'ertices $G$ llega a tener $\frac{n(n-1)}{2}$ aristas.
+%$\forall e \in \quad E(G) \quad  \exists $ 
 
 Algunas de las dificultades involucradas en la extracci\'on de informaci\'on a partir de una imagen se encuentran en los m\'etodos presentados en el cap\'itulo \ref{chap:stateoftheart}, dentro de las que destacan el ruido y la resoluci\'on. Un ejemplo de aquello se observa en la figura \ref{fig:NoConsenso}.
 
@@ -44,13 +45,13 @@ Algunas de las dificultades involucradas en la extracci\'on de informaci\'on a p
     \label{fig:NoConsenso}
 \end{figure*}
 
-Mientras que el ruido ha sido estudiado en la literatura, el problema de resoluci\'on de filamentos depende principalmente de la capacidad del microscopio que se utilice. Como se menciona en la introducci\'on, el l\'imite m\'aximo de resoluci\'on, denominado $\frac{\lambda}{2}$ determina  el tama\~no m\'inimo que 2 objetos que se encuentren juntos pueden tener para no observarse como un \'unico elemento. Lo anterior sucede para algunos tipos de filamentos como los microt\'ubulos que pueden medir tan solo 25 nan\'ometros, lo que se encuentra por debajo de $\frac{\lambda}{2}$ para diversos microscopios. 
+Mientras que el ruido ha sido estudiado en la literatura, el problema de resoluci\'on de filamentos depende principalmente de la capacidad del microscopio que se utilice. Como se menciona en la introducci\'on, el l\'imite m\'aximo de resoluci\'on, denominado $\frac{\lambda}{2}$, determina el tama\~no m\'inimo que 2 objetos que se encuentren juntos pueden tener para no observarse como un \'unico elemento. Lo anterior sucede para algunos tipos de filamentos como los microt\'ubulos que pueden medir tan solo 25 nan\'ometros, lo que se encuentra por debajo de $\frac{\lambda}{2}$ para diversos microscopios. 
 
 
 
 Una vez obtenido el grafo que representa una red de filamentos, el problema siguiente se encuentra en el que 2 expertos pueden discernir con respecto a los filamentos identificables en una imagen, por lo que no es posible conocer a priori del origen y el final de un filamento, para las resoluciones actuales de las imagenes obtenidas a partir de la microscop\'ia. Se añade como dificultad que dada la representaci\'on de un filamento en un grafo se basa en un conjuntos de aristas adyacentes (denominadas caminos), pudiendo significar la b\'usqueda en un universo de hasta $n!$ posibles combinaciones.
 
-A partir del problema anterior, el problema final lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, pudiendo representarse como un problema de optimizaci\'on combinatorial.
+A partir del problema anterior, el problema final en la individualizaci\'on de filamentos lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, pudiendo representarse como un problema de optimizaci\'on combinatorial.
 
 Los 3 problemas presentados se formalizan a continuaci\'on.
 
@@ -65,29 +66,37 @@ Es posible distinguir en 2 conjuntos los m\'etodos utilizados para extraer la in
 %En este trabajo se presenta un enfoque del segundo tipo.
 
 
-\subsection{Extracci\'on de un Grafo mediante Esqueletonizaci\'on}
+\subsection{P\'erdida de Informaci\'on utilizando Esqueletonizaci\'on para la Extracci\'on de un Grafo}
 
+%Que es la skeletonizacion y como extrae el grafo. Uso de liberia sknw
 
-\subsection{Generador Aproximado de Grafos a partir de una Imagen}
-
-Con el fin de aportar en automatizar la extracci\'on de informaci\'on de una imagen para la generaci\'on de un grafo que representa una red de filamentos, se construye una herramienta que en base a una imagen, construye lo que se denomina un grafo aproximado de la red de filamentos. El procedimiento consta de 3 pasos:
+%problema de skeleton
+Uno de los problemas asociados a la extracci\'on de un grafo mediante esqueletonizaci\'on es la perdida de informaci\'on de los p\'ixeles vecinos a los p\'ixeles que forman parte del esqueleto obtenido. Esta informaci\'on es relevante ya que puede reflejar informaci\'on geom\'etrica como ancho o puede ser \'util al obtener informaci\'on derivada mediante m\'etodos como {\it image moments}\cite{flusser2009moments}\cite{chaumette2004image}. En base a lo anterior, se desarrolla una herramienta que captura esta informaci\'on a partir de la imagen usada en el proceso de esqueletonizaci\'on. A su vez, con esta herramienta tambi\'en es posible construir un grafo de la red de filamentos, sin embargo, el resultado no es de alta calidad. El procedimiento consta de los siguientes pasos:
 % explicar que el hecho de G completo mediante lo q la arista es al problema de identificación de filamentos
 %presento el extractor aproximado de grafos, la noción de puntos cluster/superPixels/blobs y el centro de masa como representante, dado que se puede obtener de forma simple mediante los "image moments". Además, distintos niveles de image moments permiten obtener información adicional útil en la descripción del cluster.
 
 \begin{enumerate}
-    \item Se generan clusters, tambi\'en llamados {\it Super Pixels} mediante una agrupaci\'on en base a un kernel 3x3, que busca separar de forma local los pixels que corresponden a {\it background} respecto a los de {\it foreground}, siendo estos \'ultimos los que concentran el inter\'es para an\'alisis. La creaci\'on de clusters permite establecer la primera informaci\'on de vecindarios.
-    \item Cada cluster es representado por un nodo, ubicado en el centro de masa del {\it super pixel}. En conjunto con el centro de masa es posible obtener informaci\'on geom\'etrica mediante los {\it raw image moments}\cite{chaumette2004image} del cluster. En este punto tambi\'en se procede a realizar una uni\'on de clusters que evita la creaci\'on de aristas demasiado cortas entre 2 nodos, as\'i como la identificaci\'on de ciclos triangulares, que generan aberraciones en el grafo generado.
-    \item A partir de la informaci\'on de vecindario de los nodos definitivos obtenidos en el paso anterior, se generan aristas entre nodos vecinos. Se obtiene el largo e  informaci\'on angular para cada arista creada. %Esta \'ultima es utilizada m\'as adelante para definir puntos de partida de las hormigas.
+    \item Se generan clusters, tambi\'en llamados {\it super pixels} mediante una agrupaci\'on en base a un kernel de tama\~no 3x3, que busca separar de forma local los pixels que corresponden a {\it background} y no aportan informaci\'on, con respecto a los que son parte de la c\'elula observada ({\it foreground}), siendo estos \'ultimos los que concentran el inter\'es para el an\'alisis. La creaci\'on de clusters permite establecer la primera informaci\'on de vecindarios.
+    \item Cada cluster es representado por un nodo, ubicado en el centro de masa del {\it super pixel}. En conjunto con el centro de masa es posible obtener informaci\'on geom\'etrica mediante los {\it raw image moments}\cite{chaumette2004image} del cluster. En este punto tambi\'en se procede a realizar fusiones de clusters en base a 2 criterios: Aquellos clusters con un n\'umero de p\'ixeles inferior a un umbral definido por el par\'ametro {\it Max\_Thickness} y los clusters que s\'olo tengan 2 vecinos y se encuentren bajo un umbral de cercan\'ia definido por el par\'ametro {\it Connectivity\_Threshold}. El par\'ametro {\it Max\_Thickness} hace referencia al ancho promedio de un filamento en la imagen y es definido por el usuario, mientras que {\it Connectivity\_Threshold} es el resultado del m\'ultiplo entre {\it Max\_Thickness} y un factor que depende de la c\'elula observada, variando entre 0.4 y 0.5. Una de las ventajas de fusionar clusters bajo los criterios mencionados radica en identificar y eliminar ciclos triangulares entre vecinos, mejorando la informaci\'on de vecindarios, sirviendo como una heurística para limitar el n\'umero de nodos.
+    
+    %\item A partir de la informaci\'on de vecindario de los nodos definitivos obtenidos en el paso anterior, se generan aristas entre nodos vecinos. Se obtiene el largo e  informaci\'on angular para cada arista creada. %Esta \'ultima es utilizada m\'as adelante para definir puntos de partida de las hormigas.
 \end{enumerate}
 
-Se define como generador {\it aproximado} de grafos debido a que puede sufrir de peque\~nas desviaciones en la ubicaci\'on de los nodos y las aristas con respecto a lo que otras herramientas de esqueletonizaci\'on e identificaci\'on de intersecciones en conjunto pueden hacer en la misma tarea. Uno de los objetivos en la creaci\'on del generador {\it aproximado} de grafos se debe a que facilita el uso de im\'agenes encontradas en el estado del arte.
+Para asociar la informaci\'on de los vecindarios creados mediante los clusters con la informaci\'on extra\'ida mediante la esqueletonizaci\'on, se realiza un procedimiento similar al del paso 2, donde los nodos que representan clusters son fusionados con los nodo del esqueleto. 
+Utilizando la posici\'on del nodo del esqueleto como centro de una matrix de tama\~no 3x3, se obtienen los clusters a los que pertenecen estos p\'ixeles. los cuales son absorbidos por el nodo del esqueleto respectivo, formando un nuevo cluster. Este nuevo cluster reemplaza a los clusters absobidos, heredando los vecinos que estos ten\'ian, pero manteniendo la posici\'on del nodo del esqueleto.
 
-%La noción ppal es generar vecindarios, ya que el grafo debe contener información topológica como geométrica, ya que cada será la base para distintos criterios de categorización durante el proceso de individualización de filamentos. 
-El objetivo principal del generador en s\'i es el crear vecindarios, siendo esto la base de la informaci\'on topol\'ogica, que se suma a la informaci\'on geom\'etrica que se construye en los pasos descritos anteriormente. Un ejemplo de esto pueden ser los ciclos, dado que el n\'umero de vecinos que constituye el grado de cada nodo permite identificar la existencia de ciclos\cite{wilson1979introduction}, que son discriminantes importantes dependiendo del filamento que se analice. 
+%Se define como generador {\it aproximado} de grafos debido a que puede sufrir de peque\~nas desviaciones en la ubicaci\'on de los nodos y las aristas con respecto a lo que otras herramientas de esqueletonizaci\'on e identificaci\'on de intersecciones en conjunto pueden hacer en la misma tarea. Uno de los objetivos en la creaci\'on del generador {\it aproximado} de grafos se debe a que facilita el uso de im\'agenes encontradas en el estado del arte.
 
-%se destaca dentro de los criterios del generador aproximado de grafos a partir de una imagen se busca evitar perder información de la imagen, así como tener un costo computacional bajo, en conjunto con disminuir la interacción del usuario. 
+En el caso que no sea posible obtener grafo mediante la esqueletonizaci\'on de la imagen, esta herramienta considera un paso adicional al procedimiento de 2 pasos presentado previamente. El tercer paso consiste en generar aristas entre los nodos vecinos, en base a la informaci\'on de vecindario, obteniendo el largo e informaci\'on angular para cada arista creada. El grafo generado se denomina como un grafo aproximado, ya que puede presentar deformaciones.
 
-Otros objetivos del generador aproximado de grafos son evitar la perdida de informaci\'on durante la obtenci\'on del grafo, y evitar la perdida de informaci\'on. Esto \'ultimo puede suceder si se utiliza esqueletonizaci\'on de la imagen para obtener el grafo, dado que mediante el adelgazamiento utilizado se rompe la relaci\'on entre los p\'ixeles que conforman el elemento que se adelgaza y los p\'ixeles que constituyen el esqueleto obtenido. Se analizaron diversos filtros para obtener informaci\'on dentro de los que destacan {\it Gabor Gaussian kernels}, siendo descartado ya que se pierden detalles mediante el uso de {\it blurring} \cite{kerkeni2016coronary}, mientras que el filtro {\it Anistropic Diffusion} fue descartado por requerir de múltiples parámetros. En la misma linea, la elecci\'on de {\it image moments}\cite{flusser2009moments} se fundamenta en el estudio del filtro Frangi para {\it Veselness}\cite{frangi1998multiscale}\cite{fu2018frangi}, utilizado para filtrar estructuras alargadas, como lo son arterias y venas. Este filtro se basa en los eigenvectores y eigenvalores de la matriz Hessiana (ecuaci\'on \eqref{eq:HessianMat}) obtenida despu\'es de filtrar una imagen, obteniendo el {\it veselness value} o valor de cuan alargada es una estructura. 
+
+\subsection{Informaci\'on derivada}
+
+La recuperacu\'on de informaci\'on entre el esqueleto y los p\'ixeles que lo rodean permite obtener informaci\'on derivada ...
+
+
+
+Se analizaron diversos filtros para obtener informaci\'on dentro de los que destacan {\it Gabor Gaussian kernels}, siendo descartado ya que se pierden detalles mediante el uso de {\it blurring} \cite{kerkeni2016coronary}, mientras que el filtro {\it Anistropic Diffusion} fue descartado por requerir de múltiples parámetros. En la misma linea, la elecci\'on de {\it image moments}\cite{flusser2009moments} se fundamenta en el estudio del filtro Frangi para {\it Veselness}\cite{frangi1998multiscale}\cite{fu2018frangi}, utilizado para filtrar estructuras alargadas, como lo son arterias y venas. Este filtro se basa en los eigenvectores y eigenvalores de la matriz Hessiana (ecuaci\'on \eqref{eq:HessianMat}) obtenida despu\'es de filtrar una imagen, obteniendo el {\it veselness value} o valor de cuan alargada es una estructura. 
 
 \begin{equation}
     \label{eq:HessianMat}
@@ -147,12 +156,28 @@ As\'i, es posible construir una matriz de covarianza, equivalente a la matriz he
 \end{equation}
 \end{subequations}
 
+
+% informacion geometrica mediante calculo de angulos entre aristas
+
+%La noción ppal es generar vecindarios, ya que el grafo debe contener información topológica como geométrica, ya que cada será la base para distintos criterios de categorización durante el proceso de individualización de filamentos. 
+%El objetivo principal de la herramienta presentada es el crear vecindarios, siendo esto la base de la informaci\'on topol\'ogica, que se suma a la informaci\'on geom\'etrica que se construye en los pasos descritos anteriormente. Lo anterior es relevante dado que dependiendo del tipo de filamento, se pueden tener casos en los que . 
+
+
+
+
+La generaci\'on de un vecindario permite establecer o expandir la información topológica del grafo, as\'i como 
+
+
+Un ejemplo de esto pueden ser los ciclos, dado que el n\'umero de vecinos que constituye el grado de cada nodo permite identificar la existencia de ciclos\cite{wilson1979introduction}, que son discriminantes importantes dependiendo del filamento que se analice. 
+
+%se destaca dentro de los criterios del generador aproximado de grafos a partir de una imagen se busca evitar perder información de la imagen, así como tener un costo computacional bajo, en conjunto con disminuir la interacción del usuario. 
+
 La recopilaci\'on de informaci\'on de esta forma permite su posible uso en las etapas de la individualizaci\'on de filamentos.
 
 
-\subsubsection{Heurística para limitar el n\'umero de nodos}
+%\subsubsection{Heurística para limitar el n\'umero de nodos}
 %numero de nodos depende de apMaxThickness, q representa la resoluci\'on, es decir, cuantos micrometros se observan por pixel.
-En concordancia con lo expresado al inicio de este cap\'itulo, es necesario evitar que el grafo $G$ extra\'ido a partir de la imagen, sea completo. Con el fin de evitar esa condici\'on se desarrollan las estrategias mencionadas en el segundo paso del generador aproximado de grafos. Para la construcci\'on del grafo aproximado, el usuario dispone de un par\'ametro denominado {\it maxThickness} asociado al grosor m\'aximo que un filamento en la imagen de entrada puede tener. Se define que la distancia m\'inima entre 2 nodos no podr\'a ser inferior a un porcentaje de {\it maxThickness}, variando el porcentaje depenendiendo de lo que el usuario indique que se esta observando (microt\'ubulo, neurona, ret\'iculo u otro). En caso de no superar el umbral, los nodos se unen. Otra componente de la heur\'istica que limita la cantidad de v\'ertices es el n\'umero m\'inimo de p\'ixeles que cada cluster debe contener, la cual debe ser mayor que 1.5 veces {\it maxThickness}. Esto con la finalidad de evitar clusters muy peque\~nos, que lleva a la creaci\'on de demasiados nodos. 
+%En concordancia con lo expresado al inicio de este cap\'itulo, es necesario evitar que el grafo $G$ extra\'ido a partir de la imagen, sea completo. Con el fin de evitar esa condici\'on se desarrollan las estrategias mencionadas en el segundo paso del generador aproximado de grafos. Para la construcci\'on del grafo aproximado, el usuario dispone de un par\'ametro denominado {\it maxThickness} asociado al grosor m\'aximo que un filamento en la imagen de entrada puede tener. Se define que la distancia m\'inima entre 2 nodos no podr\'a ser inferior a un porcentaje de {\it maxThickness}, variando el porcentaje depenendiendo de lo que el usuario indique que se esta observando (microt\'ubulo, neurona, ret\'iculo u otro). En caso de no superar el umbral, los nodos se unen. Otra componente de la heur\'istica que limita la cantidad de v\'ertices es el n\'umero m\'inimo de p\'ixeles que cada cluster debe contener, la cual debe ser mayor que 1.5 veces {\it maxThickness}. Esto con la finalidad de evitar clusters muy peque\~nos, que lleva a la creaci\'on de demasiados nodos. 
 
 %Finalmente, se hace un an\'alisis topol\'ogico que evita la formaci\'on de ciclos triangulares
  
@@ -244,7 +269,7 @@ se lleva a cabo mediante el c\'alculo de una probabilidad para cada componente $
 \begin{enumerate}
 \item La arista a asignar debe tener al menos uno de sus nodos con grado 1, indicando que es el inicio o final de una parte del grafo.
 
-\item De no haber aristas con esas caracter\'isticas disponibles, se realiza una asignaci\'on inicial de una arista con uno de sus nodos con grado 2 o superior, siempre que uno de los nodos sea la uni\'on de esta arista con otra con la que conformen un \'angulo en el rango $]\theta, MAX\_ANGLE]$. $\theta$ es un umbral que define el \'angulo m\'aximo, en grados, bajo el que se considera que 2 aristas contiguas respetan la rectitud necesaria para formar parte del mismo filamento. $MAX\_ANGLE$ es un umbral que define el \'angulo m\'aximo, en grados, por sobre el cual se descarta de forma absoluta que 2 aristas contiguas forman parte del mismo filamentos. Este rango delimita los pares de aristas que a priori no representan combinaciones que respetan el criterio de rectitud, pero cuya explicaci\'on puede encontrarse en variaciones inducidas durante la extracci\'on del grafo desde la imagen, por lo que es necesario incorporar la exploraci\'on de estos pares de aristas.
+\item De no haber aristas con esas caracter\'isticas disponibles, se realiza una asignaci\'on inicial de una arista con uno de sus nodos con grado 2 o superior, siempre que uno de los nodos sea la uni\'on de esta arista con otra con la que conformen un \'angulo en el rango $]\theta, Max\_Angle]$. $\theta$ es un umbral que define el \'angulo m\'aximo, en grados, bajo el que se considera que 2 aristas contiguas respetan la rectitud necesaria para formar parte del mismo filamento. $Max\_Angle$ es un umbral que define el \'angulo m\'aximo, en grados, por sobre el cual se descarta de forma absoluta que 2 aristas contiguas forman parte del mismo filamentos. Este rango delimita los pares de aristas que a priori no representan combinaciones que respetan el criterio de rectitud, pero cuya explicaci\'on puede encontrarse en variaciones inducidas durante la extracci\'on del grafo desde la imagen, por lo que es necesario incorporar la exploraci\'on de estos pares de aristas.
 
 \item De no existir aristas con alg\'un nodo que cumpla con los dos criterios previos, es posible asignar una arista aleatoria siempre que esta no forme parte de un camino recorrido por otra hormiga que haya sido evaluado como de buena calidad.
 \end{enumerate}
@@ -260,7 +285,7 @@ P(c_{ij} | s^{P}) = \frac
 \label{eq:antProbabilities}
 \end{equation}
 
-Otro aspecto de la ecuaci\'on \eqref{eq:heuristicaMiope} radica en la posibilidad de elecci\'on de elementos $c_{ij}$ que tienen un \'angulo en el rango $]\theta, \text{MAX\_ANGLE}]$ con el componente de soluci\'on $c_{(i-1)j}$. Esto facilita la exploraci\'on de soluciones/caminos que de forma miope aparecen como de calidad no \'optima, y que para los efectos de este trabajo se denominan como de {\it calidad intermedia}. Esta evaluaci\'on consistente en disminuir la probabilidad de elecci\'on a medida que la diferencia entre el \'angulo que forman $c_{ij}$ y $c_{(i-1)j}$  , y la mitad de $\theta$ se incrementa.
+Otro aspecto de la ecuaci\'on \eqref{eq:heuristicaMiope} radica en la posibilidad de elecci\'on de elementos $c_{ij}$ que tienen un \'angulo en el rango $]\theta, \text{Max\_Angle}]$ con el componente de soluci\'on $c_{(i-1)j}$. Esto facilita la exploraci\'on de soluciones/caminos que de forma miope aparecen como de calidad no \'optima, y que para los efectos de este trabajo se denominan como de {\it calidad intermedia}. Esta evaluaci\'on consistente en disminuir la probabilidad de elecci\'on a medida que la diferencia entre el \'angulo que forman $c_{ij}$ y $c_{(i-1)j}$  , y la mitad de $\theta$ se incrementa.
 
 
 %donde cada uno representa a una arista en esta investigaci\'on, y . Al momento de que la diferencia sea 90\textdegree, la probabilidad de asignaci\'on se reduce al 50\% de la probabilidad de un componente $c_{ij} \in [0, \theta]$.
@@ -268,16 +293,16 @@ Otro aspecto de la ecuaci\'on \eqref{eq:heuristicaMiope} radica en la posibilida
 \begin{equation}
     \eta_{ij} = 
         \begin{cases} 
-        \text{MAX\_SCORE si } \measuredangle(c_{ij}, c_{(i-1)j}) \in [0, \theta]\\[3ex]
+        \text{Max\_Score si } \measuredangle(c_{ij}, c_{(i-1)j}) \in [0, \theta]\\[3ex]
         
-        \text{MAX\_SCORE} \cdot \left(1 - \dfrac{ \left| \measuredangle(c_{ij}, c_{(i-1)j}) - \frac{\theta}{2} \right|} {180} \right)  \text{ si } \measuredangle(c_{ij}, c_{(i-1)j}) \in \quad ]\theta, \text{MAX\_ANGLE}].\\[3ex]
+        \text{Max\_Score} \cdot \left(1 - \dfrac{ \left| \measuredangle(c_{ij}, c_{(i-1)j}) - \frac{\theta}{2} \right|} {180} \right)  \text{ si } \measuredangle(c_{ij}, c_{(i-1)j}) \in \quad ]\theta, \text{Max\_Angle}].\\[3ex]
         
         \text{0 en otro caso;}
         \end{cases}
     \label{eq:heuristicaMiope}
 \end{equation}
 
-Con la finalidad de cuantificar la calidad de la soluci\'on construida por una hormiga, en cada selecci\'on de arista realizada, se suma el resultado de la heur\'istica miope al valor que la calidad de la hormiga lleva hasta ese punto. Cada hormiga comienza con una calidad 0, que al finalizar el {\it tour} es dividida por el n\'umero de aristas menos 1, para normalizar. Se establece que para ser considerada una soluci\'on de buena calidad, la hormiga debe tener una calidad mayor o igual a $\frac{MAX\_SCORE}{2}$.
+Con la finalidad de cuantificar la calidad de la soluci\'on construida por una hormiga, en cada selecci\'on de arista realizada, se suma el resultado de la heur\'istica miope al valor que la calidad de la hormiga lleva hasta ese punto. Cada hormiga comienza con una calidad 0, que al finalizar el {\it tour} es dividida por el n\'umero de aristas menos 1, para normalizar. Se establece que para ser considerada una soluci\'on de buena calidad, la hormiga debe tener una calidad mayor o igual a $\frac{Max\_Score}{2}$.
     
 \subsubsection{M\'etodo de b\'usqueda no local}
 Una vez que la hormiga termina un {\it tour}, es posible agregar un m\'etodo de {\it feedback} sobre la calidad del recorrido realizado, basado en l\'ogicas globales/centralizadas que escapan de la b\'usqueda local que realiza cada hormiga. Estos m\'etodos, denominados {\it Daemon Actions} en ingl\'es, permiten en el caso de una metaheur\'istica ACO gen\'erica seleccionar las hormigas de mejor calidad para incrementar las feromonas m\'as alla de lo que la {\it Actualizaci\'on\_de\_feromonas()} lo hace. 
@@ -314,20 +339,20 @@ Luego, mediante la anti-feromona se relaciona un segmento $seg_n \subset s$ y la
 Adicionalmente a lo anterior, se ha agregado un l\'imite de 2 penalizaciones como m\'aximo para cada anti-feromona. Al alcanzar este l\'imite, se reduce el valor de la anti-feromona a 0, haciendo imposible la elecci\'on de la componente de soluci\'on $c_{ij}$ para las hormigas cuya soluci\'on parcial $s^{P}$ contenga el segmento en el par componente,segmento penalizado.
 
 
-La anti-feromona se aplica sobre hormigas que han finalizado su recorrido y cuya calidad normalizada sea menor a {\it MAX\_SCORE}, ya que esto implica que al menos 1 de las aristas del recorrido es de calidad intermedia, necesitando un an\'alisis adicional para determinar si corresponde a una soluci\'on de buena calidad. El an\'alisis adicional consiste en evaluar la curvatura del recorrido, as\'i como la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a otro segmento contiguo. 
+La anti-feromona se aplica sobre hormigas que han finalizado su recorrido y cuya calidad normalizada sea menor a {\it Max\_Score}, ya que esto implica que al menos 1 de las aristas del recorrido es de calidad intermedia, necesitando un an\'alisis adicional para determinar si corresponde a una soluci\'on de buena calidad. El an\'alisis adicional consiste en evaluar la curvatura del recorrido, as\'i como la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a otro segmento contiguo. 
 
-La curvatura de recorrido de una hormiga $a$ es el \'angulo formado por el nodo inicial ($n_{a1}$), el centro de masa de la misma hormiga ($mc_{a}$) y el nodo final ($n_{af}$). Este \'angulo no debe superar el umbral definido al multiplicar el \'angulo $\theta$ por un factor denominado {\it MAX\_AXIAL\_DISPLACEMENT}. Este factor permite flexibilizar la tolerancia de la curvatura en base a $\theta$. Si el recorrido de la hormiga tiene un \'angulo igual o mayor al umbral, implica que la soluci\'on encontrada es demasiado curva para representar un filamento, por lo que se penaliza el par $\langle c_{ij}$,$ seg_{n}\rangle$ donde $c_{ij}$ es la componente de soluci\'on/arista que inicia el \'ultimo segmento de la hormiga, mientras que $seg_{n}$ es el segmento que lo precede. Posterior a la penalizaci\'on, se desecha la soluci\'on.
+La curvatura de recorrido de una hormiga $a$ es el \'angulo formado por el nodo inicial ($n_{a1}$), el centro de masa de la misma hormiga ($mc_{a}$) y el nodo final ($n_{af}$). Este \'angulo no debe superar el umbral definido al multiplicar el \'angulo $\theta$ por un factor denominado {\it Max\_Axial\_Displacement}. Este factor permite flexibilizar la tolerancia de la curvatura en base a $\theta$. Si el recorrido de la hormiga tiene un \'angulo igual o mayor al umbral, implica que la soluci\'on encontrada es demasiado curva para representar un filamento, por lo que se penaliza el par $\langle c_{ij}$,$ seg_{n}\rangle$ donde $c_{ij}$ es la componente de soluci\'on/arista que inicia el \'ultimo segmento de la hormiga, mientras que $seg_{n}$ es el segmento que lo precede. Posterior a la penalizaci\'on, se desecha la soluci\'on.
 
 El criterio de curvatura se refleja en la ecuaci\'on \eqref{eq:antiPheroSAP_Angle}.
 %\begin{equation}
 %    \label{eq:antiPheroSAP_Angle}
-%    \tau_{ij} \leftarrow \tau_{ij} \cdot \gamma \quad \forall \langle c_{ij},seg_{n}\rangle > \textrm{MAX\_AXIAL\_DISPLACEMENT}
+%    \tau_{ij} \leftarrow \tau_{ij} \cdot \gamma \quad \forall \langle c_{ij},seg_{n}\rangle > \textrm{Max\_Axial\_Displacement}
 %\end{equation}
 
 \begin{equation}
     \tau_{ij} \leftarrow
         \begin{cases}
-        \tau_{ij} \cdot \gamma \text{ si } \measuredangle((n_{a1}, mc_{a}), (mc_{a}, n_{af})) < \theta \cdot \text{MAX\_AXIAL\_DISPLACEMENT}\\[3ex]
+        \tau_{ij} \cdot \gamma \text{ si } \measuredangle((n_{a1}, mc_{a}), (mc_{a}, n_{af})) < \theta \cdot \text{Max\_Axial\_Displacement}\\[3ex]
         
         \text{0 si } \tau_{ij} \leq 0.25 \\[3ex]
         \tau_{ij} \quad \text{en otro caso}
@@ -338,7 +363,7 @@ El criterio de curvatura se refleja en la ecuaci\'on \eqref{eq:antiPheroSAP_Angl
 %agregar referencia? tindemans rod straightness \cite{hawkins2010model} of MTs o 
 El an\'alisis respecto a la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a los segmentos que lo preceden se fundamenta en la rigidez que algunos tipos de filamentos, como los microt\'ubulos y los filamentos de actina poseen\cite{stam2017filament}. El criterio de rigidez consiste en analizar los segmentos con respecto a la totalidad de sus predecesores, comenzando por el \'ultimo segmento recorrido por la hormiga, es decir, desde el extremo final de la soluci\'on. A partir de cada par de segmento-predecesores, $\langle seg_{n}$,$seg_{1,n-1}\rangle$, se debe seleccionar el miembro del par de mayor longitud, definido como $s_{max} = \max(\norm{seg_{n}}, \norm{seg_{1,n-1}})$, para calcular el \'angulo suplementario que forma con respecto al otro miembro del par, definido como $s_{min}$. El \'angulo suplementario, $\measuredangle supl(s_{max},s_{min})$ es el equivalente a calcular el \'angulo entre la proyecci\'on de $s_{max}$ y $s_{min}$.
 
-Luego $s_{min}$ es multiplicado por el seno del \'angulo suplementario, estableciendo el desplazamiento con respecto al eje que forma $s_{max}$ y su proyecci\'on. El umbral que delimita al desplazamiento calculado previamente se define como el m\'ultiplo de $s_{max}$ por 10\% de {\it MAX\_AXIAL\_DISPLACEMENT}. 
+Luego $s_{min}$ es multiplicado por el seno del \'angulo suplementario, estableciendo el desplazamiento con respecto al eje que forma $s_{max}$ y su proyecci\'on. El umbral que delimita al desplazamiento calculado previamente se define como el m\'ultiplo de $s_{max}$ por 10\% de {\it Max\_Axial\_Displacement}. 
 
 Si el \'angulo suplementario es menor a $\theta$, se puede declarar que se cumple el criterio de rigidez. Lo anterior se refleja en la ecuaci\'on \eqref{eq:antiPheroSAP_Axial}. 
 
@@ -349,7 +374,7 @@ Si el \'angulo suplementario es menor a $\theta$, se puede declarar que se cumpl
     \tau_{ij} \leftarrow
         \begin{cases}
         \begin{split}
-         \tau_{ij} \cdot \gamma \text{ si } & \sin(\measuredangle supl(s_{max},s_{min}) > s_{min} \cdot 0.1 \cdot \text{MAX\_AXIAL\_DISPLACEMENT} \\ & \land \measuredangle supl(s_{max},s_{min}) > \theta    
+         \tau_{ij} \cdot \gamma \text{ si } & \sin(\measuredangle supl(s_{max},s_{min}) > s_{min} \cdot 0.1 \cdot \text{Max\_Axial\_Displacement} \\ & \land \measuredangle supl(s_{max},s_{min}) > \theta    
         \end{split}
         \\[3ex]
         
@@ -361,15 +386,15 @@ Si el \'angulo suplementario es menor a $\theta$, se puede declarar que se cumpl
 
 Si ambas evaluaciones son completadas correctamente, se declara a la soluci\'on como de buena calidad.
 
-%Finalmente, la ecuaci\'on \eqref{eq:antiPheroSAP} refleja la aplicaci\'on de las {\it anti-feromonas} sobre el par $\langle c_{ij}$,$ seg_{n}\rangle \forall c_{ij} \in ]\theta, MAX\_ANGLE]$  donde $c_{ij} \in seg_{n+1}$, y cuya elecci\'on dio lugar a $seg_{n+1}$ que se aleja del desplazamiento axial m\'aximo que un filamento puede soportar.
+%Finalmente, la ecuaci\'on \eqref{eq:antiPheroSAP} refleja la aplicaci\'on de las {\it anti-feromonas} sobre el par $\langle c_{ij}$,$ seg_{n}\rangle \forall c_{ij} \in ]\theta, Max\_Angle]$  donde $c_{ij} \in seg_{n+1}$, y cuya elecci\'on dio lugar a $seg_{n+1}$ que se aleja del desplazamiento axial m\'aximo que un filamento puede soportar.
 
 En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, se destaca que en el caso de la individualizaci\'on de filamentos existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
 
 \subsubsection{Inicializaci\'on de la metaheur\'istica ACO}
 
-En el paso de inicializaci\'on de ACO se deben definir los valores de los par\'ametros relacionados a las feromonas y las heur\'isticas utilizadas. Para las feromonas se configura el valor inicial de $\tau_{ij}$ en 1 para los pares $\langle c_{ij}$,$ seg_{n}\rangle \> \forall c_{ij} \in \> ]\theta, MAX\_ANGLE]$, dado que al usar SAP esta probabilidad se ir\'a reduciendo de acuerdo a un factor $\gamma$ seg\'un lo explicado en la secci\'on \ref{subsec:pheroUpdate}. El valor de $\gamma$ se define en 0.5, en base a lo encontrado en la literatura.
+En el paso de inicializaci\'on de ACO se deben definir los valores de los par\'ametros relacionados a las feromonas y las heur\'isticas utilizadas. Para las feromonas se configura el valor inicial de $\tau_{ij}$ en 1 para los pares $\langle c_{ij}$,$ seg_{n}\rangle \> \forall c_{ij} \in \> ]\theta, Max\_Angle]$, dado que al usar SAP esta probabilidad se ir\'a reduciendo de acuerdo a un factor $\gamma$ seg\'un lo explicado en la secci\'on \ref{subsec:pheroUpdate}. El valor de $\gamma$ se define en 0.5, en base a lo encontrado en la literatura.
 
-En el caso de los par\'ametros utilizados en diversas partes del modelo de optimizaci\'on, $\theta$ y {\it MAX\_AXIAL\_DISPLACEMENT} se encuentran asociados al tipo de c\'elula que se observa, lo que debe ser indicado como informaci\'on a priori. Los valores de $\theta$ son de 30\textdegree ~para microt\'ubulos de planta y neuronas. Por su parte, {\it MAX\_AXIAL\_DISPLACEMENT} recibe un valor de 1.5 para el caso de los microt\'ublos de planta o de 2.5 para las neuronas. Existen otras opciones de c\'elulas disponibles en la implementaci\'on del modelo de optimizaci\'on. El par\'ametro {\it MAX\_ANGLE} se define como el m\'aximo entre 2.5 veces $\theta$ y 90. El par\'ametro {\it MAX\_SCORE} utilizado por la heur\'istica miope se fija en 2.
+En el caso de los par\'ametros utilizados en diversas partes del modelo de optimizaci\'on, $\theta$ y {\it Max\_Axial\_Displacement} se encuentran asociados al tipo de c\'elula que se observa, lo que debe ser indicado como informaci\'on a priori. Los valores de $\theta$ son de 30\textdegree ~para microt\'ubulos de planta y neuronas. Por su parte, {\it Max\_Axial\_Displacement} recibe un valor de 1.5 para el caso de los microt\'ublos de planta o de 2.5 para las neuronas. Existen otras opciones de c\'elulas disponibles en la implementaci\'on del modelo de optimizaci\'on. El par\'ametro {\it Max\_Angle} se define como el m\'aximo entre 2.5 veces $\theta$ y 90. El par\'ametro {\it Max\_Score} utilizado por la heur\'istica miope se fija en 2.
 
 
 Por su parte, el criterio de finalizaci\'on consiste en generar nuevas hormigas hasta que todas las aristas sean parte de al menos una soluci\'on de buena calidad, o que el n\'umero de hormigas generadas sea superior a 4 veces la cantidad de aristas.
