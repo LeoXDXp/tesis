@@ -92,10 +92,9 @@ Utilizando la posici\'on del nodo del esqueleto como centro de una matrix de tam
 En el caso que no sea posible obtener grafo mediante la esqueletonizaci\'on de la imagen, esta herramienta considera un paso adicional al procedimiento de 2 pasos presentado previamente. El tercer paso consiste en generar aristas entre los nodos vecinos, en base a la informaci\'on de vecindario, obteniendo el largo e informaci\'on angular para cada arista creada. El grafo generado se denomina como un grafo aproximado, ya que puede presentar deformaciones.
 
 
-\subsection{Extracci\'on de Informaci\'on Adicional}
+\subsection{Obtenci\'on de Informaci\'on Adicional}
 
-Para dar uso a la informaci\'on recuperada de acuerdo a lo expresado en la secci\'on \ref{subsec:infoLossSkel}, se analizaron diversos filtros asociados a describir estructuras alargadas, como {\it Gabor Gaussian kernels}, {\it Anistropic Diffusion} y Frangi para {\it Veselness}. Los filtros {\it Gabor Gaussian kernels} y {\it Anistropic Diffusion} fueron descartados debido a que el primero pierde detalles debido al uso de {\it blurring}77 \cite{kerkeni2016coronary}, mientras que el segundo requiere de elegir múltiples parámetros, lo que agrega complejidad al prop\'osito de automatizar el an\'alisis. 
-Por su parte, el filtro Frangi para {\it Veselness}\cite{frangi1998multiscale}\cite{fu2018frangi}, cuantifica cuan alargada es una estructura ({\it veselness value}), en basa en los eigenvectores y eigenvalores de la matriz Hessiana (ecuaci\'on \eqref{eq:HessianMat}) posterior al filtrado de una imagen. Este filtro, utilizado en el filtrado de estructuras alargadas como arterias y venas, se puede replicar mediante el an\'alisis de p\'ixeles con {\it image moments}\cite{flusser2009moments}.
+Para dar uso a la informaci\'on recuperada de acuerdo a lo expresado en la secci\'on \ref{subsec:infoLossSkel}, se analizaron diversos filtros \'utiles para describir estructuras alargadas, como {\it Gabor}, {\it Anistropic Diffusion} y Frangi para {\it Veselness}. El filtro Frangi para {\it Veselness}\cite{frangi1998multiscale}\cite{fu2018frangi}, cuantifica cuan alargada es una estructura ({\it veselness value}), en base a los eigenvectores y eigenvalores de la matriz Hessiana (ecuaci\'on \eqref{eq:HessianMat}) posterior a la aplicaci\'on de uno o varios filtros Gaussianos para suavizar una imagen. Este filtro es utilizado en la detecci\'on de estructuras alargadas como arterias y venas, pudiendo replicarse parcialmente mediante el an\'alisis de p\'ixeles con {\it image moments}\cite{flusser2009moments}. La posibilidad de replicar el filtro de Frangi, sin necesidad de configurar par\'ametros, es lo que llev\'o a elegirlo por sobre las otras opciones.
 
 \begin{equation}
     \label{eq:HessianMat}
@@ -155,35 +154,14 @@ As\'i, es posible construir una matriz de covarianza, equivalente a la matriz he
 \end{equation}
 \end{subequations}
 
+Con los valores de $\lambda$, es posible calcular caracter\'isticas de una estructura alargada como su excentricidad o su eje principal de inercia. Estas medidas pueden ayudar a mejorar la clasificaci\'on de segmentos del grafo durante la identificaci\'on de filamentos.
+
 
 % informacion geometrica mediante calculo de angulos entre aristas
-
-%La noción ppal es generar vecindarios, ya que el grafo debe contener información topológica como geométrica, ya que cada será la base para distintos criterios de categorización durante el proceso de individualización de filamentos. 
-%El objetivo principal de la herramienta presentada es el crear vecindarios, siendo esto la base de la informaci\'on topol\'ogica, que se suma a la informaci\'on geom\'etrica que se construye en los pasos descritos anteriormente. Lo anterior es relevante dado que dependiendo del tipo de filamento, se pueden tener casos en los que . 
+Un manera adicional de generar informaci\'on que facilite la discriminaci\'on de secciones del grafo es a trav\'es del c\'alculo de los \'angulos entre las aristas del grafo. Esto se relaciona a la propiedad de rigidez que tienen los filamentos, la que var\'ia dependiendo de la c\'elula en la que se encuentre el filamento, pudiendo delimitar la agrupaci\'on de aristas. Finalmente, para el caso de los nodos, el an\'alisis del grado de cada uno permite identificar la existencia de ciclos\cite{wilson1979introduction} en un filamento. La propiedad de un filamento de poder o no tener un ciclo es informaci\'on disponible priori que depende del tipo de c\'elula observada, permitiendo limitar posibles asociaciones entre nodos.
 
 
-
-
-La generaci\'on de un vecindario permite establecer o expandir la información topológica del grafo, as\'i como 
-
-
-Un ejemplo de esto pueden ser los ciclos, dado que el n\'umero de vecinos que constituye el grado de cada nodo permite identificar la existencia de ciclos\cite{wilson1979introduction}, que son discriminantes importantes dependiendo del filamento que se analice. 
-
-%se destaca dentro de los criterios del generador aproximado de grafos a partir de una imagen se busca evitar perder información de la imagen, así como tener un costo computacional bajo, en conjunto con disminuir la interacción del usuario. 
-
-La recopilaci\'on de informaci\'on de esta forma permite su posible uso en las etapas de la individualizaci\'on de filamentos.
-
-
-%\subsubsection{Heurística para limitar el n\'umero de nodos}
-%numero de nodos depende de apMaxThickness, q representa la resoluci\'on, es decir, cuantos micrometros se observan por pixel.
-%En concordancia con lo expresado al inicio de este cap\'itulo, es necesario evitar que el grafo $G$ extra\'ido a partir de la imagen, sea completo. Con el fin de evitar esa condici\'on se desarrollan las estrategias mencionadas en el segundo paso del generador aproximado de grafos. Para la construcci\'on del grafo aproximado, el usuario dispone de un par\'ametro denominado {\it maxThickness} asociado al grosor m\'aximo que un filamento en la imagen de entrada puede tener. Se define que la distancia m\'inima entre 2 nodos no podr\'a ser inferior a un porcentaje de {\it maxThickness}, variando el porcentaje depenendiendo de lo que el usuario indique que se esta observando (microt\'ubulo, neurona, ret\'iculo u otro). En caso de no superar el umbral, los nodos se unen. Otra componente de la heur\'istica que limita la cantidad de v\'ertices es el n\'umero m\'inimo de p\'ixeles que cada cluster debe contener, la cual debe ser mayor que 1.5 veces {\it maxThickness}. Esto con la finalidad de evitar clusters muy peque\~nos, que lleva a la creaci\'on de demasiados nodos. 
-
-%Finalmente, se hace un an\'alisis topol\'ogico que evita la formaci\'on de ciclos triangulares
- 
-
-%A su vez, otro motivo para evitar que $G$ sea un grafo completo radica en que para los filamentos observados en la naturaleza no es una condici\'on comun... no encuentro la fuente de esto
-
-%Un grafo completamente conectado puede tener n(n-1)/2 aristas, lo que para un n muy grande puede implicar un costo computacional se aplicó como estrategía: Node Pruning: parametro apMaxThickness y connectivityThreshold manuales. Arbitrariamente n\textdegree neighbors > 2. también se fija un límite de memoria ram
+%se destaca dentro de los criterios: busca evitar perder información de la imagen/ampliar la informacion así como tener un costo computacional bajo, en conjunto con disminuir la interacción del usuario. 
 
 
 % ambas opciones generan degeneraciones/deformaciones q afectan
@@ -192,6 +170,8 @@ definir que los segmentos/caminos/path son conjuntos de aristas adyacentes conec
 Un camino simple es equivalente a un \'arbol simple, ac\'clico...
 
 
+%Un grafo completamente conectado puede tener n(n-1)/2 aristas, lo que para un n muy grande puede implicar un costo computacional alto
+%A su vez, otro motivo para evitar que $G$ sea un grafo completo radica en que para los filamentos observados en la naturaleza no es una condici\'on comun... no encuentro la fuente de esto
 En un grafo con n aristas, en el cual se desconoce el origen y el final los caminos, el n\'umero de combinaciones crece exponencialmente (agregar \cite{buchin2007number}\cite{biswas2012hamiltonian}). Denominamos todas estas opciones de caminos como el conjunto $P$, del cual debemos extraer un subconjunto $P'$ mediante una estrategia que permita realizar esto en tiempo polinomial independientemente de la cantidad de aristas del grafo.
 
 \begin{equation}
