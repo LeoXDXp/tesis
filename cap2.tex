@@ -4,7 +4,7 @@
 
 %problema previo, o problema 0 que consiste en la generaci\'on de un grafo a partir de una imagen que contenga una red, que en este caso, representaria a una red de filamentos. 
 
-En base lo expuesto en el cap\'itulo \ref{chap:stateoftheart}, para el enfoque de utilizar grafos para la individualizaci\'on de filamentos existe una brecha entre la obtenci\'on del grafo y su an\'alisis. Este paso previo, la extracci\'on de un grafo a partir de una imagen, lo denominamos como el problema previo o problema 0 y consiste en extraer un grafo $G = (V,E)$ de una imagen tal que $G$ sea un grafo simple, no dirigido, ponderado, conectado o desconectado, con o sin ciclos. Esto implica que exista a lo m\'as 1 arista por cada par de nodos adyacentes, prohibi\'endose la existencia de nodos conectados consigo mismos. Se definen los v\'ertices/nodos del grafo $G$ como $V(G)$ y las aristas de $G$ como $E(G)$. 
+En base lo expuesto en el cap\'itulo \ref{chap:stateoftheart}, para el enfoque de utilizar grafos para la individualizaci\'on de filamentos existe una brecha entre la obtenci\'on del grafo y su an\'alisis. Este paso previo, la extracci\'on de un grafo a partir de una imagen, consiste en extraer un grafo $G = (V,E)$ de una imagen tal que $G$ sea un grafo simple, no dirigido, ponderado, conectado o desconectado, con o sin ciclos. Esto implica que exista a lo m\'as 1 arista por cada par de nodos adyacentes, prohibi\'endose la existencia de nodos conectados consigo mismos. Se definen los v\'ertices/nodos del grafo $G$ como $V(G)$ y las aristas de $G$ como $E(G)$. 
 Que el grafo $G$ sea ponderado implica que para las aristas del grafo ($E(G)$), existen caracter\'isticas asociadas que se expresan como caracter\'isticas geom\'etricas, topol\'ogicas, espaciales y/u otras. Es importante evitar que $G$ sea un grafo completo, dado que con n nodos/v\'ertices $G$ llega a tener $\frac{n(n-1)}{2}$ aristas.
 %$\forall e \in \quad E(G) \quad  \exists $ 
 
@@ -49,7 +49,7 @@ Mientras que el ruido ha sido estudiado en la literatura, el problema de resoluc
 
 
 
-Una vez obtenido el grafo que representa una red de filamentos, el problema siguiente se encuentra en el que 2 expertos pueden discernir con respecto a los filamentos identificables en una imagen, por lo que no es posible conocer a priori del origen y el final de un filamento, para las resoluciones actuales de las imagenes obtenidas a partir de la microscop\'ia. Se añade como dificultad que dada la representaci\'on de un filamento en un grafo se basa en un conjuntos de aristas adyacentes (denominadas caminos), pudiendo significar la b\'usqueda en un universo de hasta $n!$ posibles combinaciones.
+Una vez obtenido el grafo que representa una red de filamentos, el problema siguiente se encuentra en el que 2 expertos pueden discernir con respecto a los filamentos identificables en una imagen, por lo que no es posible conocer a priori del origen y el final de un filamento, para las resoluciones actuales de las imagenes obtenidas a partir de la microscop\'ia. Una dificultad adicional se presenta en la representaci\'on de un filamento en un grafo, ya que esta se basa en un conjunto de aristas adyacentes, denominadas caminos o recorridos, lo que lleva a tener un universo de hasta $n!$ posibles combinaciones en el espacio de soluciones en el que se busca un camino.
 
 A partir del problema anterior, el problema final en la individualizaci\'on de filamentos lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, pudiendo representarse como un problema de optimizaci\'on combinatorial.
 
@@ -158,52 +158,62 @@ Con los valores de $\lambda$, es posible calcular caracter\'isticas de una estru
 
 
 % informacion geometrica mediante calculo de angulos entre aristas
-Un manera adicional de generar informaci\'on que facilite la discriminaci\'on de secciones del grafo es a trav\'es del c\'alculo de los \'angulos entre las aristas del grafo. Esto se relaciona a la propiedad de rigidez que tienen los filamentos, la que var\'ia dependiendo de la c\'elula en la que se encuentre el filamento, pudiendo delimitar la agrupaci\'on de aristas. Finalmente, para el caso de los nodos, el an\'alisis del grado de cada uno permite identificar la existencia de ciclos\cite{wilson1979introduction} en un filamento. La propiedad de un filamento de poder o no tener un ciclo es informaci\'on disponible priori que depende del tipo de c\'elula observada, permitiendo limitar posibles asociaciones entre nodos.
+Un manera adicional de generar informaci\'on que facilite la discriminaci\'on de secciones del grafo es a trav\'es del c\'alculo de los \'angulos entre las aristas del grafo. Esto se relaciona a criterio de rectitud que tienen los filamentos, que var\'ia dependiendo de la c\'elula a la que pertenezca. Este comportamiento de los filamentos permite delimitar el \'angulo m\'aximo que 2 aristas contiguas pueden tener para ser considerados parte del mismo filamento, denomin\'andose este umbral como $Max\_Angle$. Cualquier valor por sobre $Max\_Angle$ permite descartar de forma absoluta esa combinanci\'on de aristas para un mismo filamento. 
 
+
+A su vez, este criterio posee un segundo umbral, definido como $\theta$  que define el \'angulo m\'aximo bajo el que se considera que 2 aristas contiguas respetan con certeza la rectitud necesaria para formar parte del mismo filamento. Es decir, si 2 aristas contiguas forman un \'angulo en el rango $[0, \theta]$, deben ser parte del mismo filamento. El rango entre ambos umbrales, $]\theta, Max\_Angle]$ delimita los pares de aristas que a priori no representan combinaciones que respetan el criterio de rectitud, pero cuya explicaci\'on puede encontrarse en variaciones inducidas durante la extracci\'on del grafo desde la imagen, por lo que es necesario incorporar la exploraci\'on de estos pares de aristas.
+
+
+Finalmente, para el caso de los nodos, el an\'alisis del grado de cada uno permite identificar la existencia de ciclos\cite{wilson1979introduction} en un filamento. La propiedad de un filamento de poder o no tener un ciclo es informaci\'on disponible priori que depende del tipo de c\'elula observada, permitiendo limitar posibles asociaciones entre nodos. En el caso particular de no permitir ciclos, un filamento no podr\'ia pasar m\'as de una vez por cada nodo que lo conforma. 
 
 %se destaca dentro de los criterios: busca evitar perder información de la imagen/ampliar la informacion así como tener un costo computacional bajo, en conjunto con disminuir la interacción del usuario. 
 
 
 % ambas opciones generan degeneraciones/deformaciones q afectan
 \section{Exploraci\'on del Espacio de Soluciones}
-definir que los segmentos/caminos/path son conjuntos de aristas adyacentes conectadas, o de nodos ..., que cumplen con restricciones, como la restricción angular o restricciones de ciclos (formula matem\'atica) y que los filamento son elegidos entre los caminos de mayor calidad
-Un camino simple es equivalente a un \'arbol simple, ac\'clico...
 
+La b\'usqueda de conjuntos de nodos o aristas adyacentes (denominados caminos) en un grafo, para individualizar uno o m\'as filamentos, constituye un espacio de soluciones que no es posible de recorrer en tiempo polinomial, dado que sin restricciones las combinaciones crecen exponencialmente\cite{buchin2007number}\cite{biswas2012hamiltonian}. Un planteamiento similar a lo anterior es el {\it Path Cover Problem} o PCP, en el que se descompone un grafo dirigido en caminos con el objetivo de obtener un conjunto de caminos. Cada nodo o arista debe pertenecer exactamente a un camino y los caminos pueden comenzar o terminar en cualquier parte del grafo.
+
+En el caso de la individualizaci\'on de filamentos, es necesario que la definici\'on del problema considere como v\'alidos caminos que representen los casos de filamentos con o sin ciclos, as\'i como superposici\'on y/o cruce. Lo anterior impide forzar la pertenencia de un nodo o arista a un s\'olo camino. 
+
+% explicar define: como lo hace define? y como se observa la potencial perdida de soluciones factibles al usar un solo criterio
+La investigaci\'on de \cite{breuer2015define} (DeFiNe) descrita brevemente en el cap\'itulo \ref{chap:stateoftheart} presenta el {\it Filament Cover Problem} o FCP como una extensi\'on del PCP, flexibilizando la pertenencia de cada arista a al menos un camino. Adem\'as plantean como funci\'on objetivo la minimizaci\'on de la diferencia de la homogeneidad (aspereza) entre las aristas que componen un camino. Para acotar el espacio de soluciones, los autores de DeFiNe proponen 2 heur\'isticas fundamentando que el FCP en \'arboles en vez de grafos es soluble en tiempo polinomial. Aquello se basa en lo definido por \cite{lin2006vertex} que indica que para un problema de {\it covering}, existe un {\it Set System} $(S,C)$, donde S es el conjunto total y finito de sets, y C es un conjunto de subsets pertenecientes a S. En el caso espec\'ifico del {\it Minimum Set Cover}(SC), el objetivo es encontrar un subconjunto $C'$ de $C$ tal que cada elemento de $S$ pertenezca al menos 1 vez a uno de los miembros de $C'$.
 
 %Un grafo completamente conectado puede tener n(n-1)/2 aristas, lo que para un n muy grande puede implicar un costo computacional alto
 %A su vez, otro motivo para evitar que $G$ sea un grafo completo radica en que para los filamentos observados en la naturaleza no es una condici\'on comun... no encuentro la fuente de esto
-En un grafo con n aristas, en el cual se desconoce el origen y el final los caminos, el n\'umero de combinaciones crece exponencialmente (agregar \cite{buchin2007number}\cite{biswas2012hamiltonian}). Denominamos todas estas opciones de caminos como el conjunto $P$, del cual debemos extraer un subconjunto $P'$ mediante una estrategia que permita realizar esto en tiempo polinomial independientemente de la cantidad de aristas del grafo.
 
-\begin{equation}
-p = (e_1, e_2,..., e_n)\\
-p = ((v_1,v_2), (v_2,v_4),..., (v_n-1,v_n))
-\label{eq:path}
-\end{equation}
+%Denominamos todas estas opciones de caminos como el conjunto $P$, del cual debemos extraer un subconjunto $P'$ mediante una estrategia que permita realizar esto en tiempo polinomial independientemente de la cantidad de aristas del grafo.
 
-% explicar define
-El m\'etodo presentado en \cite{breuer2015define} se basa en lo definido por \cite{lin2006vertex}, indicando que dado un problema de {\it covering}, existe un {\it set system}$(S,C)$, donde S es el conjunto total y finito de sets, y C es un conjunto de subsets pertenecientes a S. En el caso espec\'ifico del {\it Minimum Set Cover}(SC), el objetivo es encontrar un subconjunto $C'$ de $C$ tal que cada elemento de $S$ pertenezca al menos 1 vez a uno de los miembros de $C'$.
-
-Para un {\it set system}$(S,C)$ que pueda ser representando por un \'arbol $T$, es posible modificar la definici\'on de $S$ al conjunto de nodos que componen un grafo $G$ y que cada subset $c \in C$ representa un camino\eqref{eq:path} simple en $G$. Se destaca que no necesariamente estar\'an todos los caminos simples de $G$ est\'an representados en $C$. Esta representaci\'on de {\it covering} de caminos, o {\it Path Cover}, es denominada {\it Vertex Covering by Paths on Graphs}(VcpG) y difiere de un {\it Path Cover} tradicional al permitir caminos que compartan nodos. Luego, para el caso de \'arboles, VcpG se renombra a VcpT ({\it Vertex Covering by Paths on Trees}), y si se reemplazan los nodos por aristas, lo no genera cambios significativos en el planteamiento del problema, se denomina EcpT {\it Edge Covering by Paths on Trees}. %recordar mas adelante como posible perdida de soluciones factibles
+Para un {\it set system} $(S,C)$ que pueda ser representando por un \'arbol $T$, es posible mutar la definici\'on de $S$ al conjunto de nodos que componen un grafo $G$, y a su vez, hacer que cada subset $c \in C$ represente un camino simple en $G$. Un camino simple es equivalente a un \'arbol simple (2 nodos son unidos por a lo m\'as 1 arista) y ac\'iclico.
 
 
-Lo anterior establece las bases para que los autores de DeFiNe\cite{breuer2015define} utilicen EcpT como base, teniendo un m\'aximo de caminos $n(n)-1/2 = \mathcal{O}(n^{2})$, con una complejidad $\mathcal{O}(n^{4})$ para obtener esos caminos, para caminos que no comparten nodos o aristas, es decir, no se sobrelapan.
+Se destaca en \cite{lin2006vertex} que no todos los caminos simples de $G$ est\'an representados en $C$. Esta representaci\'on de {\it covering} de caminos, o {\it Path Cover}, es denominada {\it Vertex Covering by Paths on Graphs}(VcpG) y difiere de un {\it Path Cover} tradicional al permitir caminos que compartan nodos. Luego, para el caso de \'arboles, VcpG se renombra a VcpT ({\it Vertex Covering by Paths on Trees}), permitiendo el reemplazo de nodos por aristas sin generar cambios significativos en el planteamiento del problema. Esta modificaci\'on de nodos a aristas se denomina EcpT {\it Edge Covering by Paths on Trees}. %recordar mas adelante como posible perdida de soluciones factibles
 
-La obtenci\'on de caminos a partir de un \'arbol $T$ que representa un grafo $G$ se realiza mediante la divisi\'on continua del \'arbol en m\'ultiples bosques, hasta que los bosques resultantes sean s\'olo caminos simples.
+
+Lo anterior establece el fundamento para que los autores de DeFiNe\cite{breuer2015define} utilicen EcpT como base, teniendo un m\'aximo de caminos $n(n)-1/2 = \mathcal{O}(n^{2})$, con una complejidad $\mathcal{O}(n^{4})$ para obtener esos caminos. La obtenci\'on de caminos a partir de un \'arbol $T$ que contiene los nodos del grafo $G$ se realiza mediante la divisi\'on continua del \'arbol en m\'ultiples bosques, hasta que los bosques resultantes sean s\'olo caminos simples. Sin embargo, los caminos resultantes no comparten nodos o aristas, es decir, no se superponen. Para solucionar aquello manteniendo la resoluci\'on del FCP en tiempo polinomial, se agrega en DeFiNe el par\'ametro $k$, que define el n\'umero m\'aximo de superposiciones de caminos en una arista. La complejidad con el nuevo par\'ametro queda como $\mathcal{O}(n^{2k+2})$.
+
 
 %aca entran las formas de obtener esos arboles simples y bosques, con las heuristicas de define
-...
+Dado que el conjunto total de caminos en un grafo, definido como $P$, no es calculables en tiempo polinomial, DeFine propone 2 heur\'isticas para construir \'arboles de los cuales se puedan extraer un conjunto representativo de caminos simples, definidos como $P'$. Cada una de las heur\'isticas, {\it BFS} y {\it RMST}, explicadas en el cap\'itulo \ref{chap:stateoftheart}, proveen de un conjunto $P'$, al que se le aplica la funci\'on objetivo, para encontrar los miembros de $p \in P'$ que mejor minimicen la diferencia de homogeneidad en sus caminos. La restricci\'on de lo anterior es que cada arista del grafo pertenezca a lo menos a un camino. 
+
+%\begin{equation}
+%p = (e_1, e_2,..., e_n)\\
+%p = ((v_1,v_2), (v_2,v_4),..., (v_n-1,v_n))
+%\label{eq:path}
+%\end{equation}
+
+% Comparándose con define, Problema 1 caminos validos no llegan a P'
+
+La generaci\'on del conjunto $P'$ planteado en DeFiNe puede llevar a excluir caminos v\'alidos al realizar la representaci\'on de un {\it set system} mediante un \'arbol, o al utilizar una sola propiedad asociada a un filamento en una de sus heur\'isticas. 
 
 
-% Comparándose con define,
-el problema acá está en la generación de P' subconjunto de P (caminos totales) , ya que al usar una sola propiedad, como lo puede ser el ángulo entre aristas, el largo o el ancho, se pierden soluciones. Ejemplo camino verde en Spinning Marchantia (imagenes)
+El presente trabajo plantea en la secci\'on \ref{sec:modeloOpti} un modelo de optimizaci\'on que permite generar caminos utilizando m\'as de una propiedad asociada a un filamento o al grafo que representa la red de filamentos. Esto permite individualizar filamentos en casos de superposici\'on, cruce o discriminando si el filamento puede tener o no ciclos. Adem\'as se presentan diversas heur\'isticas para reducir el tama\~no del espacio de soluciones.
 
-% Heurística: hay alguna aca? pareciera solo satisfacci\'on de restricciones
-% garantizar que al satisfacer las restricciones los caminos son solo soluciones factibles y que la unión de caminos también entrega múltiples opciones de filamentos, los que deben ser medidos para determinar cual es mejor
-
-
+%Ejemplo camino verde en Spinning Marchantia (imagenes)
 
 
 \section{Modelo de Optimización}
+\label{sec:modeloOpti}
 %dado que se tienen muchos filamentos, se debe evaluar cual es mejor. Explicar como propiedades topológicas y geométricas tienen. Y como se ponderan para un peso que será minimizado o maximizado
 
 En base a lo recopilado en las secciones previas de esta investigaci\'on, es posible destacar los siguientes aspectos al problema a resolver:
@@ -248,7 +258,8 @@ se lleva a cabo mediante el c\'alculo de una probabilidad para cada componente $
 \begin{enumerate}
 \item La arista a asignar debe tener al menos uno de sus nodos con grado 1, indicando que es el inicio o final de una parte del grafo.
 
-\item De no haber aristas con esas caracter\'isticas disponibles, se realiza una asignaci\'on inicial de una arista con uno de sus nodos con grado 2 o superior, siempre que uno de los nodos sea la uni\'on de esta arista con otra con la que conformen un \'angulo en el rango $]\theta, Max\_Angle]$. $\theta$ es un umbral que define el \'angulo m\'aximo, en grados, bajo el que se considera que 2 aristas contiguas respetan la rectitud necesaria para formar parte del mismo filamento. $Max\_Angle$ es un umbral que define el \'angulo m\'aximo, en grados, por sobre el cual se descarta de forma absoluta que 2 aristas contiguas forman parte del mismo filamentos. Este rango delimita los pares de aristas que a priori no representan combinaciones que respetan el criterio de rectitud, pero cuya explicaci\'on puede encontrarse en variaciones inducidas durante la extracci\'on del grafo desde la imagen, por lo que es necesario incorporar la exploraci\'on de estos pares de aristas.
+\item De no haber aristas con esas caracter\'isticas disponibles, se realiza una asignaci\'on inicial de una arista con uno de sus nodos con grado 2 o superior, siempre que uno de los nodos sea la uni\'on de esta arista con otra con la que conformen un \'angulo en el rango $]\theta, Max\_Angle]$. 
+%$\theta$ es un umbral que define el \'angulo m\'aximo, en grados, bajo el que se considera que 2 aristas contiguas respetan la rectitud necesaria para formar parte del mismo filamento. $Max\_Angle$ es un umbral que define el \'angulo m\'aximo, en grados, por sobre el cual se descarta de forma absoluta que 2 aristas contiguas forman parte del mismo filamentos. Este rango delimita los pares de aristas que a priori no representan combinaciones que respetan el criterio de rectitud, pero cuya explicaci\'on puede encontrarse en variaciones inducidas durante la extracci\'on del grafo desde la imagen, por lo que es necesario incorporar la exploraci\'on de estos pares de aristas.
 
 \item De no existir aristas con alg\'un nodo que cumpla con los dos criterios previos, es posible asignar una arista aleatoria siempre que esta no forme parte de un camino recorrido por otra hormiga que haya sido evaluado como de buena calidad.
 \end{enumerate}
