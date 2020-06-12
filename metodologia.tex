@@ -3,7 +3,81 @@
 %mostrar métricas, explicar VI brevemente, explicar que no es necesario Structure-Aware rand index ya que los caminos p subconjunto de P', p pertenece P, cumplen por si solos en ser soluciones factibles de segmentos de filamento y que la unión de caminos para formar un filamento, al cumplir con las restricciones también genera solo filamentos factibles
 % Dado que Rand y  Jaccard vienen de valores extraidos desde la contingency table, es posible obtener información útil de la mano de precisión, recall y F1
 
+Al basar la individualizaci\'on de filamentos en un m\'etodo que usa un grafo, el resultado obtenido es un conjunto de caminos, donde cada camino es a su vez un conjunto de aristas. El proceso de individualizar filamentos genera una partici\'on o {\it clustering} del grafo, donde las aristas corresponden al {\it data set}, con cada camino representando a un cluster perteneciente al clustering. La partici\'on propuesta por un m\'etodo basado en grafos debe ser comparada con respecto a la partici\'on generada por un experto, a la que nos referiremos como {\it ground truth}. Uno de los requisitos de esta comparaci\'on, es que ambas particiones se refieran al mismo data set, lo que implica que ambas deben realizarse en base al mismo grafo. Adem\'as se debe considerar que el clustering realizado por el experto puede tener una cantidad igual o distinta de clusters con respecto al clustering producido por el m\'etodo a evaluar.
+
+
+La comparaci\'on de particiones en donde una corresponde al {\it ground truth} implica que las m\'etricas a utilizar son del tipo de criterio externo\cite{manning20introduction}. En este tipo de criterio hay m\'etricas basadas en comparaci\'on mediante conteo de pares, como el \'indice {\it Rand} ($\mathcal{R}$) y el \'indice {\it Jaccard} ($\mathcal{J}$), y comparaci\'on mediante pareo de conjuntos ({\it set matching}) como la m\'etrica {\it Variation of Information} o VI. Estas 3 m\'etricas ser\'an la base de comparaci\'on de particiones en esta investigaci\'on.
+
+\section{M\'etricas}
+%\subsection{Variation of Information}
+
+La m\'etrica VI 
+
+\subsection{\'Indices Rand y Jaccard}
+
+La mayor\'ia de los criterios para comparar particiones mediante conteo de pares suele fundamentarse en el uso de la matriz de confusi\'on, tambi\'en llamada matriz de asociaci\'on o tabla de contingencia\cite{meilua2007comparing}. Esta tabla considera 4 casos en los que puede estar un par de elementos del {\it data set}, que para el caso de la individualizaci\'on de filamentos son pares de aristas, en las particiones $C$ y $C'$:
+
+\begin{itemize}
+    \item $N_{11}$: N\'umero de pares que est\'an en el mismo cluster en $C$ y $C'$
+    \item $N_{00}$: N\'umero de pares que est\'an en distintos clusters en $C$ y $C'$
+    \item $N_{10}$: N\'umero de pares que est\'an en el mismo cluster en $C$ pero no en $C'$
+    \item $N_{01}$: N\'umero de pares que est\'an en el mismo cluster en $C'$ pero no en $C$
+\end{itemize}
+
+Se tiene que $N_{11} + N_{00} + N_{10} + N_{01} = \frac{n(n-1)}{2}$, con n como el n\'umero de aristas.
+
+Lo definici\'on de los casos utilizados para formar la tabla de contingencia posibilita asociar cada caso con una correspondiente medida estad\'istica de clasificaci\'on como se indica en la tabla \ref{tab:EquivParesClasificacion}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+        Casos para un par de aristas & Estad\'istica de Clasificaci\'on \\ \hline
+        $N_{11}$ & Verdadero Positivo ({\it True Positive} o TP) \\
+        $N_{00}$ & Verdadero Negativo ({\it True Negative} o TN)\\
+        $N_{10}$ & Falso Positivo ({\it False Positive} o FP)\\
+        $N_{01}$ & Falso Negativo ({\it False Negative} o FN)\\ \hline
+    \end{tabular}
+    \caption{Equivalencia entre casos para un par de aristas con estad\'isticas de clasificaci\'on}
+    \label{tab:EquivParesClasificacion}
+\end{table}
+
+La ecuaci\'on \eqref{eq:randIndex} expresa que el \'indice Rand puede ser escrito en funci\'on de los estad\'isticos de clasificac\'on, lo que lo hace coincidir con la definici\'on de la medida de exactitud ({\it Accuracy}). $\mathcal{R}$ adquiere el valor 0 para particiones totalmente diferentes, subiendo hasta llegar a 1, lo que indica que las particiones son id\'enticas. Algunas cr\'iticas a \'indice Rand se\~nalan la alta sensibilidad que tiene al valor de TN, el que tiende a ser mucho mayor que el resto\cite{ben2001stability}, la existencia de una alta dependencia al n\'umero de clusters\cite{wagner2007comparing}, y que los valores de $\mathcal{R}$ tienden a concentrarse en un intervalo cerca de 1\cite{meilua2007comparing}.
+
+%,
+
+\begin{equation}
+\mathcal{R}(C,C^{\prime}) = \frac{N_{11} + N_{00}}{n(n-1)/2} = \frac{TP + TN}{TP + TN + FP + FN}
+\label{eq:randIndex}
+\end{equation}
+
+Por su parte, el \'indice Jaccard es similar al \'indice Ran con la excepci\'on que ignora la clasificaci\'on TN, como se observa en la ecuaci\'on \eqref{eq:JaccardIndex}. Su valor tambi\'en oscila entre 0 y 1 para particiones totalmente distintas y particiones id\'enticas respectivamente. Una de las cr\'itica es que puede entregar resultados no confiables para data sets muy peque\~nos.
+
+\begin{equation}
+\mathcal{J}(C,C^{\prime}) = \frac{N_{11}}{N_{11} + N_{01} + N_{10}} = \frac{TP}{TP + FP + FN}
+\label{eq:JaccardIndex}
+\end{equation}
+
+La ventaja que presentan $\mathcal{R}$ y $\mathcal{J}$ sobre VI radica en que estos \'indices si pueden considerar casos de superposici\'on.
+
+\subsection{Mediciones adicionales}
+
+
+
+Esto permite calcular estad\'isticos del \'area de recuperaci\'on de informaci\'on como {\it Precision}, {\it Recall} y el {\it F-Measure}...
+
+%Estos calculos entregan mayor informaci\'on sobre el comportamiento de
+
+
+
 \section{Im\'agenes Sint\'eticas}
 
 \section{Im\'agenes Reales}
 
+%pasos para la obtenci\'on de los filamentos desde las imagenes
+
+% extraccion del grafo mediante skeletonizacion usando sknw que deja el grafo en networkX. Necesidad de una imagen con fondo negro y binaria
+
+%paso del grafo a gml para comparar con define
+
+%paso del grafo a json para integrar a phil
