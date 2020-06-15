@@ -6,12 +6,19 @@
 Al basar la individualizaci\'on de filamentos en un m\'etodo que usa un grafo, el resultado obtenido es un conjunto de caminos, donde cada camino es a su vez un conjunto de aristas. El proceso de individualizar filamentos genera una partici\'on o {\it clustering} del grafo, donde las aristas corresponden al {\it data set}, con cada camino representando a un cluster perteneciente al clustering. La partici\'on propuesta por un m\'etodo basado en grafos debe ser comparada con respecto a la partici\'on generada por un experto, a la que nos referiremos como {\it ground truth}. Uno de los requisitos de esta comparaci\'on, es que ambas particiones se refieran al mismo data set, lo que implica que ambas deben realizarse en base al mismo grafo. Adem\'as se debe considerar que el clustering realizado por el experto puede tener una cantidad igual o distinta de clusters con respecto al clustering producido por el m\'etodo a evaluar.
 
 
-La comparaci\'on de particiones en donde una corresponde al {\it ground truth} implica que las m\'etricas a utilizar son del tipo de criterio externo\cite{manning20introduction}. En este tipo de criterio hay m\'etricas basadas en comparaci\'on mediante conteo de pares, como el \'indice {\it Rand} ($\mathcal{R}$) y el \'indice {\it Jaccard} ($\mathcal{J}$), y comparaci\'on mediante pareo de conjuntos ({\it set matching}) como la m\'etrica {\it Variation of Information} o VI. Estas 3 m\'etricas ser\'an la base de comparaci\'on de particiones en esta investigaci\'on.
+La comparaci\'on de particiones en donde una corresponde al {\it ground truth} implica que las mediciones a utilizar son del tipo de criterio externo\cite{manning20introduction}. En este tipo de criterio hay \'indces basados en comparaci\'on mediante conteo de pares, como el \'indice {\it Rand} ($\mathcal{R}$), el \'indice {\it Jaccard} ($\mathcal{J}$), y la medida $\mathcal{F}$ tambi\'en conocida como $F1-$Score. Por otra parte, tambi\'en existen m\'etricas del \'area de teor\'ia de la informaci\'on como {\it Variation of Information} o VI para el mismo prop\'osito. Estos m\'etodos ser\'an la base de comparaci\'on de particiones en esta investigaci\'on.
 
 \section{M\'etricas}
 %\subsection{Variation of Information}
 
-La m\'etrica VI 
+La m\'etrica VI definida en \cite{meilua2007comparing} se fundamenta en la informaci\'on asociada a la entrop\'ia de las particiones a comparar, as\'i como en la informaci\'on mutua que comparten. El rango de valores de VI comienza en 0 para 2 particiones iguales, llegando a $\log n$ para particiones absolutamente distintas, con $n$ como el n\'umero de elementos del data set. En la ecuaci\'on \eqref{eq:VI} el t\'ermino $H(C,C^{\prime})$ hace referencia a la informaci\'on que la partici\'on $C$ pierde al pasar a $C^{\prime}$. De forma similar, $H(C^{\prime},C)$ indica la informaci\'on que se gana al pasar de $C$ a $C^{\prime}$.
+
+\begin{equation}
+VI(C,C^{\prime}) = H(C,C^{\prime}) + H(C^{\prime},C)
+\label{eq:VI}
+\end{equation}
+
+Uno de los problemas de VI es que esta definida de forma clara s\'olo para particiones que no se superponen entre s\'i\cite{breuer2015define}.
 
 \subsection{\'Indices Rand y Jaccard}
 
@@ -26,25 +33,23 @@ La mayor\'ia de los criterios para comparar particiones mediante conteo de pares
 
 Se tiene que $N_{11} + N_{00} + N_{10} + N_{01} = \frac{n(n-1)}{2}$, con n como el n\'umero de aristas.
 
-Lo definici\'on de los casos utilizados para formar la tabla de contingencia posibilita asociar cada caso con una correspondiente medida estad\'istica de clasificaci\'on como se indica en la tabla \ref{tab:EquivParesClasificacion}.
+Lo definici\'on de los casos utilizados para formar la tabla de contingencia posibilita asociar cada caso con una correspondiente evaluaci\'on de clasificaci\'on como se indica en la tabla \ref{tab:EquivParesClasificacion}.
 
 \begin{table}[h]
     \centering
     \begin{tabular}{|c|c|}
     \hline
-        Casos para un par de aristas & Estad\'istica de Clasificaci\'on \\ \hline
+        Casos para un par de aristas & Clasificaci\'on \\ \hline
         $N_{11}$ & Verdadero Positivo ({\it True Positive} o TP) \\
         $N_{00}$ & Verdadero Negativo ({\it True Negative} o TN)\\
         $N_{10}$ & Falso Positivo ({\it False Positive} o FP)\\
         $N_{01}$ & Falso Negativo ({\it False Negative} o FN)\\ \hline
     \end{tabular}
-    \caption{Equivalencia entre casos para un par de aristas con estad\'isticas de clasificaci\'on}
+    \caption{Equivalencia entre casos para un par de aristas con su respectiva clasificaci\'on}
     \label{tab:EquivParesClasificacion}
 \end{table}
 
-La ecuaci\'on \eqref{eq:randIndex} expresa que el \'indice Rand puede ser escrito en funci\'on de los estad\'isticos de clasificac\'on, lo que lo hace coincidir con la definici\'on de la medida de exactitud ({\it Accuracy}). $\mathcal{R}$ adquiere el valor 0 para particiones totalmente diferentes, subiendo hasta llegar a 1, lo que indica que las particiones son id\'enticas. Algunas cr\'iticas a \'indice Rand se\~nalan la alta sensibilidad que tiene al valor de TN, el que tiende a ser mucho mayor que el resto\cite{ben2001stability}, la existencia de una alta dependencia al n\'umero de clusters\cite{wagner2007comparing}, y que los valores de $\mathcal{R}$ tienden a concentrarse en un intervalo cerca de 1\cite{meilua2007comparing}.
-
-%,
+La ecuaci\'on \eqref{eq:randIndex} expresa que el \'indice Rand puede ser escrito en funci\'on de evaluaciones de clasificac\'on, lo que lo hace coincidir con la definici\'on de la medida de exactitud ({\it Accuracy}). $\mathcal{R}$ adquiere el valor 0 para particiones totalmente diferentes, subiendo hasta llegar a 1, lo que indica que las particiones son id\'enticas. Algunas cr\'iticas a \'indice Rand se\~nalan la alta sensibilidad que tiene al valor de TN, el que tiende a ser mucho mayor que el resto\cite{ben2001stability}, la existencia de una alta dependencia al n\'umero de clusters\cite{wagner2007comparing}, y que los valores de $\mathcal{R}$ tienden a concentrarse en un intervalo cerca de 1, puntualmente en el rango [0.5, 1]\cite{meilua2007comparing}\cite{vinh2010information}.
 
 \begin{equation}
 \mathcal{R}(C,C^{\prime}) = \frac{N_{11} + N_{00}}{n(n-1)/2} = \frac{TP + TN}{TP + TN + FP + FN}
@@ -62,22 +67,67 @@ La ventaja que presentan $\mathcal{R}$ y $\mathcal{J}$ sobre VI radica en que es
 
 \subsection{Mediciones adicionales}
 
+Mediante la relaci\'on entre los caos en que un par de aristas puede ser asignada y la clasificaci\'on equivalente es posible evaluar el resultado de una partici\'on con respecto al {\it ground truth} con mediciones del \'area de recuperaci\'on de informaci\'on como {\it Precision}, {\it Recall}, las que a su vez son la base para calcular {\it F-Measure}.
+Estos c\'alculos entregan mayor informaci\'on sobre el comportamiento de la partici\'on propuesta por el algoritmo a evaluar. 
 
 
-Esto permite calcular estad\'isticos del \'area de recuperaci\'on de informaci\'on como {\it Precision}, {\it Recall} y el {\it F-Measure}...
-
-%Estos calculos entregan mayor informaci\'on sobre el comportamiento de
-
-
+Otras medidas que se consideran son el porcentaje de cobertura de aristas, el n\'umero de filamentos correctos respecto al total de filamentos propuestos, los tiempos de c\'omputo y la existencia de soluciones no consideradas por otros algoritmos. El porcentaje de cobertura corresponde a la cantidad de aristas contenidas al menos una vez en alguno de los filamentos propuestos.
 
 \section{Im\'agenes Sint\'eticas}
 
+El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del m\'etodo de optimizaci\'on presentado en la secci\'on \ref{sec:modeloOpti} para casos simples que consideren filamentos que se superponen y/o intersectan. Las im\'agenes se observan en las figuras \ref{fig:synth-QFS-7} y \ref{fig:synth-Define-4}, acompa\~nadas de su respectivo grafo representativo de la red de filamentos. La figura \ref{fig:synth-QFS-7-original} corresponde a una imagen sint\'etica obtenida de \cite{qiu2014quantitative}, mientras que la figura \ref{fig:synth-Define-4-original} es un subconjunto de la figura 4 en \cite{breuer2015define}.
+
+ \begin{figure*}[h!]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/Synth-QuantitativeIFS-Fig7.png}
+        \caption{. Fuente: \cite{qiu2014quantitative}}
+        \label{fig:synth-QFS-7-original}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/Synth-QuantitativeIFS-Fig7_graph_labeled_thick.png}
+        \caption{}
+        \label{fig:synth-QFS-7-graph}
+    \end{subfigure}
+    \caption{P. }
+    \label{fig:synth-QFS-7}
+\end{figure*}
+
+
+ \begin{figure*}[h!]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/define-weighted-4.png}
+        \caption{. Fuente: \cite{breuer2015define}}
+        \label{fig:synth-Define-4-original}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/define-weighted-4_inv_graph_labeled_thick.png}
+        \caption{}
+        \label{fig:synth-Define-4-graph}
+    \end{subfigure}
+    \caption{P. }
+    \label{fig:synth-Define-4}
+\end{figure*}
+
+Para la evaluaci\'on, cada imagen sint\'etica se ejecuta en DeFiNe con los par\'ametros base \textsc{BFS - Overlapping - Pairwise - Total}, ya que fueron los de mejor resultado en \cite{breuer2015define}, configurando el \'angulo de umbral en 30\textdegree y 60\textdegree. Por su parte, el algoritmo {\it Phil} se ejecuta 5 veces con distintas semillas.
+
 \section{Im\'agenes Reales}
+%1.- pasos para la obtenci\'on de los filamentos desde las imagenes
+% 2.- extraccion del grafo mediante skeletonizacion usando sknw que deja el grafo en networkX. Necesidad de una imagen con fondo negro y binaria
+%3.- paso del grafo a gml para comparar con define
+%4.-paso del grafo a json para integrar a phil
+El procedimiento para individualizar filamentos en im\'agenes de microscop\'ia var\'ia dependiendo del tipo de c\'elula observada. En el caso de los microt\'ubulos, consiste en el an\'alisis del {\it stack} o conjunto de im\'agenes capturadas durante una observaci\'on, las que pueden variar en el tiempo y en el eje Z. El criterio principal utilizado por los expertos se basa en determinar si existe continuidad de un posible filamento entre dos o m\'as im\'agenes del stack. %Adem\'as, el experto busca descartar la influencia de ruido en la continuidad que pueden generar 
+El experto define los microt\'ublos mediante la selecci\'on del \'area de \'interes o ROI sobre una imagen que proyecta la uni\'on de las im\'agenes del stack bajo alg\'un criterio asociado a la intensidad de los p\'ixeles en el eje Z. 
 
-%pasos para la obtenci\'on de los filamentos desde las imagenes
 
-% extraccion del grafo mediante skeletonizacion usando sknw que deja el grafo en networkX. Necesidad de una imagen con fondo negro y binaria
+Independiente del tipo de c\'elula, la generaci\'on de un esqueleto y del respectivo grafo se realiza mediante la herramienta {\it sknw}, parte del software {\it ImagePy}\cite{wang2018imagepy}, la cual requiere que la imagen de proyecci\'on del eje Z se encuentre en modo binario con el fondo negro. Finalmente a partir del grafo, es posible obtener un archivo en formato GML y otro en formato JSON, los que son utilizados por DeFiNe y el algoritmo {\it Phil} respectivamente, en la individualizaci\'on de filamentos.
 
-%paso del grafo a gml para comparar con define
 
-%paso del grafo a json para integrar a phil
+Para las mediciones, cada imagen se ejecuta de la misma forma que las im\'agenes sint\'eticas.
