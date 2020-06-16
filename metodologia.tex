@@ -75,44 +75,58 @@ Otras medidas que se consideran son el porcentaje de cobertura de aristas, el n\
 
 \section{Im\'agenes Sint\'eticas}
 
-El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del m\'etodo de optimizaci\'on presentado en la secci\'on \ref{sec:modeloOpti} para casos simples que consideren filamentos que se superponen y/o intersectan. Las im\'agenes se observan en las figuras \ref{fig:synth-QFS-7} y \ref{fig:synth-Define-4}, acompa\~nadas de su respectivo grafo representativo de la red de filamentos. La figura \ref{fig:synth-QFS-7-original} corresponde a una imagen sint\'etica obtenida de \cite{qiu2014quantitative}, mientras que la figura \ref{fig:synth-Define-4-original} es un subconjunto de la figura 4 en \cite{breuer2015define}.
+El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del m\'etodo de optimizaci\'on presentado en la secci\'on \ref{sec:modeloOpti} para casos simples que consideren filamentos que se superponen y/o intersectan. Las im\'agenes se observan en las figuras \ref{fig:synth-QFS-7} y \ref{fig:synth-Define-4}, acompa\~nadas de su respectivo grafo representativo de la red de filamentos. La figura \ref{fig:synth-QFS-7-original} corresponde a una imagen sint\'etica obtenida de \cite{qiu2014quantitative}, mientras que la figura \ref{fig:synth-Define-4-original} es un subconjunto de la figura 1b  en \cite{breuer2015define}.
 
  \begin{figure*}[h!]
     \centering
-    \begin{subfigure}[t]{0.5\textwidth}
+    \begin{subfigure}[t]{0.3\textwidth}
         \centering
-        \includegraphics[height=1.5in]{benchImages/Synth-QuantitativeIFS-Fig7.png}
-        \caption{. Fuente: \cite{qiu2014quantitative}}
+        \includegraphics[height=1.5in]{benchImages/Synth-QuantitativeIFS-Fig7_gray.png}
+        \caption{Red de filamentos sint\'etica disponible en \cite{qiu2014quantitative}. }
         \label{fig:synth-QFS-7-original}
     \end{subfigure}%
     ~ 
-    \begin{subfigure}[t]{0.5\textwidth}
+    \begin{subfigure}[t]{0.3\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/Synth-QuantitativeIFS-Fig7_graph_labeled_thick.png}
-        \caption{}
+        \caption{Grafo extra\'ido de la figura \ref{fig:synth-QFS-7-original} utilizando {\it sknw}.}
         \label{fig:synth-QFS-7-graph}
     \end{subfigure}
-    \caption{P. }
+    ~ 
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/Synth-QuantitativeIFS-Fig7_groundTruth.png}
+        \caption{Individualizaci\'on manual de la figura \ref{fig:synth-QFS-7-original}.}
+        \label{fig:synth-QFS-7-graph}
+    \end{subfigure}
+    \caption{Los colores originales de la figura \ref{fig:synth-QFS-7-original} hacen referencia a la segmentaci\'on de filamentos en vez de la individualizaci\'on, por lo que se utiliza la imagen en escala de grises.}
     \label{fig:synth-QFS-7}
 \end{figure*}
 
 
  \begin{figure*}[h!]
     \centering
-    \begin{subfigure}[t]{0.5\textwidth}
+    \begin{subfigure}[t]{0.3\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/define-weighted-4.png}
-        \caption{. Fuente: \cite{breuer2015define}}
+        \caption{Red artificial de filamentos extra\'ida de una secci\'on de la figura 1b en \cite{breuer2015define}}
         \label{fig:synth-Define-4-original}
     \end{subfigure}%
     ~ 
-    \begin{subfigure}[t]{0.5\textwidth}
+    \begin{subfigure}[t]{0.3\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/define-weighted-4_inv_graph_labeled_thick.png}
-        \caption{}
+        \caption{Grafo extra\'ido de la figura \ref{fig:synth-Define-4-original} utilizando {\it sknw}. Se puede observar que el final de un filamento queda discontinuo, generando una arista y un nodo adicional.}
         \label{fig:synth-Define-4-graph}
     \end{subfigure}
-    \caption{P. }
+    ~ 
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/define-weighted-4-groundTruth.png}
+        \caption{Individualizaci\'on manual de filamentos. La secci\'on de color cafe clara corresponde a un caso de superposici\'on entre dos filamentos.}
+        \label{fig:synth-Define-4-graph-gt}
+    \end{subfigure}
+    \caption{Secci\'on de la figura 1b en \cite{breuer2015define}, correspondiente a una red sint\'etica de filamentos que abarca casos de sobreposici\'on y cruce.}
     \label{fig:synth-Define-4}
 \end{figure*}
 
@@ -130,4 +144,110 @@ El experto define los microt\'ublos mediante la selecci\'on del \'area de \'inte
 Independiente del tipo de c\'elula, la generaci\'on de un esqueleto y del respectivo grafo se realiza mediante la herramienta {\it sknw}, parte del software {\it ImagePy}\cite{wang2018imagepy}, la cual requiere que la imagen de proyecci\'on del eje Z se encuentre en modo binario con el fondo negro. Finalmente a partir del grafo, es posible obtener un archivo en formato GML y otro en formato JSON, los que son utilizados por DeFiNe y el algoritmo {\it Phil} respectivamente, en la individualizaci\'on de filamentos.
 
 
-Para las mediciones, cada imagen se ejecuta de la misma forma que las im\'agenes sint\'eticas.
+Para las mediciones, cada imagen es analizada en {\it Phil} de la misma forma que las im\'agenes sint\'eticas.
+
+Spinning
+\begin{figure*}[h!]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/AVG_SPINNING DISK MARCHANTIA.png}
+        \caption{Imagen 6 de un stack de 301...}
+        \label{fig:SpinningMarchantia-og}
+    \end{subfigure}
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/MAX_SPINNING DISK MARCHANTIA_gtruth.png}
+        \caption{Filamentos manualmente individualizados por un experto}
+        \label{fig:SpinningMarchantia-gt}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/50_ROIs_Spinning_Marchantia_solved_rot_unlabeled.png}
+        \caption{Codificaci\'on por color de la individualizaci\'on manual}
+        \label{fig:SpinningMarchantia-indivManual}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/50_ROIs_Spinning_Marchantia_graph_og.png}
+        \caption{Grafo extra\'ido a partir de la individualizaci\'on manual que es el dato de entrada para los algoritmos comparados.}
+        \label{fig:SpinningMarchantia-graph}
+    \end{subfigure}
+    \caption{}
+    \label{fig:SpinningMarchantia}
+\end{figure*}
+
+
+
+field3t02Bcell-filtered1
+\begin{figure*}[h!]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/field3_t0_2cellBcrop_filtered_1.png}
+        \caption{}
+        \label{fig:field3t0filtered1-og}
+    \end{subfigure}
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/field3_t0_2cellBcrop_filtered_1_rois.png}
+        \caption{Filamentos manualmente individualizados por un experto}
+        \label{fig:field3t0filtered1-gt}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/}
+        \caption{Codificaci\'on por color de la individualizaci\'on manual}
+        \label{fig:field3t0filtered1-indivManual}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/}
+        \caption{Grafo extra\'ido a partir de la individualizaci\'on manual que es el dato de entrada para los algoritmos comparados.}
+        \label{fig:field3t0filtered1-graph}
+    \end{subfigure}
+    \caption{}
+    \label{fig:field3t0filtered1}
+\end{figure*}
+
+
+
+field3t02Bcell-filtered2
+\begin{figure*}[h!]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/field3_t0_2cellBcrop_filtered_2.png}
+        \caption{}
+        \label{fig:field3t0filtered2-og}
+    \end{subfigure}
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/field3_t0_2cellBcrop_filtered_2_rois.png}
+        \caption{Filamentos manualmente individualizados por un experto}
+        \label{fig:field3t0filtered2-gt}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/}
+        \caption{Codificaci\'on por color de la individualizaci\'on manual}
+        \label{fig:field3t0filtered2-indivManual}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{benchImages/}
+        \caption{Grafo extra\'ido a partir de la individualizaci\'on manual que es el dato de entrada para los algoritmos comparados.}
+        \label{fig:field3t0filtered2-graph}
+    \end{subfigure}
+    \caption{}
+    \label{fig:field3t0filtered2}
+\end{figure*}
