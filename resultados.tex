@@ -3,6 +3,69 @@
 
 \section{Im\'agenes Sint\'eticas}
 
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+        Algoritmo & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline
+        Define 30° & 1.3859 & 5 & 6 & 55 & 12 & 0.7692  & 0.2173 & 0.4545 & 0.2941 & 0.3571\\
+        Define 60° & 1.5677 & 4 & 7 & 47 & 8  & 0.7727  & 0.2105  & 0.3636  & 0.3333 & 0.3478\\ 
+        Phil & 1.6360 & 10.8 & 10.4 & 104.8 & 28 & 0.7646 & 0.2484 & 0.5142 & 0.3289 & 0.3919\\
+        \hline
+    \end{tabular}
+    \caption{Resultados de individualizaci\'on de filamentos para figura \ref{fig:synth-QFS-7}. El valor m\'aximo de VI en este caso es de 2.397895, ya que el tama\~no del {\it data set} es de 11 aristas. El n\'umero de filamentos correctos es 6.}
+    \label{tab:synth-QFS-7-Results1}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
+         &  &  &  & & &  \\
+        Algoritmo &  &  &  & & &  \\
+        &  &  &  & & &  \\ \hline
+        Define 30° & 100 & 6 & 4 & 66.6667 & 66.6667 & 2.3128\\
+        Define 60° & 100 & 5 & 4 & 80 & 66.6667 & 2.3380\\ 
+        Phil & 100 & 6.2 & 3 & 49.1428 & 50  & 0.3569\\
+        \hline
+    \end{tabular}
+    \caption{Resultados 2 de individualizaci\'on de filamentos para figura \ref{fig:synth-QFS-7}.}
+    \label{tab:synth-QFS-7-Results2}
+\end{table}
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+        Algoritmo & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline
+        Define 30° & 1.8102 & 6 & 14 & 156  & 34 & 0.7714 & 0.1111  & 0.3 & 0.15 & 0.2\\
+        Define 60° & 2.2890 & 19 & 52 & 200 & 54 & 0.6738 & 0.152 & 0.2676  & 0.2602  & 0.2638\\ 
+        Phil & 2.2164 & 22.8 & 40 & 240.4 & 61.4 & 0.7227 & 0.1838 & 0.3607 & 0.2724 & 0.3100\\
+        \hline
+    \end{tabular}
+    \caption{Resultados de individualizaci\'on de filamentos para figura \ref{fig:synth-QFS-7}.El valor m\'aximo de VI en este caso es de 3.044522, ya que el tama\~no del {\it data set} es de 17 aristas. El n\'umero de filamentos correctos es 5.}
+    \label{tab:synth-QFS-7-Results1}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
+         &  &  &  & & &  \\
+        Algoritmo &  &  &  & & &  \\
+        &  &  &  & & &  \\ \hline
+        Define 30° & 100 & 11 & 2 & 18.1818 & 40 & 2.8275\\
+        Define 60° & 100 & 7 & 2 & 28.5714 & 40 & 3.6597\\ 
+        Phil & 100 & 9.2 & 3 & 32.6667 & 60 & 0.5071\\
+        \hline
+    \end{tabular}
+    \caption{Resultados 2 de individualizaci\'on de filamentos para figura \ref{fig:synth-QFS-7}.}
+    \label{tab:synth-QFS-7-Results2}
+\end{table}
+
 \section{Im\'agenes Reales}
 
 %recordar que define es base de BFS-Overlap-pairwise-total-
@@ -12,9 +75,8 @@ En las mediciones del algoritmo {\it Phil}, se muestra el promedio de las 5 iter
 
 \subsection{Microt\'ubulos}
 
-
-Valor m\'ax de VI para \ref{tab:SpinningMarchantiaResults1} es 3.4965.
-N\'umero de filamentos en el {\it Ground Truth} de la figura SpinningMarchanria es 12.
+%Valor m\'ax de VI para \ref{tab:SpinningMarchantiaResults1} es 3.4965.
+%N\'umero de filamentos en el {\it Ground Truth} de la figura SpinningMarchanria es 12.
 Define y Phil presentan una propuesta de filamento para el ....
 
 \begin{table}[h]
@@ -27,7 +89,7 @@ Define y Phil presentan una propuesta de filamento para el ....
         Phil & 1.8376 & 43 & 54 & 815 & 78 & 0.8666 & 0.2457 & 0.4432 & 0.3553 & 0.3944 \\
         \hline
     \end{tabular}
-    \caption{Resultados de individualizaci\'on de filamentos para figura \ref{fig:SpinningMarchantia}.}
+    \caption{Resultados de individualizaci\'on de filamentos para figura \ref{fig:SpinningMarchantia}.El valor m\'aximo de VI en este caso es de 3.4965, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos correctos es 12.}
     \label{tab:SpinningMarchantiaResults1}
 \end{table}
 
@@ -50,8 +112,8 @@ Define y Phil presentan una propuesta de filamento para el ....
 
 
 
-Valor m\'ax de VI para \ref{tab:field3t0filtered1} es 3.7612.
-N\'umero de filamentos en el {\it Ground Truth} de la figura field3t0 es 12.
+%Valor m\'ax de VI para \ref{tab:field3t0filtered1} es 3.7612.
+%N\'umero de filamentos en el {\it Ground Truth} de la figura field3t0 es 12.
 
 
 \begin{table}[h]
@@ -64,7 +126,7 @@ N\'umero de filamentos en el {\it Ground Truth} de la figura field3t0 es 12.
         Phil & 2.2788 & 96 & 89.4 & 1894.6 & 199 & 0.8738 & 0.2535 & 0.5130 & 0.3346 & 0.4037 \\
         \hline
     \end{tabular}
-    \caption{Resultados de individualizaci\'on de filamentos para figura \ref{fig:field3t0filtered1}.}
+    \caption{Resultados de individualizaci\'on de filamentos para figura \ref{fig:field3t0filtered1}.El valor m\'aximo de VI en este caso es de 3.7612, ya que el tama\~no del {\it data set} es de 40 aristas. El n\'umero de filamentos correctos es 12.}
     \label{tab:field3t0filtered1}
 \end{table}
 
@@ -86,8 +148,8 @@ N\'umero de filamentos en el {\it Ground Truth} de la figura field3t0 es 12.
 \end{table}
 
 
-Valor m\'ax de VI para \ref{tab:field3t0filtered2} es 1.9459.
-N\'umero de filamentos en el {\it Ground Truth} de la figura field3t0 es 5.
+%Valor m\'ax de VI para \ref{tab:field3t0filtered2} es 1.9459.
+%N\'umero de filamentos en el {\it Ground Truth} de la figura field3t0 es 5.
 
 \begin{table}[h]
     \centering
@@ -99,7 +161,7 @@ N\'umero de filamentos en el {\it Ground Truth} de la figura field3t0 es 5.
         Phil & 0.4285  & 2 & 1 & 23 & 2 & 0.8928 & 0.4 & 0.6666 & 0.5 & 0.5714\\
         \hline
     \end{tabular}
-    \caption{Resultados de individualizaci\'on de filamentos para figura \ref{fig:field3t0filtered2}.}
+    \caption{Resultados de individualizaci\'on de filamentos para figura \ref{fig:field3t0filtered2}.El valor m\'aximo de VI en este caso es de 1.9459, ya que el tama\~no del {\it data set} es de 7 aristas. El n\'umero de filamentos correctos es 5.}
     \label{tab:field3t0filtered2}
 \end{table}
 

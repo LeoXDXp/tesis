@@ -75,31 +75,31 @@ Otras medidas que se consideran son el porcentaje de cobertura de aristas, el n\
 
 \section{Im\'agenes Sint\'eticas}
 
-El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del m\'etodo de optimizaci\'on presentado en la secci\'on \ref{sec:modeloOpti} para casos simples que consideren filamentos que se superponen y/o intersectan. Las im\'agenes se observan en las figuras \ref{fig:synth-QFS-7} y \ref{fig:synth-Define-4}, acompa\~nadas de su respectivo grafo representativo de la red de filamentos. La figura \ref{fig:synth-QFS-7-original} corresponde a una imagen sint\'etica obtenida de \cite{qiu2014quantitative}, mientras que la figura \ref{fig:synth-Define-4-original} es un subconjunto de la figura 1b  en \cite{breuer2015define}.
+El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del m\'etodo de optimizaci\'on presentado en la secci\'on \ref{sec:modeloOpti}, cuya implementaci\'on se denomina {\sc Phil}, para casos simples que consideren filamentos que se superponen y/o intersectan. Las im\'agenes se observan en las figuras \ref{fig:synth-QFS-7} y \ref{fig:synth-Define-1b}, acompa\~nadas de su respectivo grafo representativo de la red de filamentos. La figura \ref{fig:synth-QFS-7-original} corresponde a una imagen sint\'etica obtenida de \cite{qiu2014quantitative}, mientras que la figura \ref{fig:synth-Define-1b-original} es un subconjunto de la figura 1b  en \cite{breuer2015define}.
 
  \begin{figure*}[h!]
     \centering
     \begin{subfigure}[t]{0.3\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/Synth-QuantitativeIFS-Fig7_gray.png}
-        \caption{Red de filamentos sint\'etica disponible en \cite{qiu2014quantitative}. }
+        \caption{Red de filamentos sint\'etica disponible en \cite{qiu2014quantitative}}
         \label{fig:synth-QFS-7-original}
     \end{subfigure}%
     ~ 
     \begin{subfigure}[t]{0.3\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/Synth-QuantitativeIFS-Fig7_graph_labeled_thick.png}
-        \caption{Grafo extra\'ido de la figura \ref{fig:synth-QFS-7-original} utilizando {\it sknw}.}
+        \caption{Grafo extra\'ido de la figura \ref{fig:synth-QFS-7-original} utilizando {\it sknw}}
         \label{fig:synth-QFS-7-graph}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.3\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/Synth-QuantitativeIFS-Fig7_groundTruth.png}
-        \caption{Individualizaci\'on manual de la figura \ref{fig:synth-QFS-7-original}.}
+        \caption{Individualizaci\'on manual de la figura \ref{fig:synth-QFS-7-original}}
         \label{fig:synth-QFS-7-graph}
     \end{subfigure}
-    \caption{Los colores originales de la figura \ref{fig:synth-QFS-7-original} hacen referencia a la segmentaci\'on de filamentos en vez de la individualizaci\'on, por lo que se utiliza la imagen en escala de grises.}
+    \caption{Filamentos sint\'eticos. a) Los colores originales de la figura \ref{fig:synth-QFS-7-original} hacen referencia a la segmentaci\'on de filamentos en vez de la individualizaci\'on, por lo que se utiliza la imagen en escala de grises. b) Grafo de 11 aristas extra\'ido. c) Individualizaci\'n manual utilizando codificaci\'on por colores.}
     \label{fig:synth-QFS-7}
 \end{figure*}
 
@@ -110,24 +110,24 @@ El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del m\'etodo de o
         \centering
         \includegraphics[height=1.5in]{benchImages/define-weighted-4.png}
         \caption{Red artificial de filamentos extra\'ida de una secci\'on de la figura 1b en \cite{breuer2015define}}
-        \label{fig:synth-Define-4-original}
+        \label{fig:synth-Define-1b-original}
     \end{subfigure}%
     ~ 
     \begin{subfigure}[t]{0.3\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/define-weighted-4_inv_graph_labeled_thick.png}
-        \caption{Grafo extra\'ido de la figura \ref{fig:synth-Define-4-original} utilizando {\it sknw}. Se puede observar que el final de un filamento queda discontinuo, generando una arista y un nodo adicional.}
-        \label{fig:synth-Define-4-graph}
+        \caption{Grafo extra\'ido de la figura \ref{fig:synth-Define-1b-original} utilizando {\it sknw}}
+        \label{fig:synth-Define-1b-graph}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.3\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/define-weighted-4-groundTruth.png}
-        \caption{Individualizaci\'on manual de filamentos. La secci\'on de color cafe clara corresponde a un caso de superposici\'on entre dos filamentos.}
-        \label{fig:synth-Define-4-graph-gt}
+        \caption{Individualizaci\'on manual de filamentos}
+        \label{fig:synth-Define-1b-graph-gt}
     \end{subfigure}
-    \caption{Secci\'on de la figura 1b en \cite{breuer2015define}, correspondiente a una red sint\'etica de filamentos que abarca casos de sobreposici\'on y cruce.}
-    \label{fig:synth-Define-4}
+    \caption{Red sin\'etica de filamentos a) Secci\'on de la figura 1b en \cite{breuer2015define}, correspondiente a una red sint\'etica de filamentos que abarca casos de sobreposici\'on y cruce. b) Grafo de 17 aristas. Se puede observar que el final de la arista superior derecha, existe una discontinuidad que generando una arista y un nodo adicional. c) Codificaci\'on por colores para individualizar filamentos. La secci\'on de color cafe claro corresponde a un caso de superposici\'on entre dos filamentos.}
+    \label{fig:synth-Define-1b}
 \end{figure*}
 
 Para la evaluaci\'on, cada imagen sint\'etica se ejecuta en DeFiNe con los par\'ametros base \textsc{BFS - Overlapping - Pairwise - Total}, ya que fueron los de mejor resultado en \cite{breuer2015define}, configurando el \'angulo de umbral en 30\textdegree y 60\textdegree. Por su parte, el algoritmo {\it Phil} se ejecuta 5 veces con distintas semillas.
@@ -138,27 +138,29 @@ Para la evaluaci\'on, cada imagen sint\'etica se ejecuta en DeFiNe con los par\'
 %3.- paso del grafo a gml para comparar con define
 %4.-paso del grafo a json para integrar a phil
 El procedimiento para individualizar filamentos en im\'agenes de microscop\'ia var\'ia dependiendo del tipo de c\'elula observada. En el caso de los microt\'ubulos, consiste en el an\'alisis del {\it stack} o conjunto de im\'agenes capturadas durante una observaci\'on, las que pueden variar en el tiempo y en el eje Z. El criterio principal utilizado por los expertos se basa en determinar si existe continuidad de un posible filamento entre dos o m\'as im\'agenes del stack. %Adem\'as, el experto busca descartar la influencia de ruido en la continuidad que pueden generar 
-El experto define los microt\'ublos mediante la selecci\'on del \'area de \'interes o ROI sobre una imagen que proyecta la uni\'on de las im\'agenes del stack bajo alg\'un criterio asociado a la intensidad de los p\'ixeles en el eje Z. 
+Luego, el experto anota los microt\'ublos mediante la selecci\'on del \'area de inter\'es o ROI sobre una imagen que proyecta la uni\'on de las im\'agenes del stack bajo alg\'un criterio asociado a la intensidad de los p\'ixeles en el eje Z. Las figuras \ref{fig:SpinningMarchantia-gt}, \ref{fig:field3t0filtered1-gt} y \ref{fig:field3t0filtered2-gt} son ejemplos de las anotaciones de ROIs realizadas.
+
+% Otras imágenes de filamentos reales
+
+Una vez obtenida la individualizaci\'on de filamentos, independientemente del tipo de c\'elula, se construye una segmentaci\'on de las \'areas de inter\'es con el fin de generar una codificaci\'on de colores del {\it ground truth} y el grafo que representa la red de filamentos. La codificaci\'on de colores permite una comparaci\'on visual con los resultados de DeFiNe o de Phil. Por su parte, el grafo se obtiene mediante la extracci\'on de un esqueleto desde la imagen segmentada al utilizar la herramienta {\it sknw}, parte del software {\it ImagePy}\cite{wang2018imagepy}. Posteriormente, el grafo es escrito a un archivo en los formatos GML y JSON, los que son utilizados como archivos de entrada en DeFiNe y en Phil respectivamente, para la individualizaci\'on autom\'atica de filamentos.
+
+Las resultados de cada imagen analizada en Phil se obtienen con el mismo procedimiento utilizado para las im\'agenes sint\'eticas.
+%la cual requiere que la imagen de proyecci\'on del eje Z se encuentre en modo binario con el fondo negro. Finalmente a partir del grafo, es posible obtener un archivo en formato GML y otro en formato JSON, 
 
 
-Independiente del tipo de c\'elula, la generaci\'on de un esqueleto y del respectivo grafo se realiza mediante la herramienta {\it sknw}, parte del software {\it ImagePy}\cite{wang2018imagepy}, la cual requiere que la imagen de proyecci\'on del eje Z se encuentre en modo binario con el fondo negro. Finalmente a partir del grafo, es posible obtener un archivo en formato GML y otro en formato JSON, los que son utilizados por DeFiNe y el algoritmo {\it Phil} respectivamente, en la individualizaci\'on de filamentos.
-
-
-Para las mediciones, cada imagen es analizada en {\it Phil} de la misma forma que las im\'agenes sint\'eticas.
-
-Spinning
+%Spinning
 \begin{figure*}[h!]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[height=2.5in]{benchImages/AVG-SPINNING-DISK-MARCHANTIA.png}
-        \caption{Imagen 6 de un stack de 301...}
+        \caption{Imagen de Microt\'ubulos}
         \label{fig:SpinningMarchantia-og}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/MAX-SPINNING-DISK-MARCHANTIA-gtruth.png}
+        \includegraphics[height=2.5in]{benchImages/SPINNING-DISK-MARCHANTIA-rois-unlabeled.png}
         \caption{Filamentos manualmente individualizados por un experto}
         \label{fig:SpinningMarchantia-gt}
     \end{subfigure}
@@ -173,22 +175,22 @@ Spinning
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[height=2.5in]{benchImages/50-ROIs-Spinning-Marchantia-graph-og.png}
-        \caption{Grafo extra\'ido a partir de la individualizaci\'on manual que es el dato de entrada para los algoritmos comparados.}
+        \caption{Grafo que representa la red de microt\'ubulos manualmente identificada}
         \label{fig:SpinningMarchantia-graph}
     \end{subfigure}
-    \caption{}
+    \caption{Individualizaci\'on manual de microt\'ubulos. a) Imagen 6 de un stack de 301 cuadros de {\it Arabidopsis Marchantia}. b) Individualizaci\'on manual c) Representaci\'on mediante colores de los diferentes microt\'ubulos. d) Grafo de 29 aristas extra\'ido a partir de la individualizaci\'on manual, que es el dato de entrada para los algoritmos comparados.}
     \label{fig:SpinningMarchantia}
 \end{figure*}
 
 
 
-field3t02Bcell-filtered1
+%field3t02Bcell-filtered1
 \begin{figure*}[h!]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-1.png}
-        \caption{}
+        \caption{Imagen de Microt\'ubulos}
         \label{fig:field3t0filtered1-og}
     \end{subfigure}
     ~ 
@@ -212,19 +214,19 @@ field3t02Bcell-filtered1
         \caption{Grafo extra\'ido a partir de la individualizaci\'on manual que es el dato de entrada para los algoritmos comparados.}
         \label{fig:field3t0filtered1-graph}
     \end{subfigure}
-    \caption{}
+    \caption{Individualizaci\'on manual de microt\'ubulos. a) Imagen de {\it Arabidopsis Marchantia} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de promedio de p\'ixeles. b) \'Areas de inter\'es de la individualizaci\'on manual c) Representaci\'on mediante colores de los diferentes microt\'ubulos. d) Grafo de 40 aristas utilizado en la individualizaci\'on autom\'atica de filamentos.}
     \label{fig:field3t0filtered1}
 \end{figure*}
 
 
 
-field3t02Bcell-filtered2
+%field3t02Bcell-filtered2
 \begin{figure*}[h!]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-2.png}
-        \caption{}
+        \caption{Imagen de Microt\'ubulos}
         \label{fig:field3t0filtered2-og}
     \end{subfigure}
     ~ 
@@ -245,9 +247,9 @@ field3t02Bcell-filtered2
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-2-graph-thick.png}
-        \caption{Grafo extra\'ido a partir de la individualizaci\'on manual que es el dato de entrada para los algoritmos comparados.}
+        \caption{Grafo base para la individualizaci\'on automatizada de filamentos.}
         \label{fig:field3t0filtered2-graph}
     \end{subfigure}
-    \caption{}
+    \caption{Individualizaci\'on manual de microt\'ubulos. a) Imagen de {\it Arabidopsis Marchantia} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de promedio de p\'ixeles. b) \'Areas de inter\'es de la individualizaci\'on manual c) Representaci\'on mediante colores de los diferentes microt\'ubulos. d) Grafo de 7 aristas extra\'ido a partir de la individualizaci\'on manual.}
     \label{fig:field3t0filtered2}
 \end{figure*}
