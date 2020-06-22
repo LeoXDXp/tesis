@@ -8,7 +8,8 @@ Al basar la individualizaci\'on de filamentos en un m\'etodo que usa un grafo, e
 
 La comparaci\'on de particiones en donde una corresponde al {\it ground truth} implica que las mediciones a utilizar son del tipo de criterio externo\cite{manning20introduction}. En este tipo de criterio hay \'indces basados en comparaci\'on mediante conteo de pares, como el \'indice {\it Rand} ($\mathcal{R}$), el \'indice {\it Jaccard} ($\mathcal{J}$), y la medida $\mathcal{F}$ tambi\'en conocida como $F1-$Score. Por otra parte, tambi\'en existen m\'etricas del \'area de teor\'ia de la informaci\'on como {\it Variation of Information} o VI para el mismo prop\'osito. Estos m\'etodos ser\'an la base de comparaci\'on de particiones en esta investigaci\'on.
 
-\section{M\'etricas}
+\section{M\'etricas y Medidas}
+\label{sec:metricasymedidas}
 %\subsection{Variation of Information}
 
 La m\'etrica VI definida en \cite{meilua2007comparing} se fundamenta en la informaci\'on asociada a la entrop\'ia de las particiones a comparar, as\'i como en la informaci\'on mutua que comparten. El rango de valores de VI comienza en 0 para 2 particiones iguales, llegando a $\log n$ para particiones absolutamente distintas, con $n$ como el n\'umero de elementos del data set. En la ecuaci\'on \eqref{eq:VI} el t\'ermino $H(C,C^{\prime})$ hace referencia a la informaci\'on que la partici\'on $C$ pierde al pasar a $C^{\prime}$. De forma similar, $H(C^{\prime},C)$ indica la informaci\'on que se gana al pasar de $C$ a $C^{\prime}$.
@@ -153,14 +154,14 @@ Las resultados de cada imagen analizada en Phil se obtienen con el mismo procedi
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/AVG-SPINNING-DISK-MARCHANTIA.png}
+        \includegraphics[height=3in]{benchImages/AVG-SPINNING-DISK-MARCHANTIA.png}
         \caption{Imagen de Microt\'ubulos}
         \label{fig:SpinningMarchantia-og}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/SPINNING-DISK-MARCHANTIA-rois-unlabeled.png}
+        \includegraphics[height=3in]{benchImages/SPINNING-DISK-MARCHANTIA-rois-unlabeled.png}
         \caption{Filamentos manualmente individualizados por un experto}
         \label{fig:SpinningMarchantia-gt}
     \end{subfigure}
@@ -189,28 +190,28 @@ Las resultados de cada imagen analizada en Phil se obtienen con el mismo procedi
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-1.png}
+        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-1.png}
         \caption{Imagen de Microt\'ubulos}
         \label{fig:field3t0filtered1-og}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-1-rois.png}
+        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-1-rois.png}
         \caption{Filamentos manualmente individualizados por un experto}
         \label{fig:field3t0filtered1-gt}
     \end{subfigure}
     \vskip\baselineskip
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-inverted-colorCoded.png}
+        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-inverted-colorCoded.png}
         \caption{Codificaci\'on por color de la individualizaci\'on manual}
         \label{fig:field3t0filtered1-indivManual}
     \end{subfigure}
     ~
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-graph-thick.png}
+        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-graph-thick.png}
         \caption{Grafo extra\'ido a partir de la individualizaci\'on manual que es el dato de entrada para los algoritmos comparados.}
         \label{fig:field3t0filtered1-graph}
     \end{subfigure}
@@ -225,28 +226,28 @@ Las resultados de cada imagen analizada en Phil se obtienen con el mismo procedi
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-2.png}
+        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-2.png}
         \caption{Imagen de Microt\'ubulos}
         \label{fig:field3t0filtered2-og}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-2-rois.png}
+        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-2-rois.png}
         \caption{Filamentos manualmente individualizados por un experto}
         \label{fig:field3t0filtered2-gt}
     \end{subfigure}
     \vskip\baselineskip
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-2-inverted-colorCoded.png}
+        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-2-inverted-colorCoded.png}
         \caption{Codificaci\'on por color de la individualizaci\'on manual}
         \label{fig:field3t0filtered2-indivManual}
     \end{subfigure}
     ~
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/field3-t0-2cellBcrop-filtered-2-graph-thick.png}
+        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-2-graph-thick.png}
         \caption{Grafo base para la individualizaci\'on automatizada de filamentos.}
         \label{fig:field3t0filtered2-graph}
     \end{subfigure}
