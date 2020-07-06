@@ -4,7 +4,9 @@
 Como se indica en el cap\'itulo \ref{chap:cap2}, la obtenci\'on de un grafo a partir de una imagen, es un proceso complejo. Las im\'agenes analizadas en este trabajo son aquellas en las que fue posible realizar el procedimiento de esqueletonizaci\'on, obteniendo un resultado que manten\'ia la topolog\'ia de la estructura original. Lo anterior no es un estando que pueda garantizarse para toda imagen. 
 
 
-Los resultados que se presentan a continuaci\'on se separan entre tablas y figuras. Las tablas de resultados se encuentran dividas en 2 secciones dado el n\'umero de columnas. La primera secci\'on agrupa las m\'etricas y medidas indicadas en la secci\'on \ref{sec:metricasymedidas}. La segunda secci\'on muestra los porcentajes de cobertura y correctitud de los filamentos propuestos con respecto al {\it ground truth}. Es importante aclarar que aun cuando en la mayor\'ia de la tablas de resultados la columna `` \% Cobertura de Aristas'' es del 100\%, este no es siempre el caso para el algoritmo Phil, ya que no tiene como restricci\'on estricta garantizar la cobertura de cada arista del grafo, a diferencia de DeFiNe.
+Los resultados que se presentan a continuaci\'on se separan entre tablas y figuras. Las tablas de resultados se encuentran dividas en 2 secciones dado el n\'umero de columnas. La primera secci\'on agrupa las m\'etricas y medidas indicadas en la secci\'on \ref{sec:metricasymedidas}. La segunda secci\'on muestra los porcentajes de cobertura y correctitud de los filamentos propuestos con respecto al {\it ground truth}.
+Es necesario especificar que los porcentajes que se indican en la columna `` \% Cobertura de Aristas'' reflejan una condici\'on que no es una restricci\'on estricta del modelo o del algoritmo Phil, a diferencia de DeFiNe, donde si se garantiza la cobertura de cada arista del grafo.
+
 
 En cuanto a las figuras, el enfoque se dirige a presentar los resultados de DeFiNe y Phil, con \'enfasis en los filamentos correctamente encontrados por uno de los algoritmos que el otro no haya podido individualizar. Cabe aclarar que el resultado gr\'afico al ejecutar DeFiNe realiza una rotaci\'on de 90\textdegree en sentido contrarreloj adem\'as de invertir el eje vertical. Ambas modificaciones han sido corregidas con el prop\'osito de comparar los resultados entre DeFiNe, Phil y la individualizaci\'on de filamentos realizada por el experto.
 
@@ -254,11 +256,11 @@ para la muestra MT-B en la
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[height=1.5in]{resultImages/field3-t0-2cellBcrop-filtered-phil-s10-v05-exactMatch-antLabeled.png}
-        \caption{Filamentos correctamente individualizados a partir del peor resultado con Phil, identificados con colores}
+        \caption{Filamentos correctamente individualizados en el peor resultado de Phil, identificados con colores}
         \label{field3t0filtered1Results-worstPhilExact}
     \end{subfigure}
     
-    \caption{Individualizaci\'on  de filamentos de la figura \ref{fig:field3t0filtered1} correspondiente a la muestra MT-B, realizadas con DeFiNe y Phil. Segmentos marcados en negro con y sin discontinuidad representan aristas no asignadas correctamente al filamento correspondiente en el {\it ground truth.}. f) El mejor resultado con Phil permite encontrar el filamento compuesto por las aristas 8,22,26,27,32,34,36 no encontrado en a) ni en c). }
+    \caption{Individualizaci\'on  de filamentos de la figura \ref{fig:field3t0filtered1} correspondiente a la muestra MT-B, realizadas con DeFiNe y Phil. Segmentos marcados en negro representan aristas no asignadas correctamente. f) El mejor resultado con Phil permite encontrar el filamento compuesto por las aristas 8,22,26,27,32,34,36 no encontrado en a) ni en c). }
     \label{fig:field3t0filtered1Results}
 \end{figure*}
 
