@@ -103,10 +103,10 @@ PROF. GUÍA: \foreach \x in \@guia { \MakeUppercase\x }
   \chapter*{Introducción}
   \addcontentsline{toc}{chapter}{\protect\numberline{}Introducción}
 }{\vfill\null}
-\newenvironment{conclusion}{
-  \chapter*{Conclusión}
-  \addcontentsline{toc}{chapter}{\protect\numberline{}Conclusión}
-}{\vfill\null}
+%\newenvironment{conclusion}{
+%  \chapter*{Conclusión}
+%  \addcontentsline{toc}{chapter}{\protect\numberline{}Conclusión}
+%}{\vfill\null}
 
 %% Teoremas, proofs, etc
 \renewenvironment{proof}[1][\proofname] {\par\pushQED{\qed}\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\scshape\footnotesize#1\@addpunct{.}]\ignorespaces}{\popQED\endtrivlist\@endpefalse}
