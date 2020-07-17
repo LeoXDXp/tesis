@@ -1,14 +1,38 @@
 \chapter{Conclusiones}
 %\begin{conclusion}
 \label{chap:conclu}
-La obtenci\'on de un grafo representativo de una red de filamentos a partir de una imagen es un proceso complejo, cuyo resultado limita la calidad m\'axima del procedimiento de individualizaci\'on de filamentos. Los procedimientos de limpieza de la imagen, as\'i como el proceso de esqueletonizaci\'on pueden causar perdida de informaci\'on o introducir deformaciones, impactando en la calidad del grafo que sirve de base para la individualizaci\'on de filamentos, por lo que resulta imperativo obtener la mayor cantidad de informaci\'on en estos pasos para compensar estos posibles problemas. 
+La obtenci\'on de un grafo representativo de una red de filamentos a partir de una imagen es un proceso complejo, cuyo resultado limita la calidad m\'axima del procedimiento de individualizaci\'on de filamentos. Los procedimientos de limpieza sobre la imagen de la c\'elula observada, as\'i como el proceso de esqueletonizaci\'on pueden causar perdida de informaci\'on o introducir deformaciones, impactando en la calidad del grafo que se extrae, y que sirve de base para la individualizaci\'on de filamentos, por lo que resulta imperativo obtener la mayor cantidad de informaci\'on en estos pasos para compensar estos posibles problemas. 
 
-La obtenci\'on de m\'ultiples caracter\'isticas de los filamentos es cr\'itica para descartar rapidamente soluciones de baja calidad, algo especialmente necesario en un problema en el que la combinaci\'on de aristas que conforman un camino que representa un filamento puede crecer exponencialmente.
+La obtenci\'on de m\'ultiples caracter\'isticas de los filamentos es cr\'itica para descartar rapidamente soluciones de baja calidad, algo especialmente necesario en un problema en el que la combinaci\'on de aristas que conforman un camino que representa un filamento puede crecer exponencialmente. Estas caracter\'isticas pueden provenir no s\'olo de aspectos geom\'etricos de los filamentos, sino que tambi\'en de informaci\'on topol\'ogica y/o espacial de los mismos.
+A\'un con aquella informaci\'on de diversos or\'igenes que permiten explorar de mejor forma las combinaciones de aristas contiguas o caminos que representan un filamento en un grafo, la informaci\'on del tipo de c\'elula observada, disponible {\it a priori} de la individualizaci\'on de filamentos, facilita el establecimiento de umbrales y/o cotas que describen parcialmente aspectos del comportamiento de los filamentos.
+
+% se prueba la hipotesis, se obtienen mejores resultados que el estado del arte pero aun falta
+Los resultados obtenidos en esta investigaci\'on incorporan los elementos mencionados previamente, permitiendo individualizar filamentos de forma similar o mejos con respecto a m\'etodos en el estado del arte, y a su vez cumpliendo parcialmente con la hip\'otesis de identificar cada filamento resolviendo un modelo de optimizaci\'on. A pesar de no lograr una individualizaci\'on correcta de la totalidad de los filamentos, se obtiene un comportamiento estable, que no presenta diferencias estad\'isticas significativas con las individualizaciones realizadas por los expertos. Cabe volver a destacar lo mencionado en el cap\'itulo \ref{chap:cap2} en relaci\'on a que es posible que 2 expertos indiquen diferentes filamentos a partir de la misma imagen, por lo que es necesario incorporar pruebas adicionales a este trabajo para descartar la existencia de un sobreajuste del modelo a la informaci\'on provista por los expertos que realizaron las individualizaciones manuales de las im\'agenes utilizadas.
+
+
+En cuanto al modelo de optimizaci\'on desarrollado utilizando como base la metaheur\'istica ACO, se propone una diferencia respecto del planteamiento de PCP o FCP, donde una arista debe pertenecer exactamente o al menos a un camino respectivamente, relaj\'andose aquella restricci\'on dado que pueden existir aristas aisladas producto una extracci\'on de grafo con perdida de informaci\'on, ocasionando discontinuidades. La captaci\'on de aquella informaci\'on es relevante dado que existen m\'etodos en el estado del arte que permiten realizar la uni\'on de una arista aislada y el filamento al que potencialmente puede pertenecer, pudiendo incorporarse como etapas adicionales al modelo.
+Por otra parte, el uso de la metaheur\'istica ACO facilita la asociaci\'on de un peso a las aristas del grafo mediante las anti-feromonas, dando cumplimiento al objetivo espec\'ifico asociado a generar un modelo de optimizaci\'on para la identificaci\'on de filamentos a partir de un grafo con pesos que representa la red de filamentos.
 
 %cumplimiento de objetivos
+En cuanto al cumplimiento de los dem\'as objetivos espec\'ificos, se tiene:
+\begin{itemize}
+    \item {\bf Implementar un algoritmo que resuelva el modelo de optimizaci\'on, entregando como salida la identificaci\'on de filamentos, considerando casos de solapamiento y/o cruce}: 
+    
+    \item {\bf Identificar la ponderaci\'on de propiedades que entregue mejores resultados para grafos que representen una neurona, una bacteria y una c\'elula eucariota de planta:}.
+    
+    \item {\bf Evaluar t\'ecnicas que usan s\'olo herramientas de visi\'on por computador, como \cite{boudaoud2014fibriltool}, basada en poblaci\'on de p\'ixeles y \cite{xu2015soax}, que utiliza un m\'etodo derivado de contornos activos:} 
+\end{itemize}
+
+% obj espec 3: ponderar
+El modelo de optimizaci\'on desarrollado para la individualizaci\'on de filamentos considera el uso de caracter\'isticas espaciales, topol\'ogicas y geom\'etricas, las que var\'ian dependiendo de la c\'elula representada por el grafo extra\'ido, as\'i como el lugar en el modelo en la cual se aplican. Para la exploraci\'on de soluciones el \'angulo entre aristas contiguas es la \'unica caracter\'istica utilizada, mientras que en el m\'etodo de b\'usqueda no local se emplea la posici\'on para determinar si un camino se encuentra contenido dentro de otro. A diferencia con los casos anteriores, en la etapa de actualizaci\'on de feromonas
+se hace uso s\'olo de caracter\'isticas geom\'etricas como  la curvatura, el \'angulo entre segmentos contiguos y el largo de los segmentos independientemente de la c\'elula observada, agreg\'andose el uso de informaci\'on topol\'ogica asociada a la identificaci\'on de las aristas en el soma en el caso de las neuronas. Una ponderaci\'on de las caracter\'isitcas puede realizarse en base a su uso en esta etapa del modelo, espec\'ificamente en el calculo de la calidad de un camino, y si se utilizan por si solas o en combinaciones. La asignaci\'on de pesos a las caracter\'isticas geom\'etricas consiste en un 50\% del peso para la curvatura, un 25\% para el \'angulo entre segmentos y un 25\% para el largo de los segmentos de un camino. El agregar la informaci\'on topol\'ogica en el caso de una neurona implica que 1/3 del peso corresponde a esta caracter\'istica, quedando los 2/3 restantes para las caracter\'isticas utilizadas en el an\'alisis com\'un. 
 
 
-A diferencia del planteamiento de PCP o FCP, donde una arista debe pertenecer exactamente o al menos a un camino, respectivamente, en el presente modelo de optimizaci\'on propuesto se levanta aquella restricci\'on dado que pueden existir aristas aisladas producto una extracci\'on de grafo con perdida de informaci\'on asociado a discontinuidades,
+
+% obj espec 4: evaluar
+
+
+
 
 
 Una extensi\'on natural basada en los resultados obtenidos por el modelo de optimizaci\'on presentado en este trabajo es la identificaci\'on de las interacciones entre los filamentos individualizados. Lo anterior se refleja en microt\'ubulos como la identificaci\'on de interacciones tipo cat\'astrofe, zippering o nucleaci\'on, mientras que para una neurona ser\'ia la clasificaci\'on autom\'atica de los filamentos en axon o dendritas primarias o secundarias. 

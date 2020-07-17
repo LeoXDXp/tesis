@@ -99,10 +99,10 @@ PROF. GUÍA: \foreach \x in \@guia { \MakeUppercase\x }
 \newenvironment{dedicatoria}{\cleardoublepage\null\vspace{\stretch{1}}\begin{flushright}\itshape}{\end{flushright}\vspace{\stretch{2}}\null}
 \let\thanks\undefined
 \newenvironment{thanks}{\cleardoublepage\chapter*{Agradecimientos}}{\vfill\null}
-\newenvironment{intro}{
-  \chapter*{Introducción}
-  \addcontentsline{toc}{chapter}{\protect\numberline{}Introducción}
-}{\vfill\null}
+%\newenvironment{intro}{
+%  \chapter*{Introducción}
+%  \addcontentsline{toc}{chapter}{\protect\numberline{}Introducción}
+%}{\vfill\null}
 %\newenvironment{conclusion}{
 %  \chapter*{Conclusión}
 %  \addcontentsline{toc}{chapter}{\protect\numberline{}Conclusión}

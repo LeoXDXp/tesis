@@ -1,4 +1,5 @@
-\begin{intro}
+%\begin{intro}
+\chapter{Introducci\'on}
 \label{chap:intro}
 
 En la naturaleza, es posible encontrar de forma ubicua, estructuras alargadas (filamentos), las que conforman redes entre sí. La conformación de estas estructuras complejas y din\'amicas se puede observar en ejemplos particulares como en una red de prote\'inas de una c\'elula eucariota, as\'i como en bacterias, ya que a pesar que pertenecer a distintas familias, ambas tienen estructuras formada por filamentos. 
@@ -74,7 +75,7 @@ En ambas categor\'ias, las cr\'iticas m\'as repetidas en los trabajos del \'area
 
 En resumen, el problema de identificar filamentos en im\'agenes de microscop\'ia esta limitado por la resoluci\'on, y los problemas de m\'ultiples par\'ametros a ajustar, para los m\'etodos basados en procesamiento de im\'agenes, el costo computacional en los m\'etodos basados en optimizaci\'on, y falta de descriptores cuantitativos en ambas. La revisi\'on bibliogr\'afica da cuenta tambi\'en de pocas herramientas disponibles. Todo lo anterior implica que parte del an\'alisis deba ser manual, lo que para grandes cantidades de datos, hace los estudios m\'as propensos a errores. 
 
-\section*{Hip\'otesis y Objetivos}
+\section{Hip\'otesis y Objetivos}
 Como se ha presentado, los m\'etodos de individualizaci\'on de filamentos que s\'olo usan herramientas de procesamiento de im\'agenes, pueden representar la red a trav\'es de los filamentos que la conforman, sin embargo para realizar mediciones cuantitativas requieren ajustar m\'ultiples par\'ametros. Por otra parte los m\'etodos de optimizaci\'on permiten reducir los par\'ametros, pero con un alto costo computacional, el que puede ser abordado con el uso de heur\'isticas o algoritmos de aproximaci\'on. Tambi\'en se debe tener en consideraci\'on en ambos m\'etodos, el n\'umero de caracter\'istica utilizadas al momento de realizar la individualizaci\'on. Esto nos permite establecer la pregunta:
 
 \smallskip
@@ -95,11 +96,11 @@ Se debe agregar que existe informaci\'on \textit{a priori}, indicada por el tipo
 En base a lo anterior, la hip\'otesis de esta investigaci\'on se basa en que a partir de un grafo con pesos, no dirigido, con o sin ciclos, que representa una red de filamentos, en conjunto con utilizar una combinaci\'on de caracter\'isticas de los segmentos de filamentos como largo, grosor, \'angulo de bifurcaci\'on o curvatura, sumado a la incorporaci\'on de informaci\'on previa disponible sobre el tipo de c\'elula (red de filamentos con o sin ciclos), es posible identificar a cada filamento en la red resolviendo un modelo de optimizaci\'on.
 
 Para validar esta hip\'otesis, se propone realizar los siguientes objetivos:
-\subsection*{Objetivo General}
+\subsection{Objetivo General}
 Desarrollar un modelo de optimizaci\'on para la individualizaci\'on de filamentos a partir de un grafo representativo de la red de filamentos, evaluando la variaci\'on en el resultado con distintas combinaciones entre las propiedades de cada segmento de filamento como el grosor, largo, \'angulo de bifurcaci\'on o direcci\'on.
 %y que incorpore la informaci\'on {\it a priori} disponible
 
-\subsection*{Objetivos Espec\'ificos}
+\subsection{Objetivos Espec\'ificos}
 \begin{itemize}
     \item Generar un modelo de optimizaci\'on para la identificaci\'on de filamentos a partir de un grafo con pesos que representa la red de filamentos.
     \item Implementar un algoritmo que resuelva el modelo de optimizaci\'on, entregando como salida la identificaci\'on de filamentos, considerando casos de solapamiento y/o cruce.
@@ -115,9 +116,9 @@ Desarrollar un modelo de optimizaci\'on para la individualizaci\'on de filamento
 Como resultado de los objetivos planteados, se obtendr\'a una herramienta para el an\'alisis automatizado de estructuras de filamentos, lo que permitir\'ia mejorar el seguimiento de procesos din\'amicos o la identificaci\'on de procesos patol\'ogicos de forma autom\'atica.
 
 \section*{Estructura de esta tesis}
-El capitulo \ref{chap:stateoftheart} resume el estado del arte de diversos aspectos relacionados a la individualizaci\'on de filamentos. El cap\'itulo \ref{chap:cap2} presenta la problem\'atica de identificar filamentos a partir de un grafo y la definici\'on del modelo de optimizaci\'on. Se presentan las m\'etricas y mediciones en el cap\'itulo \ref{chap:metodologia}. El cap\'itulo \ref{chap:res} presenta los resultados obtenidos para im\'agenes sint\'eticas e im\'agenes reales de distintas c\'elulas. Finalmente, en el cap\'itulo \ref{chap:conclu} se presentan las conclusiones.
+El capitulo \ref{chap:stateoftheart} resume el estado del arte de diversos aspectos relacionados a la individualizaci\'on de filamentos. El cap\'itulo \ref{chap:cap2} presenta la problem\'atica de identificar filamentos a partir de un grafo, para luego en el cap\'itulo \ref{sec:modeloOpti} definir el modelo de optimizaci\'on que resuelve la identificaci\'on de filamentos. Se presentan las m\'etricas y mediciones en el cap\'itulo \ref{chap:metodologia}. El cap\'itulo \ref{chap:res} presenta los resultados obtenidos para im\'agenes sint\'eticas e im\'agenes reales de distintas c\'elulas. Finalmente, en el cap\'itulo \ref{chap:conclu} se presentan las conclusiones.
 
 %\begin{teo}
 %Se tiene que $$\int_0^t e^sds=e^t-1.$$
 %\end{teo}
-\end{intro}
+%\end{intro}
