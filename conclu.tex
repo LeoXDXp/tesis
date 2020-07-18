@@ -16,22 +16,14 @@ Por otra parte, el uso de la metaheur\'istica ACO facilita la asociaci\'on de un
 %cumplimiento de objetivos
 En cuanto al cumplimiento de los dem\'as objetivos espec\'ificos, se tiene:
 \begin{itemize}
-    \item {\bf Implementar un algoritmo que resuelva el modelo de optimizaci\'on, entregando como salida la identificaci\'on de filamentos, considerando casos de solapamiento y/o cruce}: 
+    \item {\bf Implementar un algoritmo que resuelva el modelo de optimizaci\'on, entregando como salida la identificaci\'on de filamentos, considerando casos de solapamiento y/o cruce}: La implementaci\'on del modelo de optimizaci\'on se cumple mediante el algoritmo denomidado {\it Phil}, q
     
-    \item {\bf Identificar la ponderaci\'on de propiedades que entregue mejores resultados para grafos que representen una neurona, una bacteria y una c\'elula eucariota de planta:}.
+    \item {\bf Identificar la ponderaci\'on de propiedades que entregue mejores resultados para grafos que representen una neurona, una bacteria y una c\'elula eucariota de planta:}:
+    
+    % El modelo de optimizaci\'on desarrollado para la individualizaci\'on de filamentos considera el uso de caracter\'isticas espaciales, topol\'ogicas y geom\'etricas, las que var\'ian dependiendo de la c\'elula representada por el grafo extra\'ido, as\'i como el lugar en el modelo en la cual se aplican. Para la exploraci\'on de soluciones el \'angulo entre aristas contiguas es la \'unica caracter\'istica utilizada, mientras que en el m\'etodo de b\'usqueda no local se emplea la posici\'on para determinar si un camino se encuentra contenido dentro de otro. A diferencia con los casos anteriores, en la etapa de actualizaci\'on de feromonas se hace uso s\'olo de caracter\'isticas geom\'etricas como  la curvatura, el \'angulo entre segmentos contiguos y el largo de los segmentos independientemente de la c\'elula observada, agreg\'andose el uso de informaci\'on topol\'ogica asociada a la identificaci\'on de las aristas en el soma en el caso de las neuronas. Una ponderaci\'on de las caracter\'isitcas puede realizarse en base a su uso en esta etapa del modelo, espec\'ificamente en el calculo de la calidad de un camino, y si se utilizan por si solas o en combinaciones. La asignaci\'on de pesos a las caracter\'isticas geom\'etricas consiste en un 50\% del peso para la curvatura, un 25\% para el \'angulo entre segmentos y un 25\% para el largo de los segmentos de un camino. El agregar la informaci\'on topol\'ogica en el caso de una neurona implica que 1/3 del peso corresponde a esta caracter\'istica, quedando los 2/3 restantes para las caracter\'isticas utilizadas en el an\'alisis com\'un. 
     
     \item {\bf Evaluar t\'ecnicas que usan s\'olo herramientas de visi\'on por computador, como \cite{boudaoud2014fibriltool}, basada en poblaci\'on de p\'ixeles y \cite{xu2015soax}, que utiliza un m\'etodo derivado de contornos activos:} 
 \end{itemize}
-
-% obj espec 3: ponderar
-El modelo de optimizaci\'on desarrollado para la individualizaci\'on de filamentos considera el uso de caracter\'isticas espaciales, topol\'ogicas y geom\'etricas, las que var\'ian dependiendo de la c\'elula representada por el grafo extra\'ido, as\'i como el lugar en el modelo en la cual se aplican. Para la exploraci\'on de soluciones el \'angulo entre aristas contiguas es la \'unica caracter\'istica utilizada, mientras que en el m\'etodo de b\'usqueda no local se emplea la posici\'on para determinar si un camino se encuentra contenido dentro de otro. A diferencia con los casos anteriores, en la etapa de actualizaci\'on de feromonas
-se hace uso s\'olo de caracter\'isticas geom\'etricas como  la curvatura, el \'angulo entre segmentos contiguos y el largo de los segmentos independientemente de la c\'elula observada, agreg\'andose el uso de informaci\'on topol\'ogica asociada a la identificaci\'on de las aristas en el soma en el caso de las neuronas. Una ponderaci\'on de las caracter\'isitcas puede realizarse en base a su uso en esta etapa del modelo, espec\'ificamente en el calculo de la calidad de un camino, y si se utilizan por si solas o en combinaciones. La asignaci\'on de pesos a las caracter\'isticas geom\'etricas consiste en un 50\% del peso para la curvatura, un 25\% para el \'angulo entre segmentos y un 25\% para el largo de los segmentos de un camino. El agregar la informaci\'on topol\'ogica en el caso de una neurona implica que 1/3 del peso corresponde a esta caracter\'istica, quedando los 2/3 restantes para las caracter\'isticas utilizadas en el an\'alisis com\'un. 
-
-
-
-% obj espec 4: evaluar
-
-
 
 
 

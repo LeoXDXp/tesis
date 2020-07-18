@@ -389,7 +389,27 @@ En relaci\'on al an\'alisis de las medidas y las m\'etricas en la tabla \ref{tab
 \subsection{Neuronas}
 
 \section{Resultados Generales}
+% t-test para cantidad de filamentos propuestos vs gtruth, y correctos vs gtruth
 Para evaluar el desempe\~no general del modelo de optimizaci\'on implementado se calcula la prueba {\it t} de Student o Test-T y la prueba de Kolmog\'orov-Smirnov o prueba K-S sobre los resultados obtenidos por Phil, DeFiNe, y la individualizaci\'on manual de un experto. En el primer caso se calcula la prueba {\it t} de mediciones apareadas independientes, obteni\'endose un {\it p-value} de XXXXX , que al ser mayor que 0.05 no permite rechazar la hip\'otesis nula, por lo que no existe una diferencia estad\'istica significativa entre los resultados de Phil y los de las individualizaciones realizadas por un experto. El resultado de la prueba {\it t} entre Phil y DeFiNe arroja un resultado similar, con un {\it p-value} de XXXXX, tambi\'en mayor a 0.05, determinando que tampoco existe una diferencia estad\'istica significativa entre los resultados de Phil y los de DeFiNe.
 
+%En cuanto a la prueba K-S 
 
-En cuanto a la prueba K-S 
+\subsection{Ponderaci\'on de Caracter\'isticas}
+\label{subsec:ponderacion}
+El modelo de optimizaci\'on desarrollado para la individualizaci\'on de filamentos considera el uso de caracter\'isticas espaciales, topol\'ogicas y geom\'etricas, cuyo uso puede variar dependiendo de la c\'elula representada por el grafo extra\'ido, as\'i como la etapa en el modelo en la cual se aplican. La etapa de construcci\'on de soluciones emplea el \'angulo entre aristas contiguas para definir la posibilidad de elecci\'on que cada hormiga tiene al ir avanzando. En esta etapa tambi\'en se aplica la heur\'istica de asignaci\'on inicial, en la que influyen el grado de los nodos. A su vez, en el paso de actualizaci\'on de feromonas se hace uso primariamene de caracter\'isticas geom\'etricas como  la curvatura del filamento, el \'angulo entre segmentos contiguos y del largo de los segmentos. independiente de la c\'elula observada. Se agrega el uso de informaci\'on topol\'ogica asociada a la identificaci\'on de las aristas en el soma en el caso de las neuronas. Finalmente, en el m\'etodo de b\'usqueda no local se aplica la posici\'on de las aristas como discriminante para descartar soluciones de buena calidad contenidas dentro de otras.
+
+Dado que las diversas caracter\'isticas se encuentran a lo largo del modelo y no asociados a uno o m\'as par\'ametros, el criterio para ponderarlas se basa en otorgar $\frac{1}{3}$ del peso a cada etapa del modelo, distribuyendo aquel valor internamente dependiendo de si la caracter\'istica se utiliza por s\'i sola o en combinaci\'on con otra, as\'i como considerando si el uso es repetitivo durante la ejecuci\'on de la etapa o s\'olo se realiza una vez por etapa. Lo anterior permite establecer la siguiente ponderaci\'on:
+
+\begin{itemize}
+    \item Construcci\'on de soluciones: $\frac{100}{n}$\% el grado de los nodos, y el remanente para el \'angulo entre aristas, con $n$ como el n\'umero de aristas.
+    \item M\'etodo de b\'usqueda no local: 100\% posici\'on de la arista.
+    \item Actualizaci\'on de feromonas: 50\% curvatura, 25\% \'angulo entre segmentos y 25\% largo de los segmentos, como segmento comun para cualquier c\'elula observada. El agregar la informaci\'on topol\'ogica en el caso de una neurona implica que $\frac{1}{3}$ del peso corresponde a esta caracter\'istica, quedando los $\frac{2}{3}$ restantes para las caracter\'isticas utilizadas en el an\'alisis com\'un. 
+\end{itemize}
+
+Durante la construcci\'on de soluciones, el grado de los nodos s\'olo se utiliza en la heur\'istica de asignaci\'on de la primera arista, por lo que para caminos de una sola arista corresponde a la totalidad de la ponderaci\'on de la etapa. A medida que crece el n\'umero de aristas, su peso va disminuyendo gradualmente al irse traspasando al criterio de \'angulo entre aristas.
+
+
+%La flexibilidad que otorga el modelo 
+
+%30\% \'angulo entre aristas, 3,3\% grado de los nodos, 33,3\% posici\'on, 
+%16,6\% curvatura, 8,3\% \'angulo entre segmentos y 8,3\% largo de los segmentos
