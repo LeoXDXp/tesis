@@ -11,7 +11,7 @@ Es necesario especificar que los porcentajes que se indican en la columna `` \% 
 En cuanto a las figuras, el enfoque se dirige a presentar los resultados de DeFiNe y Phil, con \'enfasis en los filamentos correctamente encontrados por uno de los algoritmos que el otro no haya podido individualizar. Cabe aclarar que el resultado gr\'afico al ejecutar DeFiNe realiza una rotaci\'on de 90\textdegree en sentido contrarreloj adem\'as de invertir el eje vertical. Ambas modificaciones han sido corregidas con el prop\'osito de comparar los resultados entre DeFiNe, Phil y la individualizaci\'on de filamentos realizada por el experto.
 
 
-En las mediciones del algoritmo {\it Phil}, se muestra el promedio de las 5 iteraciones con diferentes semillas que se realizaron. El detalle de cada iteraci\'on se encuentra en el ap\'endice \ref{chap:apendice}.
+En las mediciones del algoritmo Phil, se muestra el promedio de las 5 iteraciones con diferentes semillas que se realizaron. El detalle de cada iteraci\'on, en conjunto con el c\'odigo y otros elementos necesarios para replicar estos resultados se encuentra en el \href{https://gitlab.com/LeoXDXp/graph-crawler}{repositorio github de esta tesis}. Parte de este detalle se incluye tambi\'en en la secci\'on \ref{chap:apendice}.
 Las ejecuciones de DeFiNe y Phil fueron realizadas en un computador con un procesador {\tt Intel i5-7200U} de 4 n\'ucleos, 8GB de RAM y un disco de estado s\'lido, bajo el sistema operativo {\tt Fedora 31}.
 
 \section{Im\'agenes Sint\'eticas}
@@ -409,6 +409,7 @@ Dado que las diversas caracter\'isticas se encuentran a lo largo del modelo y no
 Durante la construcci\'on de soluciones, el grado de los nodos s\'olo se utiliza en la heur\'istica de asignaci\'on de la primera arista, por lo que para caminos de una sola arista corresponde a la totalidad de la ponderaci\'on de la etapa. A medida que crece el n\'umero de aristas, su peso va disminuyendo gradualmente al irse traspasando al criterio de \'angulo entre aristas.
 
 
+En base a los resultados obtenidos mediante la resoluci\'on del modelo de optimizaci\'on es posible observar que la relevancia no se encuentra en encontrar una ponderaci\'on entre propiedades o caracter\'isticas para generar mejores resultados, sino en la incorporaci\'on de m\'as caracter\'isticas que permitan reducir el espacio de b\'usqueda y/o descartar soluciones candidatas que no representen el comportamiento biol\'ogico esperado del filamento en la c\'elula observada.
 %La flexibilidad que otorga el modelo 
 
 %30\% \'angulo entre aristas, 3,3\% grado de los nodos, 33,3\% posici\'on, 

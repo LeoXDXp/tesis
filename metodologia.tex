@@ -76,7 +76,7 @@ Otras medidas que se consideran son el porcentaje de cobertura de aristas, el n\
 
 \section{Im\'agenes Sint\'eticas}
 
-El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del m\'etodo de optimizaci\'on presentado en la secci\'on \ref{sec:modeloOpti}, cuya implementaci\'on se denomina {\sc Phil}, para casos simples que consideren filamentos que se superponen y/o intersectan. Las im\'agenes se observan en las figuras \ref{fig:synth-QFS-7} y \ref{fig:synth-Define-1b}, acompa\~nadas de su respectivo grafo representativo de la red de filamentos. La figura \ref{fig:synth-QFS-7-original} corresponde a una imagen sint\'etica obtenida de \cite{qiu2014quantitative}, mientras que la figura \ref{fig:synth-Define-1b-original} es un subconjunto de la figura 1b  en \cite{breuer2015define}.
+El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del m\'etodo de optimizaci\'on presentado en la secci\'on \ref{sec:modeloOpti}, cuya implementaci\'on se denomina {\sc Phil}, para casos simples que consideren filamentos que se superponen y/o intersectan. Ejemplos de las im\'agenes sint\'eticas utilizadas se observan en las figuras \ref{fig:synth-QFS-7}, \ref{fig:synth-Define-1b}, \ref{fig:synth-arbol9} y \ref{fig:synth-redX}, con las dos primeras acompa\~nadas de su respectivo grafo representativo de la red de filamentos. La figura \ref{fig:synth-QFS-7-original} corresponde a una imagen sint\'etica obtenida de \cite{qiu2014quantitative}, mientras que la figura \ref{fig:synth-Define-1b-original} es un subconjunto de la figura 1b  en \cite{breuer2015define}. La figura \ref{fig:synth-arbol9} es una de las im\'agenes creadas en base a un programa escrito en Matlab que simula la generaci\'on de filamentos a partir de un filamento inicial, que luego va generando nuevos filamentos mediante ramificaciones, simulando una estructura tipo \'arbol. La figura \ref{fig:synth-redX} representa a un segundo conjunto de im\'agenes creadas a partir de un programa en Matlab que simula una red de filamentos donde cada nodo es de grado 3 o inferior.
 
  \begin{figure*}[h!]
     \centering
@@ -131,7 +131,7 @@ El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del m\'etodo de o
     \label{fig:synth-Define-1b}
 \end{figure*}
 
-Para la evaluaci\'on, cada imagen sint\'etica se ejecuta en DeFiNe con los par\'ametros base \textsc{BFS - Overlapping - Pairwise - Total}, ya que fueron los de mejor resultado en \cite{breuer2015define}, configurando el \'angulo de umbral en 30\textdegree y 60\textdegree. Por su parte, el algoritmo {\it Phil} se ejecuta 5 veces con distintas semillas.
+Para la evaluaci\'on, cada imagen sint\'etica se ejecuta en DeFiNe con los par\'ametros base {\tt BFS - Overlapping - Pairwise - Total}, ya que fueron los de mejor resultado en \cite{breuer2015define}, configurando el \'angulo de umbral en 30\textdegree y 60\textdegree. Por su parte, el algoritmo {\it Phil} se ejecuta 5 veces con distintas semillas.
 
 \section{Im\'agenes Reales}
 %1.- pasos para la obtenci\'on de los filamentos desde las imagenes

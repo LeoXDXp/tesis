@@ -1,5 +1,31 @@
 \label{chap:apendice}
 
+\section{Recuperaci\'on de Informaci\'on mediante Superpixels}
+\label{sec:superpixels}
+
+La captura o recuperaci\'on de la informaci\'on del vecindario de los p\'ixeles del esqueleto se realiza utilizando la misma imagen a partir de la cual se obtiene el esqueleto, en conjunto con el grafo derivado del esqueleto. El procedimiento consta de los siguientes pasos:
+%A su vez, con esta herramienta tambi\'en es posible construir un grafo de la red de filamentos, sin embargo, el resultado no es de alta calidad.
+
+
+% explicar que el hecho de G completo mediante lo q la arista es al problema de identificación de filamentos
+%presento el extractor aproximado de grafos, la noción de puntos cluster/superPixels/blobs y el centro de masa como representante, dado que se puede obtener de forma simple mediante los "image moments". Además, distintos niveles de image moments permiten obtener información adicional útil en la descripción del cluster.
+
+\begin{enumerate}
+    \item Se generan clusters, tambi\'en llamados {\it super pixels} mediante una agrupaci\'on en base a un kernel de tama\~no 3x3, que busca separar de forma local los pixels que corresponden a {\it background} y no aportan informaci\'on, con respecto a los que son parte de la c\'elula observada ({\it foreground}), siendo estos \'ultimos los que concentran el inter\'es para el an\'alisis. La creaci\'on de clusters permite establecer la primera informaci\'on de vecindarios.
+    
+    \item Cada cluster es representado por un nodo, ubicado en el centro de masa del {\it super pixel}. En conjunto con el centro de masa es posible obtener informaci\'on geom\'etrica mediante los {\it raw image moments}\cite{chaumette2004image} del cluster. En este punto tambi\'en se procede a realizar fusiones de clusters en base a 2 criterios: Aquellos clusters con un n\'umero de p\'ixeles inferior a un umbral definido por el par\'ametro {\it Max\_Thickness} y los clusters que s\'olo tengan 2 vecinos y se encuentren bajo un umbral de cercan\'ia definido por el par\'ametro {\it Connectivity\_Threshold}. El par\'ametro {\it Max\_Thickness} hace referencia al ancho promedio de un filamento en la imagen y es definido por el usuario, mientras que {\it Connectivity\_Threshold} es el resultado del m\'ultiplo entre {\it Max\_Thickness} y un factor que depende de la c\'elula observada, variando entre 0.4 y 0.5. Una de las ventajas de fusionar clusters bajo los criterios mencionados radica en identificar y eliminar ciclos triangulares entre vecinos.% mejorando la informaci\'on de vecindarios, sirviendo como una heurística para limitar el n\'umero de nodos.
+    
+    \item Para asociar los superpixeles con los nodos del grafo se realiza un procedimiento similar al del paso 2, donde los nodos que representan clusters son fusionados con los nodo del grafo. Se utiliza la posici\'on del nodo en el grafo como centro de una matrix de tama\~no 3x3, la que es recorrida para obtener los clusters a los que pertenece cada p\'ixel en la matriz. Luego, Los clusters encontrados son absorbidos por el nodo del grafo, el que representa un nuevo superpixel que reemplaza a los que absorbe, heredando los vecinos que estos ten\'ian y manteniendo la posici\'on del nodo del grafo.
+    
+    %\item A partir de la informaci\'on de vecindario de los nodos definitivos obtenidos en el paso anterior, se generan aristas entre nodos vecinos. Se obtiene el largo e  informaci\'on angular para cada arista creada. %Esta \'ultima es utilizada m\'as adelante para definir puntos de partida de las hormigas.
+\end{enumerate}
+
+
+%Se define como generador {\it aproximado} de grafos debido a que puede sufrir de peque\~nas desviaciones en la ubicaci\'on de los nodos y las aristas con respecto a lo que otras herramientas de esqueletonizaci\'on e identificaci\'on de intersecciones en conjunto pueden hacer en la misma tarea. Uno de los objetivos en la creaci\'on del generador {\it aproximado} de grafos se debe a que facilita el uso de im\'agenes encontradas en el estado del arte.
+
+%En el caso que no sea posible obtener grafo mediante la esqueletonizaci\'on de la imagen, esta herramienta considera un paso adicional al procedimiento de 2 pasos presentado previamente. El tercer paso consiste en generar aristas entre los nodos vecinos, en base a la informaci\'on de vecindario, obteniendo el largo e informaci\'on angular para cada arista creada. El grafo generado se denomina como un grafo aproximado, ya que puede presentar deformaciones.
+
+
 \section{Resultados Algoritmo Phil en Im\'agenes Sint\'eticas}
 
 \begin{table}[h]
