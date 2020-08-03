@@ -1,6 +1,6 @@
 \chapter{Antecedentes}
 \label{chap:stateoftheart}
-La individualizaci\'on de filamentos en una imagen es un problema derivado de la obtenci\'on de informaci\'on de filamentos en base a una imagen. Este \'ultimo ha ido variando a medida que la tecnolog\'ia en microscopios ha mejorado, lo que a su vez ha permitido el desarrollo de nuevos m\'etodos. Estos m\'etodos pueden a su vez diferir entre s\'i dependiendo del foco de la informaci\'on que buscan obtener a partir de la imagen, existiendo m\'etodos que apuntar a reconstruir filamentos discontinuos, o a la identificaci\'on de segmentos de filamento para la construcci\'on de las redes que estos conforman, o la individualizaci\'on en s\'i. Independientemente del objetivo de cada m\'etodo, es posible agruparlos en en dos categor\'ias: M\'etodos basados en herramientas de visi\'on por computador y m\'etodos basados en optimizaci\'on. Los primeros realizan mayoritariamente operaciones de filtrado sobre la imagen, mientras que los segundos plantean parte de la obtenci\'on de la informaci\'on mediante la resoluci\'on de problemas de asignaci\'on o de minimizaci\'on de funciones.
+La individualizaci\'on de filamentos en una imagen es un problema derivado de la obtenci\'on de informaci\'on de filamentos en base a una imagen. Este \'ultimo ha ido variando a medida que la tecnolog\'ia en microscopios ha mejorado, lo que a su vez ha permitido el desarrollo de nuevos m\'etodos. Estos m\'etodos pueden a su vez diferir entre s\'i dependiendo del foco de la informaci\'on que buscan obtener a partir de la imagen, existiendo m\'etodos que se enfocan a reconstruir filamentos discontinuos, o a la identificaci\'on de segmentos de filamento para la construcci\'on de las redes que estos conforman, o la individualizaci\'on en s\'i. Independientemente del objetivo de cada m\'etodo, es posible agruparlos en dos categor\'ias: M\'etodos basados en herramientas de visi\'on por computador y m\'etodos basados en optimizaci\'on. Los primeros realizan mayoritariamente operaciones de filtrado sobre la imagen, mientras que los segundos plantean parte de la obtenci\'on de la informaci\'on mediante la resoluci\'on de problemas de asignaci\'on o de minimizaci\'on de funciones.
 
 
 \section{M\'etodos basados en herramientas de visi\'on por computador}
@@ -18,8 +18,8 @@ El filtro LFT busca resaltar caracter\'isticas lineales centr\'andose en cada p\
 
 \begin{figure}[h]
         \centering
-        \includegraphics[scale=1.3]{imagenes/MT-OFT.jpeg}
-        \caption{Criterios del filtro OFT: (A) Vectores de propagaci\'on (rojo) y distancia (amarillo) (B) Ejemplos de criterios de coincidencia de fragmentos de filamento I) Similaridad de direcci\'on, II) Proximidad, III) Continuidad. Fuente: \cite{zhang2017extracting}}
+        \includegraphics[scale=0.42]{imagenes/MT-OFT.jpeg}
+        \caption{Criterios del filtro OFT: (a) Vectores de propagaci\'on (rojo) y distancia (amarillo) (b) Ejemplos de criterios de coincidencia de fragmentos de filamento I) Similaridad de direcci\'on, II) Proximidad, III) Continuidad. Fuente: \cite{zhang2017extracting}}
         \label{fig:MTOFT}
 \end{figure}
 
@@ -30,21 +30,7 @@ El fundamento de los criterios de OFT se basa en la asociaci\'on de las caracter
 
 % hablar de fibritool, Quantitave IFS y Aliosha
 %fibritool
-El trabajo de \cite{boudaoud2014fibriltool} conduce al desarrollo de \textit{FibriTool}, un plugin para el software ImageJ, utilizado en an\'alisis cient\'ifico de im\'agenes. FibriTool calcula la orientaci\'on principal y la anistrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$, ecuaci\'on \eqref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. Los componentes de $n$ se pueden observar en la ecuaci\'on \eqref{eq:fibritoolComps}.
-
-
-\begin{subequations}
-\label{eq:fibritoolComps}
-Componentes de $n$ para el tensor nem\'atico:
-\begin{align}
-    n_x,x &= (t_x)^2 \\
-    n_y,y &= (t_y)^2 \\
-    n_x,y &= n_y,x = t_x \times t_y
-\end{align}
-\end{subequations}
-
-
-Luego, a partir de la matriz $n$ se obtiene su primer vector propio $e_1$ que representa la orientaci\'on principal de los filamentos en el \'area de inter\'es, mientras que la diferencia de los eigenvalores $n_1$ y $n_2$ ($n_1 > n_2$), denominada $q = n_1 - n_2$, define la anisotrop\'ia.
+El trabajo de \cite{boudaoud2014fibriltool} conduce al desarrollo de \textit{FibriTool}, un plugin para el software ImageJ, utilizado en an\'alisis cient\'ifico de im\'agenes. {\it FibriTool} calcula la orientaci\'on principal y la anistrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$, ecuaci\'on \eqref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. %Los componentes de $n$ se pueden observar en la ecuaci\'on \eqref{eq:fibritoolComps}.
 
 \begin{equation}
 \label{eq:fibritoolTensor}
@@ -53,7 +39,27 @@ t = (t_x,t_y) = (
 (\frac{\partial I}{\partial x})^2 + 
 (\frac{\partial I}{\partial y})^2 }
 \end{equation}
- 
+
+Luego, a partir de la matriz $n$ (ecuaci\'on \eqref{eq:fibritoolComps}) se obtiene su primer vector propio $\Vec{e}_1$ que representa la orientaci\'on principal de los filamentos en el \'area de inter\'es, mientras que la diferencia de los eigenvalores $\lambda_1$ y $\lambda_2$ ($\lambda_1 > \lambda_2$), denominada $q = \lambda_1 - \lambda_2$, define la anisotrop\'ia.
+
+
+\begin{equation}
+n =
+\begin{bmatrix}
+(t_x)^2 & t_x \times t_y \\
+t_x \times t_y & (t_y)^2 
+\end{bmatrix}
+\label{eq:fibritoolComps}
+\end{equation}
+
+% \begin{subequations}
+% Componentes de $n$ para el tensor nem\'atico:
+% \begin{align}
+%     n_x,x &= (t_x)^2 \\
+%     n_y,y &= (t_y)^2 \\
+%     n_x,y &= n_y,x = t_x \times t_y
+% \end{align}
+% \end{subequations}
 Los autores de FibriTool desarrollan este m\'etodo para evitar el uso de derivadas de segundo orden, que presentan sensibilidad al ruido, necesitando de pasos previos en la limpieza de la imagen.
 
 \begin{figure}[h!]
@@ -81,7 +87,7 @@ Las 6 etapas del filtro consideradas en este m\'etodo consisten en 4 etapas de a
 \begin{figure}[H]
         \centering
         \includegraphics[scale=0.75]{imagenes/QuantitativeIFS.png}
-        \caption{Etapas de individualizaci\'on de filamentos de \cite{qiu2014quantitative}. (A): Imagen de red de fibras de un osteoblasto .(B, C, D, E, F): Filtros de limpieza, tubularidad, segmentaci\'on, conectividad y esqueletonizaci\'on. (G): Clasificaci\'on topol\'ogica de intersecciones a nivel de pixel. (H): Resultado de algoritmo SBDA. (I): Individualizaci\'on de segmentos de filamentos seg\'un forma estructural: aislado (verde), solapado (morado) u otro (azul). Fuente: \cite{qiu2014quantitative}}
+        \caption{Etapas de individualizaci\'on de filamentos de \cite{qiu2014quantitative}. (a): Imagen de red de fibras de un osteoblasto. (b, c, d, e, f): Filtros de limpieza, tubularidad, segmentaci\'on, conectividad y esqueletonizaci\'on. (g): Clasificaci\'on topol\'ogica de intersecciones a nivel de pixel. (h): Resultado de algoritmo SBDA. (i): Individualizaci\'on de segmentos de filamentos seg\'un forma estructural: aislado (verde), solapado (morado) u otro (azul). Fuente: \cite{qiu2014quantitative}}
         \label{fig:IFS}
 \end{figure}
 %describir SBDA, el analisis es a nivel de pixel
@@ -100,15 +106,17 @@ La investigaci\'on de \cite{alioscha2016robust} presenta un marco para el an\'al
     \label{fig:AlioshaRobust}
 \end{figure}
 
-El paso siguiente es la aplicaci\'on de un detector de l\'ineas multi-escala, que busca determinar la pertenencia de un p\'ixel a una l\'inea, que varia su grosor y \'angulo dependiendo del tama\~no/escala del vecindario elegido. Las l\'ineas var\'ian en su grosor $s \in [1,W]$, con $W$ el largo esperado de una fibra de actina, as\'i como en su \'angulo, que varia de forma discreta entre 0 y 180\textdegree. El detector de l\'ineas asigna una puntuac\'on que determina la probabilidad del p\'ixel a pertenecer a una de las l\'ineas. Lo anterior entrega como resultado candidatos de segmentos de l\'ineas, con cada una representada por una ecuaci\'on param\'etrica ($\mathcal{F}$, $\theta$). Para elegir a un candidato como segmento de l\'inea definitivo, la idea principal es recorrer los p\'ixeles en secuencia y ajustar las l\'ineas candidatas usando el m\'etodo de m\'inimos cuadrados hasta que un umbral de error es sobrepasado. Por cada vez que se sobrepasa el umbral de error, se comienza la elecci\'on de un nuevo segmento de l\'inea para los p\'ixeles que siguen. Si el candidato de segmento de l\'inea tiene un largo $l < L$, se descarta. $L$ es un par\'ametro definido experimentalmente.
+El paso siguiente es la aplicaci\'on de un detector de l\'ineas multi-escala, que busca determinar la pertenencia de un p\'ixel a una l\'inea, que varia su grosor y \'angulo dependiendo del tama\~no/escala del vecindario elegido. Las l\'ineas var\'ian en su grosor $s \in [1,W]$, con $W$ el grosor esperado de una fibra de actina, as\'i como en su \'angulo, que varia de forma discreta entre 0 y 180\textdegree. El detector de l\'ineas asigna una puntuac\'on que determina la probabilidad del p\'ixel a pertenecer a una de las l\'ineas. Lo anterior entrega como resultado candidatos de segmentos de l\'ineas. Para elegir a un candidato como segmento de l\'inea definitivo, la idea principal es recorrer los p\'ixeles en secuencia y ajustar las l\'ineas candidatas usando el m\'etodo de m\'inimos cuadrados hasta que un umbral de error es sobrepasado. Por cada vez que se sobrepasa el umbral de error, se comienza la elecci\'on de un nuevo segmento de l\'inea para los p\'ixeles que siguen. Si el candidato de segmento de l\'inea tiene un largo $l < L$, se descarta. $L$ es un par\'ametro definido emp\'iricamente.
 % esto arroja candidatos de segmentos de lineas -> elegir segmentos de l\'ineas
 % despues hay merge de segmentos lineas -> segmentos de filamentos, fibras en este caso
 
 Finalmente, para construir las fibras de actina, los segmentos de l\'inea elegidos en el paso anterior son unidos entre si mediante una ventana de largo $L$, en la que 2 segmentos de l\'inea se superpongan y no tengan una diferencia entre sus \'angulos mayor al umbral $T_{\theta}$. 
 %\cite{asgharzadeh2018computational}
 
-Investigaciones similares posibles de agregar a esta categor\'ia, dado su uso enfocado primariamente en herramientas de visi\'on por computador son \cite{doi:10.1021/ma502264c}\cite{lichtenstein2003quantitative}\cite{asgharzadeh2018computational}. 
-%Para estos m\'etodos, se han indicado como cr\'iticas la dificultad para identificar correctamente un filamento de otro, en los casos de  superposici\'on, fragmentaci\'on, o variaciones de intensidad en la imagen.
+Otras investigaciones similares que siguen un enfoque basado principalmente en herramientas de visi\'on por computador son \cite{doi:10.1021/ma502264c}\cite{lichtenstein2003quantitative}\cite{asgharzadeh2018computational}. En general, los trabajos desarrollados bajo este enfoque requieren del uso o sintonizaci\'on de m\'ultiples par\'ametros
+
+
+%la dificultad para identificar correctamente un filamento de otro, en los casos de  superposici\'on, fragmentaci\'on, o variaciones de intensidad en la imagen...
 
 
 \section{M\'etodos basados en optimizaci\'on}
@@ -124,16 +132,19 @@ Por su parte, la investigaci\'on de \cite{xu2015soax} llamada SOAX, emplea curva
         \label{fig:SOAX}
 \end{figure}
 
-La funci\'on de minimizaci\'on que los autores denominan como  \textit{F-Function}, ecuaci\'on \eqref{eq:FFunction}, se encuentra definida por otros 2 par\'ametros: El factor $c$ ($c > 1$) que regula la penalizaci\'on de las SOACs con bajo \textit{Signal to Noise Ratio (SNR)}, y el umbral $t$, que define el valor mínimo de SNR necesario para no descartar una SOAC. El umbral $t$ se ve reflejado en $L_{<t}$ dentro de la \textit{F-Function}, como el largo de SOACs en una regi\'on de la imagen con SNR por debajo de $t$, y que ser\'an penalizados dado que son calificados como de baja certeza. $L_{total}$ representa el largo total de las SOACs en el resultado final.
+La funci\'on de minimizaci\'on que los autores denominan como  \textit{F-Function}, $F = -L_{total} + {c}\cdot L_{<t}$, se encuentra definida por otros 2 par\'ametros: el factor $c$ ($c > 1$) que regula la penalizaci\'on de las SOACs con bajo \textit{Signal to Noise Ratio (SNR)}, y el umbral $t$, que define el valor mínimo de SNR necesario para no descartar una SOAC. El umbral $t$ se ve reflejado en $L_{<t}$ dentro de la \textit{F-Function}, como el largo de SOACs en una regi\'on de la imagen con SNR por debajo de $t$, y que ser\'an penalizados dado que son calificados como de baja certeza. $L_{total}$ representa el largo total de las SOACs en el resultado final.
 
-\begin{equation}
-   \label{eq:FFunction}
-    F = -L_{total} + {c}\cdot L_{<t} 
-\end{equation}
+% \begin{equation}
+%   \label{eq:FFunction}
+%     F = -L_{total} + {c}\cdot L_{<t} 
+% \end{equation}
 
 
-En esta categor\'ia tambi\'en se incluye \cite{breuer2015define}, que en base a un grafo no dirigido con pesos que representa la red de filamentos, realiza la individualizaci\'on de filamentos. El uso de un grafo como dato de entrada permite representar a cada filamento mediante un conjunto de aristas adyacentes en el grafo. Esto permite que la b\'usqueda e individualizaci\'on de filamentos, con un segmento de filamento representado por una o m\'as aristas del grafo, sumado a las restricciones que plantea el autor, sea tratado como un problema de {\it Set Cover}. En el caso de los m\'etodos de la segunda categor\'ia, la mayor cr\'itica es su costo computacional alto, lo que limita en parte aquel enfoque. Se debe agregar que los par\'ametros utilizados por estas t\'ecnicas (\'angulos o  distancias m\'aximas entre filamentos) son complejas de obtener de los expertos directamente. Sin embargo, una de sus ventajas es que automatizan la recuperaci\'on de informaci\'on incluyendo una mayor cantidad de propiedades a cada arista. 
+En esta categor\'ia tambi\'en se incluye \cite{breuer2015define}, que en base a un grafo no dirigido con pesos que representa la red de filamentos, realiza la individualizaci\'on de estos. El uso de un grafo como dato de entrada permite representar a cada filamento mediante un conjunto de aristas adyacentes en el grafo. Esto permite que la b\'usqueda e individualizaci\'on de filamentos, con un segmento de filamento representado por una o m\'as aristas del grafo, sumado a las restricciones que plantea el autor, sea tratado como un problema de {\it Set Cover}\cite{caprara2000algorithms}. La definici\'on de {\it Set Cover} es:
 
+\begin{quote}
+Dado un conjunto de elementos, denominado universo, y $n$ conjuntos cuya unión comprende el universo, el {\it Set Cover Problem} consiste en identificar el menor n\'umero de conjuntos cuya unión a\'un contiene todos los elementos del universo.
+\end{quote}
 
 %En particular, el m\'etodo {\it FCP} presentado en la secci\'on \ref{Antecedentes}, utiliza s\'olo el grosor como caracter\'istica en la etapa de asignaci\'on de pesos a las aristas del grafo, lo que es usado en la funci\'on de minimizaci\'on del problema de optimizaci\'on planteado por ellos. En la etapa de selecci\'on del subconjunto de caminos, el mismo m\'etodo desarrolla una heur\'istica que utiliza {\it BFS} en conjunto con el \'angulo de deflexi\'on entre aristas. El mismo m\'etodo evita realizar un recorrido de grafos, al buscar las combinaciones de caminos del subconjunto P' que dan lugar a uno o m\'as filamentos mediante la minimizaci\'on de un {\it Set Cover}. 
 
@@ -142,13 +153,9 @@ En esta categor\'ia tambi\'en se incluye \cite{breuer2015define}, que en base a 
 %Todos estos enfoques, cuya entrada principal de datos son las im\'agenes etiquetadas a trav\'es de marcadores fluorescentes, 
 % basados en grafos
 
-A modo de ejemplo, el programa \texttt{DeFine} desarrollado en \cite{breuer2015define} describe el problema de individualizaci\'on de filamentos como un problema de b\'usqueda de conjuntos de aristas en un grafo. En esta investigaci\'on, un filamento es representado por un conjunto de aristas, denominado como un camino. Los autores de esta investigaci\'on se basan inicialmente en un problema del tipo {\it Path Cover}, extendiendo la definici\'on mediante la asignaci\'on de un peso a cada segmento/arista del grafo, para calcular la {\it aspereza} o diferencia de homogeneidad en un camino. El c\'alculo del peso a lo largo de un camino es lo que permite individualizar filamentos, siendo el peso un reflejo del grosor o intensidad de una arista.
+El programa \texttt{DeFine} desarrollado en \cite{breuer2015define} describe el problema de individualizaci\'on de filamentos como un problema de b\'usqueda de conjuntos de aristas en un grafo. En esta investigaci\'on, un filamento es representado por un conjunto de aristas, denominado como un camino. Los autores de esta investigaci\'on se basan inicialmente en un problema del tipo {\it Path Cover}\cite{ntafos1979path}, extendiendo la definici\'on de {\it Path Cover} mediante la asignaci\'on de un peso a cada segmento/arista del grafo, para calcular la {\it aspereza} o diferencia de homogeneidad en un camino. El c\'alculo del peso a lo largo de un camino es lo que permite individualizar filamentos, siendo el peso un reflejo del grosor o intensidad de una arista.
 %, o tambi\'en puede ser calculado respecto al \'angulo entre aristas.
-Este problema particular es llamado {\it Filament Covering Problem} (FCP) y los autores demuestran que es NP-Hard, por lo que proponen un algoritmo de aproximaci\'on mediante \textit{Set Cover}, cuyo objetivo es que cada arista pertenezca al menos a un camino (conjunto de aristas). La definici\'on de {\it Set Cover} es:
-
-\begin{quote}
-Dado un conjunto de elementos, denominado universo, y $n$ conjuntos cuya unión comprende el universo, el {\it Set Cover Problem} consiste en identificar el menor n\'umero de conjuntos cuya unión a\'un contiene todos los elementos del universo.
-\end{quote}
+Este problema particular es llamado {\it Filament Covering Problem} (FCP) y los autores demuestran que es NP-Hard, por lo que proponen un algoritmo de aproximaci\'on mediante {\it Set Cover}, cuyo objetivo es que cada arista pertenezca al menos a un camino (conjunto de aristas).
 
 La adaptaci\'on a lo definido por {\it FCP} es: 
 \begin{quote}
@@ -157,7 +164,14 @@ Sea el universo $U$ conformado por las aristas del grafo, y un conjunto $S$, con
 Encontrar un subconjunto $S_{set} \subseteq S$ con costo m\'inimo (o promedio, dependiendo de la forma en que se calcula la aspereza) tal que cada elemento en $U$ este cubierto al menos una vez.
 \end{quote}
 
-Con la demostraci\'on de que FCP es NP-Hard, dado que la cantidad de caminos posibles crece de forma exponencial respecto al n\'umero de nodos, los autores de \cite{breuer2015define} plantean la elecci\'on de un subconjunto de caminos para ser analizados como datos de entrada en un problema de {\it Set Cover}. Este an\'alisis se realiza a trav\'es de un algoritmo de aproximaci\'on lineal fraccional binario. El subconjunto de caminos puede obtenerse con la heur\'istica de recorrer el grafo por su anchura ({\it Breadth-First Search}), deteni\'endose al momento que el \'angulo de deflexi\'on entre aristas adyacentes supere los 60\degree, o de caminos generados a partir de 100 \'arboles de expansi\'on m\'inima aleatoria ({\it RMST}), aportando cada uno con $N(N-1)/2$ caminos no triviales y sin direcci\'on. El flujo de decisiones para generar el subconjunto de caminos puede observarse en la figura \ref{fig:define-set-cover}.
+Con la demostraci\'on de que FCP es NP-Hard en grafos debido a que el conjunto total de caminos en un grafo, definido como $P$, crece de forma exponencial respecto al n\'umero de nodos, los autores de DeFiNe prueban que el FCP en \'arboles es soluble en tiempo polinomial, bas\'andose en \cite{lin2006vertex}. La complejidad computacional para resolver el FCP en \'arboles es de $\mathcal{O}(n^{4})$ para caminos que no comparten nodos o aristas, es decir, no se superponen. Para permitir caminos que se superponen se agrega el par\'ametro $k$ que define el n\'umero m\'aximo de superposiciones de caminos en una arista, quedando la complejidad computacional igual a $\mathcal{O}(n^{2k+2})$.
+
+
+%aca entran las formas de obtener esos arboles simples y bosques, con las heuristicas de define
+DeFine propone 2 heur\'isticas para construir \'arboles de los cuales se puedan extraer un subconjunto $P' \in P$ representativo de caminos simples: recorrer el grafo por su anchura ({\it Breadth-First Search}), deteni\'endose al momento que el \'angulo de deflexi\'on entre aristas adyacentes supere los 60\degree, o generar caminos a partir de 100 \'arboles de expansi\'on m\'inima aleatoria ({\it RMST}), aportando cada uno con $N(N-1)/2$ caminos no triviales y sin direcci\'on. 
+
+
+El subconjunto $P'$ constituye los datos de entrada del problema de {\it Set Cover}, el que se resuelve a trav\'es de un algoritmo de aproximaci\'on lineal fraccional binario\cite{breuer2015define}, en el que al subconjunto $P'$ se le aplica la funci\'on objetivo, para encontrar los miembros de $p \in P'$ que mejor minimicen la diferencia de homogeneidad en sus caminos. La restricci\'on de lo anterior es que cada arista del grafo pertenezca a lo menos a un camino. El flujo de decisiones para generar el subconjunto de caminos puede observarse en la figura \ref{fig:define-set-cover}.
 
 \begin{figure*}[h]
     \centering
@@ -179,14 +193,21 @@ Con la demostraci\'on de que FCP es NP-Hard, dado que la cantidad de caminos pos
     \end{figure*}
     
     
-Este enfoque faculta que al tener un grafo que representa la red de filamentos, como en la figura \ref{Fig1d}, sea posible llegar a resultados como los que aparecen en las figuras \ref{Fig2a} o \ref{Fig2b} a trav\'es de la minimizaci\'on de la diferencia de homogeneidad del peso de las aristas en un camino, y de restricciones a las uniones entre las mismas. 
-
+%Este enfoque faculta que al tener un grafo que representa la red de filamentos, como en la figura \ref{Fig1d}, sea posible llegar a resultados como los que aparecen en las figuras \ref{Fig2a} o \ref{Fig2b} a trav\'es de la minimizaci\'on de la diferencia de homogeneidad del peso de las aristas en un camino, y de restricciones a las uniones entre las mismas. 
 
 Cabe destacar que el {\it FCP} s\'olo utiliza 2 caracter\'isticas independientes para describir los segmentos de los filamentos, siendo el \'angulo de deflexi\'on entre aristas usado en la etapa de selecci\'on de subconjuntos de caminos s\'olo si es seleccionada la heur\'istica {\it BFS}, y el grosor o intensidad, empleado para describir el peso de las aristas. En el caso de la heur\'istica de {\it RMST}, se asignan pesos aleatorios uniformemente distribuidos a las aristas, por lo que no hay uso de caracter\'isticas asociadas a los filamentos.
 
 
+
+En el caso de los m\'etodos basados en optimizaci\'on, la mayor cr\'itica es su costo computacional, el que aumenta a medida que se complejiza, limitando en parte aquel enfoque. Se debe agregar que los par\'ametros utilizados por estas t\'ecnicas (\'angulos o  distancias m\'aximas entre filamentos) son complejas de obtener de los expertos directamente. Sin embargo, una de sus ventajas es que automatizan la recuperaci\'on de informaci\'on incluyendo una mayor cantidad de propiedades a cada arista. 
+
+
 %resolucion, cantidad parametros, descriptores, costo computacional
 En resumen, el problema de identificar filamentos en im\'agenes de microscop\'ia esta limitado por la resoluci\'on, y los problemas de m\'ultiples par\'ametros a ajustar, para los m\'etodos basados en procesamiento de im\'agenes, el costo computacional en los m\'etodos basados en optimizaci\'on, y falta de descriptores cuantitativos en ambas. La revisi\'on bibliogr\'afica da cuenta tambi\'en de pocas herramientas disponibles. Todo lo anterior implica que parte del an\'alisis deba ser manual, lo que para grandes cantidades de datos, hace los estudios m\'as propensos a errores. 
+
+
+\section{Generaci\'on de un grafo desde una imagen}
+\label{sec:genGrafFromImage}
 %La falta de herramientas analíticas para cuantificar las estructuras sigue siendo un cuello de botella, ya que el análisis manual de grandes conjuntos de datos requiere una gran cantidad de tiempo y son propensos a sesgos y errores.
 %Por otra parte, la soluci\'on a problemas de superposici\'on se soluciona mediante la sintonizaci\'on de par\'ametros, los que var\'ian dependiendo de la c\'elula observada. En el caso del uso de \textit{thinning} en una imagen, la informaci\'on respecto al grosor de la estructura se pierde.
 

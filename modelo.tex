@@ -1,4 +1,4 @@
-\chapter{Modelo de Optimización}
+\chapter{Algoritmo Propuesto}
 \label{sec:modeloOpti}
 %dado que se tienen muchos filamentos, se debe evaluar cual es mejor. Explicar como propiedades topológicas y geométricas tienen. Y como se ponderan para un peso que será minimizado o maximizado
 
@@ -12,12 +12,13 @@ En base a lo recopilado en las secciones previas de esta investigaci\'on, es pos
 
 Lo anterior implica que el problema de identificar filamentos a partir de un grafo puede ser clasificado como un problema de optimizaci\'on de restricciones\cite{blum2011hybrid}.
 
-Un problema de optimización de restricciones, (COP por su sigla en ingl\'es) puede ser representado como $P = (S, \Omega, F)$, donde S es el espacio de soluciones, definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Se define como una variable {\it instanciada} la asignaci\'on a $X_i$ de un valor $v_{i}^{j} \in D_i$. Una solución candidata $s \in S$ es una soluci\'on factible si satisface las restricciones del set $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna valores a las soluciones candidatas. Al mismo tiempo, se define $s^{*}$ como una soluci\'on \'optima y $S^{*}$ como un conjunto de soluciones \'optimas, relacionados mediante $s^{*} \in S^{*} \subseteq S $\cite{socha2008ant}.
+Un problema de optimización de restricciones, (COP por su sigla en ingl\'es) puede ser representado como $P = (S, \Omega, F)$, donde S es el espacio de soluciones, $\Omega$ son las restricciones, y $F$ es la funci\'on objetivo. S esta definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Se define como una variable {\it instanciada} la asignaci\'on a $X_i$ de un valor $v_{i}^{j} \in D_i$. Una solución candidata $s \in S$ es una soluci\'on factible si satisface las restricciones del conjunto $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna valores a las soluciones candidatas. Al mismo tiempo, se define $s^{*}$ como una soluci\'on \'optima y $S^{*}$ como un conjunto de soluciones \'optimas, relacionados mediante $s^{*} \in S^{*} \subseteq S $\cite{socha2008ant}.
 Esta definici\'on permite aplicar la metaheur\'istica de optimizaci\'on basada en colonia de hormigas (ACO por su sigla en ingl\'es) a un modelo de un {\it COP}.
 %COP es un CSP con función objetivo: https://en.wikipedia.org/wiki/Constrained_optimization#Constraint_optimization_problems
 
-\section{Metaheur\'istica ACO}
-El proposito de la metaheur\'istica ACO es encontrar una soluci\'on o un set de soluciones. Una soluci\'on $s$ consiste en un conjunto de componentes de soluci\'on $c_{ij} \in C, i = 1 \dotsc n, j = 1 \dotsc |D_i|$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino o {\it tour} que recorre una hormiga, desde un nodo o arista inicial hasta un nodo o arista final. La metaheur\'istica ACO se muestra en el algoritmo \ref{ACO-Algo}. En base a la definici\'on de variable {\it instanciada} del modelo COP, se tiene que la asignaci\'on $X_i = v_{i}^{j}$ es equivalente a seleccionar un componente $c_{ij}$ para una soluci\'on $s$ en ACO.
+
+%\section{Metaheur\'istica ACO}
+El proposito de la metaheur\'istica ACO es encontrar una soluci\'on o un conjunto de soluciones. Una soluci\'on $s$ consiste en un conjunto de componentes de soluci\'on $c_{ij} \in C, i = 1 \dotsc n, j = 1 \dotsc |D_i|$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino o {\it tour} que recorre una hormiga, desde un nodo o arista inicial hasta un nodo o arista final. La metaheur\'istica ACO se muestra en el algoritmo \ref{ACO-Algo}. En base a la definici\'on de variable {\it instanciada} del modelo COP, se tiene que la asignaci\'on $X_i = v_{i}^{j}$ es equivalente a seleccionar un componente $c_{ij}$ para una soluci\'on $s$ en ACO.
 
 ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no tienen un orden espec\'ifico: {\it Construccion\_de\_soluci\'on\_de\_cada\_hormiga(),  M\'etodo\_de\_b\'usqueda\_no\_local()} y {\it Actualizaci\'on\_de\_feromonas()}.
 
@@ -38,7 +39,7 @@ ACO consiste en un paso de inicializaci\'on y de tres componentes, las que no ti
 \end{algorithm}
 
 
-\subsection{M\'etodo de Construccion de soluci\'on de cada hormiga}
+\section{M\'etodo de Construccion de soluci\'on de cada hormiga}
 \label{subsubsec:antTourInit}
 La elecci\'on de un componente $c_{ij}$ por una hormiga durante la construcci\'on de un camino, se lleva a cabo mediante el c\'alculo de una probabilidad para cada componente $c_{ij}$ posible de elegir. Este conjunto de vecinos factibles se denomina $N(s^{P}) \subseteq C$. En la probabilidad de selecci\'on influye el camino ya escogido, denominado soluci\'on parcial $s^{P}$. Al comenzar un recorrido, cada hormiga es asignada una arista de acuerdo a la heur\'istica de asignaci\'on inicial, la cual analiza hasta 3 situaciones, dependiendo del tipo de c\'elula:
 \begin{enumerate}
@@ -81,7 +82,7 @@ Otro aspecto de la ecuaci\'on \eqref{eq:heuristicaMiope} radica en la posibilida
 
 Con la finalidad de cuantificar la calidad de la soluci\'on construida por una hormiga, en cada selecci\'on de arista realizada, se suma el resultado de la heur\'istica miope al valor que la calidad de la hormiga lleva hasta ese punto. Cada hormiga comienza con una calidad 0, que al finalizar el {\it tour} es dividida por el n\'umero de aristas menos 1, para normalizar. Se establece que para ser considerada una soluci\'on de buena calidad, la hormiga debe tener una calidad mayor o igual a $\frac{Max\_Score}{2}$.
     
-\subsection{M\'etodo de b\'usqueda no local}
+\section{M\'etodo de b\'usqueda no local}
 Una vez que la hormiga termina un {\it tour}, es posible agregar un m\'etodo de {\it feedback} sobre la calidad del recorrido realizado, basado en l\'ogicas globales/centralizadas que escapan de la b\'usqueda local que realiza cada hormiga. Estos m\'etodos, denominados {\it Daemon Actions} en ingl\'es, permiten en el caso de una metaheur\'istica ACO gen\'erica seleccionar las hormigas de mejor calidad para incrementar las feromonas m\'as alla de lo que la {\it Actualizaci\'on\_de\_feromonas()} lo hace. 
 
 Para la individualizaci\'on de filamentos, la evaluaci\'on global corresponde a eliminar soluciones candidatas que no aporten informaci\'on nueva. A modo de ejemplo, si $s_a$ y $s_b$ son las soluciones de las hormigas $a$ y $b$ respectivamente y cumplen con las siguientes condiciones:
@@ -98,7 +99,7 @@ Se tiene que $s_a$ no aporta m\'as informaci\'on que $s_b$, por lo que $s_a$ pue
 %Si dos soluciones, $s_i$ y $s_j$ de las hormigas $i$,$j$, conformadas solamente por componentes $c_{ij} \in [0, \theta]$  (todos los componentes son de {\it buena calidad}), y que adem\'as eran la \'unica opci\'on posible en cada avance de la hormiga (probabilidad 1 de ser elegidas)
 %tal que $s_i \subseteq s_j$ o viceversa, se tiene que una soluci\'on candidata no aporta nueva informaci\'on.
     
-\subsection{M\'etodo Actualizaci\'on de feromonas}
+\section{M\'etodo Actualizaci\'on de feromonas}
 \label{subsec:pheroUpdate}
 Una vez que la hormiga termina un {\it tour}, esta debe actualizar las feromonas ($\tau_{ij}$) asociadas a los componentes de soluci\'on que la conforman. En una metaheur\'istica ACO tradicional, se aumenta el valor en los $c_{ij}$ que construyen un camino de buena calidad, mientras que debe realizar lo contrario para los componentes de soluci\'on que son parte de un recorrido de mala calidad. Adem\'as, los valores de las feromonas sufren decaimiento en el tiempo, dado por el par\'ametro $\rho$, que busca evitar la convergencia que las feromonas pueden causar en caminos de buena soluci\'on obtenidos al inicio de las iteraciones.
 
@@ -178,7 +179,7 @@ Si ambas evaluaciones son completadas correctamente, se declara a la soluci\'on 
 
 En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, se destaca que en el caso de la individualizaci\'on de filamentos existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
 
-\subsection{Inicializaci\'on de la metaheur\'istica ACO}
+\section{Inicializaci\'on de la metaheur\'istica ACO}
 
 En el paso de inicializaci\'on de ACO se deben definir los valores de los par\'ametros relacionados a las feromonas y las heur\'isticas utilizadas. Para las feromonas se configura el valor inicial de $\tau_{ij}$ en 1 para los pares $\langle c_{ij}$,$ seg_{n}\rangle \> \forall c_{ij} \in \> ]\theta, Max\_Angle]$, dado que al usar SAP esta probabilidad se ir\'a reduciendo de acuerdo a un factor $\gamma$ seg\'un lo explicado en la secci\'on \ref{subsec:pheroUpdate}. El valor de $\gamma$ se define en 0.5, en base a lo encontrado en la literatura.
 

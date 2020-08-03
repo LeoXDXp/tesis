@@ -1,4 +1,4 @@
-\chapter{Metodolog\'ia}
+\chapter{Metodolog\'ia de evaluaci\'on}
 \label{chap:metodologia}
 %mostrar métricas, explicar VI brevemente, explicar que no es necesario Structure-Aware rand index ya que los caminos p subconjunto de P', p pertenece P, cumplen por si solos en ser soluciones factibles de segmentos de filamento y que la unión de caminos para formar un filamento, al cumplir con las restricciones también genera solo filamentos factibles
 % Dado que Rand y  Jaccard vienen de valores extraidos desde la contingency table, es posible obtener información útil de la mano de precisión, recall y F1
@@ -141,7 +141,7 @@ Para la evaluaci\'on, cada imagen sint\'etica se ejecuta en DeFiNe con los par\'
 El procedimiento para individualizar filamentos en im\'agenes de microscop\'ia
 comienza de forma similar para las c\'elulas observadas en esta investigaci\'on, consistiendo en el an\'alisis del {\it stack} o conjunto de im\'agenes capturadas durante una observaci\'on, las que pueden variar en el tiempo y en el eje Z. El criterio principal utilizado por los expertos se basa en determinar si existe continuidad de un posible filamento entre dos o m\'as im\'agenes del stack. %Adem\'as, el experto busca descartar la influencia de ruido en la continuidad que pueden generar 
 
-Al observar un {\it stack}, el experto los anota los filamentos de la c\'elula mediante la selecci\'on del \'area de inter\'es o ROI sobre una imagen que proyecta la uni\'on de las im\'agenes del stack bajo alg\'un criterio asociado a la intensidad de los p\'ixeles en el eje Z. Las figuras \ref{fig:SpinningMarchantia-gt}, \ref{fig:field3t0filtered1-gt} y \ref{fig:field3t0filtered2-gt} son ejemplos de las anotaciones de ROIs para microt\'ubulos realizadas. A diferencia de las neuronas, donde se procesa la imagen completa, la elecci\'on de un subconjunto de microt\'ubulos desde la imagen se debe a la complejidad de la individualizaci\'on manual de estos por parte del experto. Se diferenciaran las im\'agenes de microt\'ubulos de las figuras \ref{fig:SpinningMarchantia}, \ref{fig:field3t0filtered1} y \ref{fig:field3t0filtered2} bajo la denominaci\'on de muestra MT-A, MT-B y MT-C respectivamente. Por su parte, las im\'agenes de neuronas de las figuras \ref{fig:Porta6-4a1}, \ref{fig:Porta10-5b} y \ref{fig:Porta18-3a1}  se denominan N1, N2 y N3 respectivamente.
+Al observar un {\it stack}, el experto anota los filamentos de la c\'elula mediante la selecci\'on del \'area de inter\'es o ROI sobre una imagen que proyecta la uni\'on de las im\'agenes del stack bajo alg\'un criterio asociado a la intensidad de los p\'ixeles en el eje Z. Las figuras \ref{fig:SpinningMarchantia-gt}, \ref{fig:field3t0filtered1-gt} y \ref{fig:field3t0filtered2-gt} son ejemplos de las anotaciones de ROIs para microt\'ubulos realizadas. A diferencia de las neuronas, donde se procesa la imagen completa, la elecci\'on de un subconjunto de microt\'ubulos desde la imagen se debe a la complejidad de la individualizaci\'on manual de estos por parte del experto. Se diferenciaran las im\'agenes de microt\'ubulos de las figuras \ref{fig:SpinningMarchantia}, \ref{fig:field3t0filtered1} y \ref{fig:field3t0filtered2} bajo la denominaci\'on de muestra MT-A, MT-B y MT-C respectivamente. Por su parte, las im\'agenes de neuronas de las figuras \ref{fig:Porta6-4a1}, \ref{fig:Porta10-5b} y \ref{fig:Porta18-3a1}  se denominan N1, N2 y N3 respectivamente.
 
 Una vez obtenida la individualizaci\'on manual de filamentos, independientemente del tipo de c\'elula, se construye una segmentaci\'on de las \'areas de inter\'es con el fin de generar una codificaci\'on de colores del {\it ground truth}, generandose tambi\'en el grafo que representa la red de filamentos. La codificaci\'on de colores permite una comparaci\'on visual con los resultados de DeFiNe o de Phil. Por su parte, el grafo se obtiene mediante la extracci\'on de un esqueleto desde la imagen segmentada al utilizar la herramienta {\it sknw}, parte del software {\it ImagePy}\cite{wang2018imagepy}. A partir del grafo se calcula el {\it closeness centrality}\cite{freeman1978centrality}, que mide la lejan\'ia promedio de cada nodo con respecto al resto, otorgando un valor m\'as alto a los nodos que se encuentran m\'as cerca de todos los dem\'as. La selecci\'on de los 3 nodos de mayor valor proporciona informaci\'on de la ubicaci\'on del {\tt soma} en el caso de las neuronas.
 
@@ -156,28 +156,28 @@ Las resultados de cada imagen analizada en Phil se obtienen con el mismo procedi
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=3in]{benchImages/AVG-SPINNING-DISK-MARCHANTIA.png}
+        \includegraphics[height=2.2in]{benchImages/AVG-SPINNING-DISK-MARCHANTIA.png}
         \caption{Imagen de Microt\'ubulos}
         \label{fig:SpinningMarchantia-og}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=3in]{benchImages/SPINNING-DISK-MARCHANTIA-rois-unlabeled.png}
+        \includegraphics[height=2.2in]{benchImages/SPINNING-DISK-MARCHANTIA-rois-unlabeled.png}
         \caption{Filamentos manualmente individualizados por un experto}
         \label{fig:SpinningMarchantia-gt}
     \end{subfigure}
     \vskip\baselineskip
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/50-ROIs-Spinning-Marchantia-solved-rot-unlabeled.png}
+        \includegraphics[height=2.2in]{benchImages/50-ROIs-Spinning-Marchantia-solved-rot-unlabeled.png}
         \caption{Codificaci\'on por color de la individualizaci\'on manual}
         \label{fig:SpinningMarchantia-indivManual}
     \end{subfigure}
     ~
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=2.5in]{benchImages/50-ROIs-Spinning-Marchantia-graph-og.png}
+        \includegraphics[height=2.2in]{benchImages/50-ROIs-Spinning-Marchantia-graph-og.png}
         \caption{Grafo que representa la red de microt\'ubulos manualmente identificada}
         \label{fig:SpinningMarchantia-graph}
     \end{subfigure}
@@ -192,28 +192,28 @@ Las resultados de cada imagen analizada en Phil se obtienen con el mismo procedi
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-1.png}
+        \includegraphics[height=2.2in]{benchImages/field3-t0-2cellBcrop-filtered-1.png}
         \caption{Imagen de Microt\'ubulos}
         \label{fig:field3t0filtered1-og}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-1-rois.png}
+        \includegraphics[height=2.2in]{benchImages/field3-t0-2cellBcrop-filtered-1-rois.png}
         \caption{Filamentos manualmente individualizados por un experto}
         \label{fig:field3t0filtered1-gt}
     \end{subfigure}
     \vskip\baselineskip
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-inverted-colorCoded.png}
+        \includegraphics[height=2.2in]{benchImages/field3-t0-2cellBcrop-filtered-inverted-colorCoded.png}
         \caption{Codificaci\'on por color de la individualizaci\'on manual}
         \label{fig:field3t0filtered1-indivManual}
     \end{subfigure}
     ~
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-graph-thick.png}
+        \includegraphics[height=2.2in]{benchImages/field3-t0-2cellBcrop-filtered-graph-thick.png}
         \caption{Grafo extra\'ido a partir de la individualizaci\'on manual que es el dato de entrada para los algoritmos comparados.}
         \label{fig:field3t0filtered1-graph}
     \end{subfigure}
@@ -228,28 +228,28 @@ Las resultados de cada imagen analizada en Phil se obtienen con el mismo procedi
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-2.png}
+        \includegraphics[height=2.2in]{benchImages/field3-t0-2cellBcrop-filtered-2.png}
         \caption{Imagen de Microt\'ubulos}
         \label{fig:field3t0filtered2-og}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-2-rois.png}
+        \includegraphics[height=2.2in]{benchImages/field3-t0-2cellBcrop-filtered-2-rois.png}
         \caption{Filamentos manualmente individualizados por un experto}
         \label{fig:field3t0filtered2-gt}
     \end{subfigure}
     \vskip\baselineskip
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-2-inverted-colorCoded.png}
+        \includegraphics[height=2.2in]{benchImages/field3-t0-2cellBcrop-filtered-2-inverted-colorCoded.png}
         \caption{Codificaci\'on por color de la individualizaci\'on manual}
         \label{fig:field3t0filtered2-indivManual}
     \end{subfigure}
     ~
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=3in]{benchImages/field3-t0-2cellBcrop-filtered-2-graph-thick.png}
+        \includegraphics[height=2.2in]{benchImages/field3-t0-2cellBcrop-filtered-2-graph-thick.png}
         \caption{Grafo base para la individualizaci\'on automatizada de filamentos.}
         \label{fig:field3t0filtered2-graph}
     \end{subfigure}
