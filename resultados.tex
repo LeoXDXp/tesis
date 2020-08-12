@@ -14,9 +14,19 @@ En cuanto a las figuras, el enfoque se dirige a presentar los resultados de DeFi
 En las mediciones del algoritmo Phil, se muestra el promedio de las 5 iteraciones con diferentes semillas que se realizaron. El detalle de cada iteraci\'on, en conjunto con el c\'odigo y otros elementos necesarios para replicar estos resultados se encuentra en el \href{https://gitlab.com/LeoXDXp/graph-crawler}{repositorio github de esta tesis}. Parte de este detalle se incluye tambi\'en en la secci\'on \ref{chap:apendice}.
 Las ejecuciones de DeFiNe y Phil fueron realizadas en un computador con un procesador {\tt Intel i5-7200U} de 4 n\'ucleos, 8GB de RAM y un disco de estado s\'lido, bajo el sistema operativo {\tt Fedora 31}.
 
+\section{Extracci\'o de un grafo desde una imagen}
+La obtenci\'on de un grafo y la asociaci\'on de propiedades a sus nodos o aristas constituye el paso previo a la individualizaci\'on autom\'atica de filamentos. De acuerdo a lo descrito en la secci\'on \ref{subsec:infoLossSkel}, existen diversas formas para realizar este procedimiento. Para el caso de DeFiNe, se preprocesa la imagen en escala de grises para resaltar las estructuras alargadas que debiesen ser filamentos, mediante un filtro de {\it veselness} y un umbral de mediana adaptativa. El paso siguiente consiste en realizar la esqueletonizaci\'on de la imagen, para luego construir un grafo en el que se asigna un peso a las aristas. 
+Para obtener el peso de las aristas, se le aplica un filtro gaussiano a la imagen original en escala de grises, para luego promediar la intensidad a lo largo de cada arista.
+
+% Problema de replicar aquel procedimiento de define:
+% le falta el dato del tamaño del filtro gaussiano y no considera la curvatura de las aristas sino que solo las representa mediante la conexión punto a punto entre los nodos
+% solo esta disponible el archivo GML para la imagen sintetica 1. No estan disponibles las imagenes base,
+
+
+
 \section{Im\'agenes Sint\'eticas}
 
-Los resultados de los filamentos sint\'eticos en la figura \ref{fig:synth-QFS-7} indicados en la tabla \ref{tab:synth-QFS-7-Results} muestran un mejor desempe\~no de DeFiNe, que encuentra un filamento m\'as que Phil con respecto a la individualizaci\'on realizada por el experto.
+Los resultados de los filamentos sint\'eticos en la Figura \ref{fig:synth-QFS-7} indicados en la tabla \ref{tab:synth-QFS-7-Results} muestran un mejor desempe\~no de DeFiNe, que encuentra un filamento m\'as que Phil con respecto a la individualizaci\'on realizada por el experto.
 
 \begin{table}[h]
     \centering
@@ -299,7 +309,7 @@ para la muestra MT-B en la
 %Valor m\'ax de VI para \ref{tab:field3t0filtered2} es 1.9459.
 %N\'umero de filamentos en el {\it Ground Truth} de la figura field3t0 es 5.
 
-La individualizaci\'on de filamentos para la figura \ref{fig:field3t0filtered2} que representa la muestra MT-C resulta en un empate entre Phil y la configuraci\'on de DeFiNe con 60\textdegree, encontrando 4 de 5 filamentos cada uno, mientras que DeFiNe con 30\textdegree como umbral encuentra s\'olo 3 de 5 filamentos. El filamento faltante en DeFiNe-60\textdegree es el que esta compuesto s\'olo por la arista 4 (figura \ref{fig:field3t0filtered2Results-d}), mientras que en DeFiNe-30\textdegree se lleva a cabo una asignaci\'on de las aristas 0-3 a un filamento, y de la arista 1 a otro, siendo la combinaci\'on correcta seleccionar la arista 0 por si sola y las aristas 3-1 en conjunto (figura \ref{fig:field3t0filtered2Results-e}). Similar a lo que realiza Phil, tambi\'en asignado las aristas 3-0 a un filamento, pero a su vez asignando correctamente las aristas 3-1 (figura \ref{fig:field3t0filtered2Results-f}).  A diferencia de otros resultados, se presenta un solo resultado para Phil ya que las 5 iteraciones arrojan el mismo resultado.
+La individualizaci\'on de filamentos para la Figura \ref{fig:field3t0filtered2} que representa la muestra MT-C resulta en un empate entre Phil y la configuraci\'on de DeFiNe con 60\textdegree, encontrando 4 de 5 filamentos cada uno, mientras que DeFiNe con 30\textdegree como umbral encuentra s\'olo 3 de 5 filamentos. El filamento faltante en DeFiNe-60\textdegree es el que esta compuesto s\'olo por la arista 4 (Figura \ref{fig:field3t0filtered2Results-d}), mientras que en DeFiNe-30\textdegree se lleva a cabo una asignaci\'on de las aristas 0-3 a un filamento, y de la arista 1 a otro, siendo la combinaci\'on correcta seleccionar la arista 0 por si sola y las aristas 3-1 en conjunto (Figura \ref{fig:field3t0filtered2Results-e}). Similar a lo que realiza Phil, tambi\'en asignado las aristas 3-0 a un filamento, pero a su vez asignando correctamente las aristas 3-1 (Figura \ref{fig:field3t0filtered2Results-f}).  A diferencia de otros resultados, se presenta un solo resultado para Phil ya que las 5 iteraciones arrojan el mismo resultado.
 
 
 En el caso de Phil, la elecci\'on de las aristas 0-3 para formar un filamento se condice con el comportamiento del algoritmo en buscar caminos/filamentos de mayor longitud que cumplan con el criterio de rectitud. Por otra parte, este caso en un microt\'ubulo puede corresponder a la fusi\'on de 2 microt\'ubulos en uno, denominado {\tt Zippering}, o al nacimiento de un microt\'ubulo a partir de uno existente, llamado {\tt Nucleaci\'on}. Ambas situaciones requieren de informaci\'on adicional para diferenciarlas, como el grosor de los segmentos de filamentos y el \'angulo entre los segmentos de filamentos que se separan del segmento com\'un. La variaci\'on o continuidad del grosor y que el \'angulo mencionado se encuentre en un rango que var\'ia seg\'un el tipo de c\'elula son cr\'iticos para aclarar cual es el caso observado. 
