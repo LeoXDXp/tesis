@@ -1,18 +1,18 @@
 \chapter{Antecedentes}
 \label{chap:stateoftheart}
-La individualizaci\'on de filamentos en una imagen es un problema derivado de la obtenci\'on de informaci\'on de filamentos en base a una imagen. Este \'ultimo ha ido variando a medida que la tecnolog\'ia en microscopios ha mejorado, lo que a su vez ha permitido el desarrollo de nuevos m\'etodos. Estos m\'etodos pueden a su vez diferir entre s\'i dependiendo del foco de la informaci\'on que buscan obtener a partir de la imagen, existiendo m\'etodos que se enfocan a reconstruir filamentos discontinuos, o a la identificaci\'on de segmentos de filamento para la construcci\'on de las redes que estos conforman, o la individualizaci\'on en s\'i. Independientemente del objetivo de cada m\'etodo, es posible agruparlos en dos categor\'ias: M\'etodos basados en herramientas de visi\'on por computador y m\'etodos basados en optimizaci\'on. Los primeros realizan mayoritariamente operaciones de filtrado sobre la imagen, mientras que los segundos plantean parte de la obtenci\'on de la informaci\'on mediante la resoluci\'on de problemas de asignaci\'on o de minimizaci\'on de funciones.
+La individualizaci\'on de filamentos en una imagen es un problema derivado de la obtenci\'on de informaci\'on de filamentos en base a una imagen. Este \'ultimo ha ido variando a medida que la tecnolog\'ia en microscopios ha mejorado, lo que a su vez ha permitido el desarrollo de nuevos m\'etodos. Estos m\'etodos pueden a su vez diferir entre s\'i dependiendo del foco de la informaci\'on que buscan obtener a partir de la imagen, existiendo m\'etodos que se enfocan en reconstruir filamentos discontinuos, a la identificaci\'on de segmentos de filamento para la construcci\'on de las redes que estos conforman, o la individualizaci\'on en s\'i. Independientemente del objetivo de cada m\'etodo, es posible agruparlos en dos categor\'ias: M\'etodos basados en herramientas de visi\'on por computador y m\'etodos basados en optimizaci\'on. Los primeros realizan mayoritariamente operaciones de filtrado sobre la imagen, mientras que los segundos plantean parte de la obtenci\'on de la informaci\'on mediante la resoluci\'on de problemas de asignaci\'on o de minimizaci\'on de funciones.
 
 
 \section{M\'etodos basados en herramientas de visi\'on por computador}
 \label{sec:NonIndividualizationMethods}
 
-La investigaci\'on de \cite{zhang2017extracting} identifica el problema de discontinuidad de filamentos en una imagen, pudiendo atribuirse esto a factores experimentales como la densidad del componente fluorescente, ruido u otras. Para llevar a cabo la reconstrucci\'on de un filamento en base a segmentos, establecen el uso de dos filtros, denominados \textit{Filtro de Transformaci\'on Lineal} (LFT por su sigla en ingl\'es) y \textit{Filtro de Transformaci\'on en base a la Orientaci\'on} (OFT por su sigla en ingl\'es). 
-El filtro LFT busca resaltar caracter\'isticas lineales centr\'andose en cada p\'ixel y generando una serie de lineas con radio r, buscando la linea que contenga la mayor intensidad, seg\'un se observa en la figura \ref{fig:MTLFT}. El filtro OFT complementa lo anterior, mediante un criterio de similaridad en la direcci\'on proyectada de los segmentos, un segundo criterio respecto a la distancia entre los extremos finales de cada segmentos y un tercer criterio de continuidad, que limita el \'angulo entre vector proyectado de un extremo y el vector que representa la distancia entre los extremos de cada segmento. Lo anterior se puede observar en la figura \ref{fig:MTOFT}.
+La investigaci\'on de \cite{zhang2017extracting} identifica el problema de discontinuidad de filamentos en una imagen, pudiendo atribuirse esto a factores experimentales como la densidad del componente fluorescente, ruido u otras. En particular, el filamento analizado en esta investigaci\'on corresponde a microt\'ubulos. Para llevar a cabo la reconstrucci\'on de un filamento en base a segmentos, establecen el uso de dos filtros, denominados \textit{Filtro de Transformaci\'on Lineal} (LFT, Linear Filter Transformation) y \textit{Filtro de Transformaci\'on en base a la Orientaci\'on} (OFT, Orientation Filter Transformation). 
+El filtro LFT busca resaltar caracter\'isticas lineales centr\'andose en cada p\'ixel y generando una serie de lineas con radio $r$, buscando la linea que contenga la mayor intensidad, seg\'un se observa en la Figura \ref{fig:MTLFT}. El filtro OFT complementa lo anterior, mediante un criterio de similaridad en la direcci\'on proyectada de los segmentos, un segundo criterio respecto a la distancia entre los extremos finales de cada segmento y un tercer criterio de continuidad, que limita el \'angulo entre el vector proyectado de un extremo y el vector que representa la distancia entre los extremos de cada segmento. Lo anterior se puede observar en la Figura \ref{fig:MTOFT}.
 
 \begin{figure}[h]
         \centering
         \includegraphics[scale=5]{imagenes/MT-LFT.jpeg}
-        \caption{B\'usqueda por lineas con radio r para diferentes \'angulos, según filtro LFT. Fuente: \cite{zhang2017extracting}}
+        \caption{B\'usqueda por lineas con radio $r$ para diferentes \'angulos, según filtro LFT. Fuente: \cite{zhang2017extracting}}
         \label{fig:MTLFT}
 \end{figure}
 
@@ -24,13 +24,13 @@ El filtro LFT busca resaltar caracter\'isticas lineales centr\'andose en cada p\
 \end{figure}
 
 
-El fundamento de los criterios de OFT se basa en la asociaci\'on de las caracter\'isticas geom\'etricas como restricciones representativas del comportamiento mec\'anico de los microt\'ubulos. Uno de los objetivos de esta investigaci\'on es permitir el an\'alisis autom\'atico, dada las dificultades que el an\'alisis manual de reconstrucci\'on presenta. % es dificil hacer el analisis de forma manual
+El fundamento de los criterios de OFT se basa en la asociaci\'on de las caracter\'isticas geom\'etricas como restricciones representativas del comportamiento mec\'anico de los microt\'ubulos. Uno de los objetivos de esta investigaci\'on es permitir el an\'alisis autom\'atico, dada las dificultades que presenta el an\'alisis manual de reconstrucci\'on. % es dificil hacer el analisis de forma manual
 %asume non-branching filaments entonces soluciona el caso
 
 
 % hablar de fibritool, Quantitave IFS y Aliosha
 %fibritool
-El trabajo de \cite{boudaoud2014fibriltool} conduce al desarrollo de \textit{FibriTool}, un plugin para el software ImageJ, utilizado en an\'alisis cient\'ifico de im\'agenes. {\it FibriTool} calcula la orientaci\'on principal y la anistrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$, ecuaci\'on \eqref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. %Los componentes de $n$ se pueden observar en la ecuaci\'on \eqref{eq:fibritoolComps}.
+El trabajo de \cite{boudaoud2014fibriltool} conduce al desarrollo de {\it FibriTool}, un plugin para el software {\it ImageJ}, utilizado en an\'alisis cient\'ifico de im\'agenes. {\it FibriTool} calcula la orientaci\'on principal y la anisotrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$, ecuaci\'on \eqref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. %Los componentes de $n$ se pueden observar en la ecuaci\'on \eqref{eq:fibritoolComps}.
 
 \begin{equation}
 \label{eq:fibritoolTensor}
@@ -40,7 +40,7 @@ t = (t_x,t_y) = (
 (\frac{\partial I}{\partial y})^2 }
 \end{equation}
 
-Luego, a partir de la matriz $n$ (ecuaci\'on \eqref{eq:fibritoolComps}) se obtiene su primer vector propio $\Vec{e}_1$ que representa la orientaci\'on principal de los filamentos en el \'area de inter\'es, mientras que la diferencia de los eigenvalores $\lambda_1$ y $\lambda_2$ ($\lambda_1 > \lambda_2$), denominada $q = \lambda_1 - \lambda_2$, define la anisotrop\'ia.
+Luego, a partir de la matriz $n$ (ecuaci\'on \eqref{eq:fibritoolComps}) se obtiene su primer vector propio $\Vec{e}_1$ que representa la orientaci\'on principal de los filamentos en el \'area de inter\'es, mientras que la diferencia de los valores propios $\lambda_1$ y $\lambda_2$ ($\lambda_1 > \lambda_2$), denominada $q = \lambda_1 - \lambda_2$, define la anisotrop\'ia.
 
 
 \begin{equation}
@@ -60,7 +60,7 @@ t_x \times t_y & (t_y)^2
 %     n_x,y &= n_y,x = t_x \times t_y
 % \end{align}
 % \end{subequations}
-Los autores de FibriTool desarrollan este m\'etodo para evitar el uso de derivadas de segundo orden, que presentan sensibilidad al ruido, necesitando de pasos previos en la limpieza de la imagen.
+Los autores de {\it FibriTool} desarrollan este m\'etodo para evitar el uso de derivadas de segundo orden, que presentan sensibilidad al ruido, necesitando de pasos previos en la limpieza de la imagen.
 
 \begin{figure}[h!]
         \centering
