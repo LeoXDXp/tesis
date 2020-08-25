@@ -161,37 +161,149 @@ Con la finalidad de cuantificar la calidad de la soluci\'on construida por una h
 %En el caso de la individualizaci\'on de filamentos, es necesario que la definici\'on del problema considere como v\'alidos caminos que representen los casos de filamentos con o sin ciclos, as\'i como superposici\'on y/o cruce. Lo anterior impide forzar la pertenencia de un nodo o arista a un s\'olo camino
 
 
-\subsection{M\'etodo Actualizaci\'on de feromonas}
+\subsection{M\'etodo de actualizaci\'on de feromonas}
 \label{subsec:pheroUpdate}
 Una vez que la hormiga termina un recorrido, se eval\'ua su calidad para actualizar las feromonas $\tau_{ij}$ asociadas a los componentes de soluci\'on que lo conforman. As\'i, en una metaheur\'istica ACO tradicional, se aumenta el valor de $\tau_{ij}$ en cada $c_{ij}$ que es parte de un camino de buena calidad. Adicionalmente, los valores de las feromonas sufren decaimiento en el tiempo, dado por el par\'ametro $\rho$, que busca evitar la convergencia que las feromonas pueden causar en caminos de buena calidad obtenidos al inicio de las iteraciones.
 
 
-En la individualizaci\'on de filamentos, se utilizan {\it anti-feromonas}, con el prop\'osito de indicar a las hormigas de futuras iteraciones los caminos que no son de buena calidad. La diferencia radica en que las anti-feromonas buscan acotar el espacio de soluciones $S$ sin necesariamente buscar la convergencia sobre un \'unico camino. Este cambio implica no utilizar el par\'ametro $\rho$, ya que no existe decaimiento en este uso de anti-feromonas, y reemplazarlo por el par\'ametro $\gamma$ como factor de reducci\'on/penalizaci\'on\cite{montgomery2002anti}.
-
+En la individualizaci\'on de filamentos, se utilizan {\it anti-feromonas}, con el prop\'osito de indicar a las hormigas de futuras iteraciones los caminos que no son de buena calidad. La diferencia radica en que las anti-feromonas buscan acotar el espacio de soluciones $S$ sin necesariamente buscar la convergencia sobre un \'unico camino. Este cambio implica no utilizar el par\'ametro $\rho$, ya que no existe decaimiento en este uso de anti-feromonas, y reemplazarlo por el par\'ametro $\gamma$ como factor de reducci\'on/penalizaci\'on\cite{montgomery2002anti}. Al ser la penalizaci\'on un factor que se aplica sobre el valor de $\tau_{ij}$, la anti-feromona puede disminuir constantemente sin llegar a valer exactamente cero, por lo que se define un l\'imite de 2 penalizaciones como m\'aximo para cada anti-feromona. Al alcanzar este l\'imite, se reduce el valor de $\tau_{ij}$ a 0, haciendo imposible la elecci\'on de la arista $c_{ij}$ respectiva.
+%para las hormigas cuya soluci\'on parcial $s^{P}$ contenga el segmento en el par $<$componente,segmento$>$ penalizado. 
 
 Adem\'as de cambiar el uso de feromonas por el de anti-feromonas, se introduce una segunda modificaci\'on, relativa a las aristas a las que aplica la penalizaci\'on de las anti-feromonas. Un uso tradicional de anti-feromonas implica la disminuci\'on del valor de $\tau_{ij}$ para su respectiva arista $c_{ij}$, en caso de que se trate de un camino de mala calidad. 
-Esto puede llevar a la p\'erdida de exploraci\'on de soluciones, ya que una arista con un $\tau_{ij}$ penalizado por pertenecer a uno o m\'as caminos de mala calidad, puede bloquear otros caminos, dado que el valor de $\tau_{ij}$ no guarda relaci\'on con el conjunto de aristas que causa la penalizaci\'on. As\'i, las soluciones que pudiesen pasar por esa arista se ven limitadas.
+Esto puede llevar a la p\'erdida de exploraci\'on de soluciones en la individualzaci\'on de filamentos, ya que una arista con un $\tau_{ij}$ penalizado por pertenecer a uno o m\'as caminos de mala calidad, puede bloquear otros caminos, dado que el valor de $\tau_{ij}$ no guarda relaci\'on con el conjunto de aristas que causa la penalizaci\'on. As\'i, las soluciones que pudiesen pasar por esa arista se ven limitadas.
 
  
 %En aquel caso, la \'unica arista de $seg_{n+1}$ se transforma en un cuello de botella para la exploraci\'on debido a que penaliza de forma indiscriminada a todas las hormigas que pasen por ah\'i, independientemente del \'angulo que forme con otras aristas o componentes. Para subsanar aquel caso, a este tipo de segmentos se le a\~naden los nodos del segmento que lo precede, $seg_{n}$, con el objetivo de evitar que el an\'alisis del par $seg_{n+1}$ con la componente $c_{ij}$ que inicia el segmento $n+2$ sea s\'olo de 2 aristas.
 
-En este trabajo se propone el uso de un par de valores para actualizar el valor de la anti-feromona. Este par corresponde a la arista $c_{ij}$ a penalizar, y al conjunto de aristas en $s^P$ que la preceden. Se define a aquel conjunto como un segmento de camino $seg_n$. Una caracter\'istica de un segmento de camino corresponde a que esta conformado s\'olo por aristas que forman \'angulos en el rango $[0, \theta]$ con sus predecesores.
+En este trabajo se propone que la penalizaci\'on de $\tau_{ij}$ guarde relaci\'on con el conjunto de aristas en el camino $s$ que preceden a la arista $c_{ij}$. Se define a aquel conjunto de aristas como un segmento de un camino recorrido por la hormiga $a$, expresado como $seg_{n}^{a}$. Los segmentos se generan durante la construcci\'on de un recorrido, existiendo siempre al menos un segmento en cada camino. Dado que el \'angulo entre 2 aristas adyacentes es uno de los criterios utilizados durante la construcci\'on de un camino, el fin de un segmento puede suceder en 2 casos: si la \'ultima arista en el camino corresponde al final del recorrido, o si la arista $s_{n}^{P}$ (la \'ultima arista agregada a $s^P$) forma un \'angulo en el rango $]\theta, Max\_Angle]$ con la arista $c_{ij} \in N(s^P)$ a agregar a la soluci\'on parcial.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics{imagenes/ant_segments_simple_case.png}
+    \caption{Camino de una hormiga $b$ compuesto por 2 segmentos. El \'angulo entre las aristas $e_2$ y $e_3$ pertenece al rango $]\theta, Max\_Angle]$, finalizando el segmento $seg^{b}_1$ e iniciando el segmento $seg^{b}_2$. Fuente: Elaboraci\'on Propia.}
+    \label{fig:segmentSimpleCase}
+\end{figure}
+
+As\'i, cada segmento esta formado por una o m\'as aristas, donde cada arista del segmento forma un \'angulo en el rango $[0, \theta]$ con sus vecinos. Un ejemplo de esto se puede observar en la Figura \ref{fig:segmentSimpleCase}, en el que si se penaliza la arista $e_3$, esta penalizaci\'on ser\'a asociada al segmento $seg^{b}_{1}$, disminuyendo la posibilidad de que futuras hormigas que recorran este segmento escojan $e_3$, sin perjuicio de otros caminos que pasen por $e_3$ pero no por el segmento $seg^{b}_{1}$.
+
+
+Una ventaja de utilizar segmentos de camino es evitar volver a evaluar la relaci\'on entre todas las aristas que conforman el camino, ya que las aristas que conforman un segmento cumplen con un criterio para ser consideradas como parte del mismo filamento. As\'i, la evaluaci\'on de la calidad del camino se realiza s\'olo en el caso que 2 aristas vecinas formen un \'angulo de rango intermedio ($]\theta, Max\_Angle]$), enfoc\'andose en las soluciones de calidad intermedia que permiten explorar el espacio de soluciones.
+
+
+Se debe se\~nalar que esta propuesta de penalizaci\'on realiza la evaluaci\'on de la calidad del camino en orden inverso al utilizado durante la construcci\'on del recorrido, imitando el retorno que realiza una hormiga desde el alimento hacia su hormiguero. Esto, sumando al uso de segmentos, permite comenzar la revisi\'on en el \'ultimo par de aristas cuyo \'angulo pertenece al rango intermedio, es decir, el nodo donde termina el pen\'ultimo segmento y comienza el \'ultimo. A modo de ejemplo, en la Figura \ref{fig:segmentSimpleCase}, esto ser\'ia el nodo com\'un de las aristas $e_2$ y $e_3$, que separa los segmentos $seg^{b}_1$ y $seg^{b}_2$. En este ejemplo, en caso de penalizar la arista $e_3$, ser\'a solo disminuyendo su posibilidad de ser elegida para caminos que contengan al segmento $seg^{b}_1$ en su soluci\'on.
+
+%cortar de atras para adelante una sola vez permite acotar los caminos malos sin descartar una solucion completamente, solo sacando la parte potencialmente mala al final
+
+
+Por \'ultimo en este aspecto, y a diferencia del uso tradicional de feromonas o anti-feromonas, donde se penalizan todas las aristas pertenecientes a una soluci\'on, el recorrido inverso y el uso de segmentos permite que sea suficiente la penalizaci\'on de una arista en la soluci\'on para clasificar la soluci\'on $s$ como de mala calidad y desecharla. Esto permite que a partir de una soluci\'on de mala calidad se remueva el \'ultimo segmento, permitiendo a otra hormiga recorrer un camino similar con un distinto final, favoreciendo la exploraci\'on. Para visualizar esto, es posible utilizar la Figura \ref{fig:segmentComplexCaseH}, en donde una hormiga pudiese construir un camino incorporando las aristas $e_1$, $e_2$, $e_4$, $e_5$ y $e_6$. Al desechar el \'ultimo segmento, conformado s\'olo por la arista $e_6$, permite que otra hormiga recorra desde $e_1$ hasta $e_5$, pudiendo agregar $e_7$ a su camino o terminando en $e_5$. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics{imagenes/ant_segments_complex_case_H.png}
+    \caption{Camino de una hormiga $a$ compuesto por 4 segmentos. El comienzo en orden inverso a la construcci\'on favorece la exploraci\'on, reemplazando el \'ultimo segmento por otro o simplemente concluyendo el recorrido. Fuente: Elaboraci\'on Propia.}
+    \label{fig:segmentComplexCaseH}
+\end{figure}
+
+%Existen $N + 1$ segmentos en $s$ si la soluci\'on contiene $N$ elementos $c_{ij} \in ]\theta, 90]$ (de calidad intermedia). 
+Lo anterior permite definir que la penalizaci\'on de $\tau_{ij}$ este asociada a la arista $c_{ij}$ y al segmento que precede a $c_{ij}$ en el recorrido de una hormiga $a$. El segmento que precede a $c_{ij}$ en un camino $s$ se define como $seg^{a}_{prev}$. Adicionalmente, se tiene que entre distintos caminos pueden existir segmentos equivalentes, lo que sucede en el caso de que contengan las mismas aristas. Esto permite que se refieran al mismo valor $\tau_{ij}$ a pesar de los nombres relativos al camino al que pertenecen. 
+
+ \begin{figure*}[h]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/ant_segments_complex_case_1.png}
+        \caption{Camino de una hormiga $a$ que contiene las aristas $e_3$, $e_4$, $e_5$ y $e_7$.}
+        \label{fig:segmentComplexCase1}
+    \end{subfigure}%
+    ~ \hspace{0.5cm}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/ant_segments_complex_case_2.png}
+        \caption{Penalizaci\'on del camino de la hormiga $a$ en la arista $e_5$ con respecto al segmento $seg^{a}_2$ conformado solo por la arista $e_4$.}
+        \label{fig:segmentComplexCase2}
+    \end{subfigure}
+
+\vskip\baselineskip
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/ant_segments_complex_case_4.png}
+	    \caption{Camino de una hormiga $b$ que contiene las aristas $e_3$, $e_4$. El camino $b$ no puede agregar la arista $e_5$ debido a que se encuentra penalizada para el segmento formado por la arista $e_4$.}
+        \label{fig:segmentComplexCase3}
+    \end{subfigure}%
+    ~ \hspace{0.5cm}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/ant_segments_complex_case_5.png}
+        \caption{Penalizaci\'on del camino de la hormiga $b$ en la arista $e_4$ con respecto al segmento $seg^{b}_1$ conformado solo por la arista $e_3$.}
+        \label{fig:segmentComplexCase4}
+    \end{subfigure}
+
+    \vskip\baselineskip
+
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/ant_segments_complex_case_block.png}
+	    \caption{El camino de la hormiga $c$ no puede pasar de la arista $e_4$ en el caso que la penalizaci\'on no tenga relaci\'on con el segmento que precede a esa arista.}
+        \label{fig:segmentComplexCaseBlocked}
+    \end{subfigure}
+    \caption{Funcionamiento de la propuesta de penalizaci\'on de anti-feromonas con segmentos y recorrido inverso. Por simplicidad se supone que la penalizaci\'on de $\tau_{ij}$ solo una vez es suficiente para eliminar la posibilidad de elegir una arista $c_{ij}$. En este ejemplo, los caminos $a$ y $b$ se desechan por evaluarse como de mala calidad. El camino es penalizando en $e_4$ respecto al segmento que lo precede. El camino $c$ puede seleccionar la arista $e_4$ ya que esta arista no se encuentra penalizada con respecto al segmento $seg^{c}_1$, pudiendo luego agregar el segmento $seg^{c}_3$.Fuente: Elaboraci\'on Propia.}
+    \label{fig:segmentComplexCase}
+\end{figure*}
+
+Un caso particular en el que esta propuesta puede sufrir del mismo problema de cuello de botella que intenta evitar, es al momento que un segmento formado por s\'olo una arista se encuentre entre 2 segmentos. Este situaci\'on, reflejada en la Figura \ref{fig:segmentComplexCase}, implica que la penalizaci\'on efectuada a los caminos de las hormigas $a$ y $b$ pueden generar un bloqueo del camino de la hormiga $c$, dado que tras la penalizaci\'on efectuada en la evaluaci\'on de $b$, se tiene un segmento conformado solo por la arista $e_4$, la que forma un \'angulo que pertenece al rango $]\theta, Max\_Angle]$ con cada uno de sus vecinos.
+
+%Si el camino continua siendo de .... otras hormigas pueden intentar iterativamente 
 %explicar q la penalizacion es solo necesaria en soluciones de calidad intermedia
 
-....
+Para subsanar aquel caso, a los segmentos de s\'olo una arista, se le a\~naden las aristas del segmento que lo precede con el objetivo de evitar que el an\'alisis sea s\'olo entre 2 aristas. As\'i, en 
 
-Una modificaci\'on que se introduce en este trabajo con respecto a la aplicaci\'on de  feromonas y anti-feromonas es que estas com\'unmnente s\'olo se encuentran asociadas al componente $c_{ij}$ respectivo. Como variaci\'on para la individualizaci\'on/reconocimiento de filamentos, se propone asociar el valor de la anti-feromona no s\'olo con el componente $c_{ij}$, sino que adem\'as con uno o m\'as de los elementos que fueron elegidos en pasos anteriores por la hormiga que los selecciona ($s^{P}$). Se define como un segmento $seg_n$ de un camino al conjunto de aristas contiguas $c_{ij} \in s^{P}$ donde cada arista forma un \'angulo en el rango $[0, \theta]$ con la arista que la antecede. As\'i es posible desglosar una soluci\'on $s$ en segmentos $seg_{n}$ donde $n$ se\~nala el n\'umero de segmento al que corresponde dentro de la soluci\'on $s$. El segmento $seg_1$ comienza con la primera arista/componente $c_{ij}$ asignada a la hormiga de acuerdo a la heur\'istica de asignaci\'on inicial, y termina en el primer elemento $c_{ij}$ con el que forma un \'angulo de calidad intermedia (sin incluirlo), siendo este mismo elemento el que inicia el segmento siguiente.
-%Existen $N + 1$ segmentos en $s$ si la soluci\'on contiene $N$ elementos $c_{ij} \in ]\theta, 90]$ (de calidad intermedia). 
+del par $seg_{n+1}$ con la arista $c_{ij}$ ($e_4$ e
+
+ \begin{figure*}[h]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/ant_segments_complex_case_B1.png}
+        \caption{Camino de una hormiga $a$ que contiene las aristas $e_3$, $e_4$ y $e_5$.}
+        \label{fig:segmentComplexCaseB1}
+    \end{subfigure}%
+    ~ \hspace{0.5cm}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/ant_segments_complex_case_B2.png}
+        \caption{Penalizaci\'on del camino de la hormiga $a$ en la arista $e_5$ con respecto al segmento $seg^{a}_2$ conformado solo por la arista $e_4$.}
+        \label{fig:segmentComplexCaseB2}
+    \end{subfigure}
+
+\vskip\baselineskip
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/ant_segments_complex_case_B_blocked.png}
+	    \caption{Camino de una hormiga $b$ que contiene las aristas $e_1$, $e_2,$ y $e_4$. El camino $b$ no puede agregar la arista $e_5$ debido a que se encuentra penalizada para el segmento conformado por la arista $e_4$, que corresponde al $seg^{a}_2$.}
+        \label{fig:segmentComplexCaseBBlocked}
+    \end{subfigure}%
+    ~ \hspace{0.5cm}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/ant_segments_complex_case_B2_extended.png}
+        \caption{Soluci\'on propuesta para los segmentos de solo 1 arista no causen bloqueos como el que afecta a la hormiga $b$, mediante la extensi\'on del segmento, a\~nadiendo el segmento anterior.}
+        \label{fig:segmentComplexCaseB2Extended}
+    \end{subfigure}
+
+    \caption{Caminos de las hormigas $a$ y $b$. Para evitar que la penalizaci\'on sobre $e_5$ por el segmento que lo precede, $seg^{a}_2$, bloquee el camino $b$, se modifica el inicio del segmento asociado a la penalizaci\'on, incorporando las aristas del segmento previo, $seg^{a}_2$. As\'i se mantiene la l\'ogica de asociar la penalizaci\'on no solo a la arista sino que tambi\'en al segmento que la precede. Estos casos suceden para aristas como $e_4$, que forman \'angulos en el rango $]\theta, Max\_Angle]$ con todas sus aristas vecinas, quedando solas en un segmento de largo 1. Fuente: Elaboraci\'on Propia.}
+    \label{fig:segmentComplexCaseB}
+\end{figure*}
 
 
-Luego, mediante la anti-feromona se relaciona un segmento $seg_n \subset s$ y la componente de soluci\'on $c_{ij} \in seg_{n+1} \in s$, donde la elecci\'on de la arista o componente $c_{ij}$ despu\'es de haber elegido las aristas pertenecientes a $seg_n$ origina una soluci\'on de mala calidad. El rol de la anti-feromona es penalizar la probabilidad de elecci\'on de $c_{ij}$ para las hormigas que tengan al segmento $seg_n$ en su soluci\'on parcial $s^{P}$, con el fin de evitar que otras hormigas que pasen por $seg_n$ elijan $c_{ij}$.
+%La perdida de exploraci\'on tambi\'en sucede en el caso que el segmento $seg_{n+1}$ contenga solo 1 arista y no sea el segmento en el que finaliza el recorrido de la hormiga. En aquel caso, la \'unica arista de $seg_{n+1}$ se transforma en un cuello de botella para la exploraci\'on debido a que penaliza de forma indiscriminada a todas las hormigas que pasen por ah\'i, independientemente del \'angulo que forme con otras aristas o componentes. 
 
+%Luego, mediante la anti-feromona se relaciona un segmento $seg^{a}_n \subset s$ y la componente de soluci\'on $c_{ij} \in seg_{n+1} \in s$, donde la elecci\'on de la arista o componente $c_{ij}$ despu\'es de haber elegido las aristas pertenecientes a $seg_n$ origina una soluci\'on de mala calidad. 
 
-Se debe destacar que esto es necesario ya que si s\'olo se utiliza la anti-feromona para penalizar la arista o componente $c_{ij}$, se puede ocasionar la perdida de capacidad de exploraci\'on de hormigas que provengan de otros recorridos parciales distintos a $seg_n$. La perdida de exploraci\'on tambi\'en sucede en el caso que el segmento $seg_{n+1}$ contenga solo 1 arista y no sea el segmento en el que finaliza el recorrido de la hormiga. En aquel caso, la \'unica arista de $seg_{n+1}$ se transforma en un cuello de botella para la exploraci\'on debido a que penaliza de forma indiscriminada a todas las hormigas que pasen por ah\'i, independientemente del \'angulo que forme con otras aristas o componentes. Para subsanar aquel caso, a este tipo de segmentos se le a\~naden los nodos del segmento que lo precede, $seg_{n}$, con el objetivo de evitar que el an\'alisis del par $seg_{n+1}$ con la componente $c_{ij}$ que inicia el segmento $n+2$ sea s\'olo de 2 aristas.
+\subsection{Criterios para la actualizaci\'on de feromonas}
 
+La anti-feromona se aplica sobre hormigas que han finalizado su recorrido, cuya calidad normalizada se encuentre entre $[Max\_Score/2, Max\_Score[$. Aquello implica que al menos un par de las aristas del recorrido forma un \'angulo que pertenece al rango intermedia $]\theta, Max\_Angle]$, necesitando un an\'alisis adicional para determinar si corresponde a una soluci\'on de buena calidad. 
 
-Adicionalmente a lo anterior, se ha agregado un l\'imite de 2 penalizaciones como m\'aximo para cada anti-feromona. Al alcanzar este l\'imite, se reduce el valor de la anti-feromona a 0, haciendo imposible la elecci\'on de la componente de soluci\'on $c_{ij}$ para las hormigas cuya soluci\'on parcial $s^{P}$ contenga el segmento en el par $<$componente,segmento$>$ penalizado. La anti-feromona se aplica sobre hormigas que han finalizado su recorrido y cuya calidad normalizada sea menor a {\it Max\_Score}, ya que esto implica que al menos 1 de las aristas del recorrido es de calidad intermedia, necesitando un an\'alisis adicional para determinar si corresponde a una soluci\'on de buena calidad. 
-
+......
 
 El an\'alisis adicional se separa en evaluaciones comunes que no dependen de la c\'elula observada, agregando posteriormente las evaluaciones particulares. El conjunto de evaluaciones comunes consisten en evaluar la curvatura del recorrido, como tambi\'en la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a otro segmento contiguo. La evaluaci\'on particular se acciona si la c\'elula es una neurona, debido a que se requiere verificar que la finalizaci\'on del recorrido no sea en una arista que cumpla con el primer criterio de la heur\'istica de asignaci\'on de aristas iniciales, descrita en la secci\'on \ref{subsubsec:antTourInit}.
 
