@@ -366,21 +366,21 @@ Si ambas evaluaciones son completadas correctamente y no existen evaluaciones pa
 En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, se destaca que en el caso de la individualizaci\'on de filamentos existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
 
 \subsection{M\'etodo de b\'usqueda no local}
-Una vez que la hormiga termina un camino o {\it tour}, es posible agregar un m\'etodo de retroalimentaci\'on sobre la calidad del recorrido realizado, basado en l\'ogicas globales/centralizadas que escapan de la b\'usqueda local que realiza cada hormiga. El o los m\'etodos en esta etapa permite extender la l\'ogica con respecto a una metaheur\'istica ACO gen\'erica, y son opcionales, por lo que no siempre son utilizados. En esta investigaci\'on, se agrega un m\'etodo para seleccionar las hormigas de mejor calidad para modificar el valor de las feromonas a lo largo de un camino m\'as alla de lo que la etapa de {\it Actualizaci\'on\_de\_feromonas()} lo hace. 
+Una vez que la hormiga termina un camino o {\it tour}, es posible agregar un m\'etodo de retroalimentaci\'on sobre la calidad del recorrido realizado, basado en l\'ogicas globales/centralizadas que escapan de la b\'usqueda local que realiza cada hormiga. El o los m\'etodos en esta etapa permite extender la l\'ogica con respecto a una metaheur\'istica ACO, y son opcionales, por lo que no siempre son utilizados. 
 
-Para la individualizaci\'on de filamentos, la evaluaci\'on global corresponde a eliminar soluciones candidatas que no aporten informaci\'on nueva. A modo de ejemplo, si $s_a$ y $s_b$ son las soluciones de las hormigas $a$ y $b$ respectivamente y cumplen con las siguientes condiciones:
+Para la individualizaci\'on de filamentos, la evaluaci\'on global corresponde a eliminar soluciones candidatas que no aporten informaci\'on nueva, como puede suceder si una soluci\'on se encuentra contenida dentro de otra. Espec\'ificamente, si una soluci\'on $s^{a}$ se conforma por uno o m\'as segmentos y todos estos existen de forma equivalente en otra soluci\'on $s^{b}$, que a su vez puede tener segmentos que no posean equivalencia en $s^{a}$, se cumple que $s^{b}$ contiene a $s^{a}$. Al ser una soluci\'on contenida en otra, $s^{a}$ es redundante, pudiendo descartarse al disminuir su calidad a 0. En el caso que $s^{a}$ y $s^{b}$ sean id\'enticas, se conserva la soluci\'on que se haya construido primero. 
+ 
+%\begin{itemize}
+%    \item $\forall seg^{a}_{i} \in s^{a}, i = 1\dots n$
+    
+%    \item $s^{a} \subseteq s^{b}$
+%\end{itemize}
 
-\begin{itemize}
-    \item $\forall c_{ij} \in s_a \in [0, \theta]$ y $\forall c_{ij} \in s_b \in [0, \theta]$
-    \item $\forall c_{ij} \in s_a$ fueron electos por la hormiga $a$ con $P(c_{ij} | s_{a}^{P}) = 1$ y $\forall c_{ij} \in s_b$ fueron electos por la hormiga $b$ con $P(c_{ij} | s_{b}^{P}) = 1$
-    \item $s_a \subseteq s_b$
-\end{itemize}
-
-Se tiene que $s_a$ no aporta m\'as informaci\'on que $s_b$, por lo que $s_a$ puede descartarse. Se denomina a $s_b$ como un segmento, el cual se comporta como una secci\'on indivisible de filamento. Este m\'etodo se ejecuta al comparar dos soluciones 
+Mediante la comparaci\'on de segmentos equivalentes, esta revisi\'on centralizada busca evitar recorridos con un bajo n\'umero de aristas, especialmente los caminos de 1 arista. Un potencial problema asociado a este m\'etodo se encuentra en el caso de que la solucion descartada, $s^{a}$ en el ejemplo, sea la que representa de mejor forma a un filamento, y que la soluci\'on restante por ende sea una representaci\'on no exacta.
 %RIESGO ASOCIADO a overmatch!!
 
 %Si dos soluciones, $s_i$ y $s_j$ de las hormigas $i$,$j$, conformadas solamente por componentes $c_{ij} \in [0, \theta]$  (todos los componentes son de {\it buena calidad}), y que adem\'as eran la \'unica opci\'on posible en cada avance de la hormiga (probabilidad 1 de ser elegidas)
 %tal que $s_i \subseteq s_j$ o viceversa, se tiene que una soluci\'on candidata no aporta nueva informaci\'on.
 
-
+\midskip
 En resumen, las condiciones del problema de identificaci\'on de filamentos dan pie a establecer su representaci\'on mediante un problema de optimizaci\'on de restricciones (COP), estando el modelo para la resoluci\'on del COP basado en la metaheur\'istica ACO para su resoluci\'on. La implementaci\'on del modelo de optimizaci\'on presentado es un algoritmo denominado {\it Phil} el que se encuentra escrito en C++.
