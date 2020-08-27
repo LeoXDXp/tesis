@@ -179,7 +179,7 @@ En este trabajo se propone que la penalizaci\'on de $\tau_{ij}$ guarde relaci\'o
 
 \begin{figure}[h!]
     \centering
-    \includegraphics{imagenes/ant_segments_simple_case.png}
+    \includegraphics[scale=0.8]{imagenes/ant_segments_simple_case.png}
     \caption{Camino de una hormiga $b$ compuesto por 2 segmentos. El \'angulo entre las aristas $e_2$ y $e_3$ pertenece al rango $]\theta, Max\_Angle]$, finalizando el segmento $seg^{b}_1$ e iniciando el segmento $seg^{b}_2$. Fuente: Elaboraci\'on Propia.}
     \label{fig:segmentSimpleCase}
 \end{figure}
@@ -199,15 +199,14 @@ Por \'ultimo en este aspecto, y a diferencia del uso tradicional de feromonas o 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics{imagenes/ant_segments_complex_case_H.png}
+    \includegraphics[scale=0.8]{imagenes/ant_segments_complex_case_H.png}
     \caption{Camino de una hormiga $a$ compuesto por 4 segmentos. El comienzo en orden inverso a la construcci\'on favorece la exploraci\'on, reemplazando el \'ultimo segmento por otro o simplemente concluyendo el recorrido. Fuente: Elaboraci\'on Propia.}
     \label{fig:segmentComplexCaseH}
 \end{figure}
 
 %Existen $N + 1$ segmentos en $s$ si la soluci\'on contiene $N$ elementos $c_{ij} \in ]\theta, 90]$ (de calidad intermedia). 
-Lo anterior permite definir que la penalizaci\'on de $\tau_{ij}$ este asociada a la arista $c_{ij}$ y al segmento que precede a $c_{ij}$ en el recorrido de una hormiga $a$. El segmento que precede a $c_{ij}$ en un camino $s$ se define como $seg^{a}_{prev}$. Adicionalmente, se tiene que entre distintos caminos pueden existir segmentos equivalentes, lo que sucede en el caso de que contengan las mismas aristas. Esto permite que se refieran al mismo valor $\tau_{ij}$ a pesar de los nombres relativos al camino al que pertenecen. 
-
- \begin{figure*}[h]
+Lo anterior permite definir que la penalizaci\'on de $\tau_{ij}$ este asociada a la arista $c_{ij}$ y al segmento que precede a $c_{ij}$ en el recorrido de una hormiga $a$. El segmento que precede a $c_{ij}$ en un camino $s$ se define como $seg^{a}_{prev}$. Adicionalmente, se tiene que entre distintos caminos pueden existir segmentos equivalentes, lo que sucede en el caso de que contengan las mismas aristas. Esto permite que se refieran al mismo valor $\tau_{ij}$ a pesar de los nombres relativos al camino al que pertenecen. El funcionamiento del m\'etodo de penalizaci\'on propuesto se visualiza en la Figura \ref{fig:segmentComplexCase}.
+ \begin{figure*}[ht]
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
@@ -250,16 +249,20 @@ Lo anterior permite definir que la penalizaci\'on de $\tau_{ij}$ este asociada a
     \label{fig:segmentComplexCase}
 \end{figure*}
 
-Un caso particular en el que esta propuesta puede sufrir del mismo problema de cuello de botella que intenta evitar, es al momento que un segmento formado por s\'olo una arista se encuentre entre 2 segmentos. Este situaci\'on, reflejada en la Figura \ref{fig:segmentComplexCase}, implica que la penalizaci\'on efectuada a los caminos de las hormigas $a$ y $b$ pueden generar un bloqueo del camino de la hormiga $c$, dado que tras la penalizaci\'on efectuada en la evaluaci\'on de $b$, se tiene un segmento conformado solo por la arista $e_4$, la que forma un \'angulo que pertenece al rango $]\theta, Max\_Angle]$ con cada uno de sus vecinos.
+Un caso particular en el que esta propuesta puede sufrir del mismo problema de cuello de botella que intenta evitar, es al momento que un segmento formado por s\'olo una arista se encuentre entre 2 segmentos. Este situaci\'on, reflejada en la Figura \ref{fig:segmentComplexCaseB}, implica que la penalizaci\'on que involucre un segmento de una sola arista, como el segmento $seg^{a}_2$, puede generar un bloqueo para los recorridos de otras hormigas. Este tipo de segmentos puede generarse a partir de aristas que forman un \'angulo que pertenece al rango $]\theta, Max\_Angle]$ con cada uno de sus vecinos, como es el caso de la arista $e_4$ en el ejemplo.
+
+
+Para subsanar aquel caso, a los segmentos de s\'olo una arista se le a\~naden las aristas del segmento que lo precede con el objetivo de evitar que el an\'alisis sea s\'olo entre 2 aristas. As\'i, el segmento $seg^{a}_2$ pasa a ser formado por las aristss $e_3$ y $e_4$, evitando el bloqueo de la hormiga $b$.
+
+
+
+%Este situaci\'on, reflejada en la Figura \ref{fig:segmentComplexCaseH}, implica que la penalizaci\'on efectuada a los caminos de las hormigas $a$ y $b$ pueden generar un bloqueo del camino de la hormiga $c$, dado que tras la penalizaci\'on efectuada en la evaluaci\'on de $b$, se tiene un segmento conformado solo por la arista $e_4$, la que forma un \'angulo que pertenece al rango $]\theta, Max\_Angle]$ con cada uno de sus vecinos.
 
 %Si el camino continua siendo de .... otras hormigas pueden intentar iterativamente 
 %explicar q la penalizacion es solo necesaria en soluciones de calidad intermedia
 
-Para subsanar aquel caso, a los segmentos de s\'olo una arista, se le a\~naden las aristas del segmento que lo precede con el objetivo de evitar que el an\'alisis sea s\'olo entre 2 aristas. As\'i, en 
 
-del par $seg_{n+1}$ con la arista $c_{ij}$ ($e_4$ e
-
- \begin{figure*}[h]
+ \begin{figure*}[ht]
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
@@ -306,7 +309,7 @@ La anti-feromona se aplica sobre hormigas que han finalizado su recorrido, cuya 
 El an\'alisis adicional se separa en evaluaciones comunes que no dependen de la c\'elula observada, agregando posteriormente las evaluaciones particulares. El conjunto de evaluaciones comunes consisten en evaluar la curvatura del recorrido, como tambi\'en la magnitud del desplazamiento entre la proyecci\'on de un segmento con respecto a un segmento adyacente. La evaluaci\'on particular se ejecuta si la c\'elula es una neurona, debido a que se requiere de una verificaci\'on particular, validando que la finalizaci\'on del recorrido no sea en una arista con uno de sus nodos con grado 1. Es decir, esta arista final no debe cumplir con el primer criterio de la heur\'istica de asignaci\'on de aristas iniciales, descrita en la secci\'on \ref{subsubsec:antTourInit}.
 
 
-La curvatura del recorrido de una hormiga $a$ es el \'angulo formado por el nodo inicial ($v^{a}_1$), el centro de masa de la misma hormiga ($mc^{a}$) y el nodo final ($v^{a}_n$). Este \'angulo no debe superar el umbral definido al multiplicar el \'angulo $\theta$ por el factor {\it Max\_Axial\_Displacement}. Este factor permite flexibilizar la tolerancia de la curvatura en base a $\theta$. Si el recorrido de la hormiga tiene un \'angulo igual o mayor al umbral, implica que la soluci\'on encontrada es demasiado curva para representar un filamento, por lo que es penalizada y descartada. El criterio de curvatura se refleja en la ecuaci\'on \eqref{eq:antiPheroSAP_Angle}.
+La curvatura del recorrido de una hormiga $a$ es el \'angulo formado por el nodo inicial ($v^{a}_1$), el centro de masa de la misma hormiga ($mc^{a}$) y el nodo final ($v^{a}_n$). Este \'angulo no debe superar el umbral definido al multiplicar el \'angulo $\theta$ por el factor {\it Max\_Axial\_Displacement}. Este factor permite flexibilizar la tolerancia de la curvatura en base a $\theta$. Si el recorrido de la hormiga tiene un \'angulo igual o mayor al umbral, implica que la soluci\'on encontrada es demasiado curva para representar un filamento, por lo que es penalizada y descartada. Un ejemplo se puede observar en la Figura \ref{fig:antCurvCase}, con el camino formado por las aristas $e_3$, $e_4$, $e_5$ y $e_7$, que presenta una curvatura muy marcada, por lo que es penalizado y descartado. La actualizaci\'on del valor de $\tau_{ij}$ mediante el criterio de curvatura se refleja en la ecuaci\'on \eqref{eq:antiPheroSAP_Angle}.
 %\begin{equation}
 %    \label{eq:antiPheroSAP_Angle}
 %    \tau_{ij} \leftarrow \tau_{ij} \cdot \gamma \quad \forall \langle c_{ij},seg_{n}\rangle > \textrm{Max\_Axial\_Displacement}
@@ -315,7 +318,7 @@ La curvatura del recorrido de una hormiga $a$ es el \'angulo formado por el nodo
 \begin{equation}
     \tau_{ij} \leftarrow
         \begin{cases}
-        \tau_{ij} \cdot \gamma \text{ si } \measuredangle((v^{a}_1, mc^{a}), (mc^{a}, v^{a}_n))  \theta \cdot \text{Max\_Axial\_Displacement},\\[3ex]
+        \tau_{ij} \cdot \gamma \text{ si } \measuredangle((v^{a}_1, mc^{a}), (mc^{a}, v^{a}_n)) \geq \theta \cdot \text{Max\_Axial\_Displacement},\\[3ex]
         
         \text{0 si } \tau_{ij} \leq 0.25, \\[3ex]
         \tau_{ij} \quad \text{en otro caso.}
@@ -323,8 +326,29 @@ La curvatura del recorrido de una hormiga $a$ es el \'angulo formado por el nodo
     \label{eq:antiPheroSAP_Angle}
 \end{equation}
 
+\begin{figure*}[ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2.5in]{imagenes/ant_curvature_case.png}
+        \caption{Camino de una hormiga $a$ que contiene las aristas $e_3$, $e_4$ y $e_5$.}
+        \label{fig:antCurvCase}
+    \end{subfigure}%
+    ~ \hspace{0.5cm}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2.5in]{imagenes/ant_segments_complex_case_B2.png}
+        \caption{Penalizaci\'on del camino de la hormiga $a$ en la arista $e_5$ con respecto al segmento $seg^{a}_2$ conformado solo por la arista $e_4$.}
+        \label{fig:antMaxDispl}
+    \end{subfigure}
+    \caption{. Fuente: Elaboraci\'on Propia.}
+    \label{fig:pheromonCriteria}
+\end{figure*}
+
 %agregar referencia? tindemans rod straightness \cite{hawkins2010model} of MTs o 
-El an\'alisis respecto a la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a los segmentos que lo preceden se fundamenta en la rigidez que algunos tipos de filamentos como los microt\'ubulos y los filamentos de actina poseen\cite{stam2017filament}. El criterio de rigidez consiste en analizar los segmentos con respecto a la totalidad de sus predecesores, comenzando por el \'ultimo segmento recorrido por la hormiga, es decir, desde el extremo final de la soluci\'on. A partir de cada par de $<$segmento,segmentos$_$predecesores$>$, $\langle seg_{n}$,$seg_{1,n-1}\rangle$, se debe seleccionar el miembro del par de mayor longitud, definido como $s_{max} = \max(\norm{seg_{n}}, \norm{seg_{1,n-1}})$, para calcular el \'angulo suplementario que forma con respecto al otro miembro del par, definido como $s_{min}$. El \'angulo suplementario, $\measuredangle supl(s_{max},s_{min})$ es el equivalente a calcular el \'angulo entre la proyecci\'on de $s_{max}$ y $s_{min}$.
+El an\'alisis respecto a la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a los segmentos que lo preceden se fundamenta en la rigidez que algunos tipos de filamentos como los microt\'ubulos y los filamentos de actina poseen\cite{stam2017filament}. 
+
+%El criterio de rigidez consiste en analizar los segmentos con respecto a la totalidad de sus predecesores, comenzando por el \'ultimo segmento recorrido por la hormiga, es decir, desde el extremo final de la soluci\'on. A partir de cada par de $<$segmento,segmentos$_$predecesores$>$, $\langle seg_{n}$,$seg_{1,n-1}\rangle$, se debe seleccionar el miembro del par de mayor longitud, definido como $s_{max} = \max(\norm{seg_{n}}, \norm{seg_{1,n-1}})$, para calcular el \'angulo suplementario que forma con respecto al otro miembro del par, definido como $s_{min}$. El \'angulo suplementario, $\measuredangle supl(s_{max},s_{min})$ es el equivalente a calcular el \'angulo entre la proyecci\'on de $s_{max}$ y $s_{min}$.
 
 Luego $s_{min}$ es multiplicado por el seno del \'angulo suplementario, estableciendo el desplazamiento con respecto al eje que forma $s_{max}$ y su proyecci\'on. El umbral que delimita al desplazamiento calculado previamente se define como el m\'ultiplo de $s_{max}$ por 10\% de {\it Max\_Axial\_Displacement}. 
 
@@ -381,5 +405,5 @@ Mediante la comparaci\'on de segmentos equivalentes, esta revisi\'on centralizad
 %Si dos soluciones, $s_i$ y $s_j$ de las hormigas $i$,$j$, conformadas solamente por componentes $c_{ij} \in [0, \theta]$  (todos los componentes son de {\it buena calidad}), y que adem\'as eran la \'unica opci\'on posible en cada avance de la hormiga (probabilidad 1 de ser elegidas)
 %tal que $s_i \subseteq s_j$ o viceversa, se tiene que una soluci\'on candidata no aporta nueva informaci\'on.
 
-\vskip
+\vspace{1cm}
 En resumen, las condiciones del problema de identificaci\'on de filamentos dan pie a establecer su representaci\'on mediante un problema de optimizaci\'on de restricciones (COP), estando el modelo para la resoluci\'on del COP basado en la metaheur\'istica ACO para su resoluci\'on. La implementaci\'on del modelo de optimizaci\'on presentado es un algoritmo denominado {\it Phil} el que se encuentra escrito en C++.
