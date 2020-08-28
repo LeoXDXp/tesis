@@ -30,7 +30,7 @@ El fundamento de los criterios de OFT se basa en la asociaci\'on de las caracter
 
 % hablar de fibritool, Quantitave IFS y Aliosha
 %fibritool
-El trabajo de \cite{boudaoud2014fibriltool} conduce al desarrollo de {\it FibriTool}, un plugin para el software {\it ImageJ}, utilizado en an\'alisis cient\'ifico de im\'agenes. {\it FibriTool} calcula la orientaci\'on principal y la anisotrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$, ecuaci\'on \eqref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. %Los componentes de $n$ se pueden observar en la ecuaci\'on \eqref{eq:fibritoolComps}.
+El trabajo de \cite{boudaoud2014fibriltool} conduce al desarrollo de {\it FibriTool}, un plugin para el software {\it ImageJ}, utilizado en an\'alisis cient\'ifico de im\'agenes. {\it FibriTool} calcula la orientaci\'on principal y la anisotrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$, ecuaci\'on \ref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. %Los componentes de $n$ se pueden observar en la ecuaci\'on \ref{eq:fibritoolComps}.
 
 \begin{equation}
 \label{eq:fibritoolTensor}
@@ -40,7 +40,7 @@ t = (t_x,t_y) = (
 (\frac{\partial I}{\partial y})^2 }
 \end{equation}
 
-Luego, a partir de la matriz $n$ (ecuaci\'on \eqref{eq:fibritoolComps}) se obtiene su primer vector propio $\Vec{e}_1$ que representa la orientaci\'on principal de los filamentos en el \'area de inter\'es, mientras que la diferencia de los valores propios $\lambda_1$ y $\lambda_2$ ($\lambda_1 > \lambda_2$), denominada $q = \lambda_1 - \lambda_2$, define la anisotrop\'ia.
+Luego, a partir de la matriz $n$ (ecuaci\'on \ref{eq:fibritoolComps}) se obtiene su primer vector propio $\Vec{e}_1$ que representa la orientaci\'on principal de los filamentos en el \'area de inter\'es, mientras que la diferencia de los valores propios $\lambda_1$ y $\lambda_2$ ($\lambda_1 > \lambda_2$), denominada $q = \lambda_1 - \lambda_2$, define la anisotrop\'ia.
 
 
 \begin{equation}
@@ -284,7 +284,7 @@ Una forma de obtener la informaci\'on de vecindario mencionada es siguiendo la i
 
 \subsection{Obtenci\'on de Informaci\'on Adicional}
 
-Para dar uso a la informaci\'on recuperada de acuerdo a lo expresado en la secci\'on \ref{subsec:infoLossSkel}, se analizaron diversos filtros \'utiles para describir estructuras alargadas, como {\it Gabor}, {\it Anistropic Diffusion} y Frangi para {\it Veselness}. El filtro Frangi para {\it Veselness} \cite{frangi1998multiscale}\cite{fu2018frangi}, cuantifica cuan alargada es una estructura ({\it veselness value}), en base a los valores y vectores propios de la matriz Hessiana (ecuaci\'on \eqref{eq:HessianMat}) posterior a la aplicaci\'on de uno o varios filtros Gaussianos para suavizar una imagen. Este filtro es utilizado en la detecci\'on de estructuras alargadas como arterias y venas, pudiendo replicarse parcialmente mediante el an\'alisis de p\'ixeles con {\it image moments} \cite{flusser2009moments}. La posibilidad de replicar el filtro de Frangi, sin necesidad de configurar par\'ametros, es lo que lleva a elegirlo en este trabajo por sobre las otras opciones.
+Para dar uso a la informaci\'on recuperada de acuerdo a lo expresado en la secci\'on \ref{subsec:infoLossSkel}, se analizaron diversos filtros \'utiles para describir estructuras alargadas, como {\it Gabor}, {\it Anistropic Diffusion} y Frangi para {\it Veselness}. El filtro Frangi para {\it Veselness} \cite{frangi1998multiscale}\cite{fu2018frangi}, cuantifica cuan alargada es una estructura ({\it veselness value}), en base a los valores y vectores propios de la matriz Hessiana (ecuaci\'on \ref{eq:HessianMat}) posterior a la aplicaci\'on de uno o varios filtros Gaussianos para suavizar una imagen. Este filtro es utilizado en la detecci\'on de estructuras alargadas como arterias y venas, pudiendo replicarse parcialmente mediante el an\'alisis de p\'ixeles con {\it image moments} \cite{flusser2009moments}. La posibilidad de replicar el filtro de Frangi, sin necesidad de configurar par\'ametros, es lo que lleva a elegirlo en este trabajo por sobre las otras opciones.
 
 \begin{equation}
     \label{eq:HessianMat}
@@ -301,9 +301,9 @@ Una respuesta de {\it veselness value} que denota una estructura alargada se obt
     \lambda_{1,2} = \dfrac{(H_{xx} + H_{yy}) \pm \sqrt{(H_{xx} - H_{yy})^{2} + 4\cdot H_{xy}^{2}     } }{2}
 \end{equation}
 
-Otra forma de obtener los valores propios de la ecuaci\'on \ref{eq:lambdaFrangi} es utilizando los {\it central image moments} o momentos centrales, que son un tipo de {\it image moments}. Los momentos centrales se derivan del tipo m\'as basico de {\it image moments} que son los {\it raw image moments}. Se define un {\it raw image moments} de orden $p+q$ para una imagen en la ecuaci\'on \eqref{eq:rawImageMoment}, donde $f(x,y)$ corresponde a la intensidad de la imagen en un punto (x,y). El {\it raw image moments} $M_{00}$ refleja la ``masa'' de la imagen, correspondiendo al \'area o volumen si se trata de una imagen binaria. 
+Otra forma de obtener los valores propios de la ecuaci\'on \ref{eq:lambdaFrangi} es utilizando los {\it central image moments} o momentos centrales, que son un tipo de {\it image moments}. Los momentos centrales se derivan del tipo m\'as basico de {\it image moments} que son los {\it raw image moments}. Se define un {\it raw image moments} de orden $p+q$ para una imagen en la ecuaci\'on \ref{eq:rawImageMoment}, donde $f(x,y)$ corresponde a la intensidad de la imagen en un punto (x,y). El {\it raw image moments} $M_{00}$ refleja la ``masa'' de la imagen, correspondiendo al \'area o volumen si se trata de una imagen binaria. 
 
-Para el c\'alculo de los momentos centrales se agregan los componentes del centroide, $\overline{x}$ e $\overline{y}$, basados en los {\it raw image moments}, como indican las ecuaciones \eqref{eq:avgFromRawMomts} y \eqref{eq:centralImageMoment}.
+Para el c\'alculo de los momentos centrales se agregan los componentes del centroide, $\overline{x}$ e $\overline{y}$, basados en los {\it raw image moments}, como indican las ecuaciones \ref{eq:avgFromRawMomts} y \ref{eq:centralImageMoment}.
 
 \begin{subequations}
 \begin{equation}
@@ -321,7 +321,7 @@ Para el c\'alculo de los momentos centrales se agregan los componentes del centr
 \end{equation}
 \end{subequations}
 
-As\'i, es posible construir una matriz de covarianza, equivalente a la matriz hessiana en la ecuaci\'on \eqref{eq:HessianMat}, utilizando los momentos centrales de segundo orden, $\mu_{20}$, $\mu_{02}$ y $\mu_{11}$ divididos por el momento central de orden cero $\mu_{00}$ (ecuaciones \eqref{eq:mu20}, \eqref{eq:mu02} y \eqref{eq:mu11}), obteniendo los valores propios mediante la ecuaci\'on \eqref{eq:lambdaMoments}.
+As\'i, es posible construir una matriz de covarianza, equivalente a la matriz hessiana en la ecuaci\'on \ref{eq:HessianMat}, utilizando los momentos centrales de segundo orden, $\mu_{20}$, $\mu_{02}$ y $\mu_{11}$ divididos por el momento central de orden cero $\mu_{00}$ (ecuaciones \ref{eq:mu20}, \ref{eq:mu02} y \ref{eq:mu11}), obteniendo los valores propios mediante la ecuaci\'on \ref{eq:lambdaMoments}.
 
 \begin{subequations}
 \begin{align}
@@ -353,11 +353,65 @@ Una manera adicional de generar informaci\'on que facilite la discriminaci\'on d
 
 %A su vez, este criterio posee un segundo umbral, definido como $\theta$  que define el \'angulo m\'aximo bajo el que se considera que 2 aristas contiguas respetan con certeza la rectitud necesaria para formar parte del mismo filamento. Es decir, si 2 aristas contiguas forman un \'angulo en el rango $[0, \theta]$, deben ser parte del mismo filamento. El rango entre ambos umbrales, $]\theta, Max\_Angle]$ delimita los pares de aristas que a priori no representan combinaciones que respetan el criterio de rectitud, pero cuya explicaci\'on puede encontrarse en variaciones inducidas durante la extracci\'on del grafo desde la imagen, por lo que es necesario incorporar la exploraci\'on de estos pares de aristas.
 
-
 Finalmente, para el caso de los nodos, el an\'alisis del grado de cada uno permite identificar la existencia de ciclos \cite{wilson1979introduction} en un filamento. La propiedad de un filamento de poder tener o no tener un ciclo es informaci\'on disponible a priori que depende del tipo de c\'elula observada, permitiendo limitar posibles asociaciones entre nodos. En el caso particular de no permitir ciclos, un filamento no podr\'ia pasar m\'as de una vez por cada nodo que lo conforma. 
-
-
 %En base la gran cantidad de combinaciones posibles de caminos, el problema final en la individualizaci\'on de filamentos lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, pudiendo representarse como un problema de optimizaci\'on combinatorial.
 
-%Los problemas presentados se formalizan a continuaci\'on.
+\section{Metaheur\'istica ACO}
+\label{sec:hormigas}
+La metaheur\'istica {\it Ant Colony Optimization} (ACO) se inspira en el comportamiento de una colonia de hormigas en la b\'usqueda del trayecto m\'as corto a una fuente de alimento, comunic\'andose entre ellas mediante feromonas. El recorrido de una hormiga se define como un camino $s$ y representa una soluci\'on en la b\'usqueda del camino m\'as corto.
 
+Las hormigas realizan una exploraci\'on aleatoria alrededor de su hormiguero en busca de alimento. Una vez que lo encuentran, marcan el camino de retorno depositando una cantidad de feromonas, la que varia dependiendo de la calidad del camino. Para caminos de buena calidad, que son los de menor distancia entre un hormiguero y una fuente de alimento, las feromonas sirven de guía para otras hormigas. As\'i, las hormigas se comunican de forma indirecta, convergiendo en los caminos que tienen una mayor cantidad de feromonas. Este comportamiento se define como el modelo de feromonas y se observa en la Figura \ref{fig:hormigas}.
+
+
+En este modelo, se define un camino como una soluci\'on $s$ que consiste en un conjunto de componentes de soluci\'on $c_{i}$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino o {\it tour} que recorre una hormiga. Cada componente $c_{i}$ tiene asociado un valor de feromona $\tau_i$, la cual influye en la elecci\'on que realiza una hormiga en relaci\'on a el o los componentes de soluci\'on disponibles para avanzar durante la construcci\'on de un camino. La metaheur\'istica ACO permite encontrar una \'unica soluci\'on o un conjunto de soluciones. 
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{imagenes/ACO-ant.png}
+    \caption{Etapas de b\'usqueda de alimento y de comunicaci\'on entre hormigas. (a) Flecha verde refleja la direcci\'on de la  b\'usqueda aleatoria, mientras que la flecha amarilla indica como una hormiga va depositando feromonas. (b) Otras hormigas siguen rastros de feromonas existente, aportando con sus propias feromonas. (c) Convergencia de las hormigas sobre el camino m\'as corto en base a la cantidad de feromonas depositada por m\'ultiples hormigas mediante un ciclo de retroalimentaci\'on positiva. Fuente: \cite{liu2020improving}.}
+    \label{fig:hormigas}
+\end{figure}
+%Imagen de un recorrido
+
+El conjunto de caminos que recorren las hormigas, para ir del hormiguero hacia la fuente de alimento y de retorno, puede ser interpretado como un grafo que representa esta red de caminos. En esta representaci\'on, la b\'usqueda de caminos corresponde a encontrar conjuntos de nodos o aristas adyacentes, y una componente de soluci\'on $c_{i}$ corresponde a una arista, siendo el recorrido desde una arista inicial hasta una arista final. La construcci\'on de una soluci\'on utiliza hormigas artificiales, tambi\'en llamadas agentes, que se desplazan a trav\'es del grafo mediante aristas adyacentes. La elecci\'on de aristas en cada paso de la construcci\'on utiliza la informaci\'on de las feromonas de cada una de las aristas candidatas, formando la soluci\'on incrementalmente. La metaheur\'istica ACO, indicada en el Algoritmo \ref{ACO-Algo}, consiste en 4 etapas, donde las 3 \'ultimas no tienen un orden espec\'ifico.
+
+\begin{algorithm}[H]
+\SetAlgoLined
+ Ajuste de Par\'ametros \& inicializaci\'on de feromonas\;
+ \While{Criterio de finalización no se cumple}{
+   Construcci\'on\_de\_soluci\'on\_de\_cada\_hormiga()\;
+   M\'etodo\_de\_b\'usqueda\_no\_local(); //Paso opcional\\
+   Actualizaci\'on\_de\_feromonas()\;
+ }
+ \caption{Algoritmo metaheur\'istica ACO}\label{ACO-Algo}
+\end{algorithm}
+
+%%% CAMI VA AQUI
+
+\subsection{Soluci\'on de un modelo COP mediante la metaheur\'istica ACO}
+
+Un problema de optimización con restricciones, (COP, Constrained Optimization Problem) puede ser representado como $P = (S, \Omega, F)$, donde S es el espacio de soluciones, $\Omega$ son las restricciones, y $F$ es la funci\'on objetivo. S esta definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Se define como una variable {\it instanciada} la asignaci\'on a $X_i$ de un valor $v_{i}^{j} \in D_i$. Una solución candidata $s \in S$ es una soluci\'on factible si satisface las restricciones del conjunto $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna una puntuaci\'on a las soluciones candidatas. Al mismo tiempo, se define $s^{*}$ como una soluci\'on \'optima y $S^{*}$ como el conjunto que engloba todas las soluciones \'optimas, dado que pueden existir m\'ultiples soluciones $s^{*}$, y se relacionan mediante $s^{*} \in S^{*} \subseteq S $ \cite{socha2008ant}.
+%Esta definici\'on permite aplicar la metaheur\'istica de optimizaci\'on basada en colonia de hormigas (ACO por su sigla en ingl\'es) a un modelo de un {\it COP}.
+%COP es un CSP con función objetivo: https://en.wikipedia.org/wiki/Constrained_optimization#Constraint_optimization_problems
+
+Es posible adaptar la definici\'on del modelo COP al modelo de feromonas de la metaheur\'istica ACO, mediante la asociaci\'on entre la definici\'on de variable {\it instanciada} del modelo COP y lo que representa un componente de soluci\'on o arista en un recorrido de una hormiga. 
+Espec\'ificamente, si se extiende la definici\'on de componente de soluci\'on $c_{i}$ para que esta pueda tener valores $v_{i}^{j}$ que var\'ien dependiendo de un dominio $D_i$, el componente de soluci\'on pasa a ser $c_{ij}$. As\'i se obtiene la equivalencia entre la asignaci\'on $X_i = v_{i}^{j}$ que representa una variable {\it instanciada} del modelo COP, y la selecci\'on de un componente de soluci\'on $c_{ij}$,  para una soluci\'on o camino $s$ en ACO\cite{socha2008ant}.
+%equivalente a una arista en esta investigaci\'on,
+
+
+Luego, la definici\'on de una soluci\'on $s$ puede representarse como un conjunto de componentes de soluci\'on $c_{ij} \in C, i = 1 \dotsc n, j = 1 \dotsc |D_i|$. A su vez, la feromona asociada a una componente de soluci\'on se transforma de $\tau_i$ a $\tau_{ij}$. El Algoritmo  \ref{ACO-Algo} se modifica para representar la equivalencia entre el modelo COP y la metaheur\'istica ACO, a\~nadiendose las definiciones de los datos y el resultado esperado, quedando como lo indica el algoritmo \ref{COP-ACO-Algo}. 
+
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwData{Variables $X_i \dotsc X_n$, dominios $D_1 \dotsc D_n$, Restricciones $\in \Omega$}
+\KwResult{conjunto s\textquotesingle $ \subseteq S$ != $\emptyset$, si existen soluciones factibles}
+ Ajuste de Par\'ametros \& inicializaci\'on de feromonas \;
+ \While{Criterio de finalización no se cumple}{
+   Construcci\'on\_de\_soluci\'on\_de\_cada\_hormiga()\;
+   M\'etodo\_de\_b\'usqueda\_no\_local(); //Paso opcional\\
+   Actualizaci\'on\_de\_feromonas()\;
+ }
+ \caption{Algoritmo de un modelo COP adaptado a una metaheur\'istica ACO}\label{COP-ACO-Algo}
+\end{algorithm}

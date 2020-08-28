@@ -6,24 +6,16 @@
 Al basar la individualizaci\'on de filamentos en un m\'etodo que usa un grafo, el resultado obtenido es un conjunto de caminos, donde cada camino es a su vez un conjunto de aristas. El proceso de individualizar filamentos genera una partici\'on o {\it clustering} del grafo, donde las aristas corresponden al {\it data set}, con cada camino representando a un cluster perteneciente al clustering. La partici\'on propuesta por un m\'etodo basado en grafos debe ser comparada con respecto a la partici\'on generada por un experto, a la que nos referiremos como {\it ground truth}. Uno de los requisitos de esta comparaci\'on, es que ambas particiones se refieran al mismo data set, lo que implica que ambas deben realizarse en base al mismo grafo. Adem\'as se debe considerar que el clustering realizado por el experto puede tener una cantidad igual o distinta de clusters con respecto al clustering producido por el m\'etodo a evaluar.
 
 
-La comparaci\'on de particiones en donde una corresponde al {\it ground truth} implica que las mediciones a utilizar son del tipo de criterio externo\cite{manning20introduction}. En este tipo de criterio hay \'indces basados en comparaci\'on mediante conteo de pares, como el \'indice {\it Rand} ($\mathcal{R}$), el \'indice {\it Jaccard} ($\mathcal{J}$), y la medida $\mathcal{F}$ tambi\'en conocida como $F1-$Score. Por otra parte, tambi\'en existen m\'etricas del \'area de teor\'ia de la informaci\'on como {\it Variation of Information} o VI para el mismo prop\'osito. Estos m\'etodos ser\'an la base de comparaci\'on de particiones en esta investigaci\'on.
 
 \section{M\'etricas y Medidas}
 \label{sec:metricasymedidas}
-%\subsection{Variation of Information}
 
-La m\'etrica VI definida en \cite{meilua2007comparing} se fundamenta en la informaci\'on asociada a la entrop\'ia de las particiones a comparar, as\'i como en la informaci\'on mutua que comparten. El rango de valores de VI comienza en 0 para 2 particiones iguales, llegando a $\log n$ para particiones absolutamente distintas, con $n$ como el n\'umero de elementos del data set. En la ecuaci\'on \eqref{eq:VI} el t\'ermino $H(C,C^{\prime})$ hace referencia a la informaci\'on que la partici\'on $C$ pierde al pasar a $C^{\prime}$. De forma similar, $H(C^{\prime},C)$ indica la informaci\'on que se gana al pasar de $C$ a $C^{\prime}$.
 
-\begin{equation}
-VI(C,C^{\prime}) = H(C,C^{\prime}) + H(C^{\prime},C)
-\label{eq:VI}
-\end{equation}
-
-Uno de los problemas de VI es que esta definida de forma clara s\'olo para particiones que no se superponen entre s\'i\cite{breuer2015define}.
+La comparaci\'on de particiones en donde una corresponde al {\it ground truth} implica que las mediciones a utilizar son del tipo de criterio externo \cite{manning20introduction}. En este tipo de criterio hay \'indices basados en comparaci\'on mediante conteo de pares, como el \'indice {\it Rand} ($\mathcal{R}$), el \'indice {\it Jaccard} ($\mathcal{J}$), y la medida $\mathcal{F}$ tambi\'en conocida como $F1-$Score. Por otra parte, tambi\'en existen m\'etricas del \'area de teor\'ia de la informaci\'on como {\it Variation of Information} o VI para el mismo prop\'osito. Estos m\'etodos ser\'an la base de comparaci\'on de particiones en esta investigaci\'on.
 
 \subsection{\'Indices Rand y Jaccard}
 
-La mayor\'ia de los criterios para comparar particiones mediante conteo de pares suele fundamentarse en el uso de la matriz de confusi\'on, tambi\'en llamada matriz de asociaci\'on o tabla de contingencia\cite{meilua2007comparing}. Esta tabla considera 4 casos en los que puede estar un par de elementos del {\it data set}, que para el caso de la individualizaci\'on de filamentos son pares de aristas, en las particiones $C$ y $C'$:
+La mayor\'ia de los criterios para comparar particiones mediante conteo de pares suele fundamentarse en el uso de la matriz de confusi\'on, tambi\'en llamada matriz de asociaci\'on o tabla de contingencia \cite{meilua2007comparing}. Esta tabla considera 4 casos en los que puede estar un par de elementos del {\it data set}, que para el caso de la individualizaci\'on de filamentos son pares de aristas, en las particiones $C$ y $C'$:
 
 \begin{itemize}
     \item $N_{11}$: N\'umero de pares que est\'an en el mismo cluster en $C$ y $C'$
@@ -50,14 +42,14 @@ Lo definici\'on de los casos utilizados para formar la tabla de contingencia pos
     \label{tab:EquivParesClasificacion}
 \end{table}
 
-La ecuaci\'on \eqref{eq:randIndex} expresa que el \'indice Rand puede ser escrito en funci\'on de evaluaciones de clasificac\'on, lo que lo hace coincidir con la definici\'on de la medida de exactitud ({\it Accuracy}). $\mathcal{R}$ adquiere el valor 0 para particiones totalmente diferentes, subiendo hasta llegar a 1, lo que indica que las particiones son id\'enticas. Algunas cr\'iticas a \'indice Rand se\~nalan la alta sensibilidad que tiene al valor de TN, el que tiende a ser mucho mayor que el resto\cite{ben2001stability}, la existencia de una alta dependencia al n\'umero de clusters\cite{wagner2007comparing}, y que los valores de $\mathcal{R}$ tienden a concentrarse en un intervalo cerca de 1, puntualmente en el rango [0.5, 1]\cite{meilua2007comparing}\cite{vinh2010information}.
+La ecuaci\'on \ref{eq:randIndex} expresa que el \'indice Rand puede ser escrito en funci\'on de evaluaciones de clasificaci\'on, lo que lo hace coincidir con la definici\'on de la medida de exactitud ({\it Accuracy}). $\mathcal{R}$ adquiere el valor 0 para particiones totalmente diferentes, subiendo hasta llegar a 1, lo que indica que las particiones son id\'enticas. Algunas cr\'iticas al \'indice Rand se\~nalan la alta sensibilidad que tiene al valor de TN, el que tiende a ser mucho mayor que el resto \cite{ben2001stability}, la existencia de una alta dependencia al n\'umero de clusters \cite{wagner2007comparing}, y que los valores de $\mathcal{R}$ tienden a concentrarse en un intervalo cerca de 1, puntualmente en el rango [0.5, 1] \cite{meilua2007comparing}\cite{vinh2010information}.
 
 \begin{equation}
 \mathcal{R}(C,C^{\prime}) = \frac{N_{11} + N_{00}}{n(n-1)/2} = \frac{TP + TN}{TP + TN + FP + FN}
 \label{eq:randIndex}
 \end{equation}
 
-Por su parte, el \'indice Jaccard es similar al \'indice Ran con la excepci\'on que ignora la clasificaci\'on TN, como se observa en la ecuaci\'on \eqref{eq:JaccardIndex}. Su valor tambi\'en oscila entre 0 y 1 para particiones totalmente distintas y particiones id\'enticas respectivamente. Una de las cr\'itica es que puede entregar resultados no confiables para data sets muy peque\~nos.
+Por su parte, el \'indice Jaccard es similar al \'indice Rand con la excepci\'on que ignora la clasificaci\'on TN, como se observa en la ecuaci\'on \ref{eq:JaccardIndex}. Su valor tambi\'en oscila entre 0 y 1 para particiones totalmente distintas y particiones id\'enticas respectivamente. Una de las cr\'itica es que puede entregar resultados no confiables para data sets muy peque\~nos.
 
 \begin{equation}
 \mathcal{J}(C,C^{\prime}) = \frac{N_{11}}{N_{11} + N_{01} + N_{10}} = \frac{TP}{TP + FP + FN}
@@ -66,9 +58,19 @@ Por su parte, el \'indice Jaccard es similar al \'indice Ran con la excepci\'on 
 
 La ventaja que presentan $\mathcal{R}$ y $\mathcal{J}$ sobre VI radica en que estos \'indices si pueden considerar casos de superposici\'on.
 
+\subsection{Variation of Information}
+La m\'etrica VI definida en \cite{meilua2007comparing} se fundamenta en la informaci\'on asociada a la entrop\'ia de las particiones a comparar, as\'i como en la informaci\'on mutua que comparten. El rango de valores de VI comienza en 0 para 2 particiones iguales, llegando a $\log n$ para particiones absolutamente distintas, con $n$ como el n\'umero de elementos del data set. En la ecuaci\'on \ref{eq:VI} el t\'ermino $H(C,C^{\prime})$ hace referencia a la informaci\'on que la partici\'on $C$ pierde al pasar a $C^{\prime}$. De forma similar, $H(C^{\prime},C)$ indica la informaci\'on que se gana al pasar de $C$ a $C^{\prime}$.
+
+\begin{equation}
+VI(C,C^{\prime}) = H(C,C^{\prime}) + H(C^{\prime},C)
+\label{eq:VI}
+\end{equation}
+
+Uno de los problemas de VI es que esta definida de forma clara s\'olo para particiones que no se superponen entre s\'i \cite{breuer2015define}.
+
 \subsection{Mediciones adicionales}
 
-Mediante la relaci\'on entre los caos en que un par de aristas puede ser asignada y la clasificaci\'on equivalente es posible evaluar el resultado de una partici\'on con respecto al {\it ground truth} con mediciones del \'area de recuperaci\'on de informaci\'on como {\it Precision}, {\it Recall}, las que a su vez son la base para calcular {\it F-Measure}.
+Mediante la relaci\'on entre los casos en que un par de aristas puede ser asignada y la clasificaci\'on equivalente es posible evaluar el resultado de una partici\'on con respecto al {\it ground truth} con mediciones del \'area de recuperaci\'on de informaci\'on como {\it Precision}, {\it Recall}, las que a su vez son la base para calcular {\it F-Measure}.
 Estos c\'alculos entregan mayor informaci\'on sobre el comportamiento de la partici\'on propuesta por el algoritmo a evaluar. 
 
 
@@ -133,7 +135,7 @@ El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del m\'etodo de o
     \label{fig:synth-Define-1b}
 \end{figure*}
 
-Para la evaluaci\'on, cada imagen sint\'etica se ejecuta en DeFiNe con los par\'ametros base {\tt BFS - Overlapping - Pairwise - Total}, ya que fueron los de mejor resultado en \cite{breuer2015define}, configurando el \'angulo de umbral en 30\textdegree y 60\textdegree. Por su parte, el algoritmo {\it Phil} se ejecuta 5 veces con distintas semillas.
+Para la evaluaci\'on, cada imagen sint\'etica se ejecuta en DeFiNe con los par\'ametros base {\tt BFS - Overlapping - Pairwise - Total}, ya que fueron los de mejor resultado en \cite{breuer2015define}, configurando el \'angulo de umbral en 30\textdegree y 60\textdegree. Por su parte, el algoritmo propuesto se ejecuta 5 veces con distintas semillas.
 
 \section{Im\'agenes Reales}
 %1.- pasos para la obtenci\'on de los filamentos desde las imagenes
