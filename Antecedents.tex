@@ -2,6 +2,8 @@
 \label{chap:stateoftheart}
 La individualizaci\'on de filamentos en una imagen es un problema derivado de la obtenci\'on de informaci\'on de filamentos en base a una imagen. Este \'ultimo ha ido variando a medida que la tecnolog\'ia en microscopios ha mejorado, lo que a su vez ha permitido el desarrollo de nuevos m\'etodos. Estos m\'etodos pueden a su vez diferir entre s\'i dependiendo del foco de la informaci\'on que buscan obtener a partir de la imagen, existiendo m\'etodos que se enfocan en reconstruir filamentos discontinuos, a la identificaci\'on de segmentos de filamento para la construcci\'on de las redes que estos conforman, o la individualizaci\'on en s\'i. Independientemente del objetivo de cada m\'etodo, es posible agruparlos en dos categor\'ias: M\'etodos basados en herramientas de visi\'on por computador y m\'etodos basados en optimizaci\'on. Los primeros realizan mayoritariamente operaciones de filtrado sobre la imagen, mientras que los segundos plantean parte de la obtenci\'on de la informaci\'on mediante la resoluci\'on de problemas de asignaci\'on o de minimizaci\'on de funciones.
 
+Entre las herramientas disponibles para los m\'etodos basados en optimizaci\'on, se encuentra la metaheur\'istica {\it Ant Colony Optimization} (ACO), que se basa en el comportamiento de las hormigas al buscar alimento. Esta metaheur\'istica corresponde a la estrategia utilizada en esta investigaci\'on para individualizar filamentos.
+
 
 \section{M\'etodos basados en herramientas de visi\'on por computador}
 \label{sec:NonIndividualizationMethods}
@@ -363,7 +365,7 @@ La metaheur\'istica {\it Ant Colony Optimization} (ACO) se inspira en el comport
 Las hormigas realizan una exploraci\'on aleatoria alrededor de su hormiguero en busca de alimento. Una vez que lo encuentran, marcan el camino de retorno depositando una cantidad de feromonas, la que varia dependiendo de la calidad del camino. Para caminos de buena calidad, que son los de menor distancia entre un hormiguero y una fuente de alimento, las feromonas sirven de guía para otras hormigas. As\'i, las hormigas se comunican de forma indirecta, convergiendo en los caminos que tienen una mayor cantidad de feromonas. Este comportamiento se define como el modelo de feromonas y se observa en la Figura \ref{fig:hormigas}.
 
 
-En este modelo, se define un camino como una soluci\'on $s$ que consiste en un conjunto de componentes de soluci\'on $c_{i}$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino o {\it tour} que recorre una hormiga. Cada componente $c_{i}$ tiene asociado un valor de feromona $\tau_i$, la cual influye en la elecci\'on que realiza una hormiga en relaci\'on a el o los componentes de soluci\'on disponibles para avanzar durante la construcci\'on de un camino. La metaheur\'istica ACO permite encontrar una \'unica soluci\'on o un conjunto de soluciones. 
+En este modelo, se define un camino como una soluci\'on $s$ que consiste en un conjunto de componentes de soluci\'on $c_{i}$, por lo que una concatenaci\'on de componentes de soluci\'on forma el camino que recorre una hormiga. Cada componente $c_{i}$ tiene asociado un valor de feromona $\tau_i$, la cual influye en la elecci\'on que realiza una hormiga en relaci\'on a el o los componentes de soluci\'on disponibles para avanzar durante la construcci\'on de un camino. La metaheur\'istica ACO permite encontrar una \'unica soluci\'on o un conjunto de soluciones. 
 
 
 \begin{figure}[h]
@@ -386,6 +388,8 @@ El conjunto de caminos que recorren las hormigas, para ir del hormiguero hacia l
  }
  \caption{Algoritmo metaheur\'istica ACO}\label{ACO-Algo}
 \end{algorithm}
+
+Uno de los problemas principales de la individualizaci\'on de filamentos recae en desconocer el comienzo y el final de los filamentos. Lo anterior resulta similar al comportamiento de las hormigas al explorar caminos en b\'usqueda de alimento, donde se desconoce el lugar en el que se encuentra la comida. Por esto resulta natural utilizar la metaheur\'istica ACO para efectuar la exploraci\'on y elecci\'on de caminos en un grafo, los que pueden representar filamentos.
 
 %%% CAMI VA AQUI
 
