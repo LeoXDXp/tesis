@@ -23,9 +23,9 @@ La b\'usqueda de conjuntos de aristas adyacentes para individualizar uno o m\'as
 
 %En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, se destaca que en el caso de la individualizaci\'on de filamentos existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
 
-\section{Extracci\'on de informaci\'on e informaci\'on a priori}
+\section{Extracci\'on de informaci\'on para individualizar filamentos}
 
-Previo al uso de la metaheur\'istica ACO para individualizar filamentos, es necesario recabar la mayor cantidad de informaci\'on posible a partir de la imagen, as\'i como del grafo extra\'ido. Adem\'as se debe considerar la incorporaci\'on de informaci\'on espec\'ifica de los filamentos en la c\'elula observada, como el comportamientos esperados de estos, la que puede conocerse previamente a la ejecuci\'on del algoritmo propuesto. A medida que se obtiene m\'as informaci\'on, es posible incorporar en el algoritmo diversas heur\'isticas que permitan acotar el espacio de b\'usqueda.
+Previo al uso de la metaheur\'istica ACO para individualizar filamentos, es necesario recabar la mayor cantidad de informaci\'on posible a partir de la imagen, as\'i como del grafo extra\'ido. Adem\'as se debe considerar la incorporaci\'on de informaci\'on espec\'ifica de los filamentos en la c\'elula observada, como el o los comportamientos esperados de estos, las que pueden conocerse previamente a la ejecuci\'on del algoritmo propuesto. A medida que se obtiene m\'as informaci\'on, es posible incorporar en el algoritmo diversas heur\'isticas que permitan acotar el espacio de b\'usqueda.
 
 Como se observa en el cap\'itulo \ref{chap:stateoftheart}, diversas investigaciones obtienen informaci\'on geom\'etrica o topol\'ogica, por lo general a partir de una imagen. Para extender la obtenci\'on de informaci\'on topol\'ogica con respecto a otros m\'etodos, es posible utilizar los algoritmos para grafos existentes en la librer\'ia {\it sknw}, que son las implementaciones de algoritmos conocidos para grafos. As\'i, es posible utilizar un algoritmo de centralidad como {\it closeness centrality}, el que calcula la distancia de cada nodo con respecto a lo dem\'as, permitiendo identificar los que se encuentran a la menor distancia de todos.
 
@@ -33,7 +33,7 @@ Como se observa en el cap\'itulo \ref{chap:stateoftheart}, diversas investigacio
 La relevancia de esta informaci\'on adicional es directa en el caso de las neuronas, siendo utilizada en la seccion \ref{subsec:pheroNeurons}, mientras que puede requerir de an\'alisis adicional por parte de expertos para otros filamentos. La aplicaci\'on del algoritmo {\it closeness centrality} refleja la posibilidad de expandir y/o incrementar el uso de informaci\'on topol\'ogica en el algoritmo propuesto. Un ejemplo de {\it closeness centrality} para filamentos en neuronas y microt\'ubulos se observa en la Figura \ref{fig:ExtraInfoCenterNodes}, en la que se eligieron los 3 nodos con menor distancia a los dem\'as. Luego, el color magenta refleja las aristas que poseen al menos uno de estos nodos, mientras que las aristas en amarillo indican las que no poseen ninguno.
 %entrega informaci\'on relevante respecto a la conectividad interna en conjuntos de filamentos.
 
- \begin{figure*}[h]
+ \begin{figure*}[h!]
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
@@ -53,8 +53,12 @@ La relevancia de esta informaci\'on adicional es directa en el caso de las neuro
     \label{fig:ExtraInfoCenterNodes}
 \end{figure*}
 
-%info espacial: Ejemplo within, analisis de cruces
-Otro tipo de informaci\'on posible de obtener durante la individualziaci\'on de filamentos, es la informaci\'on espacial
+%info espacial: Ejemplo within, analisis de cruces. Intersect, disjoin y otros, en postgis
+Adem\'as de la extracci\'on de informaci\'on previo al uso de la metaheur\'istica ACO, es posible realizar de manera similar, la obtenci\'on de informaci\'on durante la individualzaci\'on de filamentos. Un ejemplo de esto es la informaci\'on espacial con respecto a los nodos y aristas que pueden ser elegidas como parte de un camino. La informaci\'on espacial facilita la comparaci\'on y el an\'alisis entre caminos para identificar casos de cruce, intersecci\'on o solapamiento. 
+
+En particular, en la secci\'on \ref{sec:nonLocalSearch} se utiliza la consulta espacial {\it within} disponible en la extensi\'on espacial {\it Postgis} para la base de datos {\it PostgreSQL}, para comparar la informaci\'on distinta que entrega un camino con respecto a los dem\'as, considerando que puede existir repeteci\'on de caminos entre distintas hormigas. Este an\'alisis resulta simple a trav\'es de una consulta espacial, especialmente a medida que aumentan los caminos a comparar.
+
+El uso de informaci\'on geom\'etrica, topol\'ogica y espacial, repartidos en los m\'etodos de la metaheur\'istica ACO, se enfocan en ampliar las opciones de an\'alisis que puede realizar un experto, as\'i como aumentar la precisi\'on de la individualizaci\'on de filamentos. 
 
 \section{Inicializaci\'on de la metaheur\'istica ACO}
 
@@ -395,6 +399,7 @@ Si la c\'elula observada es una neurona, corresponde aplicar el criterio adicion
 
 
 \section{M\'etodo de b\'usqueda no local}
+\label{sec:nonLocalSearch}
 Una vez que la hormiga termina un recorrido, es posible agregar un m\'etodo de retroalimentaci\'on sobre la calidad del camino construido, basado en l\'ogicas globales/centralizadas que escapan de la b\'usqueda local que realiza cada hormiga. El o los m\'etodos en esta etapa permite extender la l\'ogica con respecto a una metaheur\'istica ACO, y son opcionales, por lo que no siempre son utilizados. 
 
 Para la individualizaci\'on de filamentos, la evaluaci\'on global corresponde a eliminar soluciones candidatas que no aporten informaci\'on nueva, como puede suceder si una soluci\'on se encuentra contenida dentro de otra. Espec\'ificamente, si una soluci\'on $s^{a}$ se conforma por uno o m\'as segmentos y todos estos existen de forma equivalente en otra soluci\'on $s^{b}$, que a su vez puede tener segmentos que no posean equivalencia en $s^{a}$, se cumple que $s^{b}$ contiene a $s^{a}$. Al ser una soluci\'on contenida en otra, $s^{a}$ es redundante, pudiendo descartarse al disminuir su calidad a 0. En el caso que $s^{a}$ y $s^{b}$ sean id\'enticas, se conserva la soluci\'on que se haya construido primero. 
