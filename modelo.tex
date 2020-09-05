@@ -23,6 +23,39 @@ La b\'usqueda de conjuntos de aristas adyacentes para individualizar uno o m\'as
 
 %En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, se destaca que en el caso de la individualizaci\'on de filamentos existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
 
+\section{Extracci\'on de informaci\'on e informaci\'on a priori}
+
+Previo al uso de la metaheur\'istica ACO para individualizar filamentos, es necesario recabar la mayor cantidad de informaci\'on posible a partir de la imagen, as\'i como del grafo extra\'ido. Adem\'as se debe considerar la incorporaci\'on de informaci\'on espec\'ifica de los filamentos en la c\'elula observada, como el comportamientos esperados de estos, la que puede conocerse previamente a la ejecuci\'on del algoritmo propuesto. A medida que se obtiene m\'as informaci\'on, es posible incorporar en el algoritmo diversas heur\'isticas que permitan acotar el espacio de b\'usqueda.
+
+Como se observa en el cap\'itulo \ref{chap:stateoftheart}, diversas investigaciones obtienen informaci\'on geom\'etrica o topol\'ogica, por lo general a partir de una imagen. Para extender la obtenci\'on de informaci\'on topol\'ogica con respecto a otros m\'etodos, es posible utilizar los algoritmos para grafos existentes en la librer\'ia {\it sknw}, que son las implementaciones de algoritmos conocidos para grafos. As\'i, es posible utilizar un algoritmo de centralidad como {\it closeness centrality}, el que calcula la distancia de cada nodo con respecto a lo dem\'as, permitiendo identificar los que se encuentran a la menor distancia de todos.
+
+
+La relevancia de esta informaci\'on adicional es directa en el caso de las neuronas, siendo utilizada en la seccion \ref{subsec:pheroNeurons}, mientras que puede requerir de an\'alisis adicional por parte de expertos para otros filamentos. La aplicaci\'on del algoritmo {\it closeness centrality} refleja la posibilidad de expandir y/o incrementar el uso de informaci\'on topol\'ogica en el algoritmo propuesto. Un ejemplo de {\it closeness centrality} para filamentos en neuronas y microt\'ubulos se observa en la Figura \ref{fig:ExtraInfoCenterNodes}, en la que se eligieron los 3 nodos con menor distancia a los dem\'as. Luego, el color magenta refleja las aristas que poseen al menos uno de estos nodos, mientras que las aristas en amarillo indican las que no poseen ninguno.
+%entrega informaci\'on relevante respecto a la conectividad interna en conjuntos de filamentos.
+
+ \begin{figure*}[h]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/50-ROIs-Spinning-Marchantia-somaEdges.png}
+        \caption{Uso del algoritmo {\it closeness centrality} en un grupo de microt\'ublos }
+        \label{fig:SpinningCenterNodes}
+    \end{subfigure}%
+    ~ \hspace{0.5cm}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/Porta18-3a1-somaEdges.png}
+        \caption{Uso del algoritmo {\it closeness centrality} para reflejar nodos y aristas centrales, las que pueden corresponder a la secci\'on del soma en una neurona.}
+        \label{fig:Porta18SomaNodes}
+    \end{subfigure}
+
+    \caption{Ejemplo del algoritmo {\it closeness centrality} eligiendo los 3 nodos con menor distancia a los dem\'as nodos. El color magenta indica que aristas poseen al menos uno de estos 3 nodos. En el caso de una neurona, permite asociar una o m\'as aristas a una secci\'on espec\'ifica como el soma. Fuente: Elaboraci\'on Propia.}
+    \label{fig:ExtraInfoCenterNodes}
+\end{figure*}
+
+%info espacial: Ejemplo within, analisis de cruces
+Otro tipo de informaci\'on posible de obtener durante la individualziaci\'on de filamentos, es la informaci\'on espacial
+
 \section{Inicializaci\'on de la metaheur\'istica ACO}
 
 En el paso de inicializaci\'on de ACO se deben definir los valores de los par\'ametros relacionados a las heur\'isticas y de las feromonas utilizadas. Una de las caracter\'isticas m\'as relevantes para discriminar aristas en el proceso de construcci\'on corresponde al \'angulo que forman 2 aristas adyacentes.
@@ -341,6 +374,7 @@ Si el \'angulo es mayor a $\theta$, se espera que la magnitud del segmento menor
 
 
 \subsection{Criterio espec\'ifico para neuronas}
+\label{subsec:pheroNeurons}
 
 %Si un camino cumple con ambas criterios de penalizaci\'on comunes, y se trata de una c\'elula distinta a una neurona, la soluci\'on avanza hac\'ia el an\'alisis del m\'etodo de b\'usqueda no local. En cambio,
 Si la c\'elula observada es una neurona, corresponde aplicar el criterio adicional espec\'ifico a esta c\'elula. Este criterio adicional se fundamenta en que el comportamiento esperado de los filamentos en una neurona permite caracterizar los lugares desde los cuales nuevos filamentos pueden generarse. As\'i, es necesario validar que los filamentos de una neurona parten del {\tt soma} o centro de la misma, y que filamentos posteriores que no comiencen del soma s\'olo pueden nacer a partir de otros filamentos. Un camino que termine en un nodo final de grado de 1 no respeta aquel comportamiento, debido a que en un grafo que representa una red de filamentos de una neurona, los nodos ubicados en el soma o en la intersecci\'on entre filamentos presentan un grado mayor a 1. La penalizaci\'on al valor de $\tau_{ij}$ para este caso particular se refleja en la ecuaci\'on \ref{eq:antiPheroSAP_neuron}.
