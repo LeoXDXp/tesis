@@ -23,45 +23,8 @@ La b\'usqueda de conjuntos de aristas adyacentes para individualizar uno o m\'as
 
 %En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, se destaca que en el caso de la individualizaci\'on de filamentos existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
 
-\section{Extracci\'on de informaci\'on para individualizar filamentos}
-
-Previo al uso de la metaheur\'istica ACO para individualizar filamentos, es necesario recabar la mayor cantidad de informaci\'on posible a partir de la imagen, as\'i como del grafo extra\'ido. Adem\'as se debe considerar la incorporaci\'on de informaci\'on espec\'ifica de los filamentos en la c\'elula observada, como el o los comportamientos esperados de estos, las que pueden conocerse previamente a la ejecuci\'on del algoritmo propuesto. A medida que se obtiene m\'as informaci\'on, es posible incorporar en el algoritmo diversas heur\'isticas que permitan acotar el espacio de b\'usqueda.
-
-Como se observa en el cap\'itulo \ref{chap:stateoftheart}, diversas investigaciones obtienen informaci\'on geom\'etrica o topol\'ogica, por lo general a partir de una imagen. Para extender la obtenci\'on de informaci\'on topol\'ogica con respecto a otros m\'etodos, es posible utilizar los algoritmos para grafos existentes en la librer\'ia {\it sknw}, que son las implementaciones de algoritmos conocidos para grafos. As\'i, es posible utilizar un algoritmo de centralidad como {\it closeness centrality}, el que calcula la distancia de cada nodo con respecto a lo dem\'as, permitiendo identificar los que se encuentran a la menor distancia de todos.
-
-
-La relevancia de esta informaci\'on adicional es directa en el caso de las neuronas, siendo utilizada en la seccion \ref{subsec:pheroNeurons}, mientras que puede requerir de an\'alisis adicional por parte de expertos para otros filamentos. La aplicaci\'on del algoritmo {\it closeness centrality} refleja la posibilidad de expandir y/o incrementar el uso de informaci\'on topol\'ogica en el algoritmo propuesto. Un ejemplo de {\it closeness centrality} para filamentos en neuronas y microt\'ubulos se observa en la Figura \ref{fig:ExtraInfoCenterNodes}, en la que se eligieron los 3 nodos con menor distancia a los dem\'as. Luego, el color magenta refleja las aristas que poseen al menos uno de estos nodos, mientras que las aristas en amarillo indican las que no poseen ninguno.
-%entrega informaci\'on relevante respecto a la conectividad interna en conjuntos de filamentos.
-
- \begin{figure*}[h!]
-    \centering
-    \begin{subfigure}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[height=2in]{imagenes/50-ROIs-Spinning-Marchantia-somaEdges.png}
-        \caption{Uso del algoritmo {\it closeness centrality} en un grupo de microt\'ublos }
-        \label{fig:SpinningCenterNodes}
-    \end{subfigure}%
-    ~ \hspace{0.5cm}
-    \begin{subfigure}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[height=2in]{imagenes/Porta18-3a1-somaEdges.png}
-        \caption{Uso del algoritmo {\it closeness centrality} para reflejar nodos y aristas centrales, las que pueden corresponder a la secci\'on del soma en una neurona.}
-        \label{fig:Porta18SomaNodes}
-    \end{subfigure}
-
-    \caption{Ejemplo del algoritmo {\it closeness centrality} eligiendo los 3 nodos con menor distancia a los dem\'as nodos. El color magenta indica que aristas poseen al menos uno de estos 3 nodos. En el caso de una neurona, permite asociar una o m\'as aristas a una secci\'on espec\'ifica como el soma. Fuente: Elaboraci\'on Propia.}
-    \label{fig:ExtraInfoCenterNodes}
-\end{figure*}
-
-%info espacial: Ejemplo within, analisis de cruces. Intersect, disjoin y otros, en postgis
-Adem\'as de la extracci\'on de informaci\'on previo al uso de la metaheur\'istica ACO, es posible realizar de manera similar, la obtenci\'on de informaci\'on durante la individualzaci\'on de filamentos. Un ejemplo de esto es la informaci\'on espacial con respecto a los nodos y aristas que pueden ser elegidas como parte de un camino. La informaci\'on espacial facilita la comparaci\'on y el an\'alisis entre caminos para identificar casos de cruce, intersecci\'on o solapamiento. 
-
-En particular, en la secci\'on \ref{sec:nonLocalSearch} se utiliza la consulta espacial {\it within} disponible en la extensi\'on espacial {\it Postgis} para la base de datos {\it PostgreSQL}, para comparar la informaci\'on distinta que entrega un camino con respecto a los dem\'as, considerando que puede existir repeteci\'on de caminos entre distintas hormigas. Este an\'alisis resulta simple a trav\'es de una consulta espacial, especialmente a medida que aumentan los caminos a comparar.
-
-El uso de informaci\'on geom\'etrica, topol\'ogica y espacial, repartidos en los m\'etodos de la metaheur\'istica ACO, se enfocan en ampliar las opciones de an\'alisis que puede realizar un experto, as\'i como aumentar la precisi\'on de la individualizaci\'on de filamentos. 
-
 \section{Inicializaci\'on de la metaheur\'istica ACO}
-
+\label{sec:acoInit}
 En el paso de inicializaci\'on de ACO se deben definir los valores de los par\'ametros relacionados a las heur\'isticas y de las feromonas utilizadas. Una de las caracter\'isticas m\'as relevantes para discriminar aristas en el proceso de construcci\'on corresponde al \'angulo que forman 2 aristas adyacentes.
 El primer umbral que permite definir si ambas aristas pertenecen al mismo filamento se define como $\theta$. As\'i, si el \'angulo se encuentra en el rango $[0, \theta]$ se puede dirimir que ambas aristas pertenecen al mismo filamento. Un segundo umbral se define como $Max\_Angle$, que indica el l\'imite por sobre el cual se puede inferir que estas 2 aristas no pertenecen al mismo filamento. Estos par\'ametros dependen de la c\'elula observada, asignando a $\theta$ valores de 30\textdegree ~para microt\'ubulos de planta y de 45\textdegree~ para neuronas. $Max\_Angle$ depende de $\theta$ al definirse como el m\'aximo entre 2.5 veces $\theta$ y 90\textdegree.
 
@@ -416,5 +379,41 @@ Mediante la comparaci\'on de segmentos equivalentes, esta revisi\'on centralizad
 %Si dos soluciones, $s_i$ y $s_j$ de las hormigas $i$,$j$, conformadas solamente por componentes $c_{ij} \in [0, \theta]$  (todos los componentes son de {\it buena calidad}), y que adem\'as eran la \'unica opci\'on posible en cada avance de la hormiga (probabilidad 1 de ser elegidas)
 %tal que $s_i \subseteq s_j$ o viceversa, se tiene que una soluci\'on candidata no aporta nueva informaci\'on.
 
+\section{Extracci\'on de informaci\'on para individualizar filamentos}
+Previo al uso de la metaheur\'istica ACO para individualizar filamentos, es necesario recabar la mayor cantidad de informaci\'on posible a partir de la imagen, as\'i como del grafo extra\'ido. Adem\'as se debe considerar la incorporaci\'on de informaci\'on espec\'ifica de los filamentos en la c\'elula observada, como el o los comportamientos esperados de estos, las que pueden conocerse previamente a la ejecuci\'on del algoritmo propuesto. A medida que se obtiene m\'as informaci\'on, es posible incorporar en el algoritmo diversas heur\'isticas que permitan acotar el espacio de b\'usqueda.
+
+Como se observa en el cap\'itulo \ref{chap:stateoftheart}, diversas investigaciones obtienen informaci\'on geom\'etrica o topol\'ogica, por lo general a partir de una imagen de filamentos. Para extender la obtenci\'on de informaci\'on topol\'ogica con respecto a otros m\'etodos, es posible utilizar los algoritmos para grafos existentes en la librer\'ia {\it sknw}, que son las implementaciones de algoritmos conocidos para grafos. As\'i, es posible utilizar un algoritmo de centralidad como {\it closeness centrality}, el que calcula la distancia de cada nodo con respecto a lo dem\'as, permitiendo identificar los que se encuentran a la menor distancia de todos.
+
+
+La relevancia de esta informaci\'on adicional es directa en el caso de las neuronas, siendo utilizada en la seccion \ref{subsec:pheroNeurons}, mientras que puede requerir de an\'alisis adicional por parte de expertos para otros filamentos. La aplicaci\'on del algoritmo {\it closeness centrality} refleja la posibilidad de expandir y/o incrementar el uso de informaci\'on topol\'ogica en el algoritmo propuesto. Un ejemplo de {\it closeness centrality} para filamentos en neuronas y microt\'ubulos se observa en la Figura \ref{fig:ExtraInfoCenterNodes}, en la que se eligieron los 3 nodos con menor distancia a los dem\'as. Luego, el color magenta refleja las aristas que poseen al menos uno de estos nodos, mientras que las aristas en amarillo indican las que no poseen ninguno.
+%entrega informaci\'on relevante respecto a la conectividad interna en conjuntos de filamentos.
+
+ \begin{figure*}[h!]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/50-ROIs-Spinning-Marchantia-somaEdges.png}
+        \caption{Uso del algoritmo {\it closeness centrality} en un grupo de microt\'ublos }
+        \label{fig:SpinningCenterNodes}
+    \end{subfigure}%
+    ~ \hspace{0.5cm}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=2in]{imagenes/Porta18-3a1-somaEdges.png}
+        \caption{Uso del algoritmo {\it closeness centrality} para reflejar nodos y aristas centrales, las que pueden corresponder a la secci\'on del soma en una neurona.}
+        \label{fig:Porta18SomaNodes}
+    \end{subfigure}
+
+    \caption{Ejemplo del algoritmo {\it closeness centrality} eligiendo los 3 nodos con menor distancia a los dem\'as nodos. El color magenta indica que aristas poseen al menos uno de estos 3 nodos. En el caso de una neurona, permite asociar una o m\'as aristas a una secci\'on espec\'ifica como el soma. Fuente: Elaboraci\'on Propia.}
+    \label{fig:ExtraInfoCenterNodes}
+\end{figure*}
+
+%info espacial: Ejemplo within, analisis de cruces. Intersect, disjoin y otros, en postgis
+Adem\'as de la extracci\'on de informaci\'on previo al uso de la metaheur\'istica ACO, es posible realizar de manera similar, la obtenci\'on de informaci\'on durante la individualzaci\'on de filamentos. Un ejemplo de esto es la informaci\'on espacial con respecto a los nodos y aristas que pueden ser elegidas como parte de un camino. La informaci\'on espacial facilita la comparaci\'on y el an\'alisis entre caminos para identificar casos de cruce, intersecci\'on o solapamiento. En particular, en la secci\'on \ref{sec:nonLocalSearch} se utiliza la consulta espacial {\it within} disponible en la extensi\'on espacial {\it Postgis} para la base de datos {\it PostgreSQL}, para comparar la informaci\'on distinta que entrega un camino con respecto a los dem\'as, considerando que puede existir repetici\'on de caminos entre distintas hormigas. Este an\'alisis resulta simple a trav\'es de una consulta espacial, especialmente a medida que aumentan los caminos a comparar.
+
+El uso de informaci\'on geom\'etrica, topol\'ogica y espacial, repartidos en los m\'etodos de la metaheur\'istica ACO, se enfocan en ampliar las opciones de an\'alisis que puede realizar un experto, as\'i como aumentar la precisi\'on de la individualizaci\'on de filamentos. Nuevas caracter\'isticas que modifiquen la exploraci\'on del espacio de soluciones pueden ser a\~nadidas en el m\'etodo de construcci\'on de soluciones, ampliando el criterio que solo utiliza el \'angulo para determinar o descartar con certeza que 2 aristas pertenezcan o no al mismo filamento. A su vez, en este mismo m\'etodo es posible incorporar nuevas condiciones que delimiten con mayor detalle el inicio o final de un camino.
+Por su parte. agregar restricciones adicionales que penalicen caminos finalizados puede realizarse tanto en el m\'etodo de actualizaci\'on de feromonas, en caso de que se trate de restricciones que no requieran comparaci\'on con otras hormigas, o en el m\'etodo de b\'usqueda no local para comparaciones entre 2 o m\'as hormigas.
+
+
 \vspace{1cm}
-En resumen, las condiciones del problema de identificaci\'on de filamentos dan pie a establecer su representaci\'on mediante un problema de optimizaci\'on de restricciones (COP), estando el modelo para la resoluci\'on del COP basado en la metaheur\'istica ACO para su resoluci\'on. La implementaci\'on del modelo de optimizaci\'on presentado es un algoritmo denominado {\it Phil} el que se encuentra escrito en C++.
+En resumen, las condiciones del problema de identificaci\'on de filamentos dan pie a establecer su representaci\'on mediante un problema de optimizaci\'on de restricciones (COP), estando el modelo para la resoluci\'on del COP basado en la metaheur\'istica ACO para su resoluci\'on. La implementaci\'on del modelo de optimizaci\'on presentado es un algoritmo que se encuentra escrito en C++.

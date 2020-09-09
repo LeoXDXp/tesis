@@ -350,7 +350,7 @@ Con los valores propios, es posible calcular caracter\'isticas de una estructura
 
 
 % informacion geometrica mediante calculo de angulos entre aristas
-Una manera adicional de generar informaci\'on que facilite la discriminaci\'on de secciones del grafo es a trav\'es del c\'alculo de los \'angulos entre las aristas del grafo. Esto se relaciona al criterio de rectitud que tienen los filamentos, que var\'ia dependiendo de la c\'elula a la que pertenezca. Este comportamiento de los filamentos permite delimitar el \'angulo m\'aximo que 2 aristas adyacentes pueden tener para ser considerados parte del mismo filamento. Cualquier valor por sobre este \'angulo m\'aximo permitir\'ia descartar de forma absoluta esa combinanci\'on de aristas para un mismo filamento. 
+Una manera adicional de generar informaci\'on que facilite la discriminaci\'on de secciones del grafo es a trav\'es del c\'alculo de los \'angulos entre las aristas del grafo. Esto se relaciona al criterio de rectitud que tienen los filamentos, que var\'ia dependiendo de la c\'elula a la que pertenezca. Este comportamiento de los filamentos permite delimitar el \'angulo m\'aximo que 2 aristas adyacentes pueden tener para ser considerados parte del mismo filamento. Cualquier valor por sobre este \'angulo m\'aximo permitir\'ia descartar de forma absoluta esa combinaci\'on de aristas para un mismo filamento. 
 
 
 %A su vez, este criterio posee un segundo umbral, definido como $\theta$  que define el \'angulo m\'aximo bajo el que se considera que 2 aristas contiguas respetan con certeza la rectitud necesaria para formar parte del mismo filamento. Es decir, si 2 aristas contiguas forman un \'angulo en el rango $[0, \theta]$, deben ser parte del mismo filamento. El rango entre ambos umbrales, $]\theta, Max\_Angle]$ delimita los pares de aristas que a priori no representan combinaciones que respetan el criterio de rectitud, pero cuya explicaci\'on puede encontrarse en variaciones inducidas durante la extracci\'on del grafo desde la imagen, por lo que es necesario incorporar la exploraci\'on de estos pares de aristas.
@@ -360,7 +360,9 @@ Finalmente, para el caso de los nodos, el an\'alisis del grado de cada uno permi
 
 \section{Metaheur\'istica ACO}
 \label{sec:hormigas}
-La metaheur\'istica {\it Ant Colony Optimization} (ACO) se inspira en el comportamiento de una colonia de hormigas en la b\'usqueda del trayecto m\'as corto a una fuente de alimento, comunic\'andose entre ellas mediante feromonas. El recorrido de una hormiga se define como un camino $s$ y representa una soluci\'on en la b\'usqueda del camino m\'as corto.
+
+%caminos en un grafo, los que pueden representar filamentos.
+Uno de los problemas principales de la individualizaci\'on de filamentos recae en desconocer el comienzo y el final de los filamentos. Lo anterior resulta similar al comportamiento de las hormigas al explorar caminos en b\'usqueda de alimento, donde se desconoce el lugar en el que se encuentra la comida. Por esto resulta natural utilizar la metaheur\'istica ACO para efectuar la exploraci\'on y elecci\'on de filamentos. La metaheur\'istica {\it Ant Colony Optimization} (ACO) se inspira en el comportamiento de una colonia de hormigas en la b\'usqueda del trayecto m\'as corto a una fuente de alimento, comunic\'andose entre ellas mediante feromonas. El recorrido de una hormiga se define como un camino $s$ y representa una soluci\'on en la b\'usqueda del camino m\'as corto.
 
 Las hormigas realizan una exploraci\'on aleatoria alrededor de su hormiguero en busca de alimento. Una vez que lo encuentran, marcan el camino de retorno depositando una cantidad de feromonas, la que varia dependiendo de la calidad del camino. Para caminos de buena calidad, que son los de menor distancia entre un hormiguero y una fuente de alimento, las feromonas sirven de guía para otras hormigas. As\'i, las hormigas se comunican de forma indirecta, convergiendo en los caminos que tienen una mayor cantidad de feromonas. Este comportamiento se define como el modelo de feromonas y se observa en la Figura \ref{fig:hormigas}.
 
@@ -389,7 +391,6 @@ El conjunto de caminos que recorren las hormigas, para ir del hormiguero hacia l
  \caption{Algoritmo metaheur\'istica ACO}\label{ACO-Algo}
 \end{algorithm}
 
-Uno de los problemas principales de la individualizaci\'on de filamentos recae en desconocer el comienzo y el final de los filamentos. Lo anterior resulta similar al comportamiento de las hormigas al explorar caminos en b\'usqueda de alimento, donde se desconoce el lugar en el que se encuentra la comida. Por esto resulta natural utilizar la metaheur\'istica ACO para efectuar la exploraci\'on y elecci\'on de caminos en un grafo, los que pueden representar filamentos.
 
 %%% CAMI VA AQUI
 

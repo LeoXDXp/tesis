@@ -77,7 +77,7 @@ Estos c\'alculos entregan mayor informaci\'on sobre el comportamiento de la part
 Otras medidas que se consideran son el porcentaje de cobertura de aristas, el n\'umero de filamentos correctos respecto al total de filamentos propuestos, los tiempos de c\'omputo y la existencia de soluciones no consideradas por otros algoritmos. El porcentaje de cobertura corresponde a la cantidad de aristas contenidas al menos una vez en alguno de los filamentos propuestos.
 
 \section{Im\'agenes Sint\'eticas}
-
+\label{sec:SynthImgMethod}
 El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del algoritmo propuesto presentado en el cap\'itulo \ref{sec:modeloOpti}, para casos simples que consideren filamentos que se superponen y/o intersectan. Ejemplos de las im\'agenes sint\'eticas utilizadas se observan en las Figuras \ref{fig:synth-QFS-7} y \ref{fig:synth-Define-1b}, cada una acompa\~nada de su grafo representativo de la red de filamentos y de su individualizaci\'on manual. La Figura \ref{fig:synth-QFS-7-original} corresponde a una imagen sint\'etica obtenida de \cite{qiu2014quantitative}, mientras que la Figura \ref{fig:synth-Define-1b-original} es un subconjunto de la Figura 1b  en \cite{breuer2015define}. 
 %La Figura \ref{fig:synth-arbol9} es una de las im\'agenes creadas en base a un programa escrito en Matlab que simula la generaci\'on de filamentos a partir de un filamento inicial, que luego va generando nuevos filamentos mediante ramificaciones, simulando una estructura tipo \'arbol. La Figura \ref{fig:synth-redX} representa a un segundo conjunto de im\'agenes creadas a partir de un programa en Matlab que simula una red de filamentos donde cada nodo es de grado 3 o inferior.
 % \ref{fig:synth-arbol9} y \ref{fig:synth-redX}
@@ -102,7 +102,7 @@ El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del algoritmo pro
         \centering
         \includegraphics[height=1.5in]{benchImages/Synth-QuantitativeIFS-Fig7_groundTruth.png}
         \caption{Individualizaci\'on manual de (a).}
-        \label{fig:synth-QFS-7-graph}
+        \label{fig:synth-QFS-7-gt}
     \end{subfigure}
     \caption{Filamentos sint\'eticos. a) Los colores originales hacen referencia a la segmentaci\'on de filamentos en vez de la individualizaci\'on, por lo que se utiliza la imagen en escala de grises. b) Grafo de 11 aristas extra\'ido. c) Individualizaci\'n manual utilizando codificaci\'on por colores.}
     \label{fig:synth-QFS-7}
