@@ -4,14 +4,16 @@
 Como se indica en el secci\'on \ref{sec:genGrafFromImage}, la obtenci\'on de un grafo a partir de una imagen, es un proceso complejo. Las im\'agenes analizadas en este trabajo son aquellas en las que fue posible realizar el procedimiento de esqueletonizaci\'on, obteniendo un resultado que manten\'ia la topolog\'ia de la estructura original. Lo anterior no es un estado que pueda garantizarse para toda imagen. 
 
 
-Los resultados que se presentan a continuaci\'on se separan entre tablas y figuras. Las tablas de resultados se encuentran dividas en 2 secciones dado el n\'umero de columnas. La primera secci\'on agrupa las m\'etricas y medidas indicadas en la secci\'on \ref{sec:metricasymedidas}. La segunda secci\'on muestra los porcentajes de cobertura y correctitud de los filamentos propuestos con respecto al {\it ground truth}.
-Es necesario especificar que los porcentajes que se indican en la columna `` \% Cobertura de Aristas'' reflejan una condici\'on que no es una restricci\'on estricta del modelo o del algoritmo propuesto, a diferencia de DeFiNe, donde si se garantiza la cobertura de cada arista del grafo.
+Los resultados que se presentan a continuaci\'on se separan entre tablas y figuras. Las tablas de resultados se encuentran dividas en 2 secciones dado el n\'umero de columnas. La primera secci\'on agrupa las m\'etricas y medidas indicadas en la secci\'on \ref{sec:metricasymedidas}, mientras que la segunda secci\'on muestra los porcentajes de cobertura y correctitud de los filamentos propuestos con respecto a la individualizaci\'on manual propuesta por un experto. Es necesario especificar que los porcentajes que se indican en la columna `` \% Cobertura de Aristas'' reflejan una condici\'on que no es una restricci\'on estricta del modelo o del algoritmo propuesto, a diferencia de DeFiNe, donde si se fuerza la cobertura de cada arista del grafo.
 
 
 En cuanto a las figuras, el enfoque se dirige a presentar los resultados de DeFiNe y del algoritmo propuesto, con \'enfasis en los filamentos correctamente encontrados por uno de los algoritmos que el otro no haya podido individualizar. Cabe aclarar que el resultado gr\'afico al ejecutar DeFiNe realiza una rotaci\'on de 90\textdegree en sentido contrarreloj adem\'as de invertir el eje vertical. Ambas modificaciones han sido corregidas con el prop\'osito de comparar los resultados entre DeFiNe, el algoritmo propuesto y la individualizaci\'on de filamentos realizada por el experto.
 
 
-En las mediciones del algoritmo propuesto, se muestra el promedio de las 5 iteraciones con diferentes semillas que se realizaron. El detalle de cada iteraci\'on, en conjunto con el c\'odigo y otros elementos necesarios para replicar estos resultados se encuentra en el \href{https://gitlab.com/LeoXDXp/graph-crawler}{repositorio github de esta tesis}. Parte de este detalle se incluye tambi\'en en el anexo \ref{chap:apendice}.
+En las mediciones del algoritmo propuesto, se muestra el promedio de las 5 iteraciones, en las que se utiliza una semilla diferente en cada iteraci\'on. El uso de una semilla permite replicar los resultados de una iteraci\'on, dado que esta influye en el comportamiento de los n\'umeros aleatorios generados para determinar la elecci\'on de aristas durante el proceso de construcci\'on de una soluci\'on, definido en la secci\'on \ref{subsubsec:antTourInit}, particularmente en la ecuaci\'on \ref{eq:antProbabilities}. Luego, al modificar la semilla en cada una de las 5 iteraciones, es posible medir la capacidad exploratoria del algoritmo. 
+
+
+El detalle de cada iteraci\'on, en conjunto con el c\'odigo y otros elementos necesarios para replicar estos resultados se encuentra en el \href{https://gitlab.com/LeoXDXp/graph-crawler}{repositorio git de esta tesis}. Parte de este detalle se incluye tambi\'en en el anexo \ref{chap:apendice}.
 Las ejecuciones de DeFiNe y el algoritmo propuesto fueron realizadas en un computador con un procesador {\tt Intel i5-7200U} de 4 n\'ucleos, 8GB de RAM y un disco de estado s\'lido, bajo el sistema operativo {\tt Fedora 31}.
 
 \section{Extracci\'o de un grafo desde una imagen}
@@ -21,7 +23,7 @@ Para obtener el peso de las aristas, se le aplica un filtro gaussiano a la image
 
 % solo esta disponible el archivo GML para la imagen sintetica 1. No estan disponibles las imagenes base,
 
-Una replica exacta de los pasos de aquel procedimiento no puede ser realizada, debido a que no se se\~nala el tama\~no del filtro gaussiano. Otro aspecto que dificulta una comparaci\'on directa es que DeFiNe no considera la curvatura de las aristas, sino que solo las representa como lineas rectas mediante la conexión punto a punto entre los nodos. Adicionalmente, no se encontraron las im\'agenes originales utilizadas en aqueela investigaci\'on. Lo anterior implica que la solo se pudo realizar una comparaci\'on entre DeFiNe y el algoritmo propuesto, utilizando el \'unico ejemplo que trae DeFiNe, que corresponde al grafo ponderado con el que se realiza la individualizaci\'on de filamentos de la Figura 1b de aquella investigaci\'on, a partir de la cual se extrae una secci\'on, representada en la Figura \ref{fig:synth-Define-1b}.
+Una replica exacta de los pasos de aquel procedimiento no puede ser realizada, debido a que no se se\~nala el tama\~no del filtro gaussiano. Otro aspecto que dificulta una comparaci\'on directa es que DeFiNe no considera la curvatura de las aristas, sino que solo las representa como lineas rectas mediante la conexión punto a punto entre los nodos. Adicionalmente, no se encontraron las im\'agenes originales utilizadas en aquella investigaci\'on. Lo anterior implica que la solo se pudo realizar una comparaci\'on precisa entre DeFiNe y el algoritmo propuesto, utilizando el \'unico ejemplo que trae DeFiNe, que corresponde al grafo ponderado con el que se realiza la individualizaci\'on de filamentos de la Figura 1b de aquella investigaci\'on, a partir de la cual se extrae una secci\'on, representada en la Figura \ref{fig:synth-Define-1b}.
 
 
 En los otros casos donde se utiliza DeFiNe para obtener una individualizaci\'on de filamentos, se extrae el grafo necesario utilizando la herramienta {\it sknw}, la que pondera cada arista con su respectivo largo, el cual s\'i considera la curvatura. Este enfoque es compatible con lo que se presenta en \cite{breuer2015define}, ya que se indica que el m\'etodo utilizado por DeFiNe sirve para cualquier red ponderada extra\'ida a partir de una imagen.
@@ -30,47 +32,30 @@ En los otros casos donde se utiliza DeFiNe para obtener una individualizaci\'on 
 \section{Im\'agenes Sint\'eticas}
 
 %Resultados Synth QFS
-Los resultados de la individualizaci\'on automatizada de filamentos sint\'eticos en la Figura \ref{fig:synth-QFS-7} se indican en la Tabla \ref{tab:synth-QFS-7-Results}. DeFiNe logra 4 de 6 individualizaciones al utilizar 30\textdegree, mientras que con 60\textdegree obtiene 3 de 6. Este \'ultimo resultado es el mismo que se obtiene en todas las iteraciones del algoritmo propuesto. La comparaci\'on entre los filamentos propuestos por cada m\'etodo y los correctamente identificados se observa en la Figura \ref{fig:Synth-QIFS-Result}.
+Los resultados de la individualizaci\'on automatizada de filamentos sint\'eticos en la Figura \ref{fig:synth-QFS-7} se indican en la Tabla \ref{tab:synth-QFS-7-Results}, observadose que DeFiNe logra 4 de 6 individualizaciones al utilizar 30\textdegree, mientras que con 60\textdegree obtiene 3 de 6 filamentos correctos. Este \'ultimo resultado es el mismo que se obtiene al promediar todas las iteraciones del algoritmo propuesto. Se incluye en la tabla el mejor resultado obtenido en las 5 iteraciones, el que logra un comportamiento similar al obtenido mediante DeFiNe con distintos \'angulos. La comparaci\'on entre los filamentos propuestos por cada m\'etodo y los correctamente identificados se observa en la Figura \ref{fig:Synth-QIFS-Result}.
 
 
-En este caso de filamentos sint\'eticos, el filamento azul observable en la Figura \ref{fig:synth-QFS-7-gt}, corresponde a una sola arista del grafo (Figura \ref{fig:synth-QFS-7-graph}), por lo que tambi\'en en todas las pruebas con DeFiNe y con el algoritmo propuesto se obtiene para ese filamento un calce no exacto. Este calce no exacto no se considera una respuesta correcta, pero representa una situaci\'on que puede suceder en im\'agenes reales. En particular, se sobre-representa el filamento al agregar una arista del filamento vecino, de color celeste.
+En este caso de filamentos sint\'eticos, el filamento azul observable en la Figura \ref{fig:synth-QFS-7-gt}, corresponde a una sola arista del grafo (Figura \ref{fig:synth-QFS-7-graph}), por lo que tambi\'en en todas las pruebas con DeFiNe y con el algoritmo propuesto se obtiene para ese filamento un calce no exacto. Este calce no exacto no se considera una respuesta correcta, pero representa una situaci\'on que puede suceder en im\'agenes reales. En el ejemplo dado, se sobre-representa el filamento correcto al agregar una arista del filamento vecino, de color celeste.
 
 
 Ambas ejecuciones de DeFiNe, as\'i como todas las ejecuciones del algoritmo propuesto logran asignar cada arista a al menos un camino que representa un filamento. Este comportamiento es obligatorio para el m\'etodo de DeFiNe pero no para el algoritmo propuesto.
 
-
+% pq hay una penalizacion en todos los indicadores a pesar tener lo mismo q define 60
 %%%% Como explicar VI, Rand y Jaccard, y los otros numeros
-....
 
 \begin{table}[t]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
     \hline
-        Algoritmo & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline
-        DeFiNe 30\textdegree & 0.7958 & 8 & 3 & 58 & 9 & 0.8461 & 0.4    & 0.7272 & 0.4705 & 0.5714 \\
-        DeFiNe 60\textdegree & 0.9777 & 7 & 4 & 50 & 5 & 0.8636 & 0.4375 & 0.6363 & 0.5833 & 0.6086  \\
-        Propuesta & 1.6360 & 10.8 & 10.4 & 104.8 & 28 & 0.7646 & 0.2484 & 0.5142 & 0.3289 & 0.3919 \\
-        \hline
+          Algoritmo & VI & Rand & Jaccard & Precision & Recall & F1 & Filam. & Tiempo[s] \\ \hline
+         DeFiNe 30\textdegree & 0.7958 & 0.8461 & 0.4 & 0.7272 & 0.4705 & 0.5714 & 4/6 & 2.3128 \\
+         DeFiNe 60\textdegree & 0.9777 & 0.8636 & 0.4375 & 0.6363 & 0.5833 & 0.6086 & 3/5 & 2.3380\\
+         Promedio Propuesta & 1.6360 & 0.7646 & 0.2484 & 0.5142 & 0.3289 & 0.3919 & 3/6.2 & 0.3569\\
+         Mejor Propuesta & 1 & 0.8461 & 0.4	& 0.5714 & 0.5714 & 0.5714 & 3/5 & 0.3135 \\
+         \hline
     \end{tabular}
-    \caption{M\'etricas y medidas en la individualizaci\'on de filamentos de la figura \ref{fig:synth-QFS-7}. .....El valor m\'aximo de VI en este caso es de 2.397895, con un {\it data set} de 11 aristas. El n\'umero de filamentos en el {\it ground truth} es 6.}
+    \caption{M\'etricas y medidas en la individualizaci\'on de filamentos de la Figura \ref{fig:synth-QFS-7}. El valor m\'aximo de VI es de 2.397895, debido a que el n\'umero de aristas es 11. El n\'umero de filamentos correctos es 6. La columna Filam. refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo.}
     \label{tab:synth-QFS-7-Results}
-\end{table}
-\addtocounter{table}{-1}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
-         &  &  &  & & &  \\
-        Algoritmo &  &  &  & & &  \\
-        &  &  &  & & &  \\ \hline
-        Define 30° & 100 & 6  & 4 & 66.6667 & 66.6667 & 2.3128 \\
-        Define 60° & 100 & 5  & 3 & 60 & 50 & 2.338012\\ 
-        Propuesta & 100 & 6.2 & 3 & 49.1428 & 50 & 0.3569\\
-        \hline
-    \end{tabular}
-    \caption{Resultados del n\'umero de filamentos individualizados en la figura \ref{fig:synth-QFS-7}. ...El n\'umero de filamentos en el {\it ground truth} es 6.}
-    %\label{tab:synth-QFS-7-Results2}
 \end{table}
 
 
@@ -79,48 +64,48 @@ Ambas ejecuciones de DeFiNe, as\'i como todas las ejecuciones del algoritmo prop
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[scale=0.6]{resultImages/Synth-QFS-Fig7-Define30.png}
-        \caption{Individualizaci\'on de filamenots de DeFiNe con 30\textdegree .}
+        \caption{Individualizaci\'on de filamentos obtenida mediante DeFiNe con un \'angulo de 30\textdegree .}
         \label{fig:}
     \end{subfigure}%
-    ~ 
-    \begin{subfigure}[t]{0.49\textwidth}
+    \hspace{0.2cm}
+    \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[height=1.5in]{resultImages/QFS7-DeFiNeExactMatch-30.png}
-        \caption{4 filamentos correctamente individualizados por DeFiNe con 30\textdegree .}
+        \caption{4 filamentos correctamente individualizados a partir de los resultados de (a), identificados con colores.}
         \label{fig:SpinningMarchantiaResults-define30Exact}
     \end{subfigure}
     \vskip\baselineskip
     
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[scale=0.6]{resultImages/Synth-QFS-Fig7-Define60.png}
-        \caption{Individualizaci\'on de filamenots mediante DeFiNe con 60\textdegree .}
+        \caption{Individualizaci\'on de filamentos obtenida mediante DeFiNe con un \'angulo de 60\textdegree .}
         \label{fig:SpinningMarchantiaResults-define60}
     \end{subfigure}
-    ~ 
-    \begin{subfigure}[t]{0.49\textwidth}
+    \hspace{0.2cm}
+    \begin{subfigure}[t]{0.48\textwidth}
         \centering
-        \includegraphics[scale=0.1]{resultImages/QFS7-DeFiNeExactMatch-60.png}
-        \caption{3 filamentos correctamente individualizados por DeFiNe con 60\textdegree .}
+        \includegraphics[height=1.5in]{resultImages/QFS7-DeFiNeExactMatch-60.png}
+        \caption{3 filamentos correctamente individualizados a partir de los resultados de (c), identificados con colores.}
         \label{fig:SpinningMarchantiaResults-define60Exact}
     \end{subfigure}
     \vskip\baselineskip
     
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[t]{0.47\textwidth}
         \centering
-        \includegraphics[scale=0.13]{resultImages/Synth-QuantitativeIFS-Fig7-phil-s1271-v05-antLabeled.png}
-        \caption{Filamentos individualizados por la mejor iteraci\'on del algoritmo propuesto.}
+        \includegraphics[scale=0.13]{resultImages/Synth-QuantitativeIFS-Fig7-phil-s1271-v05-nobg-antLabeled.png}
+        \caption{Filamentos individualizados por la mejor iteraci\'on del algoritmo propuesto. Las aristas en plomo indican superposici\'on de filamentos.}
         \label{fig:SynthQFS7-Individualizacion}
     \end{subfigure}
-    ~
-    \begin{subfigure}[t]{0.49\textwidth}
+    \hspace{0.2cm}
+    \begin{subfigure}[t]{0.47\textwidth}
         \centering
         \includegraphics[scale=0.13]{resultImages/Synth-QuantitativeIFS-Fig7-phil-s1271-v05-exactMatch-antLabeled.png}
-        \caption{3 filamentos correctamente individualizados  por la mejor iteraci\'on del algoritmo propuesto.}
+        \caption{3 filamentos correctamente individualizados de acuerdo a los resultados en (e),}
         \label{fig:SynthQFS7-Individualizacion-Best}
     \end{subfigure}
-    
-    \caption{...}
+        
+    \caption{Individualizaci\'on de filamentos propuesta e identificaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto, obtenidas mediante el uso de DeFine con 30\textdegree (a y b) y 60\textdegree (c y d), as\'i como el algoritmo propuesto (e y f). El algoritmo propuesto favorece los filamentos largos, dificultando la detecci\'on del filamento corto individualizado por Define con \'angulo de 30\textdegree en (a).}
     \label{fig:Synth-QIFS-Result}
 \end{figure*}
 
@@ -143,33 +128,17 @@ Con respecto a las medidas, se obtiene un alto valor de VI, lo que es atribuible
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
     \hline
-        Algoritmo & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline
-        Define 30° & 1.8102 & 6 & 14 & 156  & 34 & 0.7714 & 0.1111  & 0.3 & 0.15 & 0.2\\
-        Define 60° & 2.2890 & 19 & 52 & 200 & 54 & 0.6738 & 0.152 & 0.2676  & 0.2602  & 0.2638\\ 
-        Propuesta & 2.2164 & 22.8 & 40 & 240.4 & 61.4 & 0.7227 & 0.1838 & 0.3607 & 0.2724 & 0.3100\\
-        \hline
+          Algoritmo & VI & Rand & Jaccard & Precision & Recall & F1 & Filam. & Tiempo[s] \\ \hline
+         DeFiNe 30\textdegree & 1.8102 & 0.7714 & 0.1111 & 0.3 & 0.15 & 0.2 & 2/11 & 2.8275 \\
+         DeFiNe 60\textdegree & 2.2890 & 0.6738 & 0.152 & 0.2676  & 0.2602  & 0.2638 & 2/7 & 3.6597\\
+         Promedio Propuesta & 2.2164 & 0.7227 & 0.1838 & 0.3607 & 0.2724 & 0.31 & 3/9.2 & 0.5071\\
+         Mejor Propuesta & 1 &  & & ... & 0.5714 & 0.5714 & 3/5 & 0.3135 \\
+         \hline
     \end{tabular}
-    \caption{Resultados de individualizaci\'on de filamentos para figura \ref{fig:synth-Define-1b}.El valor m\'aximo de VI en este caso es de 3.044522, ya que el tama\~no del {\it data set} es de 17 aristas. El n\'umero de filamentos en el {\it ground truth} es 5.}
+    \caption{Individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}.   El valor m\'aximo de VI para este caso es 3.044522, dado que el grafo esta compuesto por 17 aristas. La columna Filam. refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo. El n\'umero de filamentos en el {\it ground truth} es 5.}
     \label{tab:synth-Define-1b}
-\end{table}
-\addtocounter{table}{-1}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
-         &  &  &  & & &  \\
-        Algoritmo &  &  &  & & &  \\
-        &  &  &  & & &  \\ \hline
-        Define 30° & 100 & 11 & 2 & 18.1818 & 40 & 2.8275\\
-        Define 60° & 100 & 7 & 2 & 28.5714 & 40 & 3.6597\\ 
-        Propuesta & 100 & 9.2 & 3 & 32.6667 & 60 & 0.5071\\
-        \hline
-    \end{tabular}
-    \caption{Resultados ({\it Continuaci\'on}) de individualizaci\'on de filamentos para figura \ref{fig:synth-Define-1b}. El n\'umero de filamentos en el {\it ground truth} es 5.}
-    %\label{tab:synth-QFS-7-Results2}
 \end{table}
 
 \begin{figure*}[h!]
@@ -177,14 +146,14 @@ Con respecto a las medidas, se obtiene un alto valor de VI, lo que es atribuible
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[scale=0.6]{resultImages/define-weighted-4-30.png}
-        \caption{Individualizaci\'on mediante DeFiNe con 30\textdegree .}
+        \caption{Individualizaci\'on de filamentos obtenida mediante DeFiNe con un \'angulo 30\textdegree para la generaci\'on de caminos.}
         \label{fig:SynthDefine-Results-define30}
     \end{subfigure}%
     ~ 
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[height=1.5in]{resultImages/defineFig1b-DeFiNeExactMatch-30.png}
-        \caption{3 filamentos correctamente individualizados por DeFiNe con 30\textdegree .}
+        \caption{3 filamentos correctamente individualizados en base al resultado en (a), identificados con colores.}
         \label{fig:SynthDefine-Results-define30Exact}
     \end{subfigure}
     \vskip\baselineskip
@@ -192,33 +161,33 @@ Con respecto a las medidas, se obtiene un alto valor de VI, lo que es atribuible
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[scale=0.6]{resultImages/define-weighted-4-60.png}
-        \caption{Individualizaci\'on mediante DeFiNe con 60\textdegree .}
+        \caption{Individualizaci\'on de filamentos obtenida mediante DeFiNe con un \'angulo 30\textdegree para la generaci\'on de caminos}
         \label{fig:SynthDefine-Results-define60}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[scale=0.1]{resultImages/defineFig1b-DeFiNeExactMatch-60.png}
-        \caption{4 filamentos correctamente individualizados por DeFiNe con 60\textdegree .}
+        \includegraphics[scale=0.08]{resultImages/defineFig1b-DeFiNeExactMatch-60.png}
+        \caption{4 filamentos correctamente individualizados en base al resultado en (a), identificados con colores.}
         \label{fig:SynthDefine-Results-define60Exact}
     \end{subfigure}
     \vskip\baselineskip
     
-    % \begin{subfigure}[t]{0.49\textwidth}
-    %     \centering
-    %     \includegraphics[scale=0.13]{}
-    %     \caption{Filamentos individualizados por la mejor iteraci\'on del algoritmo propuesto.}
-    %     \label{fig:SynthDefine-Individualizacion}
-    % \end{subfigure}
-    % ~
-    % \begin{subfigure}[t]{0.49\textwidth}
-    %     \centering
-    %     \includegraphics[scale=0.13]{}
-    %     \caption{3 filamentos correctamente individualizados  por la mejor iteraci\'on del algoritmo propuesto.}
-    %     \label{fig:SynthDefine-Individualizacion-Best}
-    % \end{subfigure}
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.11]{resultImages/define-weighted-4-phil-s0-v05-nobg-antLabeled.png}
+        \caption{Filamentos individualizados por la mejor iteraci\'on del algoritmo propuesto. Las aristas en plomo indican superposici\'on de filamentos.}
+        \label{fig:SynthDefine-Individualizacion}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.11]{resultImages/define-weighted-4-phil-s0-v05-exactMatch-antLabeled.png}
+        \caption{3 filamentos correctamente individualizados seg\'un los resultados en (e)}
+        \label{fig:SynthDefine-Individualizacion-Best}
+    \end{subfigure}
     
-    \caption{...}
+    \caption{Comparaci\'on entre filamentos propuestos por cada m\'etodo y su correspondencia con respecto a la individualizaci\'on d<de un experto. El algoritmo propuesto encuentra 1 filamento m\'as que DeFiNe con 30\textdegree y 60\textdegree, sin embargo se aleja del comportamiento \'optimo.}
     \label{fig:SynthDefine-Result}
 \end{figure*}
 
@@ -230,7 +199,7 @@ Con respecto a las medidas, se obtiene un alto valor de VI, lo que es atribuible
 
 %recordar que define es base de BFS-Overlap-pairwise-total-
 % recordarr que son 5 iteraciones y se estan promediando los resultados, conectar con la columna cobertura 
-En esta secci\'on se muestran los resultados de la individualizaci\'on de filamentos para 2 tipos de c\'elulas, los microt\'ubulos existentes en la planta {\it Arabidpsis Marchantia}, y las dendritas en neuronas. Para cada tipo de c\'elulas existen 3 im\'agenes reales con las que se cuenta con la respectiva individualizaci\'on manual realizada por un experto.
+En esta secci\'on se muestran los resultados de la individualizaci\'on de filamentos para 2 tipos de c\'elulas, los microt\'ubulos existentes en la planta {\it Arabidopsis Marchantia}, y las dendritas en neuronas de rat\'on. Para cada tipo de c\'elulas existen 3 im\'agenes reales con las que se cuenta con la respectiva individualizaci\'on manual realizada por un experto.
 
 De acuerdo a lo mencionado en la secci\'on \ref{sec:acoInit}, algunos p\'arametros del algoritmo propuesto var\'ian dependiendo del tipo de c\'elula, mientras que otros son fijos. Para la individualizaci\'on de filamentos realizada en im\'agenes reales, los par\'ametros se indican en la Tabla \ref{tab:AlgoParams}.
 
@@ -240,7 +209,7 @@ De acuerdo a lo mencionado en la secci\'on \ref{sec:acoInit}, algunos p\'arametr
         \hline
         ${}^\text{C\'elula}{\mskip -5mu/\mskip -3mu}_\text{Par\'ametro}$ & $\theta$ & $Max\_Angle$ & $Max\_Axial\_Displacement$  \\ \hline
         {\it Arabidopsis Marchantia} & 30\textdegree & 90\textdegree & 1.5\\
-        Neurona & 45\textdegree & 90\textdegree & 2\\\hline
+        Neurona de rat\'on & 45\textdegree & 90\textdegree & 2\\\hline
     \end{tabular}
     \caption{Par\'ametros variables utilizados durante la individualizaci\'on de filamentos en im\'agenes reales.}
     \label{tab:AlgoParams}
@@ -254,33 +223,18 @@ De acuerdo a lo mencionado en la secci\'on \ref{sec:acoInit}, algunos p\'arametr
 
 \begin{table}[t]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
     \hline
-        Algoritmo & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline
-        Define 30° & 0.9696 & 23 & 12 & 465 & 28 & 0.9242 & 0.3650 & 0.6571 & 0.4509  & 0.5348 \\ 
-        Define 60° & 2.2870  & 15 & 38 & 523 & 54 & 0.8539 & 0.1401 & 0.2830 & 0.2173 & 0.2459\\
-        Propuesta 1.8376 & 43 & 54 & 815 & 78 & 0.8666 & 0.2457 & 0.4432 & 0.3553 & 0.3944 \\
-        \hline
+          Algoritmo & VI & Rand & Jaccard & Precision & Recall & F1 & Filam. & Tiempo[s] \\ \hline
+         DeFiNe 30\textdegree & 0.9696 & 0.9242 & 0.3650 & 0.6571 & 0.4509  & 0.5348 & 9/16 & 4.1087 \\
+         DeFiNe 60\textdegree & 2.2870 & 0.8539 & 0.1401 & 0.2830 & 0.2173 & 0.2459 & 5/12 & 3.6597\\
+         Promedio Propuesta & 1.8376 & 0.8666 & 0.2457 & 0.4432 & 0.3553 & 0.3944 & 7/12 & 0.6558\\
+         Mejor Propuesta & 1 &  & & ... & 0.5714 & 0.5714 & 3/5 & 0.3135 \\
+         \hline
     \end{tabular}
-    \caption{Resultados de individualizaci\'on de filamentos para la muestra MT-A en la figura \ref{fig:SpinningMarchantia}. El valor m\'aximo de VI en este caso es de 3.4965, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos en el {\it ground truth} es 12.}
+    \caption{Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}. El valor m\'aximo de VI en este caso es de 3.4965, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos en el {\it ground truth} es 12.}
     \label{tab:SpinningMarchantiaResults1}
-\end{table}
-\addtocounter{table}{-1}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
-         &  &  &  & & &  \\
-        Algoritmo &  &  &  & & &  \\
-        &  &  &  & & &  \\ \hline
-        Define 30° & 100 & 16 & 9 & 56.25       & 75          & 4.1087 \\
-        Define 60° & 100 & 12 & 5 & 41.6666 & 41.6666 & 5.9999 \\ 
-        Propuesta 100 & 12 & 7 & 58.3333 & 58.3333 & 0.6558 \\
-        \hline
-    \end{tabular}
-    \caption{Resultados ({\it Continuaci\'on}) de individualizaci\'on de filamentos para la muestra MT-A en la figura \ref{fig:SpinningMarchantia}. El n\'umero de filamentos en el {\it ground truth} es 12.}
-    %\label{tab:SpinningMarchantiaResults2}
+
 \end{table}
 
 
@@ -318,14 +272,14 @@ De acuerdo a lo mencionado en la secci\'on \ref{sec:acoInit}, algunos p\'arametr
     
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=1.5in]{resultImages/50-ROIs-Spinning-Marchantia-phil-s0-v05-antLabeled.png}
+        \includegraphics[height=1.5in]{resultImages/50-ROIs-Spinning-Marchantia-phil-s0-v05-nobg-antLabeled.png}
         \caption{Mejor resultado de individualizaci\'on de filamentos del algoritmo propuesto}
         \label{SpinningMarchantiaResults-bestPhil}
     \end{subfigure}
     ~
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=1.5in]{resultImages/50-ROIs-Spinning-Marchantia-phil-s0-v05-exactMatch-antLabeled.png}
+        \includegraphics[height=1.5in]{resultImages/50-ROIs-Spinning-Marchantia-phil-s0-v05-exactMatch-antLabeled-thick.png}
         \caption{Individualizaci\'on de filamentos correctos del mejor resultado del algoritmo propuesto}
         \label{fig:SpinningMarchantiaResults-bestPhilExact}
     \end{subfigure}
@@ -333,19 +287,19 @@ De acuerdo a lo mencionado en la secci\'on \ref{sec:acoInit}, algunos p\'arametr
     
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=1.5in]{resultImages/50-ROIs-Spinning-Marchantia-phil-s10-v05-antLabeled.png}
+        \includegraphics[height=1.5in]{resultImages/50-ROIs-Spinning-Marchantia-phil-s10-v05-nobg-antLabeled.png}
         \caption{Peor resultado de individualizaci\'on de filamentos del algoritmo propuesto}
         \label{SpinningMarchantiaResults-worstPhil}
     \end{subfigure}
     ~ 
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
-        \includegraphics[height=1.5in]{resultImages/50-ROIs-Spinning-Marchantia-phil-s10-v05-exactMatch-antLabeled.png}
+        \includegraphics[height=1.5in]{resultImages/50-ROIs-Spinning-Marchantia-phil-s10-v05-exactMatch-antLabeled-thick.png}
         \caption{Individualizaci\'on de filamentos correctos del peor resultado del algoritmo propuesto}
         \label{fig:SpinningMarchantiaResults-worstPhilExact}
     \end{subfigure}
     
-    \caption{Individualizaci\'on  de filamentos para la muestra MT-A en la figura \ref{fig:SpinningMarchantia} realizadas con DeFiNe y Phil. Segmentos marcados en negro con y sin discontinuidad representan aristas no asignadas correctamente al filamento correspondiente en el {\it ground truth.}, mientras que los filamentos correctamente identificados se encuentran identificados mediante colores.}
+    \caption{Individualizaci\'on  de filamentos para la muestra MT-A en la figura \ref{fig:SpinningMarchantia} realizadas con DeFiNe y el algoritmo propuesto. Segmentos marcados en negro con y sin discontinuidad representan aristas no asignadas correctamente al filamento correspondiente en el {\it ground truth.}, mientras que los filamentos correctamente identificados se encuentran identificados mediante colores.}
     \label{fig:SpinningMarchantiaResults}
 \end{figure*}
 
@@ -364,33 +318,17 @@ para la muestra MT-B en la
 
 \begin{table}[t]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
     \hline
-        Algoritmo & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline
-        Define 30° & 1.9654 & 100 & 90 & 1615 & 148 & 0.8781 & 0.2958 & 0.5263 & 0.4032 & 0.4566\\
-        Define 60° & 1.8847 & 18 & 17 & 962 & 84 & 0.9065 & 0.1512 & 0.5142 & 0.1764 & 0.2627\\ 
-        Propuesta 2.3895 & 105.4 & 102.4 & 2028.4 & 224 & 0.8683 & 0.2487 & 0.5079 & 0.3283 & 0.3976 \\
-        \hline
+          Algoritmo & VI & Rand & Jaccard & Precision & Recall & F1 & Filam. & Tiempo[s] \\ \hline
+         DeFiNe 30\textdegree & 1.9654 & 0.8781 & 0.2958 & 0.5263 & 0.4032 & 0.4566 & 5/23 & 5.0306 \\
+         DeFiNe 60\textdegree & 1.8847 & 0.9065 & 0.1512 & 0.5142 & 0.1764 & 0.2627 & 5/16 & 16.2042\\
+         Promedio Propuesta & 2.3895 & 0.8683 & 0.2487 & 0.5079 & 0.3283 & 0.3976 & 7/12 & 0.9693 \\
+         Mejor Propuesta & 1 &  & & ... & 0.5714 & 0.5714 & 3/5 & 0.3135 \\
+         \hline
     \end{tabular}
-    \caption{Resultados de individualizaci\'on de filamentos para la muestra MT-B (figura \ref{fig:field3t0filtered1}). El valor m\'aximo de VI en este caso es de 3.7612, ya que el tama\~no del {\it data set} es de 40 aristas. El n\'umero de filamentos en el {\it ground truth} es 12.}
+    \caption{Resultados de individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}). El valor m\'aximo de VI en este caso es de 3.7612, ya que el tama\~no del {\it data set} es de 40 aristas. El n\'umero de filamentos en el {\it ground truth} es 12.}
     \label{tab:field3t0filtered1}
-\end{table}
-\addtocounter{table}{-1}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
-         &  &  &  & & &  \\
-        Algoritmo &  &  &  & & &  \\
-        &  &  &  & & &  \\ \hline
-        Define 30° & 100 & 23 & 5 & 21.7391 & 41.6667 & 5.0306 \\
-        Define 60° & 100 & 16 & 5 & 31.25 & 41.6667 & 16.2042 \\ 
-        Propuesta 100 & 15 & 8.8 & 58.7738 & 73.3333 & 0.9693 \\
-        \hline
-    \end{tabular}
-    \caption{Resultados ({\it Continuaci\'on}) de individualizaci\'on de filamentos para la muestra MT-B (figura \ref{fig:field3t0filtered1}). El n\'umero de filamentos en el {\it ground truth} es 12.}
-    %\label{tab:field3t0filtered1-2}
 \end{table}
 
 
@@ -441,19 +379,19 @@ para la muestra MT-B en la
     \end{subfigure}
     \vskip\baselineskip
     
-    \begin{subfigure}[t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=1.5in]{resultImages/field3-t0-2cellBcrop-filtered-phil-s10-v05-antLabeled.png}
-        \caption{Peor Resultado de Individualizaci\'on con Phil}
-        \label{field3t0filtered1Results-worstPhil}
-    \end{subfigure}
-    ~ 
-    \begin{subfigure}[t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=1.5in]{resultImages/field3-t0-2cellBcrop-filtered-phil-s10-v05-exactMatch-antLabeled.png}
-        \caption{Filamentos correctamente individualizados en el peor resultado de Phil, identificados con colores}
-        \label{field3t0filtered1Results-worstPhilExact}
-    \end{subfigure}
+    % \begin{subfigure}[t]{0.49\textwidth}
+    %     \centering
+    %     \includegraphics[height=1.5in]{resultImages/field3-t0-2cellBcrop-filtered-phil-s10-v05-antLabeled.png}
+    %     \caption{Peor Resultado de Individualizaci\'on con Phil}
+    %     \label{field3t0filtered1Results-worstPhil}
+    % \end{subfigure}
+    % ~ 
+    % \begin{subfigure}[t]{0.49\textwidth}
+    %     \centering
+    %     \includegraphics[height=1.5in]{resultImages/field3-t0-2cellBcrop-filtered-phil-s10-v05-exactMatch-antLabeled.png}
+    %     \caption{Filamentos correctamente individualizados en el peor resultado de Phil, identificados con colores}
+    %     \label{field3t0filtered1Results-worstPhilExact}
+    % \end{subfigure}
     
     \caption{Individualizaci\'on  de filamentos de la figura \ref{fig:field3t0filtered1} correspondiente a la muestra MT-B, realizadas con DeFiNe y Phil. Segmentos marcados en negro representan aristas no asignadas correctamente. f) El mejor resultado con Phil permite encontrar el filamento compuesto por las aristas 8,22,26,27,32,34,36 no encontrado en a) ni en c). }
     \label{fig:field3t0filtered1Results}
@@ -473,32 +411,17 @@ En relaci\'on al an\'alisis de las medidas y las m\'etricas en la tabla \ref{tab
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
     \hline
-        Algoritmo & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline
-        Define 30° & 0.5714 & 1 & 1 & 18 & 1 & 0.9047 & 0.3333 & 0.5      & 0.5 & 0.5\\
-        Define 60° & 0.4285 & 2 & 1 & 23 & 2 & 0.8928 & 0.4 & 0.6666 & 0.5 & 0.5714\\ 
-        Propuesta 0.4285  & 2 & 1 & 23 & 2 & 0.8928 & 0.4 & 0.6666 & 0.5 & 0.5714\\
-        \hline
+          Algoritmo & VI & Rand & Jaccard & Precision & Recall & F1 & Filam. & Tiempo[s] \\ \hline
+         DeFiNe 30\textdegree & 0.5714 & 0.9047 & 0.3333 & 0.5 & 0.5 & 0.5 & 3/5 & 2.8262 \\
+         DeFiNe 60\textdegree & 0.4285 & 0.8928 & 0.4 & 0.6666 & 0.5 & 0.5714 & 4/5 & 2.6506\\
+         Promedio Propuesta & 0.4285 & 0.8928 & 0.4 & 0.6666 & 0.5 & 0.5714 & 4/5 & 0.2914 \\
+         Mejor Propuesta & 1 &  & & ... & 0.5714 & 0.5714 & 3/5 & 0.3135 \\
+         \hline
     \end{tabular}
-    \caption{Resultados de individualizaci\'on de filamentos para figura \ref{fig:field3t0filtered2}, de la muestra MT-C. El valor m\'aximo de VI en este caso es de 1.9459, ya que el tama\~no del {\it data set} es de 7 aristas. El n\'umero de filamentos en el {\it ground truth} es 5.}
+    \caption{Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C. El valor m\'aximo de VI en este caso es de 1.9459, ya que el tama\~no del {\it data set} es de 7 aristas. El n\'umero de filamentos en el {\it ground truth} es 5.}
     \label{tab:field3t0filtered2}
-\end{table}
-\addtocounter{table}{-1}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
-         &  &  &  & & &  \\
-        Algoritmo &  &  &  & & &  \\
-        &  &  &  & & &  \\ \hline
-        Define 30° & 100 & 5 & 3 & 60 & 60 & 2.8262\\
-        Define 60° & 100 & 5 & 4 & 80 & 80 & 2.6506\\ 
-        Propuesta 100 & 5 & 4 & 80 & 80 & 0.2914\\
-        \hline
-    \end{tabular}
-    \caption{Resultados ({\it Continuaci\'on}) de individualizaci\'on de filamentos para figura \ref{fig:field3t0filtered2}, de la muestra MT-C. El n\'umero de filamentos en el {\it ground truth} es 5.}
 \end{table}
 
 \begin{figure*}[h!]
@@ -519,7 +442,7 @@ En relaci\'on al an\'alisis de las medidas y las m\'etricas en la tabla \ref{tab
     ~ 
     \begin{subfigure}[t]{0.3\textwidth}
         \centering
-        \includegraphics[height=1.5in]{resultImages/field3-t0-2cellBcrop-filtered-2-phil-s1271-v05-antLabeled.png}
+        \includegraphics[height=1.5in]{resultImages/field3-t0-2cellBcrop-filtered-2-phil-s1271-v05-nobg-antLabeled.png}
         \caption{Individualizaci\'on con Phil}
         \label{fig:field3t0filtered2Results-c}
     \end{subfigure}
