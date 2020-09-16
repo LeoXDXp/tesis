@@ -228,7 +228,7 @@ As\'i, la Prueba 4 permite encontrar un filamento adicional, y a su vez, es capa
 En esta secci\'on se muestran los resultados de la individualizaci\'on de filamentos para 2 tipos de c\'elulas, los microt\'ubulos existentes en la planta {\it Arabidopsis Marchantia}, y las dendritas en neuronas de rat\'on. Para cada tipo de c\'elulas existen 3 im\'agenes reales con las que se cuenta con la respectiva individualizaci\'on manual realizada por un experto. Se realizan pruebas utilizando las configuraciones predefinidas para estas c\'elulas en base a la informaci\'on recabada ante expertos.
 
 \subsection{Microt\'ubulos de planta}
-
+\label{subsec:mtTest}
 
 %Valor m\'ax de VI para \ref{tab:SpinningMarchantiaResults1} es 3.4965.
 %N\'umero de filamentos en el {\it Ground Truth} de la figura SpinningMarchanria es 12.
@@ -322,7 +322,7 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
         \label{fig:SpinningMarchantiaResults-worstPhilExact}
     \end{subfigure}
     
-    \caption{Filamentos propuestos y correctamente individualizados a partir la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}, obtenidos mediante DeFiNe y el algoritmo propuesto con sus respectivos par\'ametros. Segmentos marcados en negro representan aristas no asignadas correctamente al filamento correspondiente en el {\it ground truth.}, mientras que los filamentos correctamente identificados se encuentran identificados mediante colores.}
+    \caption{Filamentos propuestos y correctamente individualizados a partir la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}, obtenidos mediante DeFiNe y el algoritmo propuesto con sus respectivos par\'ametros. Segmentos marcados en negro representan aristas no asignadas correctamente al filamento correspondiente en el {\it ground truth}, mientras que los filamentos correctamente identificados se encuentran identificados mediante colores.}
     \label{fig:SpinningMarchantiaResults}
 \end{figure*}
 
@@ -471,13 +471,110 @@ El filamento faltante para el algoritmo propuesto corresponde a una sobre-asigna
 \newpage
 
 \subsection{Neuronas}
+\label{subsec:neuronTest}
+En esta secci\'on se muestran los resultados de la evaluaci\'on del algoritmo propuesto para las 3 muestras de neuronas de rat\'on, obtenidas desde \cite{ampuero2019chronic}, y que se denominan N1, N2 y N3. A diferencia de la secci\'on \ref{subsec:mtTest}, en estas evaluaciones las pruebas ejecutadas con DeFiNe presentan cantidades de filamentos propuestos 2 a 6 veces mayores que el n\'umero de filamentos individualizados por un experto. Este comportamiento puede atribuirse a la obligaci\'on que DeFiNe tiene de asignar todas las aristas al menos a un filamento. En comparaci\'on, el algoritmo propuesto al tener mayor flexibilidad, asigna en promedio un 57\% de las aristas a filamentos.
+
+Adicionalmente, los tiempos de ejecuci\'on de las pruebas con DeFiNe son sustancialmente mayores, encontr\'andose en el rango de los minutos a las 4 horas, dependiendo de los par\'ametros utilizados. Lo anterior puede asociarse al n\'umero de aristas que las muestras de neurona tienen en su respectivo grafo, las que son 414 para N1 y 161 para N2. En el caso de la muestra N3, representada por un grafo de 67 aristas, esta no pudo ser calculada con DeFiNe ya que el programa arroja un error de falla cr\'itica, impidiendo su ejecuci\'on. La informaci\'on respecto al n\'umero de filamentos propuestos como de los tiempos de ejecuci\'on se encuentra en la Tabla \ref{tab:FilPropyTiemposNeuronasDefine}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+         Muestra & Algoritmo & Fil. Propuestos & \% Asignaci\'on & Tiempo[s]\\
+         \multirow{3}{*}{N1}& DeFiNe 30\textdegree & 246 & 100 & 1514.6309 \\
+                            & DeFiNe 60\textdegree & 192 & 100 & 15573.7260 \\
+                            & Propuesto Promedio & 59 & 53.706 & 32.5853 \\ \hline
+        \multirow{3}{*}{N2}& DeFiNe 30\textdegree & 113 & 100 & 82.2944 \\
+                            & DeFiNe 60\textdegree & 85 & 100 & 456.4166 \\
+                            & Propuesto Promedio & 34.8 & 59.374 & 4.9522 \\ \hline
+                    N3 & Propuesto Promedio & 17.4 & 57.88 & 4.2840 \\ \hline
+    \end{tabular}
+    \caption{N\'umero de filamentos propuestos y tiempos de ejecuci\'on para DeFiNe y el algoritmo propuesto promediado, para las muestras N1 y N2 en las Figuras \ref{fig:Porta6-4a1} y \ref{fig:Porta10-5b} respectivamente. Estas muestras contienen 24 y 29 filamentos cada una. La muestra N3 en la figura \ref{fig:Porta18-3a1} es representada por un grafo de 67 aristas.}
+    \label{tab:FilPropyTiemposNeuronasDefine}
+\end{table}
+
+As\'i, los motivos anteriores impiden realizar una evaluaci\'on con respecto al criterio experto, por lo que no se consideran los resultados de DeFiNe en esta secci\'on.
+
+En cuanto a los resultados del algoritmo propuesto, indicados en la Tabla \ref{tab:neuronResults}, 
+
+problema de no incorporar el largo como caracter\'istica en la probabilidad de elecci\'on de una arista, durante la etapa de construcci\'on de soluciones en la metaheur\'istica ACO. En N2 y N3 hay un n\'umero razonable de filamentos propuestos. 
+ - Overmatch indican
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+    \hline
+          Prueba & VI & Rand & Jaccard & Precision & Recall & F1 & C/P & C/GT & F.S. \\ \hline
+         %DeFiNe 30\textdegree & 1.8847 & 0.9065 & 0.1512 & 0.5142 & 0.1764 & 0.2627 & 5/23 & 5/12 & 5.0306 \\
+         %DeFiNe 60\textdegree & 2.6744 & 0.8576 & 0.2198 & 0.425 & 0.3127 & 0.3604 & 5/16 & 5/12 & 16.2042 \\
+         \multirow{2}{1.9cm}{7 (Promedio)}
+          &&&&&&&&&\\  
+        & 3.7634 & 0.8863 & 0.1388 & 0.6218 & 0.1517 & 0.2437 & 1.6/59 & 1.6/24 & 1\\
+         \multirow{2}{1.9cm}{7 (Mejor)}
+         &&&&&&&&&\\
+         & 4.2976 & 0.8928 & 0.1264 & 0.6033 & 0.1378 & 0.2244 & 3/66 & 3/24 & 1 \\
+         \multirow{2}{1.9cm}{8 (Promedio)}
+          &&&&&&&&&\\  
+        & XXXXXX & 0.8775 & 0.0702 & 0.2078 & 0.096 & 0.1313 & 4.6/34.8 & 4.6/29 & 3\\
+         \multirow{2}{1.9cm}{8 (Mejor)}
+         &&&&&&&&&\\
+         & XXXX & 0.8804 & 0.0769 & 0.2197 & 0.1057 & 0.1428 & 6/34 & 6/29 & 3 \\
+         \multirow{2}{1.9cm}{9 (Promedio)}
+          &&&&&&&&&\\  
+        & 2.3895 & 0.8683 & 0.2487 & 0.5079 & 0.3283 & 0.3976 & 2/17.4 & 2/14 & 1\\
+         \multirow{2}{1.9cm}{9 (Mejor)}
+         &&&&&&&&&\\
+         & 1.9607 & 0.8762 & 0.2232 & 0.4716 & 0.2976 & 0.3649 & 2/17 & 2/14 & 1 \\
+         \hline
+    \end{tabular}
+    \caption{Resultados de la individualizaci\'on de filamentos mediante el algoritmo propuesto para las muestra N1, N2 y N3, en las Figuras \ref{fig:Porta6-4a1}, \ref{fig:Porta10-5b} y \ref{fig:Porta18-3a1} respectivamente. Los valores m\'aximos de VI para cada muestra son 6.0258, 5.0814 y 4.2046, basados en el n\'umero de aristas de los grafos respectivos, que son 414 para N1, 161 para N2 y 67 para N3. La columna F.S. indica el n\'umero de filamentos sobre-asignados por a lo m\'as 1 arista.}
+    \label{tab:neuronResults}
+\end{table}
+
+
+\begin{figure*}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    ~ 
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    
+    \vskip\baselineskip
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    ~ 
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    
+    \caption{}
+    \label{}
+\end{figure*}
+
 
 \section{Resultados Generales}
 
 Observando los resultados obtenidos al individualizar filamentos a partir de im\'agenes sint\'eticas y reales, se tiene que para casos simples existe un comportamiento similar entre el algoritmo propuesto y DeFiNe, con la diferencia de tiempo a favor del algoritmo propuesto. A medida que los filamentos son representados por grafos de mayor complejidad, es decir, con un mayor n\'umero de nodos y aristas, el tiempo de resoluci\'on para el algoritmo propuesto se mantiene en rangos inferiores al minuto, a diferencia de lo que sucede con DeFiNe. La diferencia entre los tiempos de calculo puede ser atribuida parcialmente a la forma en que se explora el espacio de b\'usqueda, teniendo en cuenta la diferencia entre los lenguajes de programaci\'on utilizados para implementar cada m\'etodo. 
 
 
-Poro otra parte, el comportamiento del algoritmo propuesto es estable, tendiendo a individualizar los mismos filamentos en cada iteraci\'on, y pudiendo encontrar filamentos que no aparecen en DeFiNe. Se debe tener en consideraci\'on que el \'ultimo aspecto puede relacionarse con el uso de una ponderaci\'on distinta a la ideal presentada por los autores de DeFiNe, que puede ocasionar la merma en los resultados por aquel m\'etodo. La estabilidad del algoritmo, en conjunto con los par\'ametros predefinidos apunta a favorecer la experiencia del usuario, ya que evita la sintonizaci\'on de par\'ametros, simplificando el trabajo del experto. Adem\'as, la utilizaci\'on de \'ultiples caracter\'isticas en el algoritmo propuesto permite al usuario ajustar par\'ametros espec\'ificos, as\'i como integrar nuevos par\'ametros para manejar informaci\'on adicional que pueda ser incorporada. Otro aspecto que permite mejorar la experiencia del usuario radica en el uso de la curvatura de las aristas, en comparaci\'on a representarlas mediante una l\'inea recta entre 2 nodos. Esto no s\'olo aporta m\'as informaci\'on, sino que adem\'as mejora la visualizaci\'on de los resultados. 
+Por otra parte, el comportamiento del algoritmo propuesto es estable, tendiendo a individualizar los mismos filamentos en cada iteraci\'on, y pudiendo encontrar filamentos que no aparecen en DeFiNe. Se debe tener en consideraci\'on que el \'ultimo aspecto puede relacionarse con el uso de una ponderaci\'on distinta a la ideal presentada por los autores de DeFiNe, que puede ocasionar la merma en los resultados por aquel m\'etodo. La estabilidad del algoritmo, en conjunto con los par\'ametros predefinidos apunta a favorecer la experiencia del usuario, ya que evita la sintonizaci\'on de par\'ametros, simplificando el trabajo del experto. Adem\'as, la utilizaci\'on de \'ultiples caracter\'isticas en el algoritmo propuesto permite al usuario ajustar par\'ametros espec\'ificos, as\'i como integrar nuevos par\'ametros para manejar informaci\'on adicional que pueda ser incorporada. Otro aspecto que permite mejorar la experiencia del usuario radica en el uso de la curvatura de las aristas, en comparaci\'on a representarlas mediante una l\'inea recta entre 2 nodos. Esto no s\'olo aporta m\'as informaci\'on, sino que adem\'as mejora la visualizaci\'on de los resultados. 
+
+Un an\'alisis particular recae en las m\'etricas y medidas utilizadas para comparar los resultados obtenidos, dado que en el caso de la m\'etrica VI y los \'indices Rand y Jaccard, se pueden obtener resultados contradictorios. En base a lo anterior, las dem\'as medidas utilizadas como {\it Precision}, {\it Recall} y la medida F1 que se deriva de las 2 anteriores, son las que pueden entregar mayor claridad del comportamiento de los m\'etodos probados, ya que permiten observar la individualizaci\'on de filamentos como un problema de clasificaci\'on de aristas en uno o m\'as categor\'ias, siendo cada  categor\'ia un filamento individualizado por un experto.
 
 
 % t-test para cantidad de filamentos propuestos vs gtruth, y correctos vs gtruth
