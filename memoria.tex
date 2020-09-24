@@ -16,7 +16,7 @@
 \author{Leonardo Enrique Pizarro Baeza}
 \title{Individualizaci\'on de filamentos en una red mediante optimizaci\'on}
 \auspicio{Parcialmente financiado por el Fondo Nacional de Desarrollo Cient\'ifico y Tecnol\'ogico (FONDECYT 1180906 y 1190806) y la ICM (P09-015-F)}
-\date{Agosto 2020}
+\date{Septiembre 2020}
 \guia{Mauricio Cerda Villablanca \break Jacques Dumais}
 \carrera{Magíster en Ciencias, Mención Computación}
 \memoria{Tesis para optar al Grado de \break  Magíster en Ciencias, Mención Computación}
@@ -43,11 +43,13 @@ particulares como en una red de prote\'inas de una c\'elula eucariota, as\'i com
 El problema de identificar filamentos en im\'agenes de microscop\'ia est\'a limitado por la resoluci\'on, y los problemas de m\'ultiples par\'ametros a ajustar, para los m\'etodos basados en procesamiento de im\'agenes, el costo
 computacional en los m\'etodos basados en optimizaci\'on, y falta de descriptores cuantitativos en ambas. La revisi\'on bibliogr\'afica da cuenta tambi\'en de pocas herramientas disponibles. Todo lo anterior implica que parte del an\'alisis deba ser manual, lo que para grandes cantidades de datos, hace los estudios más propensos a errores.
 
-Esta investigación se centra en el desarrollo un modelo de optimizaci\'on para la individualizaci\'on de filamentos a partir de un grafo representativo de la red de filamentos, evaluando la variaci\'on en el resultado con distintas combinaciones entre las propiedades de cada segmento de filamento como el grosor, largo, \'angulo de bifurcaci\'on o direcci\'on.
+Esta investigación se centra en el desarrollo un algoritmo que pueda resolver un modelo de optimizaci\'on para la individualizaci\'on de filamentos a partir de un grafo que representa una red de filamentos, utilizando m\'ultiples caracter\'isticas. El uso de diversas caracter\'isticas permite acotar el espacio de b\'usqueda, el que inicialmente consiste en todas las combinaciones posibles de aristas, lo que permite categorizar este problema como NP-Hard.
+
+%evaluando la variaci\'on en el resultado con distintas combinaciones entre las propiedades de cada segmento de filamento como el grosor, largo, \'angulo de bifurcaci\'on o direcci\'on.
 
 %Como resultado, se obtiene una herramienta para el an\'alisis automatizado de estructuras de filamentos, permitiendo mejorar el seguimiento de procesos din\'amicos o la identificaci\'on de procesos patol\'ogicos de forma autom\'atica.
 
-Como resultado, se obtiene una herramienta para el an\'alisis automatizado de estructuras de filamentos que individualiza correctamente filamentos en el caso de microt\'ublos y neuronas, con respecto a la individualizaci\'on realizada por un experto, en un tiempo inferior al minuto.
+Como resultado, se obtiene un algoritmo flexible que individualiza filamentos de forma autom\'atica, que a su vez permite la incorporaci\'on de nuevas caracter\'isticas y/o restricciones. El algoritmo propuesto se evalua en casos sint\'eticos, as\'i como en microt\'ublos de planta y neuronas de rat\'on, logrando proponer un n\'umero de filamentos similar al que propone un experto de forma manual, en un tiempo inferior al minuto.
 
 \end{abstract}
 

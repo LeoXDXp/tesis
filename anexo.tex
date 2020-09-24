@@ -28,183 +28,144 @@ La captura o recuperaci\'on de la informaci\'on del vecindario de los p\'ixeles 
 
 \section{Resultados algoritmo propuesto en Im\'agenes Sint\'eticas}
 
-Las tablas \ref{tab:Synth-QuantitativeIFS-Fig7DetailedResults1} y \ref{tab:Synth-Define-1b-DetailedResults1} indican el detalle de las 5 iteraciones utilizadas para promediar el resultado del algoritmo propuesto 
-
-
-en sus respectivos casos. Informaci\'on detallada de otros resultados puede encontrarse en el repositorio git del algoritmo propuesto.
+La Tabla \ref{tab:Synth-QuantitativeIFS-Fig7DetailedResults1} indica el detalle de las 5 iteraciones utilizadas para promediar el resultado del algoritmo propuesto para las Figura \ref{fig:synth-QFS-7} con la configuraci\'on Modo 2. Por su parte, la Tabla  \ref{tab:Synth-Define-1b-DetailedResults1} muestra los resultados de la individualizaci\'on de filamentos del algoritmo propuesto para la Figura \ref{fig:synth-Define-1b}, con la configuraci\'on definida como Modo 3. Informaci\'on detallada de otros resultados puede encontrarse en el repositorio git del algoritmo propuesto.
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
     \hline
-        Semilla & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline 
-        0    & 2.0445 & 13 & 13 & 139 & 45 & 0.7238 & 0.1830 & 0.5 & 0.2241 & 0.3095\\
-        10   & 1.5454 & 10 & 10 & 94  & 22 & 0.7647 & 0.2380 & 0.5 & 0.3125 & 0.3846\\
-        1271 & 1 & 8  & 6  & 58  & 6  & 0.8461 & 0.4 & 0.5714 & 0.5714 & 0.5714\\
-        3389 & 1.5454 & 10 & 10 & 94  & 22 & 0.7647 & 0.2380 & 0.5 & 0.3125 & 0.3846\\
-        6821 & 2.0445 & 13 & 13 & 139 & 45 & 0.7238 & 0.1830 & 0.5  & 0.2241 & 0.3095\\
+        Semilla & VI & TP & FP &TN &FN & R	& J & P & R &F1 & C/P & C/GT \\ \hline 
+        0    & 0.81 & 9 & 5 & 67 & 10 & 0.83 & 0.37 & 0.64 & 0.47 & 0.54 & 4/6 & 4/6\\
+        10 & 0.81 & 9 & 5 & 67 & 10 & 0.83 & 0.37 & 0.64 & 0.47 & 0.54 & 4/6 & 4/6\\
+        1271 & 0.27 & 7 & 1 & 37  & 0  & 0.97 & 0.87 & 0.87 & 1 & 0.93 & 4/5 & 4/6\\
+        3389 & 0.81 & 9 & 5 & 67 & 10 & 0.83 & 0.37 & 0.64 & 0.47 & 0.54 & 4/6 & 4/6\\
+        6821 & 0.81 & 9 & 5 & 67 & 10 & 0.83 & 0.37 & 0.64 & 0.47 & 0.54 & 4/6 & 4/6\\
         \hline
     \end{tabular}
-    \caption{Resultados de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:synth-QFS-7}. El valor m\'aximo de VI en este caso es de 1.7917, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos en el {\it ground truth} es 6.}
+    \caption{Resultados de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:synth-QFS-7}, con la configuraci\'on Modo 2. El valor m\'aximo de VI en este caso es de 2.3978, ya que el tama\~no del {\it data set} es de 11 aristas. El n\'umero de filamentos en el {\it ground truth} es 6. Las columnas TP, FN, TN y FN corresponden a {\it True Positive}, {\it  False Positive}, {\it True Negative} y {\it False Negative} respectivamente. Por su parte, R y J son los \'indices Rand y Jaccard, P y R son {\it Precision} y {\it Recall}, C/P indica la cantidad de filamentos correctos respecto a los filamentos propuestos, mientras que C/GT son los filamentos correctos en relaci\'on a los filamentos individualizados por un experto.}
     \label{tab:Synth-QuantitativeIFS-Fig7DetailedResults1}
 \end{table}
-\addtocounter{table}{-1}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
-         &  &  &  & & &  \\
-        Semilla &  &  &  & & &  \\
-        &  &  &  & & &  \\ \hline 
-        0 & 1 & 7 & 3 & 42.8571 & 50 & 0.3987\\
-        10 & 1 & 6 & 3 & 50 & 50 & 0.3636\\
-        1271 & 1 & 5 & 3 & 60 & 50 & 0.3135\\
-        3389 & 1 & 6 & 3 & 50 & 50 & 0.3410\\
-        6821 & 1 & 7 & 3 & 42.8571 & 50 & 0.3675\\
-        \hline
-    \end{tabular}
-    \caption{Resultados ({\it Continuaci\'on}) de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:synth-QFS-7}. El n\'umero de filamentos en el {\it ground truth} es 6.}
-\end{table}
 
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
     \hline
-        Semilla & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline 
-        0   & 2.0422 & 26 & 41 & 227 & 57 & 0.7207 & 0.2096 & 0.3880 & 0.3132 & 0.3466 \\
-        10 & 2.2500 & 17 & 34 & 218 & 56 & 0.7230 & 0.1588 & 0.3333 & 0.2328 & 0.2741\\
-        1271 & 2.7267 & 28 & 51 & 327 & 90 & 0.7157 & 0.1656 & 0.3544 & 0.2372 & 0.2842\\
-        3389 & 2.0422 & 26 & 41 & 227 & 57 & 0.7207 & 0.2096 & 0.3880 & 0.3132 & 0.3466\\
-        6821 & 2.0210 & 17 & 33 & 203 & 47 & 0.7333 & 0.1752 & 0.34 & 0.2656 & 0.2982\\
+        Semilla & VI & TP & FP &TN &FN & R	& J & P & R &F1 & C/P & C/GT \\ \hline 
+        0  & 2.14 & 28 & 53 & 263 & 62 & 0.71 & 0.19 & 0.34 & 0.31 & 0.32 & 3/9 & 3/6\\
+        10 & 2.09 & 20 & 37 & 261 & 60 & 0.74 & 0.17 & 0.35 & 0.25 & 0.29 & 3/9 & 3/6\\
+        1271 & 2.84 & 29 & 63 & 373 & 96 & 0.71 & 0.15& 0.31 & 0.232 & 0.26 & 3/10 & 3/6\\
+        3389 & 2.14 & 28 & 53 & 263 & 62 & 0.71 & 0.19 & 0.34 & 0.31 & 0.32 & 3/9 & 3/6\\
+        6821 & 1.91 & 19 & 35 & 223 & 48 & 0.74 & 0.18 & 0.35 & 0.28 & 0.31 & 3/9 & 3/6\\
         \hline
     \end{tabular}
-    \caption{Resultados de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:synth-Define-1b}. El valor m\'aximo de VI en este caso es de 3.044522, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos en el {\it ground truth} es 5.}
+    \caption{Resultados de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:synth-Define-1b}, con la configuraci\'on Modo 3. El valor m\'aximo de VI en este caso es de 2.8332, ya que el tama\~no del {\it data set} es de 17 aristas. El n\'umero de filamentos en el {\it ground truth} es 5. Las columnas TP, FN, TN y FN corresponden a {\it True Positive}, {\it  False Positive}, {\it True Negative} y {\it False Negative} respectivamente. Por su parte, R y J son los \'indices Rand y Jaccard, P y R son {\it Precision} y {\it Recall}, C/P indica la cantidad de filamentos correctos respecto a los filamentos propuestos, mientras que C/GT son los filamentos correctos en relaci\'on a los filamentos individualizados por un experto.}
     \label{tab:Synth-Define-1b-DetailedResults1}
 \end{table}
-\addtocounter{table}{-1}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
-         &  &  &  & & &  \\
-        Semilla &  &  &  & & &  \\
-        &  &  &  & & &  \\ \hline 
-        0 & 1 & 9  & 3 & 33.3333 & 60 & 0.4432\\
-        10 & 1 & 9  & 3 & 33.3333 & 60 & 0.5299\\
-        1271 & 1 & 10 & 3 & 30 & 60 & 0.4795\\
-        3389 & 1 & 9  & 3 & 33.3333 & 60 & 0.5276\\
-        6821 & 1 & 9  & 3 & 33.3333 & 60 & 0.5554\\
-        \hline
-    \end{tabular}
-    \caption{Resultados ({\it Continuaci\'on}) de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:synth-Define-1b}. El n\'umero de filamentos en el {\it ground truth} es 5.}
-\end{table}
 
-\section{Resultados Algoritmo algoritmo propuesto en Im\'agenes Reales}
+% \section{Resultados Algoritmo algoritmo propuesto en Im\'agenes Reales}
 
-Las tablas \ref{tab:SpinningMarchantiaDetailedResults1},  \ref{tab:field3t0filteredDetailedResults1} y \ref{tab:field3t0filtered2DetailedResults1} indican el detalle de las 5 iteraciones utilizadas para promediar el resultado del algoritmo algoritmo propuesto en sus respectivos casos. Informaci\'on detallada de otros resultados puede encontrarse en el repositorio del algoritmo algoritmo propuesto.
+% Las tablas \ref{tab:SpinningMarchantiaDetailedResults1},  \ref{tab:field3t0filteredDetailedResults1} y \ref{tab:field3t0filtered2DetailedResults1} indican el detalle de las 5 iteraciones utilizadas para promediar el resultado del algoritmo algoritmo propuesto en sus respectivos casos. Informaci\'on detallada de otros resultados puede encontrarse en el repositorio del algoritmo algoritmo propuesto.
 
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
-    \hline
-        Semilla & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline 
-        0    & 1.9079 & 43 & 54 & 853 & 85 & 0.8657 & 0.2362 & 0.4432 & 0.3359 & 0.3822 \\
-        10   & 1.7392 & 43 & 51 & 818 & 78 & 0.8696 & 0.25 & 0.4574 & 0.3553 & 0.4 \\
-        1271 & 2.0292 & 44 & 62 & 886 & 89 & 0.8603 & 0.2256 & 0.4150 & 0.3308 & 0.3682 \\
-        3389 & 1.8376 & 43 & 54 & 815 & 78 & 0.8666 & 0.2457 & 0.4432 & 0.3553 & 0.3944 \\
-        6821 & 1.8376 & 43 & 54 & 815 & 78 & 0.8666 & 0.2457 & 0.4432 & 0.3553 & 0.3944 \\
-        \hline
-    \end{tabular}
-    \caption{Resultados de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:SpinningMarchantia}. El valor m\'aximo de VI en este caso es de 3.496508, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos en el {\it ground truth} es 12.}
-    \label{tab:SpinningMarchantiaDetailedResults1}
-\end{table}
-\addtocounter{table}{-1}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
-         &  &  &  & & &  \\
-        Semilla &  &  &  & & &  \\
-        &  &  &  & & &  \\ \hline 
-        0 & 1 & 13 & 8 & 61.5384 & 66.6667 & 0.7281  \\
-        10 & 1 & 13 & 7 & 53.8461 & 58.3333 & 0.7334\\
-        1271 & 1 & 12 & 7 & 58.3333 & 58.3333 & 0.6870\\
-        3389 & 1 & 12 & 7 & 58.3333 & 58.3333 & 0.6677\\
-        6821 & 1 & 12 & 7 & 58.3333 & 58.3333 & 0.6558\\
-        \hline
-    \end{tabular}
-    \caption{Resultados ({\it Continuaci\'on}) de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:SpinningMarchantia}. El n\'umero de filamentos en el {\it ground truth} es 12.}
-\end{table}
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+%     \hline
+%         Semilla & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline 
+%         0    & 1.9079 & 43 & 54 & 853 & 85 & 0.8657 & 0.2362 & 0.4432 & 0.3359 & 0.3822 \\
+%         10   & 1.7392 & 43 & 51 & 818 & 78 & 0.8696 & 0.25 & 0.4574 & 0.3553 & 0.4 \\
+%         1271 & 2.0292 & 44 & 62 & 886 & 89 & 0.8603 & 0.2256 & 0.4150 & 0.3308 & 0.3682 \\
+%         3389 & 1.8376 & 43 & 54 & 815 & 78 & 0.8666 & 0.2457 & 0.4432 & 0.3553 & 0.3944 \\
+%         6821 & 1.8376 & 43 & 54 & 815 & 78 & 0.8666 & 0.2457 & 0.4432 & 0.3553 & 0.3944 \\
+%         \hline
+%     \end{tabular}
+%     \caption{Resultados de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:SpinningMarchantia}. El valor m\'aximo de VI en este caso es de 3.496508, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos en el {\it ground truth} es 12.}
+%     \label{tab:SpinningMarchantiaDetailedResults1}
+% \end{table}
+% \addtocounter{table}{-1}
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|c|c|c|c|c|c|c|}
+%     \hline
+%          & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
+%          &  &  &  & & &  \\
+%         Semilla &  &  &  & & &  \\
+%         &  &  &  & & &  \\ \hline 
+%         0 & 1 & 13 & 8 & 61.5384 & 66.6667 & 0.7281  \\
+%         10 & 1 & 13 & 7 & 53.8461 & 58.3333 & 0.7334\\
+%         1271 & 1 & 12 & 7 & 58.3333 & 58.3333 & 0.6870\\
+%         3389 & 1 & 12 & 7 & 58.3333 & 58.3333 & 0.6677\\
+%         6821 & 1 & 12 & 7 & 58.3333 & 58.3333 & 0.6558\\
+%         \hline
+%     \end{tabular}
+%     \caption{Resultados ({\it Continuaci\'on}) de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:SpinningMarchantia}. El n\'umero de filamentos en el {\it ground truth} es 12.}
+% \end{table}
 
 
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
-    \hline
-        Semilla & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline 
-        0    & 2.0759 & 83  & 82  & 1624 & 164 & 0.8740  & 0.2522  & 0.5030  & 0.3360 & 0.4029 \\
-        10   & 1.8889  & 91  & 81  & 1524 & 134 & 0.8825 & 0.2973 & 0.5290  & 0.4044 & 0.4584 \\
-        1271 & 2.8895 & 107 & 113 & 2430 & 276 & 0.8670 & 0.2157 & 0.4863 & 0.2793 & 0.3548\\
-        3389 & 2.1723 & 108 & 87  & 2022 & 258 & 0.8571 & 0.2332 & 0.5268 & 0.2950 & 0.3782\\
-        6821 & 2.3675 & 91  & 84  & 1873 & 163 & 0.8882 & 0.2692 & 0.52     & 0.3582 & 0.4242\\
-        \hline
-    \end{tabular}
-    \caption{Resultados de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:field3t0filtered1}. El valor m\'aximo de VI en este caso es de 3.7612, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos en el {\it ground truth} es 12.}
-    \label{tab:field3t0filteredDetailedResults1}
-\end{table}
-\addtocounter{table}{-1}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
-         &  &  &  & & &  \\
-        Semilla &  &  &  & & &  \\
-        &  &  &  & & &  \\ \hline 
-        0 & 1 & 15 & 7 & 46.6666 & 58.3333 & 0.9919  \\
-        10 & 1 & 14 & 8 & 57.1428 & 66.6667 & 1.0342\\
-        1271 & 1 & 16 & 8 & 50  & 66.6667 & 0.9953\\
-        3389 & 1 & 15 & 8 & 53.3333 & 66.6667 & 0.9797\\
-        6821 & 1 & 15 & 8 & 53.3333 & 66.6667 & 0.8456\\
-        \hline
-    \end{tabular}
-    \caption{Resultados ({\it Continuaci\'on}) de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:field3t0filtered1}. El n\'umero de filamentos en el {\it ground truth} es 12.}
-\end{table}
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+%     \hline
+%         Semilla & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline 
+%         0    & 2.0759 & 83  & 82  & 1624 & 164 & 0.8740  & 0.2522  & 0.5030  & 0.3360 & 0.4029 \\
+%         10   & 1.8889  & 91  & 81  & 1524 & 134 & 0.8825 & 0.2973 & 0.5290  & 0.4044 & 0.4584 \\
+%         1271 & 2.8895 & 107 & 113 & 2430 & 276 & 0.8670 & 0.2157 & 0.4863 & 0.2793 & 0.3548\\
+%         3389 & 2.1723 & 108 & 87  & 2022 & 258 & 0.8571 & 0.2332 & 0.5268 & 0.2950 & 0.3782\\
+%         6821 & 2.3675 & 91  & 84  & 1873 & 163 & 0.8882 & 0.2692 & 0.52     & 0.3582 & 0.4242\\
+%         \hline
+%     \end{tabular}
+%     \caption{Resultados de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:field3t0filtered1}. El valor m\'aximo de VI en este caso es de 3.7612, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos en el {\it ground truth} es 12.}
+%     \label{tab:field3t0filteredDetailedResults1}
+% \end{table}
+% \addtocounter{table}{-1}
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|c|c|c|c|c|c|c|}
+%     \hline
+%          & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
+%          &  &  &  & & &  \\
+%         Semilla &  &  &  & & &  \\
+%         &  &  &  & & &  \\ \hline 
+%         0 & 1 & 15 & 7 & 46.6666 & 58.3333 & 0.9919  \\
+%         10 & 1 & 14 & 8 & 57.1428 & 66.6667 & 1.0342\\
+%         1271 & 1 & 16 & 8 & 50  & 66.6667 & 0.9953\\
+%         3389 & 1 & 15 & 8 & 53.3333 & 66.6667 & 0.9797\\
+%         6821 & 1 & 15 & 8 & 53.3333 & 66.6667 & 0.8456\\
+%         \hline
+%     \end{tabular}
+%     \caption{Resultados ({\it Continuaci\'on}) de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:field3t0filtered1}. El n\'umero de filamentos en el {\it ground truth} es 12.}
+% \end{table}
 
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
-    \hline
-        Semilla & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline 
-        0    & 0.428571 & 2 & 1 & 23 & 2 & 0.892857 & 0.4 & 0.666667 & 0.5 & 0.5714 \\
-        10   & 0.428571 & 2 & 1 & 23 & 2 & 0.892857 & 0.4 & 0.666667 & 0.5 & 0.5714 \\
-        1271 & 0.428571 & 2 & 1 & 23 & 2 & 0.892857 & 0.4 & 0.666667 & 0.5 & 0.5714 \\
-        3389 & 0.428571 & 2 & 1 & 23 & 2 & 0.892857 & 0.4 & 0.666667 & 0.5 & 0.5714 \\
-        6821 & 0.428571 & 2 & 1 & 23 & 2 & 0.892857 & 0.4 & 0.666667 & 0.5 & 0.5714 \\
-        \hline
-    \end{tabular}
-    \caption{Resultados de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:field3t0filtered2}. El valor m\'aximo de VI en este caso es de 1.94591, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos en el {\it ground truth} es 5.}
-    \label{tab:field3t0filtered2DetailedResults1}
-\end{table}
-\addtocounter{table}{-1}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-         & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
-         &  &  &  & & &  \\
-        Semilla &  &  &  & & &  \\
-        &  &  &  & & &  \\ \hline 
-        0 & 1 & 5 & 4 & 80 & 80 & 0.2872 \\
-        10 & 1 & 5 & 4 & 80 & 80 & 0.2929\\
-        1271 & 1 & 5 & 4 & 80 & 80 & 0.2882\\
-        3389 & 1 & 5 & 4 & 80 & 80 & 0.2806\\
-        6821 & 1 & 5 & 4 & 80 & 80 & 0.3080\\
-        \hline
-    \end{tabular}
-    \caption{Resultados ({\it Continuaci\'on}) de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:field3t0filtered2}. El n\'umero de filamentos en el {\it ground truth} es 5.}
-\end{table}
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+%     \hline
+%         Semilla & VI & TP & FP &TN &FN & Rand	& Jaccard &	Precision &	Recall &	F1 \\ \hline 
+%         0    & 0.428571 & 2 & 1 & 23 & 2 & 0.892857 & 0.4 & 0.666667 & 0.5 & 0.5714 \\
+%         10   & 0.428571 & 2 & 1 & 23 & 2 & 0.892857 & 0.4 & 0.666667 & 0.5 & 0.5714 \\
+%         1271 & 0.428571 & 2 & 1 & 23 & 2 & 0.892857 & 0.4 & 0.666667 & 0.5 & 0.5714 \\
+%         3389 & 0.428571 & 2 & 1 & 23 & 2 & 0.892857 & 0.4 & 0.666667 & 0.5 & 0.5714 \\
+%         6821 & 0.428571 & 2 & 1 & 23 & 2 & 0.892857 & 0.4 & 0.666667 & 0.5 & 0.5714 \\
+%         \hline
+%     \end{tabular}
+%     \caption{Resultados de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:field3t0filtered2}. El valor m\'aximo de VI en este caso es de 1.94591, ya que el tama\~no del {\it data set} es de 29 aristas. El n\'umero de filamentos en el {\it ground truth} es 5.}
+%     \label{tab:field3t0filtered2DetailedResults1}
+% \end{table}
+% \addtocounter{table}{-1}
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|c|c|c|c|c|c|c|}
+%     \hline
+%          & \multirow{4}{2cm}{\centering \% Cobertura de Aristas} & \multirow{4}{2cm}{Filamentos Propuestos} & \multirow{4}{2cm}{Filamentos Correctos} & \multirow{4}{2.5cm}{\% Correctos vs Propuestos} & \multirow{4}{2.5cm}{\centering \% Correctos vs {\it Ground Truth}} & \multirow{4}{1.2cm}{\centering Tiempo [seg]} \\
+%          &  &  &  & & &  \\
+%         Semilla &  &  &  & & &  \\
+%         &  &  &  & & &  \\ \hline 
+%         0 & 1 & 5 & 4 & 80 & 80 & 0.2872 \\
+%         10 & 1 & 5 & 4 & 80 & 80 & 0.2929\\
+%         1271 & 1 & 5 & 4 & 80 & 80 & 0.2882\\
+%         3389 & 1 & 5 & 4 & 80 & 80 & 0.2806\\
+%         6821 & 1 & 5 & 4 & 80 & 80 & 0.3080\\
+%         \hline
+%     \end{tabular}
+%     \caption{Resultados ({\it Continuaci\'on}) de 5 iteraciones de algoritmo propuesto para individualizar filamentos en la figura \ref{fig:field3t0filtered2}. El n\'umero de filamentos en el {\it ground truth} es 5.}
+% \end{table}
