@@ -14,14 +14,14 @@ El filtro LFT busca resaltar caracter\'isticas lineales centr\'andose en cada p\
 \begin{figure}[h]
         \centering
         \includegraphics[scale=5]{imagenes/MT-LFT.jpeg}
-        \caption{B\'usqueda por lineas con radio $r$ para diferentes \'angulos, según filtro LFT. Fuente: \cite{zhang2017extracting}}.
+        \caption[B\'usqueda por lineas con radio $r$ para diferentes \'angulos, según filtro LFT.]{B\'usqueda por lineas con radio $r$ para diferentes \'angulos, según filtro LFT. Fuente: \cite{zhang2017extracting}}.
         \label{fig:MTLFT}
 \end{figure}
 
 \begin{figure}[h]
         \centering
         \includegraphics[scale=0.38]{imagenes/MT-OFT.jpeg}
-        \caption{Criterios del filtro OFT: (a) Vectores de propagaci\'on (rojo) y distancia (amarillo) (b) Ejemplos de criterios de coincidencia de fragmentos de filamento I) Similaridad de direcci\'on, II) Proximidad, III) Continuidad. Fuente: \cite{zhang2017extracting}.}
+        \caption[Criterios del filtro OFT.]{Criterios del filtro OFT: (a) Vectores de propagaci\'on (rojo) y distancia (amarillo) (b) Ejemplos de criterios de coincidencia de fragmentos de filamento I) Similaridad de direcci\'on, II) Proximidad, III) Continuidad. Fuente: \cite{zhang2017extracting}.}
         \label{fig:MTOFT}
 \end{figure}
 
@@ -67,7 +67,7 @@ Los autores de {\it FibriTool} desarrollan este m\'etodo para evitar el uso de d
 \begin{figure}[h!]
         \centering
         \includegraphics[scale=0.6]{imagenes/fibritool.jpg}
-        \caption{\'Area de inter\'es seleccionada manualmente en amarillo, y resultado de FibriTool en rojo o verde. Fuente: \cite{boudaoud2014fibriltool}.}
+        \caption[\'Area de inter\'es seleccionada manualmente en amarillo, y resultado de FibriTool en rojo o verde.]{\'Area de inter\'es seleccionada manualmente en amarillo, y resultado de FibriTool en rojo o verde. Fuente: \cite{boudaoud2014fibriltool}.}
         \label{fig:fibritool}
 \end{figure}
 
@@ -89,7 +89,7 @@ Las 6 etapas del filtro consideradas en este m\'etodo consisten en 4 etapas de a
 \begin{figure}[h!]
         %\centering
         \includegraphics[scale=0.75]{imagenes/QuantitativeIFS.png}
-        \caption{Etapas de individualizaci\'on de filamentos de \cite{qiu2014quantitative}. (a): Imagen de red de fibras de un osteoblasto. (b, c, d, e, f): Filtros de limpieza, tubularidad, segmentaci\'on, conectividad y esqueletonizaci\'on. (g): Clasificaci\'on topol\'ogica de intersecciones a nivel de p\'ixel. (h): Resultado de algoritmo SBDA. (i): Individualizaci\'on de segmentos de filamentos seg\'un forma estructural: aislado (verde), solapado (morado) u otro (azul). Fuente: \cite{qiu2014quantitative}.}
+        \caption[Etapas de individualizaci\'on de filamentos de \cite{qiu2014quantitative}.]{Etapas de individualizaci\'on de filamentos de \cite{qiu2014quantitative}. (a): Imagen de red de fibras de un osteoblasto. (b, c, d, e, f): Filtros de limpieza, tubularidad, segmentaci\'on, conectividad y esqueletonizaci\'on. (g): Clasificaci\'on topol\'ogica de intersecciones a nivel de p\'ixel. (h): Resultado de algoritmo SBDA. (i): Individualizaci\'on de segmentos de filamentos seg\'un forma estructural: aislado (verde), solapado (morado) u otro (azul). Fuente: \cite{qiu2014quantitative}.}
         \label{fig:IFS}
 \end{figure}
 %describir SBDA, el analisis es a nivel de pixel
@@ -104,7 +104,7 @@ La investigaci\'on de \cite{alioscha2016robust} presenta un marco para el an\'al
 \begin{figure}[t]
     \centering
     \includegraphics[scale=2]{imagenes/Aliosha2016-GaussLaplFilters.jpg}
-    \caption{A partir de la segmentaci\'on obtenida con la libreria MCALab (a), se aplican los filtros Gaussiano, Laplaciano y Gaussiano direccional para obtener una intensificaci\'on de los filamentos (b). Fuente: \cite{alioscha2016robust}.}
+    \caption[Aplicaci\'on de filtros posterior a la segmentaci\'on.]{A partir de la segmentaci\'on obtenida con la libreria MCALab (a), se aplican los filtros Gaussiano, Laplaciano y Gaussiano direccional para obtener una intensificaci\'on de los filamentos (b). Fuente: \cite{alioscha2016robust}.}
     \label{fig:AlioshaRobust}
 \end{figure}
 
@@ -130,7 +130,7 @@ Por su parte, la investigaci\'on de \cite{xu2015soax} llamada SOAX, emplea curva
 \begin{figure}[h]
         %\centering
         \includegraphics[scale=0.7]{imagenes/SOAX_translated.jpg}
-        \caption{Etapas de SOAX: A partir de los puntos de alta intensidad se inicializan curvas param\'etricas de contorno abierto (SOAC), las que crecen, generando intersecciones entre ellas. Finalmente, se agrupan las intersecciones más cercanas. Fuente: \cite{xu2015soax}.}
+        \caption[Etapas de SOAX.]{Etapas de SOAX: A partir de los puntos de alta intensidad se inicializan curvas param\'etricas de contorno abierto (SOAC), las que crecen, generando intersecciones entre ellas. Finalmente, se agrupan las intersecciones más cercanas. Fuente: \cite{xu2015soax}.}
         \label{fig:SOAX}
 \end{figure}
 
@@ -191,7 +191,7 @@ El subconjunto $P'$ constituye los datos de entrada del problema de {\it Set Cov
         \caption{Subconjunto {\bf P'} para el grafo de 5 nodos a la izquierda, utilizando la opci\'on de 100 {\it RMST} o heur\'istica de {\it BFS} que corta el camino al encontrar un \'angulo de deflexi\'on mayor a 60\degree entre aristas adyacentes.  }
         \label{fig:subconjunto-p-prima-caminos-posibles}
     \end{subfigure}
-    \caption{(\ref{fig:define-set-cover}) A partir de un grafo ponderado proveniente de una estructura sint\'etica o de una imagen real, se elige {\bf P'} entre los $N(N-1)/2$ caminos no triviales y sin direcci\'on que aporta cada uno de los 100 \'arboles de expansi\'on m\'inima aleatoria ({\it RMST}), o los caminos resultantes de la heur\'istica de b\'usqueda por anchura ({\it BFS}) con interrupci\'on al dar con una arista que tenga un \'angulo superior a 60\degree. (\ref{fig:subconjunto-p-prima-caminos-posibles}) Subconjunto {\bf P'} de P, para el grafo de 5 nodos de ejemplo a la izquierda. Fuente: \cite{breuer2015define}.}
+    \caption[Extracci\'on de caminos para formar P' en DeFiNe.]{(a) A partir de un grafo ponderado proveniente de una estructura sint\'etica o de una imagen real, se elige {\bf P'} entre los $N(N-1)/2$ caminos no triviales y sin direcci\'on que aporta cada uno de los 100 \'arboles de expansi\'on m\'inima aleatoria ({\it RMST}), o los caminos resultantes de la heur\'istica de b\'usqueda por anchura ({\it BFS}) con interrupci\'on al dar con una arista que tenga un \'angulo superior a 60\degree. (b) Subconjunto {\bf P'} de P, para el grafo de 5 nodos de ejemplo a la izquierda. Fuente: \cite{breuer2015define}.}
     \end{figure*}
     
     
@@ -245,7 +245,7 @@ El uso de grafos para la individualizaci\'on de filamentos implica la necesidad 
         \end{subfigure} \\
     \end{tabular}
     
-    \caption{Dificultad de individualizaci\'on que enfretan los expertos al analizar manualmente una imagen de filamentos, en particular, microt\'ubulos. Fuente: Elaboraci\'on Propia.}
+    \caption[Dificultad de individualizaci\'on que enfretan los expertos al analizar manualmente una imagen de filamentos.]{Dificultad de individualizaci\'on que enfretan los expertos al analizar manualmente una imagen de filamentos, en particular, microt\'ubulos. Fuente: Elaboraci\'on Propia.}
     \label{fig:NoConsenso}
 \end{figure*}
 
@@ -373,7 +373,7 @@ En este modelo, se define un camino como una soluci\'on $s$ que consiste en un c
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.5]{imagenes/ACO-ant.png}
-    \caption{Etapas de b\'usqueda de alimento y de comunicaci\'on entre hormigas. (a) Flecha verde refleja la direcci\'on de la  b\'usqueda aleatoria, mientras que la flecha amarilla indica como una hormiga va depositando feromonas. (b) Otras hormigas siguen rastros de feromonas existente, aportando con sus propias feromonas. (c) Convergencia de las hormigas sobre el camino m\'as corto en base a la cantidad de feromonas depositada por m\'ultiples hormigas mediante un ciclo de retroalimentaci\'on positiva. Fuente: \cite{liu2020improving}.}
+    \caption[Etapas de b\'usqueda de alimento y de comunicaci\'on entre hormigas.]{Etapas de b\'usqueda de alimento y de comunicaci\'on entre hormigas. (a) Flecha verde refleja la direcci\'on de la  b\'usqueda aleatoria, mientras que la flecha amarilla indica como una hormiga va depositando feromonas. (b) Otras hormigas siguen rastros de feromonas existente, aportando con sus propias feromonas. (c) Convergencia de las hormigas sobre el camino m\'as corto en base a la cantidad de feromonas depositada por m\'ultiples hormigas mediante un ciclo de retroalimentaci\'on positiva. Fuente: \cite{liu2020improving}.}
     \label{fig:hormigas}
 \end{figure}
 %Imagen de un recorrido

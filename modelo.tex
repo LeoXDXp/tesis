@@ -123,7 +123,7 @@ En este trabajo se propone que la penalizaci\'on de $\tau_{ij}$ guarde relaci\'o
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.8]{imagenes/ant_segments_simple_case.png}
-    \caption{Camino de una hormiga $b$ compuesto por 2 segmentos. El \'angulo entre las aristas $e_2$ y $e_3$ pertenece al rango $]\theta, Max\_Angle]$, finalizando el segmento $seg^{b}_1$ e iniciando el segmento $seg^{b}_2$. Fuente: Elaboraci\'on Propia.}
+    \caption[Camino de una hormiga $b$ compuesto por 2 segmentos.]{Camino de una hormiga $b$ compuesto por 2 segmentos. El \'angulo entre las aristas $e_2$ y $e_3$ pertenece al rango $]\theta, Max\_Angle]$, finalizando el segmento $seg^{b}_1$ e iniciando el segmento $seg^{b}_2$. Fuente: Elaboraci\'on Propia.}
     \label{fig:segmentSimpleCase}
 \end{figure}
 
@@ -133,7 +133,7 @@ As\'i, cada segmento esta formado por una o m\'as aristas, donde cada arista del
 Una ventaja de utilizar segmentos de camino es evitar volver a evaluar la relaci\'on entre todas las aristas que conforman el camino, ya que las aristas que conforman un segmento cumplen con un criterio para ser consideradas como parte del mismo filamento. As\'i, la evaluaci\'on de la calidad del camino se realiza s\'olo en el caso que 2 aristas vecinas formen un \'angulo de rango intermedio ($]\theta, Max\_Angle]$), enfoc\'andose en las soluciones de calidad intermedia que permiten explorar el espacio de soluciones.
 
 
-Se debe se\~nalar que esta propuesta de penalizaci\'on realiza la evaluaci\'on de la calidad del camino en orden inverso al utilizado durante la construcci\'on del recorrido, imitando el retorno que realiza una hormiga desde el alimento hacia su hormiguero. Esto, sumando al uso de segmentos, permite comenzar la revisi\'on en el \'ultimo par de aristas cuyo \'angulo pertenece al rango intermedio, es decir, el nodo donde termina el pen\'ultimo segmento y comienza el \'ultimo. A modo de ejemplo, en la Figura \ref{fig:segmentSimpleCase}, esto ser\'ia el nodo com\'un de las aristas $e_2$ y $e_3$, que separa los segmentos $seg^{b}_1$ y $seg^{b}_2$. En este ejemplo, en caso de penalizar la arista $e_3$, ser\'a solo disminuyendo su posibilidad de ser elegida para caminos que contengan al segmento $seg^{b}_1$ en su soluci\'on.
+Se debe se\~nalar que esta propuesta de penalizaci\'on realiza la evaluaci\'on de la calidad del camino en orden inverso al utilizado durante la construcci\'on del recorrido, imitando el retorno que realiza una hormiga desde el alimento hacia su hormiguero. Esto, sumando al uso de segmentos, permite comenzar la revisi\'on en el \'ultimo par de aristas cuyo \'angulo pertenece al rango intermedio, es decir, el nodo donde termina el pen\'ultimo segmento y comienza el \'ultimo. A modo de ejemplo, en la Figura \ref{fig:segmentSimpleCase}, esto ser\'ia el nodo com\'un de las aristas $e_2$ y $e_3$, que separa los segmentos $seg^{b}_1$ y $seg^{b}_2$. En este ejemplo, en caso de penalizar la arista $e_3$, ser\'a s\'olo disminuyendo su posibilidad de ser elegida para caminos que contengan al segmento $seg^{b}_1$ en su soluci\'on.
 
 %cortar de atras para adelante una sola vez permite acotar los caminos malos sin descartar una solucion completamente, solo sacando la parte potencialmente mala al final
 
@@ -143,7 +143,7 @@ Por \'ultimo en este aspecto, y a diferencia del uso tradicional de feromonas o 
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.8]{imagenes/ant_segments_complex_case_H.png}
-    \caption{Camino de una hormiga $a$ compuesto por 4 segmentos. El comienzo en orden inverso a la construcci\'on favorece la exploraci\'on, reemplazando el \'ultimo segmento por otro o simplemente concluyendo el recorrido. Fuente: Elaboraci\'on Propia.}
+    \caption[Camino de una hormiga $a$ compuesto por 4 segmentos.]{Camino de una hormiga $a$ compuesto por 4 segmentos. El comienzo en orden inverso a la construcci\'on favorece la exploraci\'on, reemplazando el \'ultimo segmento por otro o simplemente concluyendo el recorrido. Fuente: Elaboraci\'on Propia.}
     \label{fig:segmentComplexCaseH}
 \end{figure}
 
@@ -161,7 +161,7 @@ Lo anterior permite definir que la penalizaci\'on de $\tau_{ij}$ este asociada a
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[height=2in]{imagenes/ant_segments_complex_case_2.png}
-        \caption{Penalizaci\'on del camino de la hormiga $a$ en la arista $e_5$ con respecto al segmento $seg^{a}_2$ conformado solo por la arista $e_4$.}
+        \caption{Penalizaci\'on del camino de la hormiga $a$ en la arista $e_5$ con respecto al segmento $seg^{a}_2$ conformado solamente por la arista $e_4$.}
         \label{fig:segmentComplexCase2}
     \end{subfigure}
 
@@ -176,7 +176,7 @@ Lo anterior permite definir que la penalizaci\'on de $\tau_{ij}$ este asociada a
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[height=2in]{imagenes/ant_segments_complex_case_5.png}
-        \caption{Penalizaci\'on del camino de la hormiga $b$ en la arista $e_4$ con respecto al segmento $seg^{b}_1$ conformado solo por la arista $e_3$.}
+        \caption{Penalizaci\'on del camino de la hormiga $b$ en la arista $e_4$ con respecto al segmento $seg^{b}_1$ conformado solamente por la arista $e_3$.}
         \label{fig:segmentComplexCase4}
     \end{subfigure}
 
@@ -188,7 +188,7 @@ Lo anterior permite definir que la penalizaci\'on de $\tau_{ij}$ este asociada a
 	    \caption{El camino de la hormiga $c$ no puede pasar de la arista $e_4$ en el caso que la penalizaci\'on no tenga relaci\'on con el segmento que precede a esa arista.}
         \label{fig:segmentComplexCaseBlocked}
     \end{subfigure}
-    \caption{Funcionamiento de la propuesta de penalizaci\'on de anti-feromonas con segmentos y recorrido inverso. Por simplicidad se supone que la penalizaci\'on de $\tau_{ij}$ solo una vez es suficiente para eliminar la posibilidad de elegir una arista $c_{ij}$. En este ejemplo, los caminos $a$ y $b$ se desechan por evaluarse como de mala calidad. El camino es penalizando en $e_4$ respecto al segmento que lo precede. El camino $c$ puede seleccionar la arista $e_4$ ya que esta arista no se encuentra penalizada con respecto al segmento $seg^{c}_1$, pudiendo luego agregar el segmento $seg^{c}_3$.Fuente: Elaboraci\'on Propia.}
+    \caption[Funcionamiento de la propuesta de penalizaci\'on de anti-feromonas con segmentos y recorrido inverso.]{Funcionamiento de la propuesta de penalizaci\'on de anti-feromonas con segmentos y recorrido inverso. Por simplicidad se supone que la penalizaci\'on de $\tau_{ij}$ s\'olo una vez es suficiente para eliminar la posibilidad de elegir una arista $c_{ij}$. En este ejemplo, los caminos $a$ y $b$ se desechan por evaluarse como de mala calidad. El camino es penalizando en $e_4$ respecto al segmento que lo precede. El camino $c$ puede seleccionar la arista $e_4$ ya que esta arista no se encuentra penalizada con respecto al segmento $seg^{c}_1$, pudiendo luego agregar el segmento $seg^{c}_3$. Fuente: Elaboraci\'on Propia.}
     \label{fig:segmentComplexCase}
 \end{figure*}
 
@@ -216,7 +216,7 @@ Para subsanar aquel caso, a los segmentos de s\'olo una arista se le a\~naden la
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[height=2in]{imagenes/ant_segments_complex_case_B2.png}
-        \caption{Penalizaci\'on del camino de la hormiga $a$ en la arista $e_5$ con respecto al segmento $seg^{a}_2$ conformado solo por la arista $e_4$.}
+        \caption{Penalizaci\'on del camino de la hormiga $a$ en la arista $e_5$ con respecto al segmento $seg^{a}_2$ conformado solamente por la arista $e_4$.}
         \label{fig:segmentComplexCaseB2}
     \end{subfigure}
 
@@ -231,11 +231,11 @@ Para subsanar aquel caso, a los segmentos de s\'olo una arista se le a\~naden la
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[height=2in]{imagenes/ant_segments_complex_case_B2_extended.png}
-        \caption{Soluci\'on propuesta para los segmentos de solo 1 arista no causen bloqueos como el que afecta a la hormiga $b$, mediante la extensi\'on del segmento, a\~nadiendo el segmento anterior.}
+        \caption{Soluci\'on propuesta para los segmentos de s\'olo 1 arista no causen bloqueos como el que afecta a la hormiga $b$, mediante la extensi\'on del segmento, a\~nadiendo el segmento anterior.}
         \label{fig:segmentComplexCaseB2Extended}
     \end{subfigure}
 
-    \caption{Caminos de las hormigas $a$ y $b$. Para evitar que la penalizaci\'on sobre $e_5$ por el segmento que lo precede, $seg^{a}_2$, bloquee el camino $b$, se modifica el inicio del segmento asociado a la penalizaci\'on, incorporando las aristas del segmento previo, $seg^{a}_2$. As\'i se mantiene la l\'ogica de asociar la penalizaci\'on no solo a la arista sino que tambi\'en al segmento que la precede. Estos casos suceden para aristas como $e_4$, que forman \'angulos en el rango $]\theta, Max\_Angle]$ con todas sus aristas vecinas, quedando solas en un segmento de largo 1. Fuente: Elaboraci\'on Propia.}
+    \caption[Caminos de las hormigas $a$ y $b$.]{Caminos de las hormigas $a$ y $b$. Para evitar que la penalizaci\'on sobre $e_5$ por el segmento que lo precede, $seg^{a}_2$, bloquee el camino $b$, se modifica el inicio del segmento asociado a la penalizaci\'on, incorporando las aristas del segmento previo, $seg^{a}_2$. As\'i se mantiene la l\'ogica de asociar la penalizaci\'on no s\'olo a la arista sino que tambi\'en al segmento que la precede. Estos casos suceden para aristas como $e_4$, que forman \'angulos en el rango $]\theta, Max\_Angle]$ con todas sus aristas vecinas, quedando solas en un segmento de largo 1. Fuente: Elaboraci\'on Propia.}
     \label{fig:segmentComplexCaseB}
 \end{figure*}
 
@@ -248,7 +248,7 @@ Para subsanar aquel caso, a los segmentos de s\'olo una arista se le a\~naden la
 
 \section{Criterios para la actualizaci\'on de anti-feromonas}
 
-La anti-feromona se aplica sobre hormigas que han finalizado su recorrido, cuya calidad normalizada se encuentre entre $[Max\_Score/2, Max\_Score[$, las que tienden a ser caminos de calidad intermedia. Aquello implica que al menos un par de las aristas del recorrido forman un \'angulo que pertenece al rango intermedio $]\theta, Max\_Angle]$, necesitando un an\'alisis adicional para determinar si corresponde a una soluci\'on de buena calidad. Este an\'alisis consta de dos criterios que se aplican sobre todas las c\'elulas cuyos filamentos se deseen individualizar, mientras que existe un tercer criterio adicional aplicable s\'olo en el caso de las neuronas. Los dos criterios generales, o criterios comunes, consisten en evaluar la curvatura del recorrido, como tambi\'en la magnitud del desplazamiento entre la proyecci\'on de un segmento con respecto a un segmento adyacente. El criterio adicional relativo solo a las neuronas busca validar que la finalizaci\'on del recorrido no sea en una arista con uno de sus nodos con grado 1. Es decir, esta arista final no debe cumplir con el primer criterio de la heur\'istica de asignaci\'on de aristas iniciales, descrita en la secci\'on \ref{subsubsec:antTourInit}.
+La anti-feromona se aplica sobre hormigas que han finalizado su recorrido, cuya calidad normalizada se encuentre entre $[Max\_Score/2, Max\_Score[$, las que tienden a ser caminos de calidad intermedia. Aquello implica que al menos un par de las aristas del recorrido forman un \'angulo que pertenece al rango intermedio $]\theta, Max\_Angle]$, necesitando un an\'alisis adicional para determinar si corresponde a una soluci\'on de buena calidad. Este an\'alisis consta de dos criterios que se aplican sobre todas las c\'elulas cuyos filamentos se deseen individualizar, mientras que existe un tercer criterio adicional aplicable s\'olo en el caso de las neuronas. Los dos criterios generales, o criterios comunes, consisten en evaluar la curvatura del recorrido, como tambi\'en la magnitud del desplazamiento entre la proyecci\'on de un segmento con respecto a un segmento adyacente. El criterio adicional relativo solamente a las neuronas busca validar que la finalizaci\'on del recorrido no sea en una arista con uno de sus nodos con grado 1. Es decir, esta arista final no debe cumplir con el primer criterio de la heur\'istica de asignaci\'on de aristas iniciales, descrita en la secci\'on \ref{subsubsec:antTourInit}.
 %El an\'alisis adicional se separa en evaluaciones comunes que no dependen de la c\'elula observada, agregando posteriormente las evaluaciones particulares.
 
 \subsection{Curvatura de una soluci\'on}
@@ -281,7 +281,7 @@ El \'angulo entre la proyecci\'on de $\Vec{p}$ y $\Vec{q}$ no debe superar el va
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.8]{imagenes/ant_curvature_case.png}
-    \caption{Curvatura de un camino de una hormiga $a$ que contiene las aristas $e_1$, $e_3$, $e_4$ y $e_7$. $\Vec{p}$ es la proyecci\'on del vector formado por $v^{a}_1$ y $mc^{a}$. $\Vec{q}$ es el vector formado por $mc^{a}$ y $v^{a}_5$. Para cumplir con el rriterio de curvatura, el \'angulo entre la proyecci\'on de $\Vec{p}$ y $\Vec{q}$ debe ser menor a $\theta \times Max\_Axial\_Displacement$ para no descartar la soluci\'on. }
+    \caption[Curvatura de un camino de una hormiga $a$ que contiene las aristas $e_1$, $e_3$, $e_4$ y $e_7$.]{Curvatura de un camino de una hormiga $a$ que contiene las aristas $e_1$, $e_3$, $e_4$ y $e_7$. $\Vec{p}$ es la proyecci\'on del vector formado por $v^{a}_1$ y $mc^{a}$. $\Vec{q}$ es el vector formado por $mc^{a}$ y $v^{a}_5$. Para cumplir con el rriterio de curvatura, el \'angulo entre la proyecci\'on de $\Vec{p}$ y $\Vec{q}$ debe ser menor a $\theta \times Max\_Axial\_Displacement$ para no descartar la soluci\'on. }
     \label{fig:antCurvCase}
 \end{figure}
 
@@ -300,7 +300,7 @@ El \'angulo entre la proyecci\'on de $\Vec{p}$ y $\Vec{q}$ no debe superar el va
         \caption{An\'alisis del desplazamiento del segmento $seg^{b}_2$ con respecto a la proyecci\'on del $seg^{b}_1$ denota un giro brusco y pronunciado que podr\'ia no respetar la rigidez de algunos tipos de filamentos.}
         \label{fig:antMaxDisplExample}
     \end{subfigure}%
-    \caption{Criterio de magnitud y pronunciaci\'on del desplazamiento entre 2 segmentos contiguos. (a) El criterio de curvatura puede no ser suficiente por si mismo para descartar todas las soluciones de mala calidad. (b) La informaci\'on a priori respecto a la rigidez de un filamento permite descartar soluciones que presenten cambios demasiado pronunciados entre los segmentos que la conforman. Fuente: Elaboraci\'on Propia.}
+    \caption[Criterio de magnitud y pronunciaci\'on del desplazamiento entre 2 segmentos contiguos.]{Criterio de magnitud y pronunciaci\'on del desplazamiento entre 2 segmentos contiguos. (a) El criterio de curvatura puede no ser suficiente por si mismo para descartar todas las soluciones de mala calidad. (b) La informaci\'on a priori respecto a la rigidez de un filamento permite descartar soluciones que presenten cambios demasiado pronunciados entre los segmentos que la conforman. Fuente: Elaboraci\'on Propia.}
     \label{fig:antMaxDisp}
 \end{figure*}
 
@@ -404,14 +404,14 @@ La relevancia de esta informaci\'on adicional es directa en el caso de las neuro
         \label{fig:Porta18SomaNodes}
     \end{subfigure}
 
-    \caption{Ejemplo del algoritmo {\it closeness centrality} eligiendo los 3 nodos con menor distancia a los dem\'as nodos. El color magenta indica que aristas poseen al menos uno de estos 3 nodos. En el caso de una neurona, permite asociar una o m\'as aristas a una secci\'on espec\'ifica como el soma. Fuente: Elaboraci\'on Propia.}
+    \caption[Ejemplo del algoritmo {\it closeness centrality} eligiendo los 3 nodos con menor distancia a los dem\'as nodos.]{Ejemplo del algoritmo {\it closeness centrality} eligiendo los 3 nodos con menor distancia a los dem\'as nodos. El color magenta indica que aristas poseen al menos uno de estos 3 nodos. En el caso de una neurona, permite asociar una o m\'as aristas a una secci\'on espec\'ifica como el soma. Fuente: Elaboraci\'on Propia.}
     \label{fig:ExtraInfoCenterNodes}
 \end{figure*}
 
 %info espacial: Ejemplo within, analisis de cruces. Intersect, disjoin y otros, en postgis
 Adem\'as de la extracci\'on de informaci\'on previo al uso de la metaheur\'istica ACO, es posible realizar de manera similar, la obtenci\'on de informaci\'on durante la individualzaci\'on de filamentos. Un ejemplo de esto es la informaci\'on espacial con respecto a los nodos y aristas que pueden ser elegidas como parte de un camino. La informaci\'on espacial facilita la comparaci\'on y el an\'alisis entre caminos para identificar casos de cruce, intersecci\'on o solapamiento. En particular, en la secci\'on \ref{sec:nonLocalSearch} se utiliza la consulta espacial {\it within} disponible en la extensi\'on espacial {\it Postgis} para la base de datos {\it PostgreSQL}, para comparar la informaci\'on distinta que entrega un camino con respecto a los dem\'as, considerando que puede existir repetici\'on de caminos entre distintas hormigas. Este an\'alisis resulta simple a trav\'es de una consulta espacial, especialmente a medida que aumentan los caminos a comparar.
 
-El uso de informaci\'on geom\'etrica, topol\'ogica y espacial, repartidos en los m\'etodos de la metaheur\'istica ACO, se enfocan en ampliar las opciones de an\'alisis que puede realizar un experto, as\'i como aumentar la precisi\'on de la individualizaci\'on de filamentos. Nuevas caracter\'isticas que modifiquen la exploraci\'on del espacio de soluciones pueden ser a\~nadidas en el m\'etodo de construcci\'on de soluciones, ampliando el criterio que solo utiliza el \'angulo para determinar o descartar con certeza que 2 aristas pertenezcan o no al mismo filamento. A su vez, en este mismo m\'etodo es posible incorporar nuevas condiciones que delimiten con mayor detalle el inicio o final de un camino.
+El uso de informaci\'on geom\'etrica, topol\'ogica y espacial, repartidos en los m\'etodos de la metaheur\'istica ACO, se enfocan en ampliar las opciones de an\'alisis que puede realizar un experto, as\'i como aumentar la precisi\'on de la individualizaci\'on de filamentos. Nuevas caracter\'isticas que modifiquen la exploraci\'on del espacio de soluciones pueden ser a\~nadidas en el m\'etodo de construcci\'on de soluciones, ampliando el criterio que solamente utiliza el \'angulo para determinar o descartar con certeza que 2 aristas pertenezcan o no al mismo filamento. A su vez, en este mismo m\'etodo es posible incorporar nuevas condiciones que delimiten con mayor detalle el inicio o final de un camino.
 Por su parte. agregar restricciones adicionales que penalicen caminos finalizados puede realizarse tanto en el m\'etodo de actualizaci\'on de feromonas, en caso de que se trate de restricciones que no requieran comparaci\'on con otras hormigas, o en el m\'etodo de b\'usqueda no local para comparaciones entre 2 o m\'as hormigas.
 
 \section{Ponderaci\'on de Caracter\'isticas}

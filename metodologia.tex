@@ -70,11 +70,20 @@ Uno de los problemas de VI es que esta definida de forma clara s\'olo para parti
 
 \subsection{Mediciones adicionales}
 
-Mediante la relaci\'on entre los casos en que un par de aristas puede ser asignada y la clasificaci\'on equivalente es posible evaluar el resultado de una partici\'on con respecto al {\it ground truth} con mediciones del \'area de recuperaci\'on de informaci\'on como {\it Precision}, {\it Recall}, las que a su vez son la base para calcular {\it F-Measure}.
+Mediante la relaci\'on entre los casos en que un par de aristas puede ser asignada (Tabla \ref{tab:EquivParesClasificacion}) y la clasificaci\'on equivalente es posible evaluar el resultado de una partici\'on con respecto al {\it ground truth} con mediciones del \'area de recuperaci\'on de informaci\'on como {\it Precision}, {\it Recall}, las que a su vez son la base para calcular {\it F-Measure}. La forma de obtener {\it Precision} y {\it Recall} a trav\'es de la clasificaci\'on equivalente a los casos en que un par de aristas puede ser asignada se refleja en las ecuaciones \ref{eq:PrecisionViaTP} y \ref{eq:RecallViaTP}.
 Estos c\'alculos entregan mayor informaci\'on sobre el comportamiento de la partici\'on propuesta por el algoritmo a evaluar. 
 
+\begin{equation}
+    \text{Precision} = \frac{TP}{TP + FP}
+    \label{eq:PrecisionViaTP}
+\end{equation}
 
-Otras medidas que se consideran son el porcentaje de cobertura de aristas, el n\'umero de filamentos correctos respecto al total de filamentos propuestos, los tiempos de c\'omputo y la existencia de soluciones no consideradas por otros algoritmos. El porcentaje de cobertura corresponde a la cantidad de aristas contenidas al menos una vez en alguno de los filamentos propuestos.
+\begin{equation}
+    \text{Recall} = \frac{TP}{TP + FN}
+    \label{eq:RecallViaTP}
+\end{equation}
+
+Al mismo tiempo, en base a la definici\'on de {\it Precision}, una evaluaci\'on directa a realizar es el calculo del n\'umero de filamentos correctos respecto al total de filamentos propuestos. A su vez. otra forma de evaluar {\it Recall} es mediante el calculo del n\'umero de filamentos correctos en relaci\'on a los filamentos individualizados manualmente por un experto. Otras medidas que se consideran son el porcentaje de cobertura de aristas, los tiempos de c\'omputo y la existencia de soluciones no consideradas por otros algoritmos. El porcentaje de cobertura corresponde a la cantidad de aristas contenidas al menos una vez en alguno de los filamentos propuestos.
 
 \section{Im\'agenes Sint\'eticas}
 \label{sec:SynthImgMethod}
@@ -104,7 +113,7 @@ El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del algoritmo pro
         \caption{Individualizaci\'on manual de (a).}
         \label{fig:synth-QFS-7-gt}
     \end{subfigure}
-    \caption{Filamentos sint\'eticos. a) Los colores originales hacen referencia a la segmentaci\'on de filamentos en vez de la individualizaci\'on, por lo que se utiliza la imagen en escala de grises. b) Grafo de 11 aristas extra\'ido. c) Individualizaci\'n manual utilizando codificaci\'on por colores.}
+    \caption[Filamentos sint\'eticos a evaluar con el algoritmo propuesto.]{Filamentos sint\'eticos. a) Los colores originales hacen referencia a la segmentaci\'on de filamentos en vez de la individualizaci\'on, por lo que se utiliza la imagen en escala de grises. b) Grafo de 11 aristas extra\'ido. c) Individualizaci\'n manual utilizando codificaci\'on por colores.}
     \label{fig:synth-QFS-7}
 \end{figure*}
 
@@ -131,7 +140,7 @@ El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del algoritmo pro
         \caption{Individualizaci\'on manual de filamentos.}
         \label{fig:synth-Define-1b-graph-gt}
     \end{subfigure}
-    \caption{Red sin\'etica de filamentos a) Secci\'on de la Figura 1b en \cite{breuer2015define}, correspondiente a una red sint\'etica de filamentos que abarca casos de sobreposici\'on y cruce. b) Grafo de 17 aristas. Se puede observar que el final de la arista superior derecha existe una discontinuidad que generando una arista y un nodo adicional. Esto es atribuible a la herramienta utilizada para extraer el grafo. c) Codificaci\'on por colores para individualizar filamentos. La secci\'on de color cafe claro corresponde a un caso de superposici\'on entre dos filamentos.}
+    \caption[Red de filamentos sint\'eticos a evaluar con el algoritmo propuesto.]{Red sin\'etica de filamentos a) Secci\'on de la Figura 1b en \cite{breuer2015define}, correspondiente a una red sint\'etica de filamentos que abarca casos de sobreposici\'on y cruce. b) Grafo de 17 aristas. Se puede observar que el final de la arista superior derecha existe una discontinuidad que generando una arista y un nodo adicional. Esto es atribuible a la herramienta utilizada para extraer el grafo. c) Codificaci\'on por colores para individualizar filamentos. La secci\'on de color cafe claro corresponde a un caso de superposici\'on entre dos filamentos.}
     \label{fig:synth-Define-1b}
 \end{figure*}
 
@@ -156,13 +165,13 @@ Cada una de estas opciones cuenta con un valor predefinido del umbral $\theta$, 
         $\theta$ & & &\\
         & & & &\\
          \hline
-        Neurona de rat\'on & 45\textdegree & 2 & Si & No\\
+        Neurona & 45\textdegree & 2 & Si & No\\
         MT Planta & 30\textdegree & 1.5 & Si & Si\\
         MT Animal & 60\textdegree & 2.5 & Si & Si\\
         Sint\'etico & 45\textdegree & 1.5 & Si & No \\
         \hline
     \end{tabular}
-    \caption{Configuraci\'pn de par\'ametros predefinidos por tipo de c\'elula. MT es la abreviaci\'on de microt\'ubulo. Todos los par\'ametros indicados son ajustables por el usuario.}
+    \caption[Configuraci\'on de par\'ametros predefinidos por tipo de c\'elula.]{Configuraci\'on de par\'ametros predefinidos por tipo de c\'elula. MT es la abreviaci\'on de microt\'ubulo. Todos los par\'ametros indicados son ajustables por el usuario.}
     \label{tab:AlgoParams}
 \end{table}
 
@@ -219,7 +228,7 @@ Los resultados de cada imagen analizada en el algoritmo propuesto se obtienen co
         \caption{Grafo que representa la red de microt\'ubulos manualmente identificada.}
         \label{fig:SpinningMarchantia-graph}
     \end{subfigure}
-    \caption{Individualizaci\'on manual de microt\'ubulos. a) Imagen 6 de un stack de 301 cuadros de {\it Arabidopsis Marchantia}. b) Individualizaci\'on manual c) Representaci\'on mediante colores de los diferentes microt\'ubulos. d) Grafo de 29 aristas extra\'ido a partir de la individualizaci\'on manual, que es el dato de entrada para los algoritmos comparados.}
+    \caption[Muestra MT-A de {\it Arabidopsis Marchantia} con su individualizaci\'on manual de microt\'ubulos.]{Individualizaci\'on manual de microt\'ubulos. a) Imagen 6 de un stack de 301 cuadros de {\it Arabidopsis Marchantia}. b) Individualizaci\'on manual c) Representaci\'on mediante colores de los diferentes microt\'ubulos. d) Grafo de 29 aristas extra\'ido a partir de la individualizaci\'on manual, que es el dato de entrada para los algoritmos comparados.}
     \label{fig:SpinningMarchantia}
 \end{figure*}
 
@@ -255,7 +264,7 @@ Los resultados de cada imagen analizada en el algoritmo propuesto se obtienen co
         \caption{Grafo extra\'ido a partir de la individualizaci\'on manual que es el dato de entrada para los algoritmos comparados.}
         \label{fig:field3t0filtered1-graph}
     \end{subfigure}
-    \caption{Individualizaci\'on manual de microt\'ubulos. a) Imagen de {\it Arabidopsis Marchantia} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de promedio de p\'ixeles. b) \'Areas de inter\'es de la individualizaci\'on manual c) Representaci\'on mediante colores de los diferentes microt\'ubulos. d) Grafo de 40 aristas utilizado en la individualizaci\'on autom\'atica de filamentos.}
+    \caption[Individualizaci\'on manual de microt\'ubulos para la muestra MT-B.]{Individualizaci\'on manual de microt\'ubulos. a) Imagen de {\it Arabidopsis Marchantia} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de promedio de p\'ixeles. b) \'Areas de inter\'es de la individualizaci\'on manual c) Representaci\'on mediante colores de los diferentes microt\'ubulos. d) Grafo de 40 aristas utilizado en la individualizaci\'on autom\'atica de filamentos.}
     \label{fig:field3t0filtered1}
 \end{figure*}
 
@@ -291,7 +300,7 @@ Los resultados de cada imagen analizada en el algoritmo propuesto se obtienen co
         \caption{Grafo base para la individualizaci\'on automatizada de filamentos.}
         \label{fig:field3t0filtered2-graph}
     \end{subfigure}
-    \caption{Individualizaci\'on manual de microt\'ubulos. a) Imagen de {\it Arabidopsis Marchantia} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de promedio de p\'ixeles. b) \'Areas de inter\'es de la individualizaci\'on manual c) Representaci\'on mediante colores de los diferentes microt\'ubulos. d) Grafo de 7 aristas extra\'ido a partir de la individualizaci\'on manual.}
+    \caption[Individualizaci\'on manual de microt\'ubulos para la muestra MT-C.]{Individualizaci\'on manual de microt\'ubulos. a) Imagen de {\it Arabidopsis Marchantia} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de promedio de p\'ixeles. b) \'Areas de inter\'es de la individualizaci\'on manual c) Representaci\'on mediante colores de los diferentes microt\'ubulos. d) Grafo de 7 aristas extra\'ido a partir de la individualizaci\'on manual.}
     \label{fig:field3t0filtered2}
 \end{figure*}
 
@@ -318,7 +327,7 @@ Los resultados de cada imagen analizada en el algoritmo propuesto se obtienen co
         \caption{Grafo base para la individualizaci\'on automatizada de filamentos.}
         \label{fig:Porta6-4a1-graph}
     \end{subfigure}
-    \caption{Individualizaci\'on manual de una neurona. a) Imagen de \cite{ampuero2019chronic} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de valor m\'aximo de p\'ixeles. b) Representaci\'on mediante colores de los filamentos de la neurona, representando el ax\'on y las dendritas. Se ignoran las estructuras alargadas que corresponden a ruido o son artefactos. d) Grafo de X aristas extra\'ido a partir de la individualizaci\'on manual.}
+    \caption[Muestra N1 con su individualizaci\'on manual de una neurona de rat\'on.]{Individualizaci\'on manual de una neurona. a) Imagen de \cite{ampuero2019chronic} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de valor m\'aximo de p\'ixeles. b) Representaci\'on mediante colores de los filamentos de la neurona, representando el ax\'on y las dendritas. Se ignoran las estructuras alargadas que corresponden a ruido o son artefactos. d) Grafo de X aristas extra\'ido a partir de la individualizaci\'on manual.}
     \label{fig:Porta6-4a1}
 \end{figure*}
 
@@ -345,7 +354,7 @@ Los resultados de cada imagen analizada en el algoritmo propuesto se obtienen co
         \caption{Grafo base para la individualizaci\'on automatizada de filamentos.}
         \label{fig:Porta10-5b-graph}
     \end{subfigure}
-    \caption{Individualizaci\'on manual de una neurona. a) Imagen de \cite{ampuero2019chronic} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de valor m\'aximo de p\'ixeles. b) Representaci\'on mediante colores de los filamentos de la neurona, representando el ax\'on y las dendritas. d) Grafo de X aristas extra\'ido a partir de la individualizaci\'on manual.}
+    \caption[Muestra N2 con su individualizaci\'on manual de una neurona de rat\'on.]{Individualizaci\'on manual de una neurona. a) Imagen de \cite{ampuero2019chronic} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de valor m\'aximo de p\'ixeles. b) Representaci\'on mediante colores de los filamentos de la neurona, representando el ax\'on y las dendritas. d) Grafo de X aristas extra\'ido a partir de la individualizaci\'on manual.}
     \label{fig:Porta10-5b}
 \end{figure*}
 
@@ -373,6 +382,6 @@ Los resultados de cada imagen analizada en el algoritmo propuesto se obtienen co
         \caption{Grafo base para la individualizaci\'on automatizada de filamentos.}
         \label{fig:Porta18-3a1-graph}
     \end{subfigure}
-    \caption{Individualizaci\'on manual de una neurona. a) Imagen de \cite{ampuero2019chronic} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de valor m\'aximo de p\'ixeles. b) Representaci\'on mediante colores de los filamentos de la neurona, representando el ax\'on y las dendritas. d) Grafo de X aristas extra\'ido a partir de la individualizaci\'on manual.}
+    \caption[Muestra N3 con su individualizaci\'on manual de una neurona de rat\'on.]{Individualizaci\'on manual de una neurona. a) Imagen de \cite{ampuero2019chronic} obtenida al realizar la proyecci\'on del eje Z bajo el criterio de valor m\'aximo de p\'ixeles. b) Representaci\'on mediante colores de los filamentos de la neurona, representando el ax\'on y las dendritas. d) Grafo de X aristas extra\'ido a partir de la individualizaci\'on manual.}
     \label{fig:Porta18-3a1}
 \end{figure*}
