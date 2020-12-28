@@ -20,10 +20,12 @@
 \guia{Mauricio Cerda Villablanca \break Jacques Dumais}
 \carrera{Magíster en Ciencias, Mención Computación}
 \memoria{Tesis para optar al Grado de \break  Magíster en Ciencias, Mención Computación}
-\comision{}
+\comision{Alexandre Bergel \break
+        Jose Manuel Saavedra \break
+        Violeta Chang}
 
 \usepackage{lipsum}
-\usepackage{natbib}
+\usepackage[numbers]{natbib}
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{gensymb}
@@ -49,7 +51,8 @@ Esta investigación se centra en el desarrollo un algoritmo que pueda resolver u
 
 %Como resultado, se obtiene una herramienta para el an\'alisis automatizado de estructuras de filamentos, permitiendo mejorar el seguimiento de procesos din\'amicos o la identificaci\'on de procesos patol\'ogicos de forma autom\'atica.
 
-Como resultado, se obtiene un algoritmo flexible que individualiza filamentos de forma autom\'atica, que a su vez permite la incorporaci\'on de nuevas caracter\'isticas y/o restricciones. El algoritmo propuesto se evalua en casos sint\'eticos, as\'i como en microt\'ublos de planta y neuronas de rat\'on, logrando proponer un n\'umero de filamentos similar al que propone un experto de forma manual, en un tiempo inferior al minuto.
+Como resultado, se obtiene un algoritmo flexible que individualiza filamentos de forma autom\'atica, que a su vez permite la incorporaci\'on de nuevas caracter\'isticas y/o restricciones. La flexibilidad se demuestra mediante las diferentes configuraciones de par\'ametros disponibles, as\'i como la posiblidad de personalizarlos.
+El algoritmo propuesto se evalua en 8 im\'agenes, entre las que se tienen casos sint\'eticos, as\'i como en microt\'ublos de planta y neuronas de rat\'on, logrando obtener casos donde no existe diferencia estad\'isticamente significativa con lo indicado por un experto, y existiendo una diferencia menor en otros casos. Finalmente, el algoritmo propuesto realiza la individualizaci\'on de los casos m\'as complejos en un tiempo de c\'omputo inferior a los 40 segundos.
 
 \end{abstract}
 
@@ -81,7 +84,7 @@ A todos
 \input{resultados.tex}
 \input{conclu.tex}
 % \input{glosario.tex} % opcional
-\bibliographystyle{plain}
+\bibliographystyle{IEEEtranN}
 \bibliography{bibliografia}
 \appendix
 \chapter{Material Suplementario}

@@ -3,7 +3,7 @@
 \label{chap:intro}
 
 En la naturaleza, es posible encontrar de forma ubicua, estructuras alargadas (filamentos), las que conforman redes entre sí. La conformación de estas estructuras complejas y din\'amicas se puede observar en ejemplos particulares como en una red de prote\'inas de una c\'elula eucariota, as\'i como en bacterias, ya que a pesar de pertenecer a distintas familias, ambas tienen estructuras formadas por filamentos. 
-Caracter\'isticas f\'isicas de estas redes generan propiedades tales como la presencia o ausencia de ciclos, o la posibilidad de dividir o no cada filamento. Por su parte, el análisis de filamentos que conforman la red, puede indicar el estado de \'esta, respecto a su ambiente o de su interior, as\'i como develar informaci\'on relevante sobre la relaci\'on entre la estructura biol\'ogica y funciones fisiol\'ogicas.  
+Caracter\'isticas f\'isicas de estas redes generan propiedades tales como la presencia o ausencia de ciclos, o la posibilidad de dividir o no cada filamento. Por su parte, el análisis de filamentos que conforman la red, puede indicar el estado de esta, respecto a su ambiente o de su interior, as\'i como develar informaci\'on relevante sobre la relaci\'on entre la estructura biol\'ogica y funciones fisiol\'ogicas.  
 %movimiento interno, reparación de tejido,
 % estructuras dinamicas y complejas que juegan varios roles
 % A modo de ejemplo, una red de proteinas de una c\'elula eucariota contiene tres tipos de filamentos en la constituci\'on de su citoesqueleto: microfilamentos, microt\'ubulos y filamentos intermedios. Sin embargo, una estructura de citoesqueleto también existe en una bacteria.
@@ -50,11 +50,11 @@ La individualizaci\'on de filamentos permite cuantificar las propiedades de la r
         \label{Fig1d}
     \end{subfigure}
 %    \vskip\baselineskip
-    \caption[Procedimiento para obtener un grafo que representa la red, utilizando segmentaci\'on y esqueletonizaci\'on.]{Procedimiento para obtener un grafo que representa la red, a partir del procesamiento de una imagen de microscop\'ia, utilizando segmentaci\'on y esqueletonizaci\'on. Fuente: \cite{breuer2015define}.}
+    \caption[Procedimiento para obtener un grafo que representa la red, utilizando segmentaci\'on y esqueletonizaci\'on.]{Procedimiento para obtener un grafo que representa la red, a partir del procesamiento de una imagen de microscop\'ia, utilizando segmentaci\'on y esqueletonizaci\'on. Fuente: \citet{breuer2015define}.}
 \end{figure*}
 
-Existen investigaciones en la literatura que apuntan a las distintas etapas de este problema, las que tienen en com\'un el uso de t\'ecnicas del \'area de procesamiento de im\'agenes para el tratamiento inicial de la imagen de microscop\'ia. La individualizaci\'on de filamentos puede ser categorizada dependiendo si utiliza como enfoque primario herramientas de procesamiento de im\'agenes, o si se aborda como un problema de optimizaci\'on. 
-En ambas categor\'ias, las cr\'iticas m\'as repetidas en los trabajos del \'area suelen ser la cantidad de par\'ametros y la dificultad en su ajuste, en las diversas herramientas existentes. Un segundo problema com\'un es que la obtenci\'on de informaci\'on relacionada a la morfolog\'ia y el comportamiento de las redes es m\'as cualitativo que cuantitativo \cite{asgharzadeh2018computational}\cite{qiu2014quantitative}, lo que supone un problema al trasladar el  an\'alisis a una gran cantidad de datos, dado que cada enfoque es demasiado espec\'ifico a su correspondiente software.
+Existen investigaciones en la literatura que apuntan a las distintas etapas de este problema, las que tienen en com\'un el uso de t\'ecnicas del \'area de procesamiento de im\'agenes para el tratamiento inicial de la imagen de microscop\'ia. La individualizaci\'on de filamentos puede ser categorizada dependiendo si utiliza como enfoque primario herramientas de procesamiento de im\'agenes de bajo nivel, o si se aborda como un problema de optimizaci\'on. 
+En ambas categor\'ias, las cr\'iticas m\'as repetidas en los trabajos del \'area suelen ser la cantidad de par\'ametros y la dificultad en su ajuste, en las diversas herramientas existentes. Un segundo problema com\'un es que la obtenci\'on de informaci\'on relacionada a la morfolog\'ia y el comportamiento de las redes es m\'as cualitativo que cuantitativo, como se indica en \citet{asgharzadeh2018computational} y en \citet{qiu2014quantitative}, lo que supone un problema al trasladar el  an\'alisis a una gran cantidad de datos, dado que cada enfoque es demasiado espec\'ifico a su correspondiente software.
 
 \begin{figure*}[h]
     \begin{subfigure}[t]{0.5\textwidth}
@@ -106,7 +106,7 @@ Desarrollar un modelo de optimizaci\'on para la individualizaci\'on de filamento
     \item Generar un modelo de optimizaci\'on para la identificaci\'on de filamentos a partir de un grafo con pesos que representa la red de filamentos.
     \item Implementar un algoritmo que resuelva el modelo de optimizaci\'on, entregando como salida la identificaci\'on de filamentos, considerando casos de solapamiento y/o cruce.
     \item Identificar la ponderaci\'on de propiedades que entregue mejores resultados para grafos que representen una neurona, una bacteria y una c\'elula eucariota de planta.
-    \item Evaluar t\'ecnicas que usan s\'olo herramientas de visi\'on por computador \cite{boudaoud2014fibriltool}, basada en poblaci\'on de p\'ixeles, o que utilizan un m\'etodo derivado de contornos activos \cite{xu2015soax}.
+    \item Evaluar t\'ecnicas que usan s\'olo herramientas de visi\'on por computador de bajo nivel como \citet{boudaoud2014fibriltool}, basada en poblaci\'on de p\'ixeles, o que utilizan un m\'etodo derivado de contornos activos, como \citet{xu2015soax}.
     %una soluci\'on exacta o aproximada respecto a la individualizaci\'on, dependiendo de la complejidad computacional del problema. 
 \end{itemize}
 
