@@ -125,7 +125,9 @@ Otras investigaciones similares que siguen un enfoque basado principalmente en h
 \label{sec:OptiMethods}
 En la segunda categor\'ia, \citet{cerda2014geometrical} plantea la identificaci\'on de segmentos de filamentos como un problema de asignaci\'on, utilizando las medidas de distancia Euclidiana y angular como restricciones, y el algoritmo h\'ungaro para su resoluci\'on.
 %SOAX, extraccion y cuantifiacion de la red
-Por su parte, la investigaci\'on de \citet{xu2015soax} llamada SOAX, emplea curvas param\'etricas de contorno abierto (SOAC, {\it Stretching Open Active Contour}) en conjunto con una funci\'on de minimizaci\'on para obtener un grupo acotado de redes de filamentos, entre las que el usuario puede elegir una, con la finalidad de realizar un an\'alisis posterior. Las curvas param\'etricas de contorno abierto son reguladas por 2 par\'ametros: $\tau$, que fija el umbral de intensidad desde el que se inicializa una SOAC, lo que entrega los puntos de intensidad m\'aximos locales de la imagen para la inicializaci\'on. El segundo par\'ametro, $K_{str}$, es el factor que regula la elongaci\'on/evoluci\'on de cada SOAC. Una vez concluida la inicializaci\'on y evoluci\'on de curvas SOAC, se identifican las junciones/intersecciones generadas entre diversas curvas SOAC, agrup\'andose seg\'un su cercan\'ia. Lo anterior se puede observar en la Figura \ref{fig:SOAX}.
+Por su parte, la investigaci\'on de \citet{xu2015soax} llamada SOAX, emplea curvas param\'etricas de contorno abierto (SOAC, {\it Stretching Open Active Contour}) en conjunto con una funci\'on de minimizaci\'on para obtener un grupo acotado de redes de filamentos, entre las que el usuario puede elegir una, con la finalidad de realizar un an\'alisis posterior. Las curvas param\'etricas de contorno abierto son reguladas por los par\'ametros $\tau$ y $K_{str}$. El par\'ametro $\tau$ fija el umbral de intensidad que permite discriminar los puntos en la imagen donde existen m\'aximos locales, a partir de los cuales puede comenzar el recorrido de una curva SOAC.
+%desde el que se inicializa una SOAC, lo que entrega los puntos de intensidad m\'aximos locales de la imagen para la inicializaci\'on. 
+Por su parte, el par\'ametro, $K_{str}$ es el factor que regula la elongaci\'on/evoluci\'on de cada curva param\'etrica de contorno abierto (SOAC). Una vez concluida la inicializaci\'on y evoluci\'on de curvas SOAC, se identifican las junciones/intersecciones generadas entre diversas curvas SOAC, agrup\'andose seg\'un su cercan\'ia. Lo anterior se puede observar en la Figura \ref{fig:SOAX}.
 
 \begin{figure}[h]
         %\centering
@@ -142,7 +144,7 @@ La funci\'on de minimizaci\'on que los autores denominan como  \textit{F-Functio
 % \end{equation}
 
 
-En esta categor\'ia tambi\'en se incluye \citet{breuer2015define}, que en base a un grafo no dirigido con pesos que representa la red de filamentos, realiza la individualizaci\'on de estos. El uso de un grafo como dato de entrada permite representar a cada filamento mediante un conjunto de aristas adyacentes en el grafo. Esto permite que la b\'usqueda e individualizaci\'on de filamentos, con un segmento de filamento representado por una o m\'as aristas del grafo, sumado a las restricciones que plantea el autor, sea tratado como un problema de {\it Set Cover} \citep{caprara2000algorithms}. La definici\'on de {\it Set Cover} es:
+En esta categor\'ia tambi\'en se incluye \citet{breuer2015define}, que en base a un grafo no dirigido con pesos que representa la red de filamentos, realiza la individualizaci\'on de estos. El uso de un grafo como dato de entrada permite representar a cada filamento mediante un conjunto de aristas adyacentes en el grafo. Esto permite que la b\'usqueda e individualizaci\'on de filamentos, con un segmento de filamento representado por una o m\'as aristas del grafo, sumado a las restricciones que plantea el autor, sea tratado como un problema de {\it Set Cover} \citepxl{caprara2000algorithms}. La definici\'on de {\it Set Cover} es:
 
 \begin{quote}
 Dado un conjunto de elementos, denominado universo, y $n$ conjuntos cuya unión comprende el universo, el {\it Set Cover Problem} consiste en identificar el menor n\'umero de conjuntos cuya unión a\'un contiene todos los elementos del universo.
@@ -155,7 +157,7 @@ Dado un conjunto de elementos, denominado universo, y $n$ conjuntos cuya unión 
 %Todos estos enfoques, cuya entrada principal de datos son las im\'agenes etiquetadas a trav\'es de marcadores fluorescentes, 
 % basados en grafos
 
-El programa \texttt{DeFine} desarrollado en \citet{breuer2015define} describe el problema de individualizaci\'on de filamentos como un problema de b\'usqueda de conjuntos de aristas en un grafo. En esta investigaci\'on, un filamento es representado por un conjunto de aristas, denominado como un camino. Los autores de esta investigaci\'on se basan inicialmente en un problema del tipo {\it Path Cover} \citep{ntafos1979path}, extendiendo la definici\'on de {\it Path Cover} mediante la asignaci\'on de un peso a cada segmento/arista del grafo, para calcular la {\it aspereza} o diferencia de homogeneidad en un camino. El c\'alculo del peso a lo largo de un camino es lo que permite individualizar filamentos, siendo el peso un reflejo del grosor o intensidad de una arista.
+El programa \texttt{DeFine} desarrollado en \citet{breuer2015define} describe el problema de individualizaci\'on de filamentos como un problema de b\'usqueda de conjuntos de aristas en un grafo. En esta investigaci\'on, un filamento es representado por un conjunto de aristas, denominado como un camino. Los autores de esta investigaci\'on se basan inicialmente en un problema del tipo {\it Path Cover} \citepxl{ntafos1979path}, extendiendo la definici\'on de {\it Path Cover} mediante la asignaci\'on de un peso a cada segmento/arista del grafo, para calcular la {\it aspereza} o diferencia de homogeneidad en un camino. El c\'alculo del peso a lo largo de un camino es lo que permite individualizar filamentos, siendo el peso un reflejo del grosor o intensidad de una arista.
 %, o tambi\'en puede ser calculado respecto al \'angulo entre aristas.
 Este problema particular es llamado {\it Filament Covering Problem} (FCP) y los autores demuestran que es NP-Hard, por lo que proponen un algoritmo de aproximaci\'on mediante {\it Set Cover}, cuyo objetivo es que cada arista pertenezca al menos a un camino (conjunto de aristas).
 
@@ -173,7 +175,7 @@ Los autores de DeFiNe demuestran que el FCP es NP-Hard en grafos, debido a la re
 DeFine propone 2 heur\'isticas para construir \'arboles de los cuales se puedan extraer un subconjunto $P' \in P$ representativo de caminos simples: recorrer el grafo por su anchura ({\it Breadth-First Search}), deteni\'endose al momento en que el \'angulo de deflexi\'on entre aristas adyacentes supere los 60\degree, o generar caminos a partir de 100 \'arboles de expansi\'on m\'inima aleatoria ({\it RMST}), aportando cada uno con $N(N-1)/2$ caminos no triviales y sin direcci\'on. 
 
 
-El subconjunto $P'$ constituye los datos de entrada del problema de {\it Set Cover}, el que se resuelve a trav\'es de un algoritmo de aproximaci\'on lineal fraccional binario \citep{breuer2015define}, en el que al subconjunto $P'$ se le aplica la funci\'on objetivo, para encontrar los miembros de $p \in P'$ que mejor minimicen la diferencia de homogeneidad en sus caminos. La restricci\'on de lo anterior es que cada arista del grafo pertenezca a lo menos a un camino. El flujo de decisiones para generar el subconjunto de caminos puede observarse en la Figura \ref{fig:define-set-cover}.
+El subconjunto $P'$ constituye los datos de entrada del problema de {\it Set Cover}, el que se resuelve a trav\'es de un algoritmo de aproximaci\'on lineal fraccional binario \citepxl{breuer2015define}, en el que al subconjunto $P'$ se le aplica la funci\'on objetivo, para encontrar los miembros de $p \in P'$ que mejor minimicen la diferencia de homogeneidad en sus caminos. La restricci\'on de lo anterior es que cada arista del grafo pertenezca a lo menos a un camino. El flujo de decisiones para generar el subconjunto de caminos puede observarse en la Figura \ref{fig:define-set-cover}.
 
 \begin{figure*}[h]
     \centering
@@ -215,34 +217,38 @@ En resumen, el problema de identificar filamentos en im\'agenes de microscop\'ia
 El uso de grafos para la individualizaci\'on de filamentos implica la necesidad de obtener el grafo a partir de una imagen para luego realizar su an\'alisis. Algunas de las dificultades involucradas en la obtenci\'on de un grafo se relacionan al ruido y la resoluci\'on de la imagen. Un ejemplo de aquello se observa en la Figura \ref{fig:NoConsensoGeneral}.
 
 \begin{figure*}[h]
-    \begin{tabular}{c c c}
-        \multirow[c]{2}{*}[2.5cm]{
-        \begin{subfigure}[t]{0.4\textwidth}
+    %\centering
+    \begin{subfigure}[h]{\textwidth}
+        \centering
         \includegraphics[scale=0.5]{imagenes/NoConsenso.png}
         \caption{Microt\'ubulos en planta {\it Marchantia}.\\Fuente: Paula Llanos}
         \label{fig:NoConsensoGeneral}
-        \end{subfigure}  
-        }
-        &
-        \multirow[c]{2}{*}[2cm]{
-        \begin{subfigure}[t]{0.25\textwidth}
-        \includegraphics[]{imagenes/NoConsenso2.png}
-        \caption{Secci\'on resaltada en rojo de (a)} %\ref{fig:NoConsensoGeneral}
-        \label{fig:NoConsensoRect}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{tabular}{c c c}
+    
+        \begin{subfigure}[t]{0.3\textwidth}
+            \centering
+            \includegraphics[height=1.6in]{imagenes/NoConsenso2.png}
+            \caption{Secci\'on resaltada en rojo de (a)} %\ref{fig:NoConsensoGeneral}
+            \label{fig:NoConsensoRect}
         \end{subfigure}
-        }
         &
-        \begin{subfigure}[t]{0.21\textwidth}
-        \includegraphics[scale=0.8]{imagenes/NoConsenso3.png}
-        \caption{Opci\'on 1 de microt\'ubulos en (b)} %\ref{fig:NoConsensoRect}
-        \label{fig:NoConsensoOpcion1}
-        \end{subfigure} \\
-        & &
-        \begin{subfigure}[b]{0.21\textwidth}
-        \includegraphics[scale=0.8]{imagenes/NoConsenso4.png}
-        \caption{Opci\'on 2 de microt\'ubulos en (b)}
-        \label{fig:NoConsensoOpcion2}
-        \end{subfigure} \\
+    
+        \begin{subfigure}[t]{0.3\textwidth}
+            \centering
+            \includegraphics[height=1.6in]{imagenes/NoConsenso3.png}
+            \caption{Opci\'on 1 de microt\'ubulos en (b)} %\ref{fig:NoConsensoRect}
+            \label{fig:NoConsensoOpcion1}
+        \end{subfigure}
+        &
+    
+        \begin{subfigure}[t]{0.3\textwidth}
+            \centering
+            \includegraphics[height=1.6in]{imagenes/NoConsenso4.png}
+            \caption{Opci\'on 2 de microt\'ubulos en (b)}
+            \label{fig:NoConsensoOpcion2}
+        \end{subfigure}
     \end{tabular}
     
     \caption[Dificultad de individualizaci\'on que enfretan los expertos al analizar manualmente una imagen de filamentos.]{Dificultad de individualizaci\'on que enfretan los expertos al analizar manualmente una imagen de filamentos, en particular, microt\'ubulos. Fuente: Elaboraci\'on Propia.}
@@ -264,29 +270,30 @@ Que el grafo $G$ sea ponderado implica que para las aristas del grafo ($E(G)$), 
 
 La importancia del procedimiento de extraci\'on o generaci\'on de un grafo que representa una red de filamentos a partir de una imagen radica en que define la cantidad de informaci\'on disponible para llevar a cabo la individualizaci\'on de filamentos. A partir de una imagen es posible obtener una cantidad de caracter\'isticas de distinta \'indole, lo que permite en etapas posteriores clasificar de diversas formas nodos, aristas, de forma aislada o en conjuntos, efectivamente disminuyendo el espacio de b\'usqueda. Con las herramientas actuales disponibles en la literatura, es posible realizar la extracci\'on de una red de filamentos con algún nivel de informaci\'on como en \citet{xu2015soax}. Sin embargo, las transformaci\'on de aquella red a un grafo, as\'i como la incorporaci\'on de las caracter\'isticas y/o propiedades hacia el grafo son un procedimiento no automatizado, por lo que el esfuerzo que el experto debe realizar es cercano a individualizar los filamentos de manera manual.
 
-A partir de las investigaciones en la literatura, es posible agrupar los m\'etodos para extraer la informaci\'on que permite la construcci\'on de un grafo a partir de una imagen, como lo son los nodos y las aristas, en dos conjuntos: los que se basan en esqueletonizaci\'on \citep[ver][]{lavado2018comparacion} y los que no. 
+A partir de las investigaciones en la literatura, es posible agrupar los m\'etodos para extraer la informaci\'on que permite la construcci\'on de un grafo a partir de una imagen, como lo son los nodos y las aristas, en dos conjuntos: los que se basan en esqueletonizaci\'on \citepxl[ver][]{lavado2018comparacion} y los que no. 
 
 \subsection{Extracci\'on de un Grafo mediante Esqueletonizaci\'on}
 \label{subsec:infoLossSkel}
 
 %Que es la skeletonizacion y como extrae el grafo. Uso de liberia sknw
-Los m\'etodos basados en esqueletonizaci\'on consisten primariamente en la reducci\'on de los p\'ixeles pertenecientes al plano de inter\'es o {\it foreground} en una imagen binaria, hasta formar una representaci\'on del objeto en la imagen de 1 p\'ixel de ancho. El proceso debe mantener la conectividad del objeto adelgazado y a su vez, reducir la dimensi\'on del objeto en la imagen para facilitar su an\'alisis \citep{saha2017skeletonization}. Un an\'alisis de los vecindarios de los p\'ixeles del esqueleto construido es una de las formas m\'as sencillas en que se puede distinguir si un p\'ixel representa un nodo o si es parte de un arista. Una librer\'ia que realiza tal an\'alisis es {\it skan} \citep{nunez2018new}, entregando estad\'isticas del grafo extra\'ido como largo promedio de una rama del esqueleto (equivalente a una arista del grafo), tipo de rama, curvatura de una rama, entre otras mediciones. Sin embargo, el formato de salida del grafo para esta herramienta corresponde a {\it Compressed sparse row} o CSR, lo que causa que un an\'alisis de mayor profundidad o el paso del grafo a una herramienta de individualizaci\'on de filamentos necesite de una librer\'ia adicional. 
+Los m\'etodos basados en esqueletonizaci\'on consisten primariamente en la reducci\'on de los p\'ixeles pertenecientes al plano de inter\'es o {\it foreground} en una imagen binaria, hasta formar una representaci\'on del objeto en la imagen de 1 p\'ixel de ancho. El proceso debe mantener la conectividad del objeto adelgazado y a su vez, reducir la dimensi\'on del objeto en la imagen para facilitar su an\'alisis   \citepxl{saha2017skeletonization}. Un an\'alisis de los vecindarios de los p\'ixeles del esqueleto construido es una de las formas m\'as sencillas en que se puede distinguir si un p\'ixel representa un nodo o si es parte de un arista. Una librer\'ia que realiza tal an\'alisis es {\it skan} \citepxl{nunez2018new}, entregando estad\'isticas del grafo extra\'ido como largo promedio de una rama del esqueleto (equivalente a una arista del grafo), tipo de rama, curvatura de una rama, entre otras mediciones. Sin embargo, el formato de salida del grafo para esta herramienta corresponde a {\it Compressed sparse row} o CSR, lo que causa que un an\'alisis de mayor profundidad o el paso del grafo a una herramienta de individualizaci\'on de filamentos necesite de una librer\'ia adicional. 
 
 
-Otra herramienta que realiza un an\'alisis similar para obtener un grafo a partir de un esqueleto es {\it sknw}, parte del framework {\it ImagePy} \citep{wang2018imagepy}. La diferencia propuesta por {\it sknw} radica en que se integra con la librer\'ia {\it NetworkX} \citep{hagberg2008exploring}, utilizando la estructura de datos para grafos que esta \'ultima posee para elegir entre m\'ultiples formatos de salida. Aquello otorga flexibilidad en la integraci\'on de herramientas que utilizan como base el grafo para realizar an\'alisis posteriores, como es el caso de la individualizaci\'on de filamentos.
+Otra herramienta que realiza un an\'alisis similar para obtener un grafo a partir de un esqueleto es {\it sknw}, parte del framework {\it ImagePy} \citepxl{wang2018imagepy}. La diferencia propuesta por {\it sknw} radica en que se integra con la librer\'ia {\it NetworkX} \citepxl{hagberg2008exploring}, utilizando la estructura de datos para grafos que esta \'ultima posee para elegir entre m\'ultiples formatos de salida. Aquello otorga flexibilidad en la integraci\'on de herramientas que utilizan como base el grafo para realizar an\'alisis posteriores, como es el caso de la individualizaci\'on de filamentos.
 
 % se puede extraer el skeleton con librerias en varios lenguajes, como octave, matlab o python (usando scipy). La opci\'on se encuentra en la secci\'on de herramientas morfol\'ogicasd de cada uno. De ahi al grafo, se puede utilizar un procedimiento que haga an\'alisis de vecindarios de p\'ixeles como \cite{qiu2014quantitative}
 
 %problema de skeleton
-Independiente de la herramienta usada para obtener la informaci\'on topol\'ogica de la c\'elula observada, el procedimiento de esqueletonizaci\'on puede sufrir de p\'erdida de informaci\'on, dado que mediante el o los pasos de adelgazamiento, puede existir p\'erdida de la informaci\'on de los vecinos de los p\'ixeles que conforman el esqueleto obtenido. Esta informaci\'on puede ser relativa a aspectos geom\'etricos como el ancho, o servir como los datos de entrada para calcular informaci\'on derivada mediante m\'etodos como {\it image moments} \citep{flusser2009moments, chaumette2004image}.
+Independiente de la herramienta usada para obtener la informaci\'on topol\'ogica de la c\'elula observada, el procedimiento de esqueletonizaci\'on puede sufrir de p\'erdida de informaci\'on, dado que mediante el o los pasos de adelgazamiento, puede existir p\'erdida de la informaci\'on de los vecinos de los p\'ixeles que conforman el esqueleto obtenido. Esta informaci\'on puede ser relativa a aspectos geom\'etricos como el ancho, o servir como los datos de entrada para calcular informaci\'on derivada mediante m\'etodos como {\it image moments} \citepxl{flusser2009moments, chaumette2004image}.
 
 % mencionar superpixels y describir que son citando a 
-Una forma de obtener la informaci\'on de vecindario mencionada es siguiendo la idea de agrupaci\'on de p\'ixeles similares o cercanos utilizada en superpixeles \citep{achanta2012slic}. Los algoritmos de generaci\'on de superpixeles juntan conjuntos de p\'ixeles para obtener nuevas unidades at\'omicas sobre las cuales se realiza el an\'alisis, reduciendo la complejidad de este. El prop\'osito de basarse en la idea de superpixeles y no en el concepto de forma completa se fundamenta en que no se busca generar una segmentaci\'on acabada, sino que poder asociar los superpixeles con los nodos y aristas que resultan al transformar el esqueleto a un grafo. Para aquello, es s\'olo necesario realizar una agrupaci\'on gruesa utilizando criterios de tama\~no m\'aximo de un superpixel, dado que en im\'agenes binarias o en escala de grises el uso de criterios de similaridad seg\'un el valor de cada p\'ixel puede llevar a obtener un n\'umero muy bajo de superpixeles, ocasionando que m\'ultiples nodos y/o aristas se refieran al mismo superpixel. El detalle de la implementaci\'on de la agrupaci\'on de p\'ixeles y su asociaci\'on con los nodos se encuentra en la secci\'on \ref{sec:superpixels}.
+Una forma de obtener la informaci\'on de vecindario mencionada es siguiendo la idea de agrupaci\'on de p\'ixeles similares o cercanos utilizada en superpixeles \citepxl{achanta2012slic}. Los algoritmos de generaci\'on de superpixeles juntan conjuntos de p\'ixeles para obtener nuevas unidades at\'omicas sobre las cuales se realiza el an\'alisis, reduciendo la complejidad de este. El prop\'osito de basarse en la idea de superpixeles y no en el concepto de forma completa se fundamenta en que no se busca generar una segmentaci\'on acabada, sino que poder asociar los superpixeles con los nodos y aristas que resultan al transformar el esqueleto a un grafo. Para aquello, es s\'olo necesario realizar una agrupaci\'on gruesa utilizando criterios de tama\~no m\'aximo de un superpixel, dado que en im\'agenes binarias o en escala de grises el uso de criterios de similaridad seg\'un el valor de cada p\'ixel puede llevar a obtener un n\'umero muy bajo de superpixeles, ocasionando que m\'ultiples nodos y/o aristas se refieran al mismo superpixel. El detalle de la implementaci\'on de la agrupaci\'on de p\'ixeles y su asociaci\'on con los nodos se encuentra en la secci\'on \ref{sec:superpixels}.
 
 
 \subsection{Obtenci\'on de Informaci\'on Adicional}
 
-Para dar uso a la informaci\'on recuperada de acuerdo a lo expresado en la secci\'on \ref{subsec:infoLossSkel}, se analizaron diversos filtros \'utiles para describir estructuras alargadas, como {\it Gabor}, {\it Anistropic Diffusion} y Frangi para {\it Vesselness}. El filtro Frangi para {\it Vesselness} \citep{frangi1998multiscale, fu2018frangi}, cuantifica cuan alargada es una estructura ({\it vesselness value}), en base a los valores y vectores propios de la matriz Hessiana (ecuaci\'on \ref{eq:HessianMat}) posterior a la aplicaci\'on de uno o varios filtros Gaussianos para suavizar una imagen. Este filtro es utilizado en la detecci\'on de estructuras alargadas como arterias y venas, pudiendo replicarse parcialmente mediante el an\'alisis de p\'ixeles con {\it image moments} \citep{flusser2009moments}. La posibilidad de replicar el filtro de Frangi, sin necesidad de configurar par\'ametros, es lo que lleva a elegirlo en este trabajo por sobre las otras opciones.
+Para dar uso a la informaci\'on recuperada de acuerdo a lo expresado en la secci\'on \ref{subsec:infoLossSkel}, se analizaron diversos filtros \'utiles para describir estructuras alargadas, como {\it Gabor}, {\it Anistropic Diffusion} y Frangi para {\it Vesselness}. El filtro de Gabor es un filtro sensible a la orientaci\'on, facilitando la extracci\'on de caracter\'isticas as\'i como el an\'alisis de texturas. Por su parte, {\it Anistropic Diffusion} es un filtro que apunta a reducir el ruido en una imagen, y al mismo tiempo resalta los bordes de los objetos. El filtro Frangi para {\it Vesselness} \citepxl{frangi1998multiscale, fu2018frangi}, cuantifica cuan alargada es una estructura ({\it vesselness value}), en base a los valores y vectores propios de la matriz Hessiana (ecuaci\'on \ref{eq:HessianMat}) posterior a la aplicaci\'on de uno o varios filtros Gaussianos para suavizar una imagen. Este filtro es utilizado en la detecci\'on de estructuras alargadas como arterias y venas, pudiendo replicarse parcialmente mediante el an\'alisis de p\'ixeles con {\it image moments} \citepxl{flusser2009moments}. 
+A diferencia del filtro de Gabor y de {\it Anistropic Diffusion}, el filtro de Frangi no requiere de configurar par\'ametros para su uso, lo que lo hace m\'as simple y lleva a su elecci\'on en este trabajo por sobre los filtros.
 
 \begin{equation}
     \label{eq:HessianMat}
@@ -355,7 +362,7 @@ Una manera adicional de generar informaci\'on que facilite la discriminaci\'on d
 
 %A su vez, este criterio posee un segundo umbral, definido como $\theta$  que define el \'angulo m\'aximo bajo el que se considera que 2 aristas contiguas respetan con certeza la rectitud necesaria para formar parte del mismo filamento. Es decir, si 2 aristas contiguas forman un \'angulo en el rango $[0, \theta]$, deben ser parte del mismo filamento. El rango entre ambos umbrales, $]\theta, Max\_Angle]$ delimita los pares de aristas que a priori no representan combinaciones que respetan el criterio de rectitud, pero cuya explicaci\'on puede encontrarse en variaciones inducidas durante la extracci\'on del grafo desde la imagen, por lo que es necesario incorporar la exploraci\'on de estos pares de aristas.
 
-Finalmente, para el caso de los nodos, el an\'alisis del grado de cada uno permite identificar la existencia de ciclos \citep[ver][]{wilson1979introduction} en un filamento. La propiedad de un filamento de poder tener o no tener un ciclo es informaci\'on disponible a priori que depende del tipo de c\'elula observada, permitiendo limitar posibles asociaciones entre nodos. En el caso particular de no permitir ciclos, un filamento no podr\'ia pasar m\'as de una vez por cada nodo que lo conforma. 
+Finalmente, para el caso de los nodos, el an\'alisis del grado de cada uno permite identificar la existencia de ciclos \citepxl[ver][]{wilson1979introduction} en un filamento. La propiedad de un filamento de poder tener o no tener un ciclo es informaci\'on disponible a priori que depende del tipo de c\'elula observada, permitiendo limitar posibles asociaciones entre nodos. En el caso particular de no permitir ciclos, un filamento no podr\'ia pasar m\'as de una vez por cada nodo que lo conforma. 
 %En base la gran cantidad de combinaciones posibles de caminos, el problema final en la individualizaci\'on de filamentos lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, pudiendo representarse como un problema de optimizaci\'on combinatorial.
 
 \section{Metaheur\'istica ACO}
@@ -396,12 +403,12 @@ El conjunto de caminos que recorren las hormigas, para ir del hormiguero hacia l
 
 \subsection{Soluci\'on de un modelo COP mediante la metaheur\'istica ACO}
 
-Un problema de optimización con restricciones, (COP, Constrained Optimization Problem) puede ser representado como $P = (S, \Omega, F)$, donde $S$ es el espacio de soluciones, $\Omega$ son las restricciones, y $F$ es la funci\'on objetivo. S esta definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Se define como una variable {\it instanciada} la asignaci\'on a $X_i$ de un valor $v_{i}^{j} \in D_i$. Una solución candidata $s \in S$ es una soluci\'on factible si satisface las restricciones del conjunto $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna una puntuaci\'on a las soluciones candidatas. Al mismo tiempo, se define $s^{*}$ como una soluci\'on \'optima y $S^{*}$ como el conjunto que engloba todas las soluciones \'optimas, dado que pueden existir m\'ultiples soluciones $s^{*}$, y se relacionan mediante $s^{*} \in S^{*} \subseteq S $ \citep[ver][]{socha2008ant}.
+Un problema de optimización con restricciones, (COP, Constrained Optimization Problem) puede ser representado como $P = (S, \Omega, F)$, donde $S$ es el espacio de soluciones, $\Omega$ son las restricciones, y $F$ es la funci\'on objetivo. S esta definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Se define como una variable {\it instanciada} la asignaci\'on a $X_i$ de un valor $v_{i}^{j} \in D_i$. Una solución candidata $s \in S$ es una soluci\'on factible si satisface las restricciones del conjunto $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna una puntuaci\'on a las soluciones candidatas. Al mismo tiempo, se define $s^{*}$ como una soluci\'on \'optima y $S^{*}$ como el conjunto que engloba todas las soluciones \'optimas, dado que pueden existir m\'ultiples soluciones $s^{*}$, y se relacionan mediante $s^{*} \in S^{*} \subseteq S $ \citepxl[ver][]{socha2008ant}.
 %Esta definici\'on permite aplicar la metaheur\'istica de optimizaci\'on basada en colonia de hormigas (ACO por su sigla en ingl\'es) a un modelo de un {\it COP}.
 %COP es un CSP con función objetivo: https://en.wikipedia.org/wiki/Constrained_optimization#Constraint_optimization_problems
 
 Es posible adaptar la definici\'on del modelo COP al modelo de feromonas de la metaheur\'istica ACO, mediante la asociaci\'on entre la definici\'on de variable {\it instanciada} del modelo COP y lo que representa un componente de soluci\'on o arista en un recorrido de una hormiga. 
-Espec\'ificamente, si se extiende la definici\'on de componente de soluci\'on $c_{i}$ para que esta pueda tener valores $v_{i}^{j}$ que var\'ien dependiendo de un dominio $D_i$, el componente de soluci\'on pasa a ser $c_{ij}$. As\'i se obtiene la equivalencia entre la asignaci\'on $X_i = v_{i}^{j}$ que representa una variable {\it instanciada} del modelo COP, y la selecci\'on de un componente de soluci\'on $c_{ij}$,  para una soluci\'on o camino $s$ en ACO\citep{socha2008ant}.
+Espec\'ificamente, si se extiende la definici\'on de componente de soluci\'on $c_{i}$ para que esta pueda tener valores $v_{i}^{j}$ que var\'ien dependiendo de un dominio $D_i$, el componente de soluci\'on pasa a ser $c_{ij}$. As\'i se obtiene la equivalencia entre la asignaci\'on $X_i = v_{i}^{j}$ que representa una variable {\it instanciada} del modelo COP, y la selecci\'on de un componente de soluci\'on $c_{ij}$,  para una soluci\'on o camino $s$ en ACO\citepxl{socha2008ant}.
 %equivalente a una arista en esta investigaci\'on,
 
 
