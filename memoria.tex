@@ -33,7 +33,9 @@
 \usepackage[T1]{fontenc}
 
 \begin{document}
-\newcommand{\citepxl}[1]{(\citet{#1})}
+\newcommand{\citepxl}[2][]{(#1\unskip \citet{#2})}
+%\newcommand{\plusbinomial}[3][2]{(#2 + #3)^#1}
+
 \frontmatter
 \maketitle
 

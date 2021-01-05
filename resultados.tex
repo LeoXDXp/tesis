@@ -1,7 +1,10 @@
 \chapter{Resultados}
 \label{chap:res}
 
-Como se indica en la     secci\'on \ref{sec:genGrafFromImage}, la obtenci\'on de un grafo a partir de una imagen es un proceso complejo. Las im\'agenes analizadas en este trabajo son aquellas en las que fue posible realizar el procedimiento de esqueletonizaci\'on, obteniendo un resultado que manten\'ia la topolog\'ia de la estructura original. Lo anterior no es un resultado que pueda garantizarse para toda imagen. 
+Como se indica en la secci\'on \ref{sec:genGrafFromImage}, la obtenci\'on de un grafo a partir de una imagen es un proceso complejo. Las im\'agenes analizadas en este trabajo son aquellas en las que fue posible realizar el procedimiento de esqueletonizaci\'on, obteniendo un resultado que manten\'ia la topolog\'ia de la estructura original. Lo anterior no es un resultado que pueda garantizarse para toda imagen, debido a que existen m\'ultiples definiciones e implementaciones para realizar una esqueletonizaci\'on \citepxl{lavado2018comparacion}. As\'i, para los m\'etodos disponibles en las herramientas utilizadas durante esta investigaci\'on, existieron imagenes cuya informaci\'on topol\'ogica no pudo ser obtenida.
+
+%el resultado varía dependiendo del m\'etodo y los par\'ametros selecc
+
 
 
 %Los resultados que se presentan a continuaci\'on se separan entre tablas y figuras. Las tablas de resultados se encuentran dividas en 2 secciones dado el n\'umero de columnas. La primera secci\'on agrupa las m\'etricas y medidas indicadas en la secci\'on \ref{sec:metricasymedidas}, mientras que la segunda secci\'on muestra los porcentajes de cobertura y correctitud de los filamentos propuestos con respecto a la individualizaci\'on manual propuesta por un experto. Es necesario especificar que los porcentajes que se indican en la columna `` \% Cobertura de Aristas'' reflejan una condici\'on que no es una restricci\'on estricta del modelo o del algoritmo propuesto, a diferencia de DeFiNe, donde si se fuerza la cobertura de cada arista del grafo.
@@ -73,13 +76,13 @@ Ambas ejecuciones de DeFiNe, as\'i como todas las ejecuciones del algoritmo prop
         \centering
         \includegraphics[height=1.5in]{resultImages/QFS7-DeFiNeExactMatch-30.png}
         \caption{Representaci\'on del resultado de DeFiNe con \'angulo de 30\textdegree, con 4 filamentos correctamente individualizados, identificados con colores.}
-        \label{fig:SpinningMarchantiaResults-define30Exact}
+        \label{fig:SynthQFS7Results-define30Exact}
     \end{subfigure}
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[height=1.5in]{resultImages/QFS7-DeFiNeExactMatch-60.png}
         \caption{Representaci\'on del resultado de DeFiNe con \'angulo de 60\textdegree, con 3 filamentos correctamente individualizados, identificados con colores.}
-        \label{fig:SpinningMarchantiaResults-define60Exact}
+        \label{fig:SynthQFS7Results-define60Exact}
     \end{subfigure}
     \vskip\baselineskip
     \begin{subfigure}[t]{0.47\textwidth}
@@ -204,7 +207,7 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
         AP MT-P & 5 & 0.44 & 0.45 & 0.34 & 0.35 & 0.38 & 0.4 & 7.2/12.4 & 8/13 & 7.2/12 & 8/12 & 0.3\\
          \hline
     \end{tabular}
-    \caption[Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}.]{Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}. El n\'umero de filamentos en el {\it ground truth} es 12, en un grafo de 29 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio.}
+    \caption[Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}.]{Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}. El n\'umero de filamentos en el {\it ground truth} es 12, en un grafo de 29 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio.}
     \label{tab:SpinningMarchantiaResults}
 \end{table}
 
@@ -292,7 +295,7 @@ Un aspecto a destacar del algoritmo propuesto radica que 4 de las 5 iteraciones 
         AP MT-P & 5 & 0.5 & 0.52 & 0.32 & 0.40 & 0.39 & 0.45 & 8.8/15 & 9/14 & 8.8/12 & 9/12 & 0.9\\
         \hline
     \end{tabular}
-    \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}). 12 son los filamentos definidos por un experto, para un grafo de 40 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio. El algoritmo propuesto (AP) presenta un comportamiento favorable, presentando un n\'umero de filamentos propuestos cercano a la cantidad de filamentos correctos.}
+    \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}). 12 son los filamentos definidos por un experto, para un grafo de 40 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. El algoritmo propuesto (AP) presenta un comportamiento favorable, presentando un n\'umero de filamentos propuestos cercano a la cantidad de filamentos correctos.}
     \label{tab:field3t0filtered1}
 \end{table}
 
@@ -357,7 +360,7 @@ El filamento faltante para el algoritmo propuesto corresponde a una sobre-asigna
         AP MT-P & 5 &0.66 & 0.66 & 0.5 & 0.5 & 0.57 & 0.57 & 4/5 & 4/5 & 4/5 & 4/5 & 0.29\\
         \hline
     \end{tabular}
-    \caption[Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C.]{Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C. Existen 7 aristas en el grafo que representa la red de filamentos, y a su vez el n\'umero de filamentos correctos es 5. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio. Para esta muestra, todas las iteraciones del algoritmo propuesto (AP) obtienen el mismo resultado, los que tambi\'en sucede en la ejecuci\'on de DeFiNe con 60\textdegree, siendo la \'unica diferencia que el algoritmo propuesto realiza la individualizaci\'on en menor tiempo.}
+    \caption[Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C.]{Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C. Existen 7 aristas en el grafo que representa la red de filamentos, y a su vez el n\'umero de filamentos correctos es 5. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. Para esta muestra, todas las iteraciones del algoritmo propuesto (AP) obtienen el mismo resultado, los que tambi\'en sucede en la ejecuci\'on de DeFiNe con 60\textdegree, siendo la \'unica diferencia que el algoritmo propuesto realiza la individualizaci\'on en menor tiempo.}
     \label{tab:field3t0filtered2}
 \end{table}
 
