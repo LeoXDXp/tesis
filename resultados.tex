@@ -1,7 +1,10 @@
 \chapter{Resultados}
 \label{chap:res}
 
-Como se indica en la     secci\'on \ref{sec:genGrafFromImage}, la obtenci\'on de un grafo a partir de una imagen es un proceso complejo. Las im\'agenes analizadas en este trabajo son aquellas en las que fue posible realizar el procedimiento de esqueletonizaci\'on, obteniendo un resultado que manten\'ia la topolog\'ia de la estructura original. Lo anterior no es un resultado que pueda garantizarse para toda imagen. 
+Como se indica en la secci\'on \ref{sec:genGrafFromImage}, la obtenci\'on de un grafo a partir de una imagen es un proceso complejo. Las im\'agenes analizadas en este trabajo son aquellas en las que fue posible realizar el procedimiento de esqueletonizaci\'on, obteniendo un resultado que manten\'ia la topolog\'ia de la estructura original. Lo anterior no es un resultado que pueda garantizarse para toda imagen, debido a que existen m\'ultiples definiciones e implementaciones para realizar una esqueletonizaci\'on \citepxl{lavado2018comparacion}. As\'i, para los m\'etodos disponibles en las herramientas utilizadas durante esta investigaci\'on, existieron imagenes cuya informaci\'on topol\'ogica no pudo ser obtenida.
+
+%el resultado varía dependiendo del m\'etodo y los par\'ametros selecc
+
 
 
 %Los resultados que se presentan a continuaci\'on se separan entre tablas y figuras. Las tablas de resultados se encuentran dividas en 2 secciones dado el n\'umero de columnas. La primera secci\'on agrupa las m\'etricas y medidas indicadas en la secci\'on \ref{sec:metricasymedidas}, mientras que la segunda secci\'on muestra los porcentajes de cobertura y correctitud de los filamentos propuestos con respecto a la individualizaci\'on manual propuesta por un experto. Es necesario especificar que los porcentajes que se indican en la columna `` \% Cobertura de Aristas'' reflejan una condici\'on que no es una restricci\'on estricta del modelo o del algoritmo propuesto, a diferencia de DeFiNe, donde si se fuerza la cobertura de cada arista del grafo.
@@ -9,20 +12,20 @@ Como se indica en la     secci\'on \ref{sec:genGrafFromImage}, la obtenci\'on de
 
 %En cuanto a las figuras, el enfoque se dirige a presentar los resultados de DeFiNe y del algoritmo propuesto, con \'enfasis en los filamentos correctamente encontrados por uno de los algoritmos que el otro no haya podido individualizar. Cabe aclarar que el resultado gr\'afico al ejecutar DeFiNe realiza una rotaci\'on de 90\textdegree en sentido contrarreloj adem\'as de invertir el eje vertical. Ambas modificaciones han sido corregidas con el prop\'osito de comparar los resultados entre DeFiNe, el algoritmo propuesto y la individualizaci\'on de filamentos realizada por el experto.
 
-Las mediciones del algoritmo propuesto pueden utilizar los par\'ametros predefinidos para distintos tipos de c\'elula, o pueden ser alterados manualmente. Cada evaluaci\'on del algoritmo propuesto consiste en el promedio de 5 iteraciones, en las que var\'ia la semilla utilizada, pero se mantienen los par\'ametros elegidos. El detalle de cada iteraci\'on, en conjunto con el c\'odigo y otros elementos necesarios para replicar estos resultados se encuentra en el \href{https://gitlab.com/LeoXDXp/graph-crawler}{repositorio git de esta tesis}. Parte de este detalle se incluye tambi\'en en el anexo \ref{chap:apendice}.
+Las mediciones del algoritmo propuesto, indicado como AP en las tablas de resultados, pueden utilizar los par\'ametros predefinidos para distintos tipos de c\'elula, o pueden ser alterados manualmente. Cada evaluaci\'on del algoritmo propuesto consiste en el promedio de 5 iteraciones, en las que var\'ia la semilla utilizada, pero se mantienen los par\'ametros elegidos. El detalle de cada iteraci\'on, en conjunto con el c\'odigo y otros elementos necesarios para replicar estos resultados se encuentra en el \href{https://gitlab.com/LeoXDXp/graph-crawler}{repositorio git de esta tesis}. Parte de este detalle se incluye tambi\'en en el anexo \ref{chap:apendice}.
 Las ejecuciones de DeFiNe y el algoritmo propuesto fueron realizadas en un computador con un procesador {\tt Intel i5-7200U} de 4 n\'ucleos, 8GB de RAM y un disco de estado s\'olido, bajo el sistema operativo {\tt Fedora 31}.
 
 \section{Extracci\'on de un grafo desde una imagen}
 \label{sec:graphImageExtraction}
-La obtenci\'on de un grafo y la asociaci\'on de propiedades a sus nodos o aristas constituye el paso previo a la individualizaci\'on autom\'atica de filamentos. De acuerdo a lo descrito en la secci\'on \ref{subsec:infoLossSkel}, existen diversas formas para realizar este procedimiento. Para el caso de DeFiNe, sus autores indican que se preprocesa la imagen en escala de grises para resaltar las estructuras alargadas que debiesen ser filamentos, mediante un filtro de {\it veselness} y un umbral de mediana adaptativa. El paso siguiente consiste en realizar la esqueletonizaci\'on de la imagen, para luego construir un grafo en el que se asigna un peso a las aristas. 
+La obtenci\'on de un grafo y la asociaci\'on de propiedades a sus nodos o aristas constituye el paso previo a la individualizaci\'on autom\'atica de filamentos. De acuerdo a lo descrito en la secci\'on \ref{subsec:infoLossSkel}, existen diversas formas para realizar este procedimiento. Para el caso de DeFiNe, sus autores indican que se preprocesa la imagen en escala de grises para resaltar las estructuras alargadas que debiesen ser filamentos, mediante un filtro de {\it vesselness} y un umbral de mediana adaptativa. El paso siguiente consiste en realizar la esqueletonizaci\'on de la imagen, para luego construir un grafo en el que se asigna un peso a las aristas. 
 Para obtener el peso de las aristas, se le aplica un filtro gaussiano a la imagen original en escala de grises, para luego promediar la intensidad a lo largo de cada arista.
 
 % solo esta disponible el archivo GML para la imagen sintetica 1. No estan disponibles las imagenes base,
 
-Una replica exacta de los pasos de aquel procedimiento no puede ser realizada, debido a que no se se\~nala el tama\~no del filtro gaussiano. Otro aspecto que dificulta una comparaci\'on directa es que DeFiNe no considera la curvatura de las aristas, sino que s\'olo las representa como lineas rectas mediante la conexión punto a punto entre los nodos. Adicionalmente, no se encontraron las im\'agenes originales utilizadas en aquella investigaci\'on. Lo anterior implica que s\'olo se pudo realizar una comparaci\'on precisa entre DeFiNe y el algoritmo propuesto, utilizando el \'unico ejemplo que provee DeFiNe, que corresponde al grafo ponderado con el que se realiza la individualizaci\'on de filamentos de la Figura 1b de aquella investigaci\'on, a partir de la cual se extrae una secci\'on, representada en la Figura \ref{fig:synth-Define-1b}.
+Una r\'eplica exacta de los pasos de aquel procedimiento no puede ser realizada, debido a que no se se\~nala el tama\~no del filtro gaussiano. Otro aspecto que dificulta una comparaci\'on directa es que DeFiNe no considera la curvatura de las aristas, sino que solo las representa como l\'ineas rectas mediante la conexión punto a punto entre los nodos. Adicionalmente, no se encontraron las im\'agenes originales utilizadas en aquella investigaci\'on. Lo anterior implica que solo se pudo realizar una comparaci\'on precisa entre DeFiNe y el algoritmo propuesto, utilizando el \'unico ejemplo que provee DeFiNe, que corresponde al grafo ponderado con el que se realiza la individualizaci\'on de filamentos de la Figura 1b de aquella investigaci\'on, a partir de la cual se extrae una secci\'on, representada en la Figura \ref{fig:synth-Define-1b}.
 
 
-En los otros casos donde se utiliza DeFiNe para obtener una individualizaci\'on de filamentos, se extrae el grafo necesario utilizando la herramienta {\it sknw}, la que pondera cada arista con su respectivo largo, el cual s\'i considera la curvatura. Este enfoque es compatible con lo que se presenta en \cite{breuer2015define}, ya que se indica que el m\'etodo utilizado por DeFiNe sirve para cualquier red ponderada extra\'ida a partir de una imagen.
+En los otros casos donde se utiliza DeFiNe para obtener una individualizaci\'on de filamentos, se extrae el grafo necesario utilizando la herramienta {\it sknw}, la que pondera cada arista con su respectivo largo, el cual s\'i considera la curvatura. Este enfoque es compatible con lo que se presenta en \citet{breuer2015define}, ya que se indica que el m\'etodo utilizado por DeFiNe sirve para cualquier red ponderada extra\'ida a partir de una imagen.
 
 
 \section{Im\'agenes Sint\'eticas}
@@ -31,11 +34,11 @@ En los otros casos donde se utiliza DeFiNe para obtener una individualizaci\'on 
 Para la individualizaci\'on de los filamentos sint\'eticos en la Figura \ref{fig:synth-QFS-7} se utilizan los par\'ametros predefinidos en la opci\'on de microt\'ubulos de planta (MT-P), ya que la figura refleja similitudes con este tipo de filamentos.
 Los resultados se indican en la Tabla \ref{tab:synth-QFS-7-Results}, observ\'andose que DeFiNe logra 4 de 6 individualizaciones al utilizar 30\textdegree, mientras que con 60\textdegree~ obtiene 3 de 6 filamentos correctos. Este \'ultimo resultado es el mismo que se obtiene al promediar todas las iteraciones del algoritmo propuesto con los par\'ametros de microt\'ubulo de planta,
 
-Debido a que el comportamiento de los filamentos sint\'eticos es m\'as simple que el los microt\'ubulos de planta, se realizaron pruebas utilizando como base los par\'ametros para filamentos sint\'eticos, modificando el \'angulo a 20\textdegree~ y aplicando la heur\'istica de asignaci\'on inicial parcialmente. La personalizaci\'on de los par\'ametros se define como la configuraci\'on S1. El ajusto de par\'ametros se basa en que los filamentos sint\'eticos no requieren de explorar diversos puntos de partida como si sucede en una imagen real de filamentos. Estos par\'ametros manualmente asignados permiten encontrar 4 de los 6 filamentos individualizados por un experto, obteniendo tambi\'en los mejores resultados para el calculo de {\it Precision} y {\it Recall} que utilizan la clasificaci\'on de la Tabla \ref{tab:EquivParesClasificacion} como base. La comparaci\'on entre los filamentos propuestos por cada m\'etodo y los correctamente identificados se observa en la Figura \ref{fig:Synth-QIFS-Result}. En la misma tabla se indican los resultados de la mejor iteraci\'on del algoritmo propuesto al utilizar la configuraci\'on MT-P y S1.
+Debido a que el comportamiento de los filamentos sint\'eticos es m\'as simple que el de los filamentos de microt\'ubulos de planta, se realizaron pruebas utilizando como base los par\'ametros para filamentos sint\'eticos, modificando el \'angulo a 20\textdegree~ y aplicando la heur\'istica de asignaci\'on inicial parcialmente. La personalizaci\'on de los par\'ametros se define como la configuraci\'on S1. El ajusto de par\'ametros se basa en que los filamentos sint\'eticos no requieren de explorar diversos puntos de partida como si sucede en una imagen real de filamentos. Estos par\'ametros manualmente asignados permiten encontrar 4 de los 6 filamentos individualizados por un experto, obteniendo tambi\'en los mejores resultados para el calculo de {\it Precision} y {\it Recall} que utilizan la clasificaci\'on de la Tabla \ref{tab:EquivParesClasificacion} como base. La comparaci\'on entre los filamentos propuestos por cada m\'etodo y los correctamente identificados se observa en la Figura \ref{fig:Synth-QIFS-Result}. En la misma tabla se indican los resultados de la mejor iteraci\'on del algoritmo propuesto al utilizar la configuraci\'on MT-P y S1.
 
 
 En este caso de filamentos sint\'eticos, el filamento azul observable en la Figura \ref{fig:synth-QFS-7-gt}, corresponde a una sola arista del grafo (Figura \ref{fig:synth-QFS-7-graph}), por lo que tambi\'en en todas las pruebas con DeFiNe y con el algoritmo propuesto se obtiene para ese filamento un calce no exacto. Este calce no exacto no se considera una respuesta correcta, pero representa una situaci\'on que puede suceder en im\'agenes reales, en las que puede representar el nacimiento de un filamento a partir de otro existente, como sucede en neuronas o microt\'ubulos. 
-%En situaciones como esta, el uso de un criterio compuesto es necesario, dado que el s\'olo uso de \'angulo o de intensidad no es una caracter\'istica suficiente, existiendo una dependencia de la informaci\'on a priori de la c\'elula observada. Caso de MT con 45\textdegree y que eso se encuentra en el limite de la neurona
+%En situaciones como esta, el uso de un criterio compuesto es necesario, dado que el solo uso de \'angulo o de intensidad no es una caracter\'istica suficiente, existiendo una dependencia de la informaci\'on a priori de la c\'elula observada. Caso de MT con 45\textdegree y que eso se encuentra en el limite de la neurona
 Luego, la sobre-representaci\'on del filamento correcto en la figura (filamento azul) sucede al agregar una arista del filamento vecino, de color celeste.
 
 
@@ -53,15 +56,15 @@ Ambas ejecuciones de DeFiNe, as\'i como todas las ejecuciones del algoritmo prop
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
     \hline
         Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s]\\ \hline
-         DeFiNe 30\textdegree  & 1 & 0.72 & 0.72 & 0.47 & 0.47 & 0.57 & 0.57 & 4/6 & 4/6 & 4/6 & 4/6 & 2.3 \\
-         DeFiNe 60\textdegree & 1 &0.63 & 0.63 & 0.58 & 0.58 & 0.60 & 0.60 & 3/5 & 3/5 & 3/6 & 3/6 & 2.3\\
-        MT-P & 5 & 0.51 & 0.57 & 0.32 & 0.57 & 0.39 & 0.57 & 3/6.2 & 3/5 & 3/6 & 3/6 & 0.3\\
+         DeFiNe 30\textdegree  & 1 & 0.72 & - & 0.47 & - & 0.57 & - & 4/6 & - & 4/6 & - & 2.3 \\
+         DeFiNe 60\textdegree & 1 &0.63 & - & 0.58 & - & 0.60 & - & 3/5 & - & 3/6 &- & 2.3\\
+        AP MT-P & 5 & 0.51 & 0.57 & 0.32 & 0.57 & 0.39 & 0.57 & 3/6.2 & 3/5 & 3/6 & 3/6 & 0.3\\
         %Mejor Iteraci\'on P1 & 0.5714 & 0.5714 & 0.5714 & 3/5 &  & 0.3135 \\
-        S1 & 5 & 0.68 & 0.87 &0.57 & 1 & 0.62 & 0.93 & 4/5.8 & 4/5 & 4/6 & 4/6 & 0.2\\
+        AP S1 & 5 & 0.68 & 0.87 &0.57 & 1 & 0.62 & 0.93 & 4/5.8 & 4/5 & 4/6 & 4/6 & 0.2\\
         % {\bf Mejor Iteraci\'on P2} & 0.875 & 1 & 0.9333 & 4/5 & 4/6 & 0.3073\\
          \hline
     \end{tabular}
-    \caption[Resultado de la individualizaci\'on de filamentos de la Figura \ref{fig:synth-QFS-7}.]{Resultado de la individualizaci\'on de filamentos de la Figura \ref{fig:synth-QFS-7}, para las distintas configuraciones de DeFiNe y el algoritmo propuesto. El n\'umero de filamentos correctos es 6 en un grafo de 11 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio.}
+    \caption[Resultado de la individualizaci\'on de filamentos de la Figura \ref{fig:synth-QFS-7}.]{Resultado de la individualizaci\'on de filamentos de la Figura \ref{fig:synth-QFS-7}, para las distintas configuraciones de DeFiNe y el algoritmo propuesto. El n\'umero de filamentos correctos es 6 en un grafo de 11 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio.}
     \label{tab:synth-QFS-7-Results}
 \end{table}
 
@@ -73,13 +76,13 @@ Ambas ejecuciones de DeFiNe, as\'i como todas las ejecuciones del algoritmo prop
         \centering
         \includegraphics[height=1.5in]{resultImages/QFS7-DeFiNeExactMatch-30.png}
         \caption{Representaci\'on del resultado de DeFiNe con \'angulo de 30\textdegree, con 4 filamentos correctamente individualizados, identificados con colores.}
-        \label{fig:SpinningMarchantiaResults-define30Exact}
+        \label{fig:SynthQFS7Results-define30Exact}
     \end{subfigure}
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[height=1.5in]{resultImages/QFS7-DeFiNeExactMatch-60.png}
         \caption{Representaci\'on del resultado de DeFiNe con \'angulo de 60\textdegree, con 3 filamentos correctamente individualizados, identificados con colores.}
-        \label{fig:SpinningMarchantiaResults-define60Exact}
+        \label{fig:SynthQFS7Results-define60Exact}
     \end{subfigure}
     \vskip\baselineskip
     \begin{subfigure}[t]{0.47\textwidth}
@@ -108,10 +111,10 @@ Ambas ejecuciones de DeFiNe, as\'i como todas las ejecuciones del algoritmo prop
 
 %Resultados Synth Define
 
-Como se menciona en la secci\'on \ref{sec:graphImageExtraction}, la Figura \ref{fig:synth-Define-1b} corresponde a una parte de la Figura 1b en \cite{breuer2015define}, siendo la \'unica imagen para la que se dispone de un grafo ponderado seg\'un el criterio de los autores de DeFiNe. As\'i, se asume que aquel es el resultado \'optimo, en el que se individualizan correctamente los 5 filamentos. Debido a una limitaci\'on de la herramienta {\it sknw}, el grafo de la Figura \ref{fig:synth-Define-1b}, utilizado en la evaluaci\'on del algoritmo propuesto y de DeFiNe con la ponderaci\'on utilizando el largo, contiene una arista adicional, por lo que los resultados consideran 6 filamentos como {\it ground truth}.
+Como se menciona en la secci\'on \ref{sec:graphImageExtraction}, la Figura \ref{fig:synth-Define-1b} corresponde a una parte de la Figura 1b en \citet{breuer2015define}, siendo la \'unica imagen para la que se dispone de un grafo ponderado seg\'un el criterio de los autores de DeFiNe. As\'i, se asume que aquel es el resultado \'optimo, en el que se individualizan correctamente los 5 filamentos. Debido a una limitaci\'on de la herramienta {\it sknw}, el grafo de la Figura \ref{fig:synth-Define-1b}, utilizado en la evaluaci\'on del algoritmo propuesto y de DeFiNe con la ponderaci\'on utilizando el largo, contiene una arista adicional, por lo que los resultados consideran 6 filamentos como {\it ground truth}.
 
 
-En la evaluaci\'on del algoritmo propuesto utilizando los par\'ametros definidos para microt\'ubulos de plantas, se obtienen 3 individualizaciones correctas de los 5 filamentos que corresponden al {\it ground truth}. En esta evaluaci\'on con la configuraci\'on MT-P, s\'olo 1 filamento individualizado se encuentra dentro del grupo de filamentos que se intersectan y sobreponen entre s\'i. Es posible atribuir esto a la curvatura de algunos de los filamentos sint\'eticos, la que es mayor a la que se espera de un microt\'ubulos de planta. Para complementar la evaluaci\'on, se realiza una segunda evaluaci\'on utilizando una configuraci\'on basada en el tipo de c\'elula sint\'etica, modificando el factor $Max\_Axial\_Displacement$ a 2, asociado a la curvatura que presenta la figura, y no utilizando la heur\'istica de asignaci\'on inicial completa, dado que no existen casos complejos de nacimiento de filamentos a partir de otros como en filamentos reales. Esta configuraci\'on se deine como S2.
+En la evaluaci\'on del algoritmo propuesto utilizando los par\'ametros definidos para microt\'ubulos de plantas, se obtienen 3 individualizaciones correctas de los 5 filamentos que corresponden al {\it ground truth}. En esta evaluaci\'on con la configuraci\'on MT-P, solo 1 filamento individualizado se encuentra dentro del grupo de filamentos que se intersectan y sobreponen entre s\'i. Es posible atribuir esto a la curvatura de algunos de los filamentos sint\'eticos, la que es mayor a la que se espera de un microt\'ubulos de planta. Para complementar la evaluaci\'on, se realiza una segunda evaluaci\'on utilizando una configuraci\'on basada en el tipo de c\'elula sint\'etica, modificando el factor $Max\_Axial\_Displacement$ a 2, asociado a la curvatura que presenta la figura, y no utilizando la heur\'istica de asignaci\'on inicial completa, dado que no existen casos complejos de nacimiento de filamentos a partir de otros como en filamentos reales. Esta configuraci\'on se deine como S2.
 
 As\'i, en la evaluaci\'on que emplea la configuraci\'on S2 se encuentra un filamento adicional, y a su vez, es capaz de encontrar el filamento naranja de la individualizaci\'on manual del experto, indicado en la Figura \ref{fig:synth-Define-1b-graph-gt}, pero es descartado por no respetar el criterio de la magnitud de desplazamiento entre segmentos. El comportamiento del filamento naranja en el {\it ground truth} realiza un cambio de sentido en sus curvaturas, adem\'as de que estas son bastante pronunciadas, lo que no es un comportamiento esperado en los filamentos estudiados durante esta investigaci\'on. Los resultados se presentan en la Tabla \ref{tab:synth-Define-1b}.
 
@@ -124,14 +127,14 @@ As\'i, en la evaluaci\'on que emplea la configuraci\'on S2 se encuentra un filam
     \small
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
     \hline
-          Confi. & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
-         DeFiNe 30\textdegree & 1 & 0.33 & 0.33 & 0.18 & 0.18 & 0.23 & 0.23 & 2/11 & 2/11 & 2/5 & 275 & 2.8 \\
-         DeFiNe 60\textdegree & 1& 0.23 & 0.23 & 0.25 & 0.25 & 0.24 & 0.24 & 2/7 & 2/7 & 2/5 & 2/5 & 3.6\\
-        MT-P & 5 & 0.34 & 0.35 & 0.27 & 0.28 & 0.3 & 0.31 & 3/9.2 & 3/9 & 3/6 & 3/6 & 0.3\\
-        S2 & 5 & 0.32 & 0.33 & 0.25 & 0.31 & 0.28 & 0.32 & 4/8.6 & 4/9 & 4/6 & 4/6 & 0.3\\
+          Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
+         DeFiNe 30\textdegree & 1 & 0.33 & - & 0.18 & - & 0.23 & - & 2/11 & - & 2/5 & - & 2.8 \\
+         DeFiNe 60\textdegree & 1& 0.23 & - & 0.25 & - & 0.24 & - & 2/7 & - & 2/5 & - & 3.6\\
+        AP MT-P & 5 & 0.34 & 0.35 & 0.27 & 0.28 & 0.3 & 0.31 & 3/9.2 & 3/9 & 3/6 & 3/6 & 0.3\\
+        AP S2 & 5 & 0.32 & 0.33 & 0.25 & 0.31 & 0.28 & 0.32 & 4/8.6 & 4/9 & 4/6 & 4/6 & 0.3\\
          \hline
     \end{tabular}
-    \caption[Resultado de la individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}.]{Resultado de la individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}. El n\'umero de filamentos definidos manualmente por un experto es 5, en un grafo de 17 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio. La diferencia del n\'umero de filamentos en el {\it ground truth} se debe a que la herramienta utilizada para la obtenci\'on del grafo corta un filamento, generando un filamento adicional.}
+    \caption[Resultado de la individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}.]{Resultado de la individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}. El n\'umero de filamentos definidos manualmente por un experto es 5, en un grafo de 17 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio. La diferencia del n\'umero de filamentos en el {\it ground truth} se debe a que la herramienta utilizada para la obtenci\'on del grafo corta un filamento, generando un filamento adicional.}
     \label{tab:synth-Define-1b}
 \end{table}
 
@@ -166,7 +169,7 @@ As\'i, en la evaluaci\'on que emplea la configuraci\'on S2 se encuentra un filam
         \label{fig:SynthDefine-Individualizacion-BestP2}
     \end{subfigure}
     
-    \caption[Resultados de la individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}, obtenidas mediante DeFiNe y el algoritmo propuesto, con diferentes par\'ametros.]{Resultados de la individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}, obtenidas mediante DeFiNe y el algoritmo propuesto, con diferentes par\'ametros. El algoritmo propuesto encuentra m\'as filamentos que los que se encuentran en las pruebas con DeFiNe. Sin embargo se aleja del comportamiento \'optimo indicado en \cite{breuer2015define}. Esta diferencia puede atribuirse a la excesiva curvatura de los filamentos sint\'eticos.}
+    \caption[Resultados de la individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}, obtenidas mediante DeFiNe y el algoritmo propuesto, con diferentes par\'ametros.]{Resultados de la individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}, obtenidas mediante DeFiNe y el algoritmo propuesto, con diferentes par\'ametros. El algoritmo propuesto encuentra m\'as filamentos que los que se encuentran en las pruebas con DeFiNe. Sin embargo se aleja del comportamiento \'optimo indicado en \citet{breuer2015define}. Esta diferencia puede atribuirse a la excesiva curvatura de los filamentos sint\'eticos.}
     \label{fig:SynthDefine-Result}
 \end{figure*}
 \clearpage
@@ -201,10 +204,10 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
          DeFiNe 30\textdegree & 1 & 0.65 & - & 0.45 & - & 0.53 & - & 8/16 & - & 8/12 & - & 4.1 \\
          DeFiNe 60\textdegree & 1& 0.28 & - & 0.21 & - & 0.24 & - & 3/12 &- & 3/12 & - & 3.6\\
-        MT-P & 5 & 0.44 & 0.45 & 0.34 & 0.35 & 0.38 & 0.4 & 7.2/12.4 & 8/13 & 7.2/12 & 8/12 & 0.3\\
+        AP MT-P & 5 & 0.44 & 0.45 & 0.34 & 0.35 & 0.38 & 0.4 & 7.2/12.4 & 8/13 & 7.2/12 & 8/12 & 0.3\\
          \hline
     \end{tabular}
-    \caption[Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}.]{Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}. El n\'umero de filamentos en el {\it ground truth} es 12, en un grao de 29 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio.}
+    \caption[Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}.]{Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}. El n\'umero de filamentos en el {\it ground truth} es 12, en un grafo de 29 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio.}
     \label{tab:SpinningMarchantiaResults}
 \end{table}
 
@@ -287,12 +290,12 @@ Un aspecto a destacar del algoritmo propuesto radica que 4 de las 5 iteraciones 
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
     \hline
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
-         DeFiNe 30\textdegree & 1 & 0.51 & 0.51 & 0.17 & 0.51 & 0.26 & 0.26 & 5/23 & 5/23 & 5/12 & 5/12 & 5.0 \\
-         DeFiNe 60\textdegree &1 & 0.42 & 0.42 & 0.31 & 0.31 & 0.36 & 0.36 & 5/16 & 5/16 & 5/12 & 5/12 & 16.2\\
-        MT-P & 5 & 0.5 & 0.52 & 0.32 & 0.40 & 0.39 & 0.45 & 8.8/15 & 9/14 & 8.8/12 & 9/12 & 0.9\\
+         DeFiNe 30\textdegree & 1 & 0.51 & - & 0.17 & - & 0.26 & - & 5/23 & - & 5/12 & - & 5.0 \\
+         DeFiNe 60\textdegree &1 & 0.42 & - & 0.31 & - & 0.36 & - & 5/16 & - & 5/12 & - & 16.2\\
+        AP MT-P & 5 & 0.5 & 0.52 & 0.32 & 0.40 & 0.39 & 0.45 & 8.8/15 & 9/14 & 8.8/12 & 9/12 & 0.9\\
         \hline
     \end{tabular}
-    \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}). 12 son los filamentos definidos por un experto, para un grafo de 40 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio. El algoritmo propuesto presenta un comportamiento favorable, presentando un n\'umero de filamentos propuestos cercano a la cantidad de filamentos correctos.}
+    \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}). 12 son los filamentos definidos por un experto, para un grafo de 40 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. El algoritmo propuesto (AP) presenta un comportamiento favorable, presentando un n\'umero de filamentos propuestos cercano a la cantidad de filamentos correctos.}
     \label{tab:field3t0filtered1}
 \end{table}
 
@@ -352,12 +355,12 @@ El filamento faltante para el algoritmo propuesto corresponde a una sobre-asigna
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
     \hline
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
-         DeFiNe 30\textdegree & 1 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 3/5 & 3/5 & 3/5 & 3/5 & 2.82 \\
-         DeFiNe 60\textdegree & 1& 0.55 & 0.55 & 0.5 & 0.5 & 0.57 & 0.57 & 4/5 & 4/5 & 4/5 & 4/5 & 2.65\\
-        MT-P & 5 &0.66 & 0.66 & 0.5 & 0.5 & 0.57 & 0.57 & 4/5 & 4/5 & 4/5 & 4/5 & 0.29\\
+         DeFiNe 30\textdegree & 1 & 0.5 & - & 0.5 & - & 0.5 & - & 3/5 & - & 3/5 & - & 2.82 \\
+         DeFiNe 60\textdegree & 1& 0.55 & - & 0.5 & - & 0.57 & - & 4/5 & - & 4/5 & - & 2.65\\
+        AP MT-P & 5 &0.66 & 0.66 & 0.5 & 0.5 & 0.57 & 0.57 & 4/5 & 4/5 & 4/5 & 4/5 & 0.29\\
         \hline
     \end{tabular}
-    \caption[Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C.]{Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C. Existen 7 aristas en el grafo que representa la red de filamentos, y a su vez el n\'umero de filamentos correctos es 5. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio. Para esta muestra, todas las iteraciones del algoritmo propuesto obtienen el mismo resultado, los que tambi\'en sucede en la ejecuci\'on de DeFiNe con 60\textdegree, siendo la \'unica diferencia que el algoritmo propuesto realiza la individualizaci\'on en menor tiempo.}
+    \caption[Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C.]{Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C. Existen 7 aristas en el grafo que representa la red de filamentos, y a su vez el n\'umero de filamentos correctos es 5. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. Para esta muestra, todas las iteraciones del algoritmo propuesto (AP) obtienen el mismo resultado, los que tambi\'en sucede en la ejecuci\'on de DeFiNe con 60\textdegree, siendo la \'unica diferencia que el algoritmo propuesto realiza la individualizaci\'on en menor tiempo.}
     \label{tab:field3t0filtered2}
 \end{table}
 
@@ -415,7 +418,7 @@ El filamento faltante para el algoritmo propuesto corresponde a una sobre-asigna
 
 \subsection{Neuronas}
 \label{subsec:neuronTest}
-En esta secci\'on se muestran los resultados de la evaluaci\'on del algoritmo propuesto para las 3 muestras de neuronas de rat\'on, obtenidas desde \cite{ampuero2019chronic}, y que se denominan N1, N2 y N3. Para estas 3 muestras se utiliza la configuraci\'on predeterminada de neurona, ejecutando el algoritmo propuesto 5 veces para obtener un comportamiento promediado. A diferencia de la secci\'on \ref{subsec:mtTest}, en estas evaluaciones las pruebas ejecutadas con DeFiNe presentan cantidades de filamentos propuestos 2 a 6 veces mayores que el n\'umero de filamentos individualizados por un experto. Este comportamiento puede atribuirse a la obligaci\'on que DeFiNe tiene de asignar todas las aristas al menos a un filamento. En comparaci\'on, el algoritmo propuesto al tener mayor flexibilidad, asigna en promedio un 57\% de las aristas a filamentos.
+En esta secci\'on se muestran los resultados de la evaluaci\'on del algoritmo propuesto para las 3 muestras de neurona, obtenidas desde \citet{ampuero2019chronic}, y que se denominan N1, N2 y N3. Para estas 3 muestras se utiliza la configuraci\'on predeterminada de neurona (AP N), ejecutando el algoritmo propuesto 5 veces para obtener un comportamiento promediado. A diferencia de la secci\'on \ref{subsec:mtTest}, en estas evaluaciones las pruebas ejecutadas con DeFiNe presentan cantidades de filamentos propuestos 2 a 6 veces mayores que el n\'umero de filamentos individualizados por un experto. Este comportamiento puede atribuirse a la obligaci\'on que DeFiNe tiene de asignar todas las aristas al menos a un filamento. En comparaci\'on, el algoritmo propuesto al tener mayor flexibilidad, asigna en promedio un 57\% de las aristas a filamentos.
 
 Adicionalmente, los tiempos de ejecuci\'on de las pruebas con DeFiNe son sustancialmente mayores, encontr\'andose en el rango de los minutos a las 4 horas, dependiendo de los par\'ametros utilizados. Lo anterior puede asociarse al n\'umero de aristas que las muestras de neurona tienen en su respectivo grafo, las que son 414 para N1 y 161 para N2. En el caso de la muestra N3, representada por un grafo de 67 aristas, esta no pudo ser calculada con DeFiNe ya que el programa arroja un error de falla cr\'itica, impidiendo su ejecuci\'on. La informaci\'on respecto al n\'umero de filamentos propuestos como de los tiempos de ejecuci\'on se encuentra en la Tabla \ref{tab:FilPropyTiemposNeuronasDefine}.
 
@@ -427,13 +430,13 @@ Adicionalmente, los tiempos de ejecuci\'on de las pruebas con DeFiNe son sustanc
          \hline
          \multirow{3}{*}{N1}& DeFiNe 30\textdegree & 246 & 100 & 1514.6 \\
                             & DeFiNe 60\textdegree & 192 & 100 & 15573.7 \\
-                            & Propuesto Promedio & 59 & 53.7 & 32.5 \\ \hline
+                            & AP N Promedio & 59 & 53.7 & 32.5 \\ \hline
         \multirow{3}{*}{N2}& DeFiNe 30\textdegree & 113 & 100 & 82.2 \\
                             & DeFiNe 60\textdegree & 85 & 100 & 456.4 \\
-                            & Propuesto Promedio & 34.8 & 59.3 & 4.9 \\ \hline
-                    N3 & Propuesto Promedio & 17.4 & 57.8 & 4.2 \\ \hline
+                            & AP N Promedio & 34.8 & 59.3 & 4.9 \\ \hline
+                    N3 & AP N Promedio & 17.4 & 57.8 & 4.2 \\ \hline
     \end{tabular}
-    \caption[N\'umero de filamentos propuestos y tiempos de ejecuci\'on para las muestras N1, N2 y N3.]{N\'umero de filamentos propuestos y tiempos de ejecuci\'on para DeFiNe y el promedio de algoritmo propuesto con configuraci\'on de neurona, para las muestras N1 y N2 en las Figuras \ref{fig:Porta6-4a1} y \ref{fig:Porta10-5b} respectivamente. Estas muestras contienen 24 y 29 filamentos cada una. La muestra N3 en la figura \ref{fig:Porta18-3a1} es representada por un grafo de 67 aristas y s\'olo considera los resultados promediados del algoritmo propuesto.}
+    \caption[N\'umero de filamentos propuestos y tiempos de ejecuci\'on para las muestras N1, N2 y N3.]{N\'umero de filamentos propuestos y tiempos de ejecuci\'on para DeFiNe y el promedio del algoritmo propuesto con configuraci\'on de neurona (AP N), para las muestras N1 y N2 en las Figuras \ref{fig:Porta6-4a1} y \ref{fig:Porta10-5b} respectivamente. Estas muestras contienen 24 y 29 filamentos cada una. La muestra N3 en la figura \ref{fig:Porta18-3a1} es representada por un grafo de 67 aristas y solo considera los resultados promediados del algoritmo propuesto.}
     \label{tab:FilPropyTiemposNeuronasDefine}
 \end{table}
 
@@ -443,7 +446,7 @@ En cuanto a los resultados del algoritmo propuesto, indicados en la Tabla \ref{t
 
 Como se menciona en las evaluaciones previas, una de las mediciones principales es encontrar un calce exacto entre los filamentos propuestos y los que identifica el experto. Es por esto, que los filamentos que se sobre o sub asignan en 1 arista o m\'as no son considerados. Sin embargo, esta informaci\'on puede ser \'util para entender el m\'otivo por el cual un filamento propuesto queda tan cerca de ser un calce exacto con respecto a lo indicado por un experto. Esta informaci\'on adicional se encuentra en la columna F.S de la Tabla \ref{tab:neuronResults}, indicando que a\'un cuando los calces exactos son bajos, existen varios filamentos propuestos que se encuentran en un rango de 1 a 3 aristas faltantes o sobrantes, con respecto a un filamento correcto. Una comparaci\'on visual entre filamentos propuestos y correctos para las pruebas de esta secci\'on se encuentra en la Figura \ref{fig:NeuronPropVsCorrect}.
 
-En las neuronas es observable la existencia de una dendrita de mayor longitud que el resto, denominada axón, a partir de la que nacen nuevas dendritas. A su vez, otras dendritas que nacen del centro de la neurona o soma, y se extienden de forma significativa tambi\'en sirven como lugar de nacimiento para nuevas dendritas. Este comportamiento implica la necesidad de considerar la selecci\'on de aristas que no s\'olo respeten el criterio de rectitud, sino que a la vez aporten con la mayor longitud al camino en construcci\'on.
+En las neuronas es observable la existencia de una dendrita de mayor longitud que el resto, denominada axón, a partir de la que nacen nuevas dendritas. A su vez, otras dendritas que nacen del centro de la neurona o soma, y se extienden de forma significativa tambi\'en sirven como lugar de nacimiento para nuevas dendritas. Este comportamiento implica la necesidad de considerar la selecci\'on de aristas que no solo respeten el criterio de rectitud, sino que a la vez aporten con la mayor longitud al camino en construcci\'on.
 
 
 \begin{table}[h]
@@ -458,7 +461,7 @@ En las neuronas es observable la existencia de una dendrita de mayor longitud qu
         \hline
     \end{tabular}
     
-    \caption[Resultados de la individualizaci\'on de filamentos mediante el algoritmo propuesto para las muestra N1, N2 y N3.]{Resultados de la individualizaci\'on de filamentos mediante el algoritmo propuesto para las muestra N1, N2 y N3, en las Figuras \ref{fig:Porta6-4a1}, \ref{fig:Porta10-5b} y \ref{fig:Porta18-3a1} respectivamente. Las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la La columna F.S. indica el n\'umero de filamentos cuya diferencia con respecto a ser un calce exacto es a lo m\'as de 3 aristas. Las columnas con asterisco representan el m\'aximo obtenido tras las 5 ejecuciones del algoritmo propuesto, mientras que las sin asterisco representan el promedio.}
+    \caption[Resultados de la individualizaci\'on de filamentos mediante el algoritmo propuesto para las muestra N1, N2 y N3.]{Resultados de la individualizaci\'on de filamentos mediante el algoritmo propuesto con los par\'ametros para neuronas, para las muestra N1, N2 y N3, en las Figuras \ref{fig:Porta6-4a1}, \ref{fig:Porta10-5b} y \ref{fig:Porta18-3a1} respectivamente. Las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la La columna F.S. indica el n\'umero de filamentos cuya diferencia con respecto a ser un calce exacto es a lo m\'as de 3 aristas. (*) Las columnas con asterisco representan el m\'aximo obtenido tras las 5 ejecuciones del algoritmo propuesto, mientras que las sin asterisco representan el promedio.}
     % Los valores m\'aximos de VI para cada muestra son 6.0258, 5.0814 y 4.2046, basados en el n\'umero de aristas de los grafos respectivos, que son 414 para N1, 161 para N2 y 67 para N3.
     \label{tab:neuronResults}
 \end{table}
@@ -525,7 +528,7 @@ Un an\'alisis particular recae en las m\'etricas y medidas utilizadas para compa
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-Figura & Config/Muestra & VI Max & VI & Rand & Jaccard \\ \hline
+Figura & Config. de Par\'ametros & VI Max & VI & Rand & Jaccard \\ \hline
  \ref{fig:synth-QFS-7} & MT-P  & 2.3978 & 1.6360 & 0.7646 & 0.2485 \\
  \ref{fig:synth-QFS-7} & S1  & 2.3978 & 0.7091 & 0.8637 & 0.4750  \\
  \ref{fig:synth-Define-1b} & MT-P & 3.0445 & 2.2296 & 0.7276 & 0.1806 \\
@@ -533,18 +536,18 @@ Figura & Config/Muestra & VI Max & VI & Rand & Jaccard \\ \hline
  \ref{fig:SpinningMarchantia} & MT-P & 3.4965 & 2.1656 & 0.8658 & 0.2407 \\
  \ref{fig:field3t0filtered1} & MT-P & 3.7612 & 2.6285 & 0.8683 & 0.2488  \\
  \ref{fig:field3t0filtered2} & MT-P & 1.9459 & 0.4286 & 0.8929 & 0.40 \\
- \ref{fig:Porta6-4a1} & N1 & 6.0258 & 1.7950 & 0.8864 & 0.1389 \\
- \ref{fig:Porta10-5b} & N2 & 5.0814 & 3.7256 & 0.8775 & 0.0703 \\
- \ref{fig:Porta18-3a1} & N3 & 4.2046 & 1.0060 & 0.8794 & 0.2157 \\ \hline
+ \ref{fig:Porta6-4a1} & N & 6.0258 & 1.7950 & 0.8864 & 0.1389 \\
+ \ref{fig:Porta10-5b} & N & 5.0814 & 3.7256 & 0.8775 & 0.0703 \\
+ \ref{fig:Porta18-3a1} & N & 4.2046 & 1.0060 & 0.8794 & 0.2157 \\ \hline
 \end{tabular}
-\caption[Resultados de la m\'etrica VI y los \'indices Rand y Jaccard para las evaluaciones del algoritmo propuesto.]{Resultados de la m\'etrica VI y los \'indices Rand y Jaccard para las evaluaciones del algoritmo propuesto en im\'agenes sint\'eticas y reales. Los valores de los \'indices Rand y Jaccard se encuentran en el rango $[0,1]$, siendo 1 el valor ideal. Se observa que los resultados del \'indice Rand se contradicen con los del \'indice Jaccard. Por su parte, la m\'etrica VI penaliza los casos en que una aristas pertenece a m\'as de un filamento propuesto, lo que dificulta la evaluaci\'on mediante esta m\'etrica para los casos de superposici\'on de filamentos.}
+\caption[Resultados de la m\'etrica VI y los \'indices Rand y Jaccard para las evaluaciones del algoritmo propuesto.]{Resultados de la m\'etrica VI y los \'indices Rand y Jaccard para las evaluaciones del algoritmo propuesto en im\'agenes sint\'eticas y reales, para diferentes configuraci\'ones de par\'ametros. Los valores de los \'indices Rand y Jaccard se encuentran en el rango $[0,1]$, siendo 1 el valor ideal. Se observa que los resultados del \'indice Rand se contradicen con los del \'indice Jaccard. Por su parte, la m\'etrica VI penaliza los casos en que una aristas pertenece a m\'as de un filamento propuesto, lo que dificulta la evaluaci\'on mediante esta m\'etrica para los casos de superposici\'on de filamentos.}
 \label{tab:VI-R-J-inconclu}
 \end{table}
 
 
 \section{Resultados Generales}
 
-Con la finalidad de comprender el comportamiento general del algoritmo propuesto, se realiza una evaluaci\'on estad\'istica de los resultados para determinar la similitud entre el n\'umero de filamentos propuestos con respecto a la cantidad de filamentos indicada por un experto. A cada figura previamente evaluada, se le realizan nuevas ejecuciones mediante el algoritmo propuesto, llegando a un total de 10 iteraciones por figura. Si estos resultados se comportan de acuerdo a una distribuci\'on normal, se evalúa su similitud con respecto a lo indicado por un experto a trav\'es de la prueba t de Student, de lo contrario se utiliza una prueba de rangos con signo de Wilcoxon. La hip\'otesis nula (H0) consiste en que no existe diferencia estad\'isticamente significativa entre el n\'umero de filamentos propuestos por el algoritmo propuesto y lo definido por un experto. En el caso de que el valor $p$ o {\it p-value} sea menor al 5\%, se rechaza H0. 
+Con la finalidad de comprender el comportamiento general del algoritmo propuesto, se realiza una evaluaci\'on estad\'istica de los resultados para determinar la similitud entre el n\'umero de filamentos propuestos con respecto a la cantidad de filamentos indicada por un experto. A cada figura previamente evaluada, se le realizan nuevas ejecuciones mediante el algoritmo propuesto, llegando a un total de 10 iteraciones por figura. Si estos resultados se comportan de acuerdo a una distribuci\'on normal, se evalúa su similitud con respecto a lo indicado por un experto a trav\'es de la prueba t de Student, de lo contrario se utiliza una prueba de rangos con signo de Wilcoxon. La hip\'otesis nula (H0) consiste en que no existe diferencia estad\'isticamente significativa entre el n\'umero de filamentos individualizados por el algoritmo propuesto y lo definido por un experto. En el caso de que el valor $p$ o {\it p-value} sea menor al 5\%, se rechaza H0. 
 
 \begin{table}[h]
 \centering
@@ -571,7 +574,7 @@ En la Tabla \ref{tab:statisticAnalisis} se muestran los resultados del an\'alisi
 
 
 
-En base a los resultados se observa que el comportamiento del algoritmo propuesto es estable, tendiendo a individualizar los mismos filamentos en cada iteraci\'on, y pudiendo encontrar filamentos que no aparecen en DeFiNe. Se debe tener en consideraci\'on que el \'ultimo aspecto puede relacionarse con el uso de una ponderaci\'on distinta a la ideal presentada por los autores de DeFiNe, que puede ocasionar la merma en los resultados en aquel m\'etodo. La estabilidad del algoritmo propuesto, en conjunto con los par\'ametros predefinidos apunta a favorecer la experiencia del usuario, ya que evita la sintonizaci\'on de par\'ametros, simplificando el trabajo del experto. Adem\'as, la utilizaci\'on de m\'ultiples caracter\'isticas en el algoritmo propuesto permite al usuario ajustar par\'ametros espec\'ificos, as\'i como integrar nuevos par\'ametros para manejar informaci\'on adicional que pueda ser incorporada. Un aspecto adicional del algoritmo propuesto es el uso de la curvatura de las aristas, en comparaci\'on a representarlas mediante una l\'inea recta entre 2 nodos. Esto no s\'olo aporta m\'as informaci\'on, sino que adem\'as mejora la visualizaci\'on de los resultados. 
+En base a los resultados se observa que el comportamiento del algoritmo propuesto es estable, tendiendo a individualizar los mismos filamentos en cada iteraci\'on, y como se indica en las Tablas \ref{tab:synth-Define-1b} y \ref{tab:field3t0filtered1}, encontrando filamentos que no aparecen en DeFiNe. Se debe tener en consideraci\'on que el \'ultimo aspecto puede relacionarse con el uso de una ponderaci\'on distinta a la ideal presentada por los autores de DeFiNe, que puede ocasionar la merma en los resultados en aquel m\'etodo. La estabilidad del algoritmo propuesto, en conjunto con los par\'ametros predefinidos apunta a favorecer la experiencia del usuario, ya que evita la sintonizaci\'on de par\'ametros, simplificando el trabajo del experto. Adem\'as, la utilizaci\'on de m\'ultiples caracter\'isticas en el algoritmo propuesto permite al usuario ajustar par\'ametros espec\'ificos, as\'i como integrar nuevos par\'ametros para manejar informaci\'on adicional que pueda ser incorporada. Un aspecto adicional del algoritmo propuesto es el uso de la curvatura de las aristas, en comparaci\'on a representarlas mediante una l\'inea recta entre 2 nodos. Esto no solo aporta m\'as informaci\'on, sino que adem\'as mejora la visualizaci\'on de los resultados. 
 
 \hspace{1cm}
 
