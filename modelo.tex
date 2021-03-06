@@ -19,9 +19,18 @@ Se ha establecido en la secci\'on \ref{sec:OptiMethods} que una red de filamento
 
 %Problema de explorar el espacio de soluciones
 %comportamiento de las hormigas se puede asemejar a la forma en que los filamentos fueron creciendo o decreciendo.
-La b\'usqueda de conjuntos de aristas adyacentes para individualizar uno o m\'as filamentos implica examinar un espacio de soluciones que no es posible de recorrer en tiempo polinomial, dado que sin restricciones las combinaciones crecen exponencialmente\citepxl[ver ]{buchin2007number, biswas2012hamiltonian}. La metaheur\'istica ACO permite en sus distintas etapas (Construcci\'on de soluci\'on, b\'usqueda no local, actualizaci\'on de feromonas) incorporar informaci\'on que puede acotar el espacio de b\'usqueda. En el caso de la individualizaci\'on de filamentos, las diversas caracter\'isticas asociadas a las aristas, as\'i como las caracter\'isticas que definen el comportamiento global de un filamento permiten realizar esta tarea. 
+La b\'usqueda de conjuntos de aristas adyacentes para individualizar uno o m\'as filamentos implica examinar un espacio de soluciones que no es posible de recorrer en tiempo polinomial, dado que sin restricciones las combinaciones crecen exponencialmente \citepxl[ver\hspace{0.1cm} ]{buchin2007number, biswas2012hamiltonian}. La metaheur\'istica ACO permite en sus distintas etapas (Construcci\'on de soluci\'on, b\'usqueda no local, actualizaci\'on de feromonas) incorporar informaci\'on que puede acotar el espacio de b\'usqueda. En el caso de la individualizaci\'on de filamentos, las diversas caracter\'isticas asociadas a las aristas, as\'i como las caracter\'isticas que definen el comportamiento global de un filamento permiten realizar esta tarea. 
 
 %En relaci\'on a los dominios $D_i$ declarados en la definici\'on del modelo de un COP, se destaca que en el caso de la individualizaci\'on de filamentos existe solo $D_1 \in D$, ya que la instanciaci\'on de variables ($X_i = v_{i}^{j}$ o $c_{ij}$) tiene una sola asignaci\'on posible, lo que lleva a una simplificaci\'on del componente $j$ en las ecuaciones presentadas.
+Un diagrama resumido de los pasos del algoritmo propuesto se presenta en la Figura \ref{fig:ACOdiagram}. A partir de una imagen, se obtiene un grafo que representa a la red de filamentos mediante alguna herramienta externa, como {\it sknw}. Opcionalmente, información adicional obtenida a partir de la imagen o del grafo puede ser añadida al algoritmo. Lo anterior, en conjunto con los par\'ametros de entrada constituyen los datos con los que se puede inicializar y ejecutar la metaheur\'istica ACO, obteniendo una individualizaci\'on de filamentos. El detalle de cada etapa de la metaheur\'istica ACO se presenta en las siguientes secciones de este cap\'itulo. 
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.45]{imagenes/ACOdiagram.png}
+    \caption[Diagrama de las etapas del algoritmo propuesto]{Diagrama simplificado de las etapas del algoritmo propuesto. Fuente: Elaboraci\'on Propia.}
+    \label{fig:ACOdiagram}
+\end{figure}
 
 \section{Inicializaci\'on de la metaheur\'istica ACO}
 \label{sec:acoInit}
@@ -37,7 +46,10 @@ En el caso de las feromonas, se define un valor inicial de $\tau_{ij} = 1$, pero
 %Para las feromonas se configura el valor inicial de $\tau_{ij}$ en 1 para los pares $\langle c_{ij}$,$ seg_{n}\rangle \> \forall c_{ij} \in \> ]\theta, Max\_Angle]$, dado que al usar SAP esta probabilidad se ir\'a reduciendo de acuerdo a un factor $\gamma$ seg\'un lo explicado en la secci\'on \ref{subsec:pheroUpdate}. El valor de $\gamma$ se define en 0.5, en base a lo encontrado en la literatura.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Finalmente, el criterio de finalizaci\'on consiste en generar nuevas hormigas artificiales hasta que todas las aristas sean parte de al menos una soluci\'on de buena calidad, o que el n\'umero de hormigas generadas sea superior a 4 veces la cantidad de aristas. En lo que sigue de este trabajo se utiliza el t\'ermino hormigas en referencia a las hormigas artificiales o agentes.
+En cuanto al criterio de finalizaci\'on, este consiste en generar nuevas hormigas artificiales hasta que todas las aristas sean parte de al menos una soluci\'on de buena calidad, o que el n\'umero de hormigas generadas sea superior a 4 veces la cantidad de aristas. En lo que sigue de este trabajo se utiliza el t\'ermino hormigas en referencia a las hormigas artificiales o agentes.
+
+
+El grafo que representa la red de caminos que pueden recorrer las hormigas se puede obtener mediante las herramientas descritas en la secci\'on \ref{subsec:infoLossSkel}, siendo {\it sknw} la seleccionada en esta investigaci\'on. Esta herramienta recibe como dato de entrada la imagen de microscop\'ia binarizada, realizando internamente el proceso de esqueletonizaci\'on y posterior transformaci\'on a una estructura de grafo.
 
 
 \section{M\'etodo de construcci\'on de soluci\'on de cada hormiga}
@@ -306,7 +318,7 @@ El \'angulo entre la proyecci\'on de $\Vec{p}$ y $\Vec{q}$ no debe superar el va
 
 \subsection{Magnitud de desplazamiento entre segmentos}
 %agregar referencia? tindemans rod straightness \cite{hawkins2010model} of MTs o 
-El an\'alisis respecto a la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a sus segmentos vecinos se fundamenta en la rigidez que algunos tipos de filamentos como los microt\'ubulos y los filamentos de actina poseen \citepxl[ver ]{stam2017filament, civalek2011bending}. El criterio de m\'aximo desplazamiento entre segmentos contiguos consiste en limitar la magnitud del movimiento que representa un segmento en relaci\'on al \'angulo que forma con sus segmentos adyacentes. Esto permite descartar soluciones que respeten el criterio de curvatura, pero que presentan movimientos pronunciados que sobrepasan la rigidez esperada de un filamento.
+El an\'alisis respecto a la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a sus segmentos vecinos se fundamenta en la rigidez que algunos tipos de filamentos como los microt\'ubulos y los filamentos de actina poseen \citepxl[ver\hspace{0.1cm} ]{stam2017filament, civalek2011bending}. El criterio de m\'aximo desplazamiento entre segmentos contiguos consiste en limitar la magnitud del movimiento que representa un segmento en relaci\'on al \'angulo que forma con sus segmentos adyacentes. Esto permite descartar soluciones que respeten el criterio de curvatura, pero que presentan movimientos pronunciados que sobrepasan la rigidez esperada de un filamento.
 
 %El criterio de rigidez consiste en analizar los segmentos con respecto a la totalidad de sus predecesores, comenzando por el \'ultimo segmento recorrido por la hormiga, es decir, desde el extremo final de la soluci\'on. 
 A partir de cada par de segmentos vecinos en una soluci\'on, se  selecciona el segmento de mayor longitud, el que servir\'a para determinar cual es el movimiento proyectado con respecto al movimiento reflejado por el segmento de menor longitud. Se define el segmento m\'as largo entre ambos segmentos comparados en un camino $a$ como $seg^{a}_{iMax}$ , mientras que el segmento menor es $seg^{a}_{jMin}$. El \'angulo entre $seg^{a}_{jMin}$ y la proyecci\'on de $seg^{a}_{iMax}$ se define como 
