@@ -1,11 +1,11 @@
 \chapter{Antecedentes}
 \label{chap:stateoftheart}
-La individualizaci\'on de filamentos en una imagen es un problema derivado de la obtenci\'on de informaci\'on de filamentos en base a una imagen. Este \'ultimo ha ido variando a medida que la tecnolog\'ia en microscopios ha mejorado, lo que a su vez ha permitido el desarrollo de nuevos m\'etodos. Estos m\'etodos pueden a su vez diferir entre s\'i dependiendo del foco de la informaci\'on que buscan obtener a partir de la imagen, existiendo m\'etodos que se enfocan en reconstruir filamentos discontinuos, a la identificaci\'on de segmentos de filamento para la construcci\'on de las redes que estos conforman, o la individualizaci\'on en s\'i. Independientemente del objetivo de cada m\'etodo, es posible agruparlos en dos categor\'ias: M\'etodos basados en herramientas de visi\'on por computador y m\'etodos basados en optimizaci\'on. Los primeros realizan mayoritariamente operaciones de filtrado sobre la imagen, mientras que los segundos plantean parte de la obtenci\'on de la informaci\'on mediante la resoluci\'on de problemas de asignaci\'on o de minimizaci\'on de funciones.
+La individualizaci\'on de filamentos en una imagen es un problema derivado de la obtenci\'on de informaci\'on de filamentos en base a una imagen. Este \'ultimo ha ido variando a medida que la tecnolog\'ia en microscopios ha mejorado, lo que a su vez ha permitido el desarrollo de nuevos m\'etodos. Estos m\'etodos pueden a su vez diferir entre s\'i dependiendo del foco de la informaci\'on que buscan obtener a partir de la imagen, existiendo m\'etodos que se enfocan en reconstruir filamentos discontinuos, a la identificaci\'on de segmentos de filamento para la construcci\'on de las redes que estos conforman, o la individualizaci\'on en s\'i. Independientemente del objetivo de cada m\'etodo, es posible agruparlos en dos categor\'ias: M\'etodos basados en procesamiento de im\'agenes de bajo nivel y m\'etodos basados en optimizaci\'on. Los primeros realizan mayoritariamente operaciones de filtrado sobre la imagen, mientras que los segundos plantean parte de la obtenci\'on de la informaci\'on mediante la resoluci\'on de problemas de asignaci\'on o de minimizaci\'on de funciones.
 
 Entre las herramientas disponibles para los m\'etodos basados en optimizaci\'on, se encuentra la metaheur\'istica {\it Ant Colony Optimization} (ACO), que se basa en el comportamiento de las hormigas al buscar alimento. Esta metaheur\'istica corresponde a la estrategia utilizada en esta investigaci\'on para individualizar filamentos.
 
 
-\section{M\'etodos basados en herramientas de visi\'on por computador}
+\section{M\'etodos basados en procesamiento de im\'agenes de bajo nivel}
 \label{sec:NonIndividualizationMethods}
 
 La investigaci\'on de \citet{zhang2017extracting} identifica el problema de discontinuidad de filamentos en una imagen, pudiendo atribuirse esto a factores experimentales como la densidad del componente fluorescente, ruido u otras. En particular, el filamento analizado en esta investigaci\'on corresponde a microt\'ubulos. Para llevar a cabo la reconstrucci\'on de un filamento en base a segmentos, establecen el uso de dos filtros, denominados \textit{Filtro de Transformaci\'on Lineal} (LFT, Linear Filter Transformation) y \textit{Filtro de Transformaci\'on en base a la Orientaci\'on} (OFT, Orientation Filter Transformation). 
@@ -115,7 +115,7 @@ El paso siguiente es la aplicaci\'on de un detector de l\'ineas multi-escala, qu
 Finalmente, para construir las fibras de actina, los segmentos de l\'inea elegidos en el paso anterior son unidos entre s\'i mediante una ventana de largo $L$, en la que dos segmentos de l\'inea se superpongan y no tengan una diferencia entre sus \'angulos mayor al umbral $T_{\theta}$. 
 %\cite{asgharzadeh2018computational}
 
-Otras investigaciones similares que siguen un enfoque basado principalmente en herramientas de visi\'on por computador de bajo nivel son \citet{doi:10.1021/ma502264c},\citet{lichtenstein2003quantitative} y \citet{asgharzadeh2018computational}. En general, los trabajos desarrollados bajo este enfoque requieren del uso o sintonizaci\'on de m\'ultiples par\'ametros.
+Otras investigaciones similares que siguen un enfoque basado principalmente en procesamiento de im\'agenes de bajo nivel son \citet{doi:10.1021/ma502264c},\citet{lichtenstein2003quantitative} y \citet{asgharzadeh2018computational}. En general, los trabajos desarrollados bajo este enfoque requieren del uso o sintonizaci\'on de m\'ultiples par\'ametros.
 
 
 %la dificultad para identificar correctamente un filamento de otro, en los casos de  superposici\'on, fragmentaci\'on, o variaciones de intensidad en la imagen...
@@ -428,19 +428,33 @@ Luego, la definici\'on de una soluci\'on $s$ puede representarse como un conjunt
  \caption{Algoritmo de un modelo COP adaptado a una metaheur\'istica ACO}\label{COP-ACO-Algo}
 \end{algorithm}
 
-\subsection{Comparaci\'on}
+
+\section{Evaluaci\'on de t\'ecnicas}
 \label{sec:EvalOE4}
+
+Debido a la complejidad al obtener informaci\'on cuantitativa de filamentos a partir de imagenes de microsco\'ia, las soluciones revisadas pueden ofrecer soluciones que requieren una alta interacci\'on humana o que permiten un cierto grado de automatizaci\'on con el costo asociado de tener muchos par\'ametros
+
+
+% mejoras incrementales de cada software
 
 \subsection{FibrilTool}
 \label{subsec:AnalisisFibrilTool}
 
-Es un plugin de facil instalaci\'on para ImageJ
+Esta herramienta es el resultado de la investigaci\'on de \citet{boudaoud2014fibriltool}, presentada en la secci\'on \ref{sec:NonIndividualizationMethods}, cuya implementaci\'on consiste en un plugin de facil instalaci\'on para el programa de an\'alisis de im\'agenes ImageJ. FibrilTool permite calcular la anisotrop\'ia de una regi\'on de inter\'es en la que existan filamentos.
 
-Como resultado FibrilTool entrega una l\'inea cuyo \'angulo representa la orientaci\'on promedio de los filamentos en la regi\'on de inter\'es, mientras que el largo es un indicador proporcional a la anistrop\'ia de los filamentos. El valor del largo y del \'angulo se pueden obtener con las herramientas existentes en ImageJ.
+Como resultado FibrilTool entrega una l\'inea cuyo \'angulo representa la orientaci\'on promedio de los filamentos en la regi\'on de inter\'es, mientras que el largo es un indicador proporcional a la anistrop\'ia de los filamentos. Lo anterior se refleja en la Figura \ref{fig:FibrilToolexample}. El valor del largo y del \'angulo se pueden obtener con las herramientas existentes en ImageJ.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.6]{evalImages/fibriltool-c1-mt-GFP-hipocotilo-zoom.png}
+    \caption[Ejemplo de FibrilTool en microt\'ubulos]{Uso de FibrilTool en una imagen de microt\'ubulos de la planta {\it Arabidopsis Marchantia}. La secci\'on de inter\'es corresponde al \'area dentro de la regi\'on delimitada en amarillo. La l\'inea roja representa el resultado al ejecutar FibrilTool. Fuente: Elaboraci\'on Propia.}
+    \label{fig:FibrilToolexample}
+\end{figure}
 
+% Fibriltool batch mention
+Debido a que el proceso para obtener un resultado a partir de FibrilTool considera una sola \'area de inter\'es, los autores desarrollaron una versi\'on denominada {\it FibrilTool Batch} \citepxl{marion_louveaux_2018_2528872}, la que permite la creaci\'on de m\'ultiples regiones de inter\'es para ser calculadas.
 
-\subsubsection{SOAX}
+\subsection{SOAX}
 \label{subsec:AnalisisSOAX}
 
 La herramienta descrita en la investigaci\'on denominada SOAX \citepxl[]{xu2015soax}, presentado en la secci\'on \ref{sec:OptiMethods}, pudo ser construida para realizar una evaluaci\'on, utilizando la imagen de ejemplo provista por los autores. Esta imagen se puede observar en la Figura \ref{fig:SOAXexample}.
@@ -464,8 +478,8 @@ Dado que el enfoque de la investigaci\'on de SOAX se encuentra en obtener un an\
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.5]{evalImages/cable1-soax.png}
-    \caption[Imagen de ejemplo procesada con SOAX]{Imagen sint\'etica de ejemplo procesada con SOAX, identificando en color verde las intersecciones.}
+    \includegraphics[scale=0.4]{evalImages/cable1-soax.png}
+    \caption[Imagen de ejemplo procesada con SOAX]{Imagen sint\'etica de ejemplo procesada con SOAX, identificando en color verde las intersecciones. Fuente: Elaboraci\'on Propia.}
     \label{fig:SOAXexampleComputed}
 \end{figure}
 
@@ -475,7 +489,3 @@ Los mismos autores de SOAX crearon una extensi\'on, denominada TSOAX \citepxl{xu
 
 %La similaridad entre SOAX y TSOAX permite a los autores indicar que el mismo manual de usuario es aplicable a ambas herramientas.
 %que permiten seguir filamentos en distintos tiempos, as\'i como llevar a cabo la agrupaci\'on de curvas par\'ametricas 
-
-
-
-
