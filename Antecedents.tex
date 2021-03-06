@@ -362,7 +362,7 @@ Una manera adicional de generar informaci\'on que facilite la discriminaci\'on d
 
 %A su vez, este criterio posee un segundo umbral, definido como $\theta$  que define el \'angulo m\'aximo bajo el que se considera que 2 aristas contiguas respetan con certeza la rectitud necesaria para formar parte del mismo filamento. Es decir, si 2 aristas contiguas forman un \'angulo en el rango $[0, \theta]$, deben ser parte del mismo filamento. El rango entre ambos umbrales, $]\theta, Max\_Angle]$ delimita los pares de aristas que a priori no representan combinaciones que respetan el criterio de rectitud, pero cuya explicaci\'on puede encontrarse en variaciones inducidas durante la extracci\'on del grafo desde la imagen, por lo que es necesario incorporar la exploraci\'on de estos pares de aristas.
 
-Finalmente, para el caso de los nodos, el an\'alisis del grado de cada uno permite identificar la existencia de ciclos \citepxl[ver ]{wilson1979introduction} en un filamento. La propiedad de un filamento de poder tener o no tener un ciclo es informaci\'on disponible a priori que depende del tipo de c\'elula observada, permitiendo limitar posibles asociaciones entre nodos. En el caso particular de no permitir ciclos, un filamento no podr\'ia pasar m\'as de una vez por cada nodo que lo conforma. 
+Finalmente, para el caso de los nodos, el an\'alisis del grado de cada uno permite identificar la existencia de ciclos \citepxl[ver\hspace{0.1cm} ]{wilson1979introduction} en un filamento. La propiedad de un filamento de poder tener o no tener un ciclo es informaci\'on disponible a priori que depende del tipo de c\'elula observada, permitiendo limitar posibles asociaciones entre nodos. En el caso particular de no permitir ciclos, un filamento no podr\'ia pasar m\'as de una vez por cada nodo que lo conforma. 
 %En base la gran cantidad de combinaciones posibles de caminos, el problema final en la individualizaci\'on de filamentos lo constituye la elecci\'on del subconjunto de caminos, que debe ser seleccionado entre el total de caminos que representan soluciones factibles. Esto implica que el problema no solo sea un problema combinatorial de generar soluciones factibles a partir del conjunto de aristas, sino que adem\'as debe considerar la discriminaci\'on entre estos para obtener el subconjunto de mayor calidad, pudiendo representarse como un problema de optimizaci\'on combinatorial.
 
 \section{Metaheur\'istica ACO}
@@ -403,12 +403,12 @@ El conjunto de caminos que recorren las hormigas, para ir del hormiguero hacia l
 
 \subsection{Soluci\'on de un modelo COP mediante la metaheur\'istica ACO}
 
-Un problema de optimización con restricciones, (COP, Constrained Optimization Problem) puede ser representado como $P = (S, \Omega, F)$, donde $S$ es el espacio de soluciones, $\Omega$ son las restricciones, y $F$ es la funci\'on objetivo. S esta definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Se define como una variable {\it instanciada} la asignaci\'on a $X_i$ de un valor $v_{i}^{j} \in D_i$. Una solución candidata $s \in S$ es una soluci\'on factible si satisface las restricciones del conjunto $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna una puntuaci\'on a las soluciones candidatas. Al mismo tiempo, se define $s^{*}$ como una soluci\'on \'optima y $S^{*}$ como el conjunto que engloba todas las soluciones \'optimas, dado que pueden existir m\'ultiples soluciones $s^{*}$, y se relacionan mediante $s^{*} \in S^{*} \subseteq S $ \citepxl[ver ]{socha2008ant}.
+Un problema de optimización con restricciones, (COP, Constrained Optimization Problem) puede ser representado como $P = (S, \Omega, F)$, donde $S$ es el espacio de soluciones, $\Omega$ son las restricciones, y $F$ es la funci\'on objetivo. S esta definido por un conjunto discreto de variables $X = 1 \dotsc n$, con valores $v_{i}^{j} \in D_{i} = \{v_{i}^{1} \dotsc  v_{i}^{|D_{i}|}\}$. Se define como una variable {\it instanciada} la asignaci\'on a $X_i$ de un valor $v_{i}^{j} \in D_i$. Una solución candidata $s \in S$ es una soluci\'on factible si satisface las restricciones del conjunto $\Omega$. La funci\'on objetivo $F: S\rightarrow \mathbb R_{0}^{+}$, es la funci\'on de evaluaci\'on que asigna una puntuaci\'on a las soluciones candidatas. Al mismo tiempo, se define $s^{*}$ como una soluci\'on \'optima y $S^{*}$ como el conjunto que engloba todas las soluciones \'optimas, dado que pueden existir m\'ultiples soluciones $s^{*}$, y se relacionan mediante $s^{*} \in S^{*} \subseteq S $ \citepxl[ver\hspace{0.1cm} ]{socha2008ant}.
 %Esta definici\'on permite aplicar la metaheur\'istica de optimizaci\'on basada en colonia de hormigas (ACO por su sigla en ingl\'es) a un modelo de un {\it COP}.
 %COP es un CSP con función objetivo: https://en.wikipedia.org/wiki/Constrained_optimization#Constraint_optimization_problems
 
 Es posible adaptar la definici\'on del modelo COP al modelo de feromonas de la metaheur\'istica ACO, mediante la asociaci\'on entre la definici\'on de variable {\it instanciada} del modelo COP y lo que representa un componente de soluci\'on o arista en un recorrido de una hormiga. 
-Espec\'ificamente, si se extiende la definici\'on de componente de soluci\'on $c_{i}$ para que esta pueda tener valores $v_{i}^{j}$ que var\'ien dependiendo de un dominio $D_i$, el componente de soluci\'on pasa a ser $c_{ij}$. As\'i se obtiene la equivalencia entre la asignaci\'on $X_i = v_{i}^{j}$ que representa una variable {\it instanciada} del modelo COP, y la selecci\'on de un componente de soluci\'on $c_{ij}$,  para una soluci\'on o camino $s$ en ACO\citepxl{socha2008ant}.
+Espec\'ificamente, si se extiende la definici\'on de componente de soluci\'on $c_{i}$ para que esta pueda tener valores $v_{i}^{j}$ que var\'ien dependiendo de un dominio $D_i$, el componente de soluci\'on pasa a ser $c_{ij}$. As\'i se obtiene la equivalencia entre la asignaci\'on $X_i = v_{i}^{j}$ que representa una variable {\it instanciada} del modelo COP, y la selecci\'on de un componente de soluci\'on $c_{ij}$,  para una soluci\'on o camino $s$ en ACO \citepxl{socha2008ant}.
 %equivalente a una arista en esta investigaci\'on,
 
 
@@ -427,3 +427,49 @@ Luego, la definici\'on de una soluci\'on $s$ puede representarse como un conjunt
  }
  \caption{Algoritmo de un modelo COP adaptado a una metaheur\'istica ACO}\label{COP-ACO-Algo}
 \end{algorithm}
+
+\subsection{Comparaci\'on}
+\label{sec:EvalOE4}
+
+\subsection{FibrilTool}
+\label{subsec:AnalisisFibrilTool}
+
+\subsubsection{SOAX}
+\label{subsec:AnalisisSOAX}
+
+La herramienta descrita en la investigaci\'on denominada SOAX \citepxl[]{xu2015soax}, presentado en la secci\'on \ref{sec:OptiMethods},pudo ser construida para realizar una evaluaci\'on, utilizando la imagen de ejemplo provista por los autores. Esta imagen se puede observar en la Figura \ref{fig:SOAXexample}.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{evalImages/MAX-cable1-std-4.png}
+    \caption[Imagen de ejemplo de SOAX]{Imagen sint\'etica de ejemplo de SOAX, que representa una red de filamentos de actina. Fuente: \citet{xu2015soax}.}
+    \label{fig:SOAXexample}
+\end{figure}
+
+Para la construcci\'on de SOAX es necesario compilar las herramientas ITK y VTK, las que cuentan con m\'ultiples versiones, no existiendo claridad de cual es el rango de versiones para las que es posible construir SOAX y as\'i obtener la herramienta con todas las funcionalidades descritas por los autores. Lo anterior se menciona debido a que intentos posteriores de evaluaci\'on con im\'agenes distintas a la de ejemplo no fueron reconocidas por el programa. 
+
+
+En base a la imagen de ejemplo, la que es una imagen sint\'etica que representa una red de filamentos de actina, se pueden obtener m\'ultiples caracter\'isticas de la red de filamentos,
+a partir de las curvas par\'ametricas SOAC identificadas. Estas caracter\'isticas son la rotaci\'on esf\'erica, la orientaci\'on, la densidad de puntos, curvatura y largo de estas. A su vez, SOAX tambi\'en identifica las intersecciones de las curvas SOAC, lo que se indica en la Figura \ref{fig:SOAXexampleComputed}.
+
+
+Dado que el enfoque de la investigaci\'on de SOAX se encuentra en obtener un an\'alisis cuantitativo de la red de filamentos, las curvas SOAC pueden coincidir con un filamento o simplemente corresponder a un segmento de filamento, sin existir una diferencia entre ambas. En cuanto a los par\'ametros, SOAX presenta 26 campos para poder modificar valores, con 2 opciones adicionales del tipo booleana.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{evalImages/cable1-soax.png}
+    \caption[Imagen de ejemplo procesada con SOAX]{Imagen sint\'etica de ejemplo procesada con SOAX, identificando en color verde las intersecciones.}
+    \label{fig:SOAXexampleComputed}
+\end{figure}
+
+
+Los mismos autores de SOAX crearon una extensi\'on, denominada TSOAX \citepxl{xu2018automated}, la cual incorpora la posibilidad de analizar y extraer redes de filamentos a partir de un conjunto de im\'agenes que reflejen la evoluci\'on de los filamentos en el tiempo. Los pasos utilizados para la construcci\'on de SOAX y TSOAX  pueden encontrarse en los archivos del tipo {\it Dockerfile} disponibles en el repositorio de esta tesis para su reproducci\'on.
+%, siendo la mayor diferencia la existencia de un nuevo par de par\'ametros, los que se deshabilitan para realizar una evaluaci\'on que sea m\'as similar al comportamiento esperado de SOAX.
+
+%La similaridad entre SOAX y TSOAX permite a los autores indicar que el mismo manual de usuario es aplicable a ambas herramientas.
+%que permiten seguir filamentos en distintos tiempos, as\'i como llevar a cabo la agrupaci\'on de curvas par\'ametricas 
+
+
+
+

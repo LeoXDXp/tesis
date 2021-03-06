@@ -59,14 +59,14 @@ Por su parte, el \'indice Jaccard es similar al \'indice Rand con la excepci\'on
 La ventaja que presentan $\mathcal{R}$ y $\mathcal{J}$ sobre VI radica en que estos \'indices si pueden considerar casos de superposici\'on.
 
 \subsection{Variation of Information}
-La m\'etrica VI definida en \citet{meilua2007comparing} se fundamenta en la informaci\'on asociada a la entrop\'ia de las particiones a comparar, as\'i como en la informaci\'on mutua que comparten. El rango de valores de VI comienza en 0 para 2 particiones iguales, llegando a $\log n$ para particiones absolutamente distintas, con $n$ como el n\'umero de elementos del data set. En la ecuaci\'on \ref{eq:VI} el t\'ermino $H(C,C^{\prime})$ hace referencia a la informaci\'on que la partici\'on $C$ pierde al pasar a $C^{\prime}$. De forma similar, $H(C^{\prime},C)$ indica la informaci\'on que se gana al pasar de $C$ a $C^{\prime}$.
+La m\'etrica VI definida en \citet{meilua2007comparing} se fundamenta en la informaci\'on asociada a la entrop\'ia de las particiones a comparar, as\'i como en la informaci\'on mutua que comparten. El rango de valores de VI comienza en 0 para 2 particiones iguales, llegando a $\log n$ para particiones absolutamente distintas, con $n$ como el n\'umero de elementos del data set. En la ecuaci\'on \ref{eq:VI} el t\'ermino $H(C,C^{\prime})$ hace referencia a la informaci\'on que la partici\'on $C$ pierde al pasar a $C^{\prime}$. De forma similar, $H(C^{\prime},C)$ indica la informaci\'on que se gana al pasar de $C$ a $C^{\prime}$. As\'i, la función $H$ mide la incertidumbre.
 
 \begin{equation}
 VI(C,C^{\prime}) = H(C,C^{\prime}) + H(C^{\prime},C)
 \label{eq:VI}
 \end{equation}
 
-Uno de los problemas de VI es que esta definida de forma clara s\'olo para particiones que no se superponen entre s\'i \citepxl[ver ]{breuer2015define}.
+Uno de los problemas de VI es que esta definida de forma clara s\'olo para particiones que no se superponen entre s\'i \citepxl[ver\hspace{0.1cm} ]{breuer2015define}.
 
 \subsection{Mediciones adicionales}
 
@@ -88,6 +88,9 @@ Al mismo tiempo, en base a la definici\'on de {\it Precision}, una evaluaci\'on 
 \section{Im\'agenes Sint\'eticas}
 \label{sec:SynthImgMethod}
 El uso de im\'agenes sint\'eticas se enfoca en la validaci\'on del algoritmo propuesto presentado en el cap\'itulo \ref{sec:modeloOpti}, para casos simples que consideren filamentos que se superponen y/o intersectan. Ejemplos de las im\'agenes sint\'eticas utilizadas se observan en las Figuras \ref{fig:synth-QFS-7} y \ref{fig:synth-Define-1b}, cada una acompa\~nada de su grafo representativo de la red de filamentos y de su individualizaci\'on manual. La Figura \ref{fig:synth-QFS-7-original} corresponde a una imagen sint\'etica obtenida de \citet{qiu2014quantitative}, mientras que la Figura \ref{fig:synth-Define-1b-original} es un subconjunto de la Figura 1b  en \citet{breuer2015define}. 
+
+% no se utilizaron imagenes sinteticas creadas 
+
 %La Figura \ref{fig:synth-arbol9} es una de las im\'agenes creadas en base a un programa escrito en Matlab que simula la generaci\'on de filamentos a partir de un filamento inicial, que luego va generando nuevos filamentos mediante ramificaciones, simulando una estructura tipo \'arbol. La Figura \ref{fig:synth-redX} representa a un segundo conjunto de im\'agenes creadas a partir de un programa en Matlab que simula una red de filamentos donde cada nodo es de grado 3 o inferior.
 % \ref{fig:synth-arbol9} y \ref{fig:synth-redX}
 
