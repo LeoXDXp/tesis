@@ -434,6 +434,12 @@ Luego, la definici\'on de una soluci\'on $s$ puede representarse como un conjunt
 \subsection{FibrilTool}
 \label{subsec:AnalisisFibrilTool}
 
+Es un plugin de facil instalaci\'on para ImageJ
+
+Como resultado FibrilTool entrega una l\'inea cuyo \'angulo representa la orientaci\'on promedio de los filamentos en la regi\'on de inter\'es, mientras que el largo es un indicador proporcional a la anistrop\'ia de los filamentos. El valor del largo y del \'angulo se pueden obtener con las herramientas existentes en ImageJ.
+
+
+
 \subsubsection{SOAX}
 \label{subsec:AnalisisSOAX}
 
@@ -447,11 +453,11 @@ La herramienta descrita en la investigaci\'on denominada SOAX \citepxl[]{xu2015s
     \label{fig:SOAXexample}
 \end{figure}
 
-Para la construcci\'on de SOAX es necesario compilar las herramientas ITK y VTK, las que cuentan con m\'ultiples versiones, no existiendo claridad de cual es el rango de versiones para las que es posible construir SOAX y as\'i obtener la herramienta con todas las funcionalidades descritas por los autores. Lo anterior se menciona debido a que intentos posteriores de evaluaci\'on con im\'agenes distintas a la de ejemplo no fueron reconocidas por el programa. 
+Para la construcci\'on de SOAX es necesario compilar las herramientas ITK y VTK, las que cuentan con m\'ultiples versiones, no existiendo claridad de cual es el rango de versiones para las que es posible construir SOAX y as\'i obtener la herramienta con todas las funcionalidades descritas por los autores. Lo anterior se menciona debido a que intentos posteriores de evaluaci\'on con im\'agenes distintas a la del ejemplo no fueron reconocidas por el programa. 
 
 
 En base a la imagen de ejemplo, la que es una imagen sint\'etica que representa una red de filamentos de actina, se pueden obtener m\'ultiples caracter\'isticas de la red de filamentos,
-a partir de las curvas par\'ametricas SOAC identificadas. Estas caracter\'isticas son la rotaci\'on esf\'erica, la orientaci\'on, la densidad de puntos, curvatura y largo de estas. A su vez, SOAX tambi\'en identifica las intersecciones de las curvas SOAC, lo que se indica en la Figura \ref{fig:SOAXexampleComputed}.
+a partir de las curvas par\'ametricas SOAC identificadas. Estas caracter\'isticas son la rotaci\'on esf\'erica, la orientaci\'on, la densidad de puntos, curvatura y largo de estas. A su vez, SOAX tambi\'en identifica las intersecciones de las curvas SOAC, lo que se indica en la Figura \ref{fig:SOAXexampleComputed}, como los puntos verdes.
 
 
 Dado que el enfoque de la investigaci\'on de SOAX se encuentra en obtener un an\'alisis cuantitativo de la red de filamentos, las curvas SOAC pueden coincidir con un filamento o simplemente corresponder a un segmento de filamento, sin existir una diferencia entre ambas. En cuanto a los par\'ametros, SOAX presenta 26 campos para poder modificar valores, con 2 opciones adicionales del tipo booleana.
