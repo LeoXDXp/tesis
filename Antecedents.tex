@@ -8,7 +8,8 @@ Entre las herramientas disponibles para los m\'etodos basados en optimizaci\'on,
 \section{M\'etodos basados en procesamiento de im\'agenes de bajo nivel}
 \label{sec:NonIndividualizationMethods}
 
-La investigaci\'on de \citet{zhang2017extracting} identifica el problema de discontinuidad de filamentos en una imagen, pudiendo atribuirse esto a factores experimentales como la densidad del componente fluorescente, ruido u otras. En particular, el filamento analizado en esta investigaci\'on corresponde a microt\'ubulos. Para llevar a cabo la reconstrucci\'on de un filamento en base a segmentos, establecen el uso de dos filtros, denominados \textit{Filtro de Transformaci\'on Lineal} (LFT, Linear Filter Transformation) y \textit{Filtro de Transformaci\'on en base a la Orientaci\'on} (OFT, Orientation Filter Transformation). 
+\subsection{SIFNE}
+La investigaci\'on de \citet{zhang2017extracting} identifica el problema de discontinuidad de filamentos en una imagen, pudiendo atribuirse esto a factores experimentales como la densidad del componente fluorescente, ruido u otras. En particular, el filamento analizado en esta investigaci\'on corresponde a microt\'ubulos. Para llevar a cabo la reconstrucci\'on de un filamento en base a segmentos, establecen el uso de dos filtros, denominados \textit{Filtro de Transformaci\'on Lineal} (LFT, Linear Filter Transformation) y \textit{Filtro de Transformaci\'on en base a la Orientaci\'on} (OFT, Orientation Filter Transformation). Estos filtros se implementan en un software denominado {\it SIFNE}.
 El filtro LFT busca resaltar caracter\'isticas lineales centr\'andose en cada p\'ixel y generando una serie de l\'ineas con radio $r$, buscando la l\'inea que contenga la mayor intensidad, seg\'un se observa en la Figura \ref{fig:MTLFT}. El filtro OFT complementa lo anterior, mediante un criterio de similaridad en la direcci\'on proyectada de los segmentos, un segundo criterio respecto a la distancia entre los extremos finales de cada segmento y un tercer criterio de continuidad, que limita el \'angulo entre el vector proyectado de un extremo y el vector que representa la distancia entre los extremos de cada segmento. Lo anterior se puede observar en la Figura \ref{fig:MTOFT}.
 
 \begin{figure}[h]
@@ -32,6 +33,7 @@ El fundamento de los criterios de OFT se basa en la asociaci\'on de las caracter
 
 % hablar de fibritool, Quantitave IFS y Aliosha
 %fibritool
+\subsection{FibrilTool}
 El trabajo de \citet{boudaoud2014fibriltool} conduce al desarrollo de {\it FibrilTool}, un plugin para el software {\it ImageJ}, utilizado en an\'alisis cient\'ifico de im\'agenes. {\it FibrilTool} calcula la orientaci\'on principal y la anisotrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$, ecuaci\'on \ref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. %Los componentes de $n$ se pueden observar en la ecuaci\'on \ref{eq:fibritoolComps}.
 
 \begin{equation}
@@ -71,8 +73,9 @@ Los autores de {\it FibrilTool} desarrollan este m\'etodo para evitar el uso de 
         \label{fig:fibritool}
 \end{figure}
 
+\subsection{IFS}
 % Quantitative IFS
-Una investigaci\'on que propone la individualizaci\'on de segmentos de filamentos es \citet{qiu2014quantitative}, la que plantea un filtro de detecci\'on de caracter\'isticas de 6 pasos m\'as un algoritmo llamado \textit{SBDA} que busca eliminar segmentos de filamentos menores a 2 p\'ixeles (Figura \ref{fig:IFS}). La individualizaci\'on de segmentos de filamentos entrega informaci\'on morfol\'ogica de un segmento con respecto a su entorno, se\~nalando si se encuentra en estado de aislaci\'on, intersectado, bifurcado o en superposici\'on con otro segmento de filamento.
+Una investigaci\'on que propone la individualizaci\'on de segmentos de filamentos es \citet{qiu2014quantitative}, la que plantea un filtro de detecci\'on de caracter\'isticas de 6 pasos m\'as un algoritmo llamado \textit{SBDA} que busca eliminar segmentos de filamentos menores a 2 p\'ixeles (Figura \ref{fig:IFS}), cuya implementaci\'on de denomina {\it IFS}. La individualizaci\'on de segmentos de filamentos entrega informaci\'on morfol\'ogica de un segmento con respecto a su entorno, se\~nalando si se encuentra en estado de aislaci\'on, intersectado, bifurcado o en superposici\'on con otro segmento de filamento.
 
 %describir filtros, intensidad es con fibre coefficient
 Las 6 etapas del filtro consideradas en este m\'etodo consisten en 4 etapas de an\'alisis de la imagen y 2 de an\'alisis topol\'ogico que se resumen en lo siguiente:
@@ -97,16 +100,18 @@ Las 6 etapas del filtro consideradas en este m\'etodo consisten en 4 etapas de a
 % se mide caracteristicas geometricas, como largo, distribucu\'on de la orientaci\'on, y como los resultados son afectados por el ruido.
 Como resultados de \cite{qiu2014quantitative}, adem\'as de la informaci\'on morfol\'ogica, se obtienen caracter\'isticas geom\'etricas como el largo de los segmentos de  filamentos y la distribuci\'on de la orientaci\'on de los segmentos, as\'i como el cambio de estos valores para variaciones en la relaci\'on entre la se\~nal y el ruido de la imagen.
 
-
-\smallskip
+\subsection{Marco de An\'alisis de Im\'agenes de Filamentos de Actina}
+%\smallskip
 La investigaci\'on de \citet{alioscha2016robust} presenta un marco para el an\'alisis de im\'agenes con la finalidad de identificar filamentos de actina, mediante una combinaci\'on de filtros con un algoritmo de uni\'on de segmentos. La propuesta inicial se basa en que una imagen puede ser separada en 3 componentes: el fondo o {\it background} de la imagen, los filamentos y el ruido. Para obtener la imagen que contiene los filamentos y descartar en mayor medida el ruido, los autores utilizan la libreria MCALab en MATLAB. Luego, buscan intensificar los p\'ixeles que corresponden a los filamentos, para lo cual aplican 3 filtros: un filtro Gaussiano, un filtro Laplaciano y un filtro Gaussiano direccional, obteniendo como resultado lo que se muestra en la Figura \ref{fig:AlioshaRobust}.
 
-\begin{figure}[t]
+\begin{figure}[h]
     \centering
     \includegraphics[scale=2]{imagenes/Aliosha2016-GaussLaplFilters.jpg}
     \caption[Aplicaci\'on de filtros posterior a la segmentaci\'on.]{A partir de la segmentaci\'on obtenida con la libreria MCALab (a), se aplican los filtros Gaussiano, Laplaciano y Gaussiano direccional para obtener una intensificaci\'on de los filamentos (b). Fuente: \citet{alioscha2016robust}.}
     \label{fig:AlioshaRobust}
 \end{figure}
+
+%\vspace{-1cm}
 
 El paso siguiente es la aplicaci\'on de un detector de l\'ineas multi-escala, que busca determinar la pertenencia de un p\'ixel a una l\'inea, que varia su grosor y \'angulo dependiendo del tama\~no/escala del vecindario elegido. Las l\'ineas var\'ian en su grosor $s \in [1,W]$, con $W$ el grosor esperado de una fibra de actina, as\'i como en su \'angulo, que varia de forma discreta entre 0 y 180\textdegree. El detector de l\'ineas asigna una puntuaci\'on que determina la probabilidad del p\'ixel a pertenecer a una de las l\'ineas. Lo anterior entrega como resultado candidatos de segmentos de l\'ineas. Para elegir a un candidato como segmento de l\'inea definitivo, la idea principal es recorrer los p\'ixeles en secuencia y ajustar las l\'ineas candidatas usando el m\'etodo de m\'inimos cuadrados hasta que un umbral de error es sobrepasado. Por cada vez que se sobrepasa el umbral de error, se comienza la elecci\'on de un nuevo segmento de l\'inea para los p\'ixeles que siguen. Si el candidato de segmento de l\'inea tiene un largo $l < L$, se descarta. $L$ es un par\'ametro definido emp\'iricamente.
 % esto arroja candidatos de segmentos de l\'ineas -> elegir segmentos de l\'ineas
@@ -123,7 +128,11 @@ Otras investigaciones similares que siguen un enfoque basado principalmente en p
 
 \section{M\'etodos basados en optimizaci\'on}
 \label{sec:OptiMethods}
+
+\subsection{Restricciones Geometricas para Segmentar Estructuras Alargadas}
 En la segunda categor\'ia, \citet{cerda2014geometrical} plantea la identificaci\'on de segmentos de filamentos como un problema de asignaci\'on, utilizando las medidas de distancia Euclidiana y angular como restricciones, y el algoritmo h\'ungaro para su resoluci\'on.
+
+\subsection{SOAX}
 %SOAX, extraccion y cuantifiacion de la red
 Por su parte, la investigaci\'on de \citet{xu2015soax} llamada SOAX, emplea curvas param\'etricas de contorno abierto (SOAC, {\it Stretching Open Active Contour}) en conjunto con una funci\'on de minimizaci\'on para obtener un grupo acotado de redes de filamentos, entre las que el usuario puede elegir una, con la finalidad de realizar un an\'alisis posterior. Las curvas param\'etricas de contorno abierto son reguladas por los par\'ametros $\tau$ y $K_{str}$. El par\'ametro $\tau$ fija el umbral de intensidad que permite discriminar los puntos en la imagen donde existen m\'aximos locales, a partir de los cuales puede comenzar el recorrido de una curva SOAC.
 %desde el que se inicializa una SOAC, lo que entrega los puntos de intensidad m\'aximos locales de la imagen para la inicializaci\'on. 
@@ -143,7 +152,7 @@ La funci\'on de minimizaci\'on que los autores denominan como  \textit{F-Functio
 %     F = -L_{total} + {c}\cdot L_{<t} 
 % \end{equation}
 
-
+\subsection{DeFiNe}
 En esta categor\'ia tambi\'en se incluye \citet{breuer2015define}, que en base a un grafo no dirigido con pesos que representa la red de filamentos, realiza la individualizaci\'on de estos. El uso de un grafo como dato de entrada permite representar a cada filamento mediante un conjunto de aristas adyacentes en el grafo. Esto permite que la b\'usqueda e individualizaci\'on de filamentos, con un segmento de filamento representado por una o m\'as aristas del grafo, sumado a las restricciones que plantea el autor, sea tratado como un problema de {\it Set Cover} \citepxl{caprara2000algorithms}. La definici\'on de {\it Set Cover} es:
 
 \begin{quote}
@@ -201,7 +210,7 @@ El subconjunto $P'$ constituye los datos de entrada del problema de {\it Set Cov
 
 Cabe destacar que el {\it FCP} s\'olo utiliza 2 caracter\'isticas independientes para describir los segmentos de los filamentos, siendo el \'angulo de deflexi\'on entre aristas usado en la etapa de selecci\'on de subconjuntos de caminos s\'olo si es seleccionada la heur\'istica {\it BFS}, y el grosor o intensidad, empleado para describir el peso de las aristas. En el caso de la heur\'istica de {\it RMST}, se asignan pesos aleatorios uniformemente distribuidos a las aristas, por lo que no hay uso de caracter\'isticas asociadas a los filamentos.
 
-
+\vspace{1cm}
 
 En el caso de los m\'etodos basados en optimizaci\'on, la mayor cr\'itica es su costo computacional, el que aumenta a medida que se complejiza, limitando en parte aquel enfoque. Se debe agregar que los par\'ametros utilizados por estas t\'ecnicas (\'angulos o  distancias m\'aximas entre filamentos) son complejas de obtener de los expertos directamente. Sin embargo, una de sus ventajas es que automatizan la recuperaci\'on de informaci\'on incluyendo una mayor cantidad de propiedades a cada arista. 
 
@@ -268,7 +277,7 @@ Que el grafo $G$ sea ponderado implica que para las aristas del grafo ($E(G)$), 
 %$\forall e \in \quad E(G) \quad  \exists $ 
 
 
-La importancia del procedimiento de extraci\'on o generaci\'on de un grafo que representa una red de filamentos a partir de una imagen radica en que define la cantidad de informaci\'on disponible para llevar a cabo la individualizaci\'on de filamentos. A partir de una imagen es posible obtener una cantidad de caracter\'isticas de distinta \'indole, lo que permite en etapas posteriores clasificar de diversas formas nodos, aristas, de forma aislada o en conjuntos, efectivamente disminuyendo el espacio de b\'usqueda. Con las herramientas actuales disponibles en la literatura, es posible realizar la extracci\'on de una red de filamentos con algún nivel de informaci\'on como en \citet{xu2015soax}. Sin embargo, las transformaci\'on de aquella red a un grafo, as\'i como la incorporaci\'on de las caracter\'isticas y/o propiedades hacia el grafo son un procedimiento no automatizado, por lo que el esfuerzo que el experto debe realizar es cercano a individualizar los filamentos de manera manual.
+La importancia del procedimiento de extraci\'on o generaci\'on de un grafo que representa una red de filamentos a partir de una imagen radica en que define la cantidad de informaci\'on disponible para llevar a cabo la individualizaci\'on de filamentos. A partir de una imagen es posible obtener una cantidad de caracter\'isticas de distinta \'indole, lo que permite en etapas posteriores clasificar de diversas formas nodos, aristas, de forma aislada o en conjuntos, efectivamente disminuyendo el espacio de b\'usqueda. Con las herramientas actuales disponibles en la literatura, es posible realizar la extracci\'on de una red de filamentos con algún nivel de informaci\'on como con la herramienta SOAX desarrollada por \citet{xu2015soax}. Sin embargo, las transformaci\'on de aquella red a un grafo, as\'i como la incorporaci\'on de las caracter\'isticas y/o propiedades hacia el grafo son un procedimiento no automatizado, por lo que el esfuerzo que el experto debe realizar es cercano a individualizar los filamentos de manera manual.
 
 A partir de las investigaciones en la literatura, es posible agrupar los m\'etodos para extraer la informaci\'on que permite la construcci\'on de un grafo a partir de una imagen, como lo son los nodos y las aristas, en dos conjuntos: los que se basan en esqueletonizaci\'on \citepxl{lavado2018comparacion} y los que no. 
 
