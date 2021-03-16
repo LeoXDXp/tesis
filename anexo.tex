@@ -25,6 +25,19 @@ La captura o recuperaci\'on de la informaci\'on del vecindario de los p\'ixeles 
 
 %En el caso que no sea posible obtener grafo mediante la esqueletonizaci\'on de la imagen, esta herramienta considera un paso adicional al procedimiento de 2 pasos presentado previamente. El tercer paso consiste en generar aristas entre los nodos vecinos, en base a la informaci\'on de vecindario, obteniendo el largo e informaci\'on angular para cada arista creada. El grafo generado se denomina como un grafo aproximado, ya que puede presentar deformaciones.
 
+\section{Individualizaci\'on manual de filamentos}
+\label{anex:manualIndiv}
+
+La individualizaci\'on manual de filamentos realizada por un experto se puede realizar mediante el programa {\it Fiji} \citepxl{schindelin2012fiji}. El procedimiento implica construir una o m\'as regiones de inter\'es sobre una imagen con uno o m\'as filamentos, mediante la herramienta de selecci\'on a mano alzada. El único requisito de cada región de inter\'es, tambi\'en llamada {\it ROI} por su sigla en ingl\'es, es conformar un \'area cerrada. Una vez se obtiene una ROI cerrada, se puede almacenar su ubicaci\'on en el {\it ROI Manager}, disponible en el men\'u {\it Analyze}, submenu {\it Tools}, en Fiji. Un ejemplo de lo anterior se puede observar en la Figura \ref{fig:roiExample}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.8]{imagenes/IndivManualFijiROI.png}
+    \caption[Ejemplo de un filamento individualizado manualmente]{Ejemplo del procedimiento para individualizar manualmente un filamento realizado por un experto en Fiji. Fuente: Elaboraci\'on Propia.}
+    \label{fig:roiExample}
+\end{figure}
+
+Una vez generadas todas las ROIs que indican los filamentos individualizados por un experto, se genera una segmentaci\'on binaria de la imagen de filamentos. As\'i, los p\'ixeles fuera de las ROIs se clasifican como parte del {\it background} o de segundo plano, con lo que no son consideradas en an\'alisis futuros. Esta imagen resultante es la que puede ser utilizada para extraer un grafo mediante el procedimiento descrito en la secci\'on \ref{subsec:infoLossSkel}.
 
 \section{Resultados algoritmo propuesto en Im\'agenes Sint\'eticas}
 
