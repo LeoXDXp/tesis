@@ -34,7 +34,7 @@ El fundamento de los criterios de OFT se basa en la asociaci\'on de las caracter
 % hablar de fibritool, Quantitave IFS y Aliosha
 %fibritool
 \subsection{FibrilTool}
-El trabajo de \citet{boudaoud2014fibriltool} conduce al desarrollo de {\it FibrilTool}, un plugin para el software {\it ImageJ}, utilizado en an\'alisis cient\'ifico de im\'agenes. {\it FibrilTool} calcula la orientaci\'on principal y la anisotrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$, ecuaci\'on \ref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. %Los componentes de $n$ se pueden observar en la ecuaci\'on \ref{eq:fibritoolComps}.
+El trabajo de \citet{boudaoud2014fibriltool} conduce al desarrollo de {\it FibrilTool}, un plugin para el software {\it ImageJ}, utilizado en an\'alisis cient\'ifico de im\'agenes. FibrilTool calcula la orientaci\'on principal y la anisotrop\'ia de estructuras alargadas dentro de una regi\'on de inter\'es seleccionada manualmente. Para esto, utiliza el concepto de tensor nem\'atico, extra\'ido del comportamiento f\'isico de los cristales l\'iquidos. Espec\'ificamente, el tensor nem\'atico es la matriz sim\'etrica $n$ de $2\times2$ construida a partir de un vector unitario $t$, ecuaci\'on \ref{eq:fibritoolTensor}, definido en base a la derivada de primer orden de la intensidad del pixel en $x,y$. %Los componentes de $n$ se pueden observar en la ecuaci\'on \ref{eq:fibritoolComps}.
 
 \begin{equation}
 \label{eq:fibritoolTensor}
@@ -64,7 +64,7 @@ t_x \times t_y & (t_y)^2
 %     n_x,y &= n_y,x = t_x \times t_y
 % \end{align}
 % \end{subequations}
-Los autores de {\it FibrilTool} desarrollan este m\'etodo para evitar el uso de derivadas de segundo orden, que presentan sensibilidad al ruido, necesitando de pasos previos en la limpieza de la imagen.
+Los autores de FibrilTool desarrollan este m\'etodo para evitar el uso de derivadas de segundo orden, que presentan sensibilidad al ruido, necesitando de pasos previos en la limpieza de la imagen. Un ejemplo de la ejecuci\'on de FibrilTool sobre una imagen de microt\'ubulos de la planta {\it Arabidopsis Marchantia} se puede observar en  la Figura \ref{fig:FibrilToolexample}.  
 
 \begin{figure}[h!]
         \centering
@@ -72,6 +72,23 @@ Los autores de {\it FibrilTool} desarrollan este m\'etodo para evitar el uso de 
         \caption[\'Area de inter\'es seleccionada manualmente en amarillo, y resultado de FibrilTool en rojo o verde.]{\'Area de inter\'es seleccionada manualmente en amarillo, y resultado de FibrilTool en rojo o verde. Fuente: \citet{boudaoud2014fibriltool}.}
         \label{fig:fibritool}
 \end{figure}
+
+
+%Esta herramienta es el resultado de la investigaci\'on de \citet{boudaoud2014fibriltool}, presentada en la secci\'on \ref{sec:NonIndividualizationMethods}, cuya implementaci\'on consiste en un plugin de facil instalaci\'on para el programa de an\'alisis de im\'agenes ImageJ. FibrilTool permite calcular la anisotrop\'ia de una regi\'on de inter\'es en la que existan filamentos.
+
+
+
+A partir del ejemplo, el resultado de FibrilTool se indica mediante una l\'inea de color rojo cuyo \'angulo representa la orientaci\'on promedio de los filamentos en la regi\'on de inter\'es, mientras que el largo es un indicador proporcional a la anistrop\'ia de los filamentos. Adem\'as de la respuesta gr\'afica, FibrilTool genera una salida de datos en formato multi-columna, indicando la orientaci\'on promedio y la anistrop\'ia (definida como $q$) en las columnas 6 y 7 respectivamente. Para el ejemplo, el \'angulo tiene un valor de 52.78\textdegree, con un valor de anistrop\'ia de 0.1493. El \'angulo entregado por la herramienta siempre estar\'a en el rango [90, 90], mientras que la anistrop\'ia puede variar entre 0 y 1, ambos inclusives.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.6]{evalImages/fibriltool-c1-mt-GFP-hipocotilo-zoom.png}
+    \caption[Ejemplo de FibrilTool en microt\'ubulos]{Uso de FibrilTool en una imagen de microt\'ubulos de la planta {\it Arabidopsis Marchantia}. La secci\'on de inter\'es corresponde al \'area dentro de la regi\'on delimitada en amarillo. La l\'inea roja representa el resultado al ejecutar FibrilTool. El \'angulo de orientaci\'on promedio para este ejemplo es 52.78\textdegree, mientras que la anistrop\'ia reporta un valor de 0.1493. Fuente: Elaboraci\'on Propia.}
+    \label{fig:FibrilToolexample}
+\end{figure}
+
+% Fibriltool batch mention
+Debido a que el proceso para obtener un resultado a partir de FibrilTool considera una sola \'area de inter\'es, los autores desarrollaron una versi\'on denominada {\it FibrilTool Batch} \citepxl{marion_louveaux_2018_2528872}, la que permite la creaci\'on de m\'ultiples regiones de inter\'es para ser calculadas.
 
 \subsection{IFS}
 % Quantitative IFS
@@ -438,29 +455,17 @@ Luego, la definici\'on de una soluci\'on $s$ puede representarse como un conjunt
 \end{algorithm}
 
 
-\section{Evaluaci\'on de t\'ecnicas}
-\label{sec:EvalOE4}
+% \section{Evaluaci\'on de t\'ecnicas}
+% \label{sec:EvalOE4}
 
-Con el objetivo de profundizar la recopilaci\'on de informaci\'on sobre los m\'etodos presentados en las secciones \ref{sec:NonIndividualizationMethods} y \ref{sec:OptiMethods}, se realiza una evaluaci\'on de un representante de cada grupo. Debido a la complejidad al obtener informaci\'on cuantitativa de filamentos a partir de imagenes de microsco\'ia, las herramientas evaluadas a continuaci\'on pueden ofrecer soluciones que requieren una alta interacci\'on humana, o por otra parte conllevan un cierto grado de automatizaci\'on con el costo asociado de tener muchos par\'ametros. Ambas herramientas evaluadas presentan una versi\'on que los sucede, incorporando mejoras incrementales.
+% Con el objetivo de profundizar la recopilaci\'on de informaci\'on sobre los m\'etodos presentados en las secciones \ref{sec:NonIndividualizationMethods} y \ref{sec:OptiMethods}, se realiza una evaluaci\'on de un representante de cada grupo. Debido a la complejidad al obtener informaci\'on cuantitativa de filamentos a partir de imagenes de microsco\'ia, las herramientas evaluadas a continuaci\'on pueden ofrecer soluciones que requieren una alta interacci\'on humana, o por otra parte conllevan un cierto grado de automatizaci\'on con el costo asociado de tener muchos par\'ametros. Ambas herramientas evaluadas presentan una versi\'on que los sucede, incorporando mejoras incrementales.
 
 % mejoras incrementales de cada software
 
-\subsection{FibrilTool}
-\label{subsec:AnalisisFibrilTool}
+% \subsection{FibrilTool}
+% \label{subsec:AnalisisFibrilTool}
 
-Esta herramienta es el resultado de la investigaci\'on de \citet{boudaoud2014fibriltool}, presentada en la secci\'on \ref{sec:NonIndividualizationMethods}, cuya implementaci\'on consiste en un plugin de facil instalaci\'on para el programa de an\'alisis de im\'agenes ImageJ. FibrilTool permite calcular la anisotrop\'ia de una regi\'on de inter\'es en la que existan filamentos.
 
-Como resultado FibrilTool entrega una l\'inea cuyo \'angulo representa la orientaci\'on promedio de los filamentos en la regi\'on de inter\'es, mientras que el largo es un indicador proporcional a la anistrop\'ia de los filamentos. Lo anterior se refleja en la Figura \ref{fig:FibrilToolexample}. El valor del largo y del \'angulo se pueden obtener con las herramientas existentes en ImageJ.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.6]{evalImages/fibriltool-c1-mt-GFP-hipocotilo-zoom.png}
-    \caption[Ejemplo de FibrilTool en microt\'ubulos]{Uso de FibrilTool en una imagen de microt\'ubulos de la planta {\it Arabidopsis Marchantia}. La secci\'on de inter\'es corresponde al \'area dentro de la regi\'on delimitada en amarillo. La l\'inea roja representa el resultado al ejecutar FibrilTool. Fuente: Elaboraci\'on Propia.}
-    \label{fig:FibrilToolexample}
-\end{figure}
-
-% Fibriltool batch mention
-Debido a que el proceso para obtener un resultado a partir de FibrilTool considera una sola \'area de inter\'es, los autores desarrollaron una versi\'on denominada {\it FibrilTool Batch} \citepxl{marion_louveaux_2018_2528872}, la que permite la creaci\'on de m\'ultiples regiones de inter\'es para ser calculadas.
 
 \subsection{SOAX}
 \label{subsec:AnalisisSOAX}
