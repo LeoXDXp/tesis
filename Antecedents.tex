@@ -89,6 +89,12 @@ A partir del ejemplo, el resultado de FibrilTool se indica mediante una l\'inea 
 
 % Fibriltool batch mention
 Debido a que el proceso para obtener un resultado a partir de FibrilTool considera una sola \'area de inter\'es, los autores desarrollaron una versi\'on denominada {\it FibrilTool Batch} \citepxl{marion_louveaux_2018_2528872}, la que permite la creaci\'on de m\'ultiples regiones de inter\'es para ser calculadas.
+% Image filename
+%N° de ROI
+% coord x,y of the ROI center
+% area
+% average fibril orientation [-90,90]°
+% anisotropy [0,1]
 
 \subsection{IFS}
 % Quantitative IFS
@@ -168,6 +174,47 @@ La funci\'on de minimizaci\'on que los autores denominan como  \textit{F-Functio
 %   \label{eq:FFunction}
 %     F = -L_{total} + {c}\cdot L_{<t} 
 % \end{equation}
+
+
+La herramienta descrita en la investigaci\'on denominada SOAX \citepxl[]{xu2015soax}, presentado en la secci\'on \ref{sec:OptiMethods}, pudo ser construida para realizar una evaluaci\'on, utilizando la imagen de ejemplo provista por los autores. Esta imagen se puede observar en la Figura \ref{fig:SOAXexample}.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{evalImages/MAX-cable1-std-4.jpg}
+    \caption[Imagen de ejemplo de SOAX]{Imagen sint\'etica de ejemplo de SOAX, que representa una red de filamentos de actina. Fuente: \citet{xu2015soax}.}
+    \label{fig:SOAXexample}
+\end{figure}
+
+Para la construcci\'on de SOAX es necesario compilar las herramientas ITK y VTK, las que cuentan con m\'ultiples versiones, no existiendo claridad de cual es el rango de versiones para las que es posible construir SOAX y as\'i obtener la herramienta con todas las funcionalidades descritas por los autores. Lo anterior se menciona debido a que intentos posteriores de evaluaci\'on con im\'agenes distintas a la del ejemplo no fueron reconocidas por el programa. 
+
+
+En base a la imagen de ejemplo, la que es una imagen sint\'etica que representa una red de filamentos de actina, se pueden obtener m\'ultiples caracter\'isticas de la red de filamentos,
+a partir de las curvas par\'ametricas SOAC identificadas. Estas caracter\'isticas son la rotaci\'on esf\'erica, la orientaci\'on, la densidad de puntos, curvatura y largo de estas. A su vez, SOAX tambi\'en identifica las intersecciones de las curvas SOAC, lo que se indica en la Figura \ref{fig:SOAXexampleComputed}, como los puntos verdes.
+
+
+Dado que el enfoque de la investigaci\'on de SOAX se encuentra en obtener un an\'alisis cuantitativo de la red de filamentos, las curvas SOAC pueden coincidir con un filamento o simplemente corresponder a un segmento de filamento, sin existir una diferencia entre ambas. En cuanto a los par\'ametros, SOAX presenta 26 campos para poder modificar valores, con 2 opciones adicionales del tipo booleana.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.4]{evalImages/cable1-soax.png}
+    \caption[Imagen de ejemplo procesada con SOAX]{Imagen sint\'etica de ejemplo procesada con SOAX, identificando en color verde las intersecciones. Fuente: Elaboraci\'on Propia.}
+    \label{fig:SOAXexampleComputed}
+\end{figure}
+
+
+Los mismos autores de SOAX crearon una extensi\'on, denominada TSOAX \citepxl{xu2018automated}, la cual incorpora la posibilidad de analizar y extraer redes de filamentos a partir de un conjunto de im\'agenes que reflejen la evoluci\'on de los filamentos en el tiempo. Los pasos utilizados para la construcci\'on de SOAX y TSOAX  pueden encontrarse en los archivos del tipo {\it Dockerfile} disponibles en el repositorio de esta tesis para su reproducci\'on.
+%, siendo la mayor diferencia la existencia de un nuevo par de par\'ametros, los que se deshabilitan para realizar una evaluaci\'on que sea m\'as similar al comportamiento esperado de SOAX.
+
+%La similaridad entre SOAX y TSOAX permite a los autores indicar que el mismo manual de usuario es aplicable a ambas herramientas.
+%que permiten seguir filamentos en distintos tiempos, as\'i como llevar a cabo la agrupaci\'on de curvas par\'ametricas 
+
+
+
+
+
+
+
 
 \subsection{DeFiNe}
 En esta categor\'ia tambi\'en se incluye \citet{breuer2015define}, que en base a un grafo no dirigido con pesos que representa la red de filamentos, realiza la individualizaci\'on de estos. El uso de un grafo como dato de entrada permite representar a cada filamento mediante un conjunto de aristas adyacentes en el grafo. Esto permite que la b\'usqueda e individualizaci\'on de filamentos, con un segmento de filamento representado por una o m\'as aristas del grafo, sumado a las restricciones que plantea el autor, sea tratado como un problema de {\it Set Cover} \citepxl{caprara2000algorithms}. La definici\'on de {\it Set Cover} es:
@@ -465,40 +512,5 @@ Luego, la definici\'on de una soluci\'on $s$ puede representarse como un conjunt
 % \subsection{FibrilTool}
 % \label{subsec:AnalisisFibrilTool}
 
-
-
-\subsection{SOAX}
-\label{subsec:AnalisisSOAX}
-
-La herramienta descrita en la investigaci\'on denominada SOAX \citepxl[]{xu2015soax}, presentado en la secci\'on \ref{sec:OptiMethods}, pudo ser construida para realizar una evaluaci\'on, utilizando la imagen de ejemplo provista por los autores. Esta imagen se puede observar en la Figura \ref{fig:SOAXexample}.
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=1]{evalImages/MAX-cable1-std-4.jpg}
-    \caption[Imagen de ejemplo de SOAX]{Imagen sint\'etica de ejemplo de SOAX, que representa una red de filamentos de actina. Fuente: \citet{xu2015soax}.}
-    \label{fig:SOAXexample}
-\end{figure}
-
-Para la construcci\'on de SOAX es necesario compilar las herramientas ITK y VTK, las que cuentan con m\'ultiples versiones, no existiendo claridad de cual es el rango de versiones para las que es posible construir SOAX y as\'i obtener la herramienta con todas las funcionalidades descritas por los autores. Lo anterior se menciona debido a que intentos posteriores de evaluaci\'on con im\'agenes distintas a la del ejemplo no fueron reconocidas por el programa. 
-
-
-En base a la imagen de ejemplo, la que es una imagen sint\'etica que representa una red de filamentos de actina, se pueden obtener m\'ultiples caracter\'isticas de la red de filamentos,
-a partir de las curvas par\'ametricas SOAC identificadas. Estas caracter\'isticas son la rotaci\'on esf\'erica, la orientaci\'on, la densidad de puntos, curvatura y largo de estas. A su vez, SOAX tambi\'en identifica las intersecciones de las curvas SOAC, lo que se indica en la Figura \ref{fig:SOAXexampleComputed}, como los puntos verdes.
-
-
-Dado que el enfoque de la investigaci\'on de SOAX se encuentra en obtener un an\'alisis cuantitativo de la red de filamentos, las curvas SOAC pueden coincidir con un filamento o simplemente corresponder a un segmento de filamento, sin existir una diferencia entre ambas. En cuanto a los par\'ametros, SOAX presenta 26 campos para poder modificar valores, con 2 opciones adicionales del tipo booleana.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.4]{evalImages/cable1-soax.png}
-    \caption[Imagen de ejemplo procesada con SOAX]{Imagen sint\'etica de ejemplo procesada con SOAX, identificando en color verde las intersecciones. Fuente: Elaboraci\'on Propia.}
-    \label{fig:SOAXexampleComputed}
-\end{figure}
-
-
-Los mismos autores de SOAX crearon una extensi\'on, denominada TSOAX \citepxl{xu2018automated}, la cual incorpora la posibilidad de analizar y extraer redes de filamentos a partir de un conjunto de im\'agenes que reflejen la evoluci\'on de los filamentos en el tiempo. Los pasos utilizados para la construcci\'on de SOAX y TSOAX  pueden encontrarse en los archivos del tipo {\it Dockerfile} disponibles en el repositorio de esta tesis para su reproducci\'on.
-%, siendo la mayor diferencia la existencia de un nuevo par de par\'ametros, los que se deshabilitan para realizar una evaluaci\'on que sea m\'as similar al comportamiento esperado de SOAX.
-
-%La similaridad entre SOAX y TSOAX permite a los autores indicar que el mismo manual de usuario es aplicable a ambas herramientas.
-%que permiten seguir filamentos en distintos tiempos, as\'i como llevar a cabo la agrupaci\'on de curvas par\'ametricas 
+% \subsection{SOAX}
+% \label{subsec:AnalisisSOAX}
