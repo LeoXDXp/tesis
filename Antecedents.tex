@@ -180,7 +180,15 @@ La funci\'on de minimizaci\'on que los autores denominan como  \textit{F-Functio
 
 %Para la construcci\'on de SOAX es necesario compilar las herramientas ITK y VTK, las que cuentan con m\'ultiples versiones, no existiendo claridad de cual es el rango de versiones para las que es posible construir SOAX y as\'i obtener la herramienta con todas las funcionalidades descritas por los autores. Lo anterior se menciona debido a que intentos posteriores de evaluaci\'on con im\'agenes distintas a la del ejemplo no fueron reconocidas por el programa.
 
-un ejemplo del funcionamiento de SOAX en base a una imagen de microt\'ubulos en la planta {\it Arabidopsis Marchantia} (Figura \ref{fig:SOAXexample}) puede observarse en la Figura \ref{fig:SOAXexampleComputed}. En base a la imagen de ejemplo, SOAX obtiene m\'ultiples caracter\'isticas de la red de filamentos, a partir de las curvas param\'etricas SOAC identificadas, las que se visualizan de color morado. Estas caracter\'isticas son la rotaci\'on esf\'erica, la orientaci\'on, la densidad de puntos, curvatura y largo de estas. A su vez, SOAX tambi\'en identifica las intersecciones de las curvas SOAC, lo cual corresponde a los puntos verdes.
+un ejemplo del funcionamiento de SOAX en base a una imagen de microt\'ubulos en la planta {\it Arabidopsis Marchantia} (Figura \ref{fig:SOAXexample}) puede observarse en la Figura \ref{fig:SOAXexampleComputed}. En base a la imagen de ejemplo, SOAX obtiene m\'ultiples caracter\'isticas de la red de filamentos, a partir de las curvas param\'etricas SOAC identificadas, las que se visualizan de color morado. Estas caracter\'isticas son la rotaci\'on esf\'erica, la orientaci\'on, la densidad de puntos, curvatura y largo de estas. A su vez, SOAX tambi\'en identifica las intersecciones de las curvas SOAC, lo cual corresponde a los puntos verdes en la Figura \ref{fig:SOAXexampleJunctions}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{evalImages/field4-t0-z-avg.png}
+    \caption[Imagen de ejemplo de SOAX]{Imagen recortada con microt\'ubulos de {\it Arabidopsis Marchantia} para el ejemplo de SOAX. Para ser aceptada como entrada valida en SOAX, la imagen tuvo que ser convertida de 32 a 16 bit. Fuente: Paula Llanos, PhD.}
+    \label{fig:SOAXexample}
+\end{figure}
+
 
 \begin{figure}[h]
     \centering
@@ -189,16 +197,22 @@ un ejemplo del funcionamiento de SOAX en base a una imagen de microt\'ubulos en 
     \label{fig:SOAXexample}
 \end{figure}
 
-La obtenci\'on de las curvas SOAC requiere de la ejecuci\'on del proceso de inicializaci\'on de curvas, identificado con el s\'imbolo $+$, el que entrega un resultado preliminar. Luego, para reducir el n\'umero de curvas obtenidas es necesario ejecutar el proceso de convergencia de curvas, mediante el s\'imbolo $\rhd$. Estos 2 pasos son los que permiten obtener las curvas SOAC pero no identifican autom\'aticamente las intersecciones o junciones entre estas. Esto \'ultimo implica un paso adicional en el que se cortan de curvas en puntos de intersecci\'on, seg\'un un criterio que apunta a evitar que las curvas SOAC resultantes luego de la convergencia no finalicen en una intersecci\'on o que no tengan bifurcaciones marcadas.
+La obtenci\'on de las curvas SOAC requiere de la ejecuci\'on del proceso de inicializaci\'on de curvas, identificado con el s\'imbolo $+$, el que entrega un resultado preliminar, que corresponde a 90 curvas para la imagen de ejemplo. Luego, para reducir el n\'umero de curvas obtenidas es necesario ejecutar el proceso de convergencia de curvas, mediante el s\'imbolo $\rhd$, lo cual transforma las 90 curvas previas en solo 21. Estos 2 pasos son los que permiten obtener las curvas SOAC, siendo lo que se observa en la Figura \ref{fig:SOAXexampleComputed}, sin embargo, la no existe una identificaci\'in automatica de las intersecciones o junciones entre estas. Esto \'ultimo, observado en la Figura \ref{fig:SOAXexampleJunctions}, implica un paso adicional en el que se cortan de curvas en puntos de intersecci\'on, seg\'un un criterio que apunta a evitar que las curvas SOAC resultantes luego de la convergencia no finalicen en una intersecci\'on o que no tengan bifurcaciones marcadas.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{evalImages/field4-soax.png}
+    \caption[Resultado de convergencia de curvas SOAC]{Resultado de SOAX al procesar la imagen recortada con microt\'ubulos de {\it Arabidopsis Marchantia}, obteniendo 21 curvas par\'ametricas tras la convergencia. Fuente: Elaboraci\'on Propia.}
+    \label{fig:SOAXexampleComputed}
+\end{figure}
 
 Dado que el enfoque de la investigaci\'on de SOAX se encuentra en obtener un an\'alisis cuantitativo de la red de filamentos, las curvas SOAC pueden coincidir con un filamento o simplemente corresponder a un segmento de filamento, sin existir la posibilidad de diferenciar ambos casos. En cuanto a los par\'ametros, SOAX presenta 26 campos para poder modificar valores, con 2 opciones adicionales del tipo booleano.
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.3]{evalImages/field4-nodes-soax.png}
-    \caption[Imagen de ejemplo procesada con SOAX]{Resultado de SOAX al procesar la imagen recortada con microt\'ubulos de {\it Arabidopsis Marchantia}. Tras aplicar la opci\'on de corte de curvas param\'etricas, y la posterior selecci\'on de la opci\'on de agrupar curvas param\'etricas, es posible observar las intersecciones en color verde. Fuente: Elaboraci\'on Propia.}
-    \label{fig:SOAXexampleComputed}
+    \caption[Identificaci\'on de intersecciones de curvas SOAC]{Resultado de SOAX al recortar las intersecciones de las curvas SOAC, tras aplicar la opci\'on de corte de curvas param\'etricas, y la posterior selecci\'on de la opci\'on de agrupar curvas param\'etricas, lo que posibilita observar las intersecciones en color verde. Fuente: Elaboraci\'on Propia.}
+    \label{fig:SOAXexampleJunctions}
 \end{figure}
 
 
