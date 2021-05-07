@@ -317,6 +317,7 @@ El \'angulo entre la proyecci\'on de $\Vec{p}$ y $\Vec{q}$ no debe superar el va
 \end{figure*}
 
 \subsection{Magnitud de desplazamiento entre segmentos}
+\label{subsec:magnitudDesplazamientoSegs}
 %agregar referencia? tindemans rod straightness \cite{hawkins2010model} of MTs o 
 El an\'alisis respecto a la magnitud del desplazamiento entre la proyecci\'on de un segmento en relaci\'on a sus segmentos vecinos se fundamenta en la rigidez que algunos tipos de filamentos como los microt\'ubulos y los filamentos de actina poseen \citepxl[ver\hspace{0.1cm} ]{stam2017filament, civalek2011bending}. El criterio de m\'aximo desplazamiento entre segmentos contiguos consiste en limitar la magnitud del movimiento que representa un segmento en relaci\'on al \'angulo que forma con sus segmentos adyacentes. Esto permite descartar soluciones que respeten el criterio de curvatura, pero que presentan movimientos pronunciados que sobrepasan la rigidez esperada de un filamento.
 
@@ -441,5 +442,38 @@ Dado que las diversas caracter\'isticas utilizadas en el algoritmo propuesto se 
 
 Durante la construcci\'on de soluciones, el grado de los nodos solo se utiliza en la heur\'istica de asignaci\'on de la primera arista, por lo que para caminos de una sola arista corresponde a la totalidad de la ponderaci\'on de la etapa. A medida que crece el n\'umero de aristas, su peso va disminuyendo gradualmente al irse traspasando al criterio de \'angulo entre aristas. En cuanto a la diferencia de magnitud entre segmentos, esta se conforma en partes iguales del \'angulo entre segmentos y del uso de la magnitud de los mismos.
 
-\vspace{1cm}
+\section{Complejidad computacional del algoritmo propuesto}
+\label{sec:compComplexity}
+
+Para calcular la complejidad computacional del algoritmo propuesto es necesario establecer previamente las condiciones del peor caso, lo que permitir\'a establecer la cota superior de la complejidad computacional. Estas condiciones consisten en suponer que el grafo que representa la red de filamentos es completamente conectado, as\'i como que el algoritmo propuesto permita la opci\'on de ciclos en los filamentos y superposici\'on entre los mismos.
+
+La asunci\'on de que el grafo sea completamente conectado permite establecer que el n\'umero de aristas corresponde a $\frac{n(n-1)}{2}$, con $n$ como el n\'umero de nodos. Otras caracter\'isticas del grafo corresponden a que es sim\'etrico y no dirigido.
+
+Bas\'andose en \citep{li2015efficiency} que establece la complejidad computacional para un grafo dirigido y sim\'etrico, utilizado durante la resoluci\'on del problema del {\it Vendedor Viajero} mediante el uso de ka metaheur\'istica ACO, se realiza el c\'alculo de la complejidad computacional de las etapas del algoritmo propuesto como se se\~nala en la tabla \ref{tab:computComplexity}. Los par\'ametros utilizados en la tabla \ref{tab:computComplexity} corresponden a $s$ para indicar el n\'umero de hormigas, $n$ para el n\'umero de nodos y $Max\_Iter$ para el n\'umero m\'aximo de iteraciones.
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+    \hline
+    Etapa de ACO & Complejidad Computacional \\\hline
+    Heur\'istica de Asignaci\'on Inicial & $\mathcal{O}{(n^{2})}$ \\
+    Construcci\'on de una soluci\'on & $\mathcal{O}{(n^{2}s)}$ \\
+    Actualizaci\'on de feromonas & $\mathcal{O}{(n^{2}s)}$ \\
+    B\'usqueda no local & $\mathcal{O}{(log(m))}$ \\
+    \hline
+    \end{tabular}
+    \caption{Complejidad computacional del algoritmo propuesto. $Max\_Iter$ indica el n\'umero m\'aximo de iteraciones del algoritmo, $s$ representa el n\'umero de hormigas utilizadas, mientras que $n$ representa el n\'umero de nodos.}
+    \label{tab:computComplexity}
+\end{table}
+
+En la etapa de construcci\'on de una soluci\'on, secci\'on \ref{subsubsec:antTourInit},  se tiene que el peor casa para una hormiga $s$ consiste en recorrer todos las aristas del grafo, lo que correspondería a las $n^2$ aristas disponibles. Dado que cada hormiga podr\'ia realizar este procedimiento, se llega a la complejidad computacional de $\mathcal{O}{(n^{2}s)}$.
+
+En cuanto a la etapa de actualizaci\'on de feromonas, el peor caso se enfoca en el criterio respeto a la magnitud del deplazamiento entre segmentos (secci\'on \ref{subsec:magnitudDesplazamientoSegs}), dado que los otros criterios corresponden a un c\'alculo de costo constante $\mathcal{0}{(1)}$. En particular, la situaci\'on en que todos los segmentos sean de solo una arista llevar\'ia a tener que evaluar las $n^2$ aristas de cada hormiga, conllevando a una complejidad computacional de $\mathcal{O}{(n^{2}s)}$.
+
+En la etapa de b\'usqueda no local (secci\'on \ref{sec:nonLocalSearch}), el algoritmo propuesto realiza la b\'usqueda de informaci\'on duplicada a trav\'es de una base de datos con extensi\'on espacial, la que utiliza \'arboles para la indexaci\'on y b\'usqueda ante consultas. Esto permite establecer la complejidad computacional de esta etapa como $\mathcal{O}{(log(m))}$, debido a que la comparaci\'on se realiza entre los recorridos de las $m$ hormigas.
+
+As\'i, es posible establecer que la complejidad computacional del algoritmo propuesto es $\mathcal{O}{(Max\_Iter (n^{2}m + log(m)))}$.
+
+\vspace{1.5cm}
 En resumen, las condiciones del problema de identificaci\'on de filamentos dan pie a establecer su representaci\'on mediante un problema de optimizaci\'on de restricciones (COP), estando el modelo para la resoluci\'on del COP basado en la metaheur\'istica ACO para su resoluci\'on. La implementaci\'on del algoritmo propuesto que resuelve el COP basado en la metaheur\'istica ACO se encuentra escrito en C++.
