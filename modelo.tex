@@ -449,7 +449,8 @@ Para calcular la complejidad computacional del algoritmo propuesto es necesario 
 
 La asunci\'on de que el grafo sea completamente conectado permite establecer que el n\'umero de aristas corresponde a $\frac{n(n-1)}{2}$, con $n$ como el n\'umero de nodos. Otras caracter\'isticas del grafo corresponden a que es sim\'etrico y no dirigido.
 
-Bas\'andose en \citep{li2015efficiency} que establece la complejidad computacional para un grafo dirigido y sim\'etrico, utilizado durante la resoluci\'on del problema del {\it Vendedor Viajero} mediante el uso de ka metaheur\'istica ACO, se realiza el c\'alculo de la complejidad computacional de las etapas del algoritmo propuesto como se se\~nala en la tabla \ref{tab:computComplexity}. Los par\'ametros utilizados en la tabla \ref{tab:computComplexity} corresponden a $s$ para indicar el n\'umero de hormigas, $n$ para el n\'umero de nodos y $Max\_Iter$ para el n\'umero m\'aximo de iteraciones.
+Bas\'andose en \citet{li2015efficiency} que establece la complejidad computacional para un grafo dirigido y sim\'etrico, utilizado durante la resoluci\'on del problema del {\it Vendedor Viajero} mediante el uso de la metaheur\'istica ACO, se realiza el c\'alculo de la complejidad computacional de las etapas del algoritmo propuesto, cuyo resultado se resume en la tabla \ref{tab:computComplexity}. Los par\'ametros utilizados en la tabla \ref{tab:computComplexity} corresponden a $s$ para indicar el n\'umero de hormigas, $n$ para el n\'umero de nodos y $s$ para el n\'umero de hormigas. Un tercer par\'ametro, $Max\_Iter$, se agrega al c\'alculo de la complejidad computacional para reflejar el n\'umero m\'aximo de iteraciones del algoritmo propuesto.
+
 
 
 \begin{table}[h]
@@ -457,23 +458,26 @@ Bas\'andose en \citep{li2015efficiency} que establece la complejidad computacion
     \begin{tabular}{|l|l|}
     \hline
     Etapa de ACO & Complejidad Computacional \\\hline
-    Heur\'istica de Asignaci\'on Inicial & $\mathcal{O}{(n^{2})}$ \\
     Construcci\'on de una soluci\'on & $\mathcal{O}{(n^{2}s)}$ \\
     Actualizaci\'on de feromonas & $\mathcal{O}{(n^{2}s)}$ \\
-    B\'usqueda no local & $\mathcal{O}{(log(m))}$ \\
+    B\'usqueda no local & $\mathcal{O}{(log(s))}$ \\
     \hline
     \end{tabular}
-    \caption{Complejidad computacional del algoritmo propuesto. $Max\_Iter$ indica el n\'umero m\'aximo de iteraciones del algoritmo, $s$ representa el n\'umero de hormigas utilizadas, mientras que $n$ representa el n\'umero de nodos.}
+    \caption{Complejidad computacional de las etapas del algoritmo propuesto. $n$ representa el n\'umero de nodos mientras que $s$ representa el n\'umero de hormigas utilizadas.}
     \label{tab:computComplexity}
 \end{table}
 
-En la etapa de construcci\'on de una soluci\'on, secci\'on \ref{subsubsec:antTourInit},  se tiene que el peor casa para una hormiga $s$ consiste en recorrer todos las aristas del grafo, lo que correspondería a las $n^2$ aristas disponibles. Dado que cada hormiga podr\'ia realizar este procedimiento, se llega a la complejidad computacional de $\mathcal{O}{(n^{2}s)}$.
+En la etapa de construcci\'on de una soluci\'on, secci\'on \ref{subsubsec:antTourInit}, consiste en asignar una arista inicial, mediante la heur\'istica de asignaci\'on inicial, para luego realizar el recorrido del grafo. Al suponer el peor caso, la heur\'istica de asignaci\'on inicial debe ejecutar las 3 etapas que considera, implicando que se deba recorrer todo el conjunto de aristas, lo cual es de complejidad $\mathcal{O}{(n^{2})}$.
+
+
+Por su parte, el peor caso al ir recorriendo el grafo para a\~nadir nuevas aristas a una hormiga $s$ consiste en agregar las $n^2$ aristas disponibles al recorrido. Dado que cada hormiga podr\'ia realizar este procedimiento, se llega a la complejidad computacional de $\mathcal{O}{(n^{2}s)}$.
+Como $\mathcal{O}{(n^{2}s)}$ es mayor que la complejidad computacional de la heur\'istica de asignaci\'on inicial, es esta complejidad la que define a esta etapa.
 
 En cuanto a la etapa de actualizaci\'on de feromonas, el peor caso se enfoca en el criterio respeto a la magnitud del deplazamiento entre segmentos (secci\'on \ref{subsec:magnitudDesplazamientoSegs}), dado que los otros criterios corresponden a un c\'alculo de costo constante $\mathcal{0}{(1)}$. En particular, la situaci\'on en que todos los segmentos sean de solo una arista llevar\'ia a tener que evaluar las $n^2$ aristas de cada hormiga, conllevando a una complejidad computacional de $\mathcal{O}{(n^{2}s)}$.
 
-En la etapa de b\'usqueda no local (secci\'on \ref{sec:nonLocalSearch}), el algoritmo propuesto realiza la b\'usqueda de informaci\'on duplicada a trav\'es de una base de datos con extensi\'on espacial, la que utiliza \'arboles para la indexaci\'on y b\'usqueda ante consultas. Esto permite establecer la complejidad computacional de esta etapa como $\mathcal{O}{(log(m))}$, debido a que la comparaci\'on se realiza entre los recorridos de las $m$ hormigas.
+En la etapa de b\'usqueda no local (secci\'on \ref{sec:nonLocalSearch}), el algoritmo propuesto realiza la b\'usqueda de informaci\'on duplicada a trav\'es de una base de datos con extensi\'on espacial, la que utiliza \'arboles para la indexaci\'on y b\'usqueda ante consultas. Esto permite establecer la complejidad computacional de esta etapa como $\mathcal{O}{(log(s))}$, debido a que la comparaci\'on se realiza entre los recorridos de las $s$ hormigas.
 
-As\'i, es posible establecer que la complejidad computacional del algoritmo propuesto es $\mathcal{O}{(Max\_Iter (n^{2}m + log(m)))}$.
+As\'i, es posible establecer que la complejidad computacional del algoritmo propuesto es $\mathcal{O}{(Max\_Iter (n^{2}s + log(s)))}$.
 
 \vspace{1.5cm}
 En resumen, las condiciones del problema de identificaci\'on de filamentos dan pie a establecer su representaci\'on mediante un problema de optimizaci\'on de restricciones (COP), estando el modelo para la resoluci\'on del COP basado en la metaheur\'istica ACO para su resoluci\'on. La implementaci\'on del algoritmo propuesto que resuelve el COP basado en la metaheur\'istica ACO se encuentra escrito en C++.
