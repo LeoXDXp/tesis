@@ -317,8 +317,38 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
 
 \subsubsection{Muestra MT-A2}
 
+\begin{table}[h]
+    \centering
+    \small
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+          Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
+         DeFiNe 30\textdegree & 1 & 0.37 & - & 0.25 & - & 0.3 & - & 8/25 & - & 8/19 & - & 2.0 \\
+         DeFiNe 60\textdegree &1 & 0.29 & - & 0.3 & - & 0.3 & - & 9/19 & - & 9/19 & - & 4.7\\
+        AP MtP & 5 & 0.46 & 0.46 & 0.41 & 0.44 & 0.43 & 0.45 & 11.9/21 & 12/21 & 11.9/19 & 12/19 & 1.6\\
+        \hline
+    \end{tabular}
+    \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-A2 (Figura \ref{fig:slice6-spinning-PL-gtruth}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-A2 (Figura \ref{fig:slice6-spinning-PL-gtruth}). 19 son los filamentos definidos por un experto, para un grafo de 39 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. El algoritmo propuesto (AP) presenta un comportamiento favorable, presentando un n\'umero de filamentos propuestos cercano a la cantidad de filamentos correctos, as\'i como un mayor n\'umero de filamentos correctos, en un menor tiempo.}
+    \label{tab:Slice6SpinningMTA2}
+\end{table}
 
 \subsubsection{Muestra MT-A3}
+
+\begin{table}[h]
+    \centering
+    \small
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+          Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
+         DeFiNe 30\textdegree & 1 & 0.38 & - & 0.17 & - & 0.23 & - & 9/37 & - & 9/23 & - & 4.1 \\
+         DeFiNe 60\textdegree &1 & 0.25 & - & 0.19 & - & 0.22 & - & 8/24 & - & 8/23 & - & 19.6\\
+        AP MtP & 5 & 0.32 & 0.37 & 0.18 & 0.25 & 0.23 & 0.3 & 10.9/29.4 & 12/27 & 10.9/23 & 12/23 & 1.9\\
+        \hline
+    \end{tabular}
+    \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-A3 (Figura \ref{fig:slice6-spinning-both-gtruth}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-A3 (Figura \ref{fig:slice6-spinning-both-gtruth}). 23 son los filamentos definidos por la superposici\'on de 2 individualizaciones de filamentos realizadas por distintos expertos, para un grafo de 59 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. El algoritmo propuesto (AP) presenta un comportamiento favorable, presentando un n\'umero de filamentos propuestos cercano a la cantidad de filamentos correctos, as\'i como un mayor n\'umero de filamentos correctos, en un menor tiempo.}
+    \label{tab:Slice6SpinningMTA3}
+\end{table}
+
 
 \subsubsection{Muestra MT-B}
 La segunda evaluaci\'on de microt\'ubulos de planta corresponde a la muestra MT-B, que se observa en la Figura \ref{fig:field3t0filtered1}, y cuya individualizaci\'on de filamentos en el caso del algoritmo propuesto se realiza tambi\'en mediante la configuraci\'on MtP. En base a los resultados del algoritmo propuesto, los que individualizan correctamente 8 filamentos en promedio, se observa la necesidad de establecer rangos de tolerancia para determinar si una soluci\'on propuesta corresponde a un filamento. Esto se debe a que el uso de un umbral estricto puede llevar a descartar estas soluciones sin su completa evaluaci\'on.
@@ -459,11 +489,40 @@ El filamento faltante para el algoritmo propuesto corresponde a una sobre-asigna
 \newpage
 
 \subsubsection{Muestra MT-D}
+\label{subsubsec:fieldt4t0}
 Adicionalmente a lo informado en la seccion antecedentes ...
+
+\begin{table}[h]
+    \centering
+    \small
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+          Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
+         DeFiNe 30\textdegree & 1 & 0.66 & - & 0.72 & - & 0.69 & - & 12/14 & - & 12/13 & - & 0.4 \\
+         DeFiNe 60\textdegree & 1& 0.35 & - & 0.3 & - & 0.32 & - & 9/13 & - & 9/13 & - & 0.5\\
+        AP MtP & 5 &0.46 & 0.46 & 0.28 & 0.26 & 0.35 & 0.33 & 10.4/14 & 11/14 & 10.4/13 & 11/13 & 0.8\\
+        \hline
+    \end{tabular}
+    \caption[Resultados de individualizaci\'on de filamentos para Figura \ref{fig:f}, de la muestra MT-D.]{Resultados de individualizaci\'on de filamentos para Figura \ref{fig:}, de la muestra MT-D. Existen 19 aristas en el grafo que representa la red de filamentos, y a su vez el n\'umero de filamentos correctos es 13. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.......................Para esta muestra, todas las iteraciones del algoritmo propuesto (AP) obtienen el mismo resultado, los que tambi\'en sucede en la ejecuci\'on de DeFiNe con 60\textdegree, siendo la \'unica diferencia que el algoritmo propuesto realiza la individualizaci\'on en menor tiempo.}
+    \label{tab:field4t0}
+\end{table}
 
 \subsubsection{Muestra MT-E}
 
-
+\begin{table}[h]
+    \centering
+    \small
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+          Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
+         DeFiNe 30\textdegree & 1 & 0.51 & - & 0.3 & - & 0.38 & - & 8/15 & - & 8/12 & - & 0.7 \\
+         DeFiNe 60\textdegree & 1& 0.48 & - & 0.37 & - & 0.42 & - & 8/13 &- & 8/12 & - & 1.0\\
+        AP MtP & 5 & 0.44 & 0.45 & 0.35 & 0.48 & 0.39 & 0.47 & 7.9/13.1 & 8/12 & 7.9/12 & 8/12 & 0.9\\
+         \hline
+    \end{tabular}
+    \caption[Resultados de individualizaci\'on de filamentos para la muestra MT-E en la Figura \ref{fig:}.]{Resultados de individualizaci\'on de filamentos para la muestra MT-E en la Figura \ref{fig:}. El n\'umero de filamentos en el {\it ground truth} es 12, en un grafo de 23 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio.}
+    \label{tab:fieldt4t2}
+\end{table}
 
 \subsection{Neuronas}
 \label{subsec:neuronTest}
