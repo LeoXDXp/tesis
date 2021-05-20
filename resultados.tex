@@ -58,9 +58,9 @@ Ambas ejecuciones de DeFiNe, as\'i como todas las ejecuciones del algoritmo prop
         Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s]\\ \hline
          DeFiNe 30\textdegree  & 1 & 0.72 & - & 0.47 & - & 0.57 & - & 4/6 & - & 4/6 & - & 2.3 \\
          DeFiNe 60\textdegree & 1 &0.63 & - & 0.58 & - & 0.60 & - & 3/5 & - & 3/6 &- & 2.3\\
-        AP MtP & 5 & 0.51 & 0.57 & 0.32 & 0.57 & 0.39 & 0.57 & 3/6.2 & 3/5 & 3/6 & 3/6 & 0.3\\
+        AP MtP & 10 & 0.51 & 0.57 & 0.32 & 0.57 & 0.39 & 0.57 & 3/6.2 & 3/5 & 3/6 & 3/6 & 0.3\\
         %Mejor Iteraci\'on P1 & 0.5714 & 0.5714 & 0.5714 & 3/5 &  & 0.3135 \\
-        AP S1 & 5 & 0.68 & 0.87 &0.57 & 1 & 0.62 & 0.93 & 4/5.8 & 4/5 & 4/6 & 4/6 & 0.2\\
+        AP S1 & 10 & 0.68 & 0.87 &0.57 & 1 & 0.62 & 0.93 & 4/5.8 & 4/5 & 4/6 & 4/6 & 0.2\\
         % {\bf Mejor Iteraci\'on P2} & 0.875 & 1 & 0.9333 & 4/5 & 4/6 & 0.3073\\
          \hline
     \end{tabular}
@@ -130,8 +130,8 @@ As\'i, en la evaluaci\'on que emplea la configuraci\'on S2 se encuentra un filam
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
          DeFiNe 30\textdegree & 1 & 0.33 & - & 0.18 & - & 0.23 & - & 2/11 & - & 2/5 & - & 2.8 \\
          DeFiNe 60\textdegree & 1& 0.23 & - & 0.25 & - & 0.24 & - & 2/7 & - & 2/5 & - & 3.6\\
-        AP MtP & 5 & 0.34 & 0.35 & 0.27 & 0.28 & 0.3 & 0.31 & 3/9.2 & 3/9 & 3/6 & 3/6 & 0.3\\
-        AP S2 & 5 & 0.32 & 0.33 & 0.25 & 0.31 & 0.28 & 0.32 & 4/8.6 & 4/9 & 4/6 & 4/6 & 0.3\\
+        AP MtP & 10 & 0.34 & 0.35 & 0.27 & 0.28 & 0.3 & 0.31 & 3/9.2 & 3/9 & 3/6 & 3/6 & 0.3\\
+        AP S2 & 10 & 0.32 & 0.33 & 0.25 & 0.31 & 0.28 & 0.32 & 4/8.6 & 4/9 & 4/6 & 4/6 & 0.3\\
          \hline
     \end{tabular}
     \caption[Resultado de la individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}.]{Resultado de la individualizaci\'on de filamentos para la Figura \ref{fig:synth-Define-1b}. El n\'umero de filamentos definidos manualmente por un experto es 5, en un grafo de 17 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el m\'aximo obtenido tras el n\'umero de iteraciones, mientras que las sin asterisco representan el promedio. La diferencia del n\'umero de filamentos en el {\it ground truth} se debe a que la herramienta utilizada para la obtenci\'on del grafo corta un filamento, generando un filamento adicional.}
@@ -190,9 +190,11 @@ En relaci\'on a lo indicado en la secci\'on \ref{sec:genGrafFromImage} con respe
 
 La diferencia entre las individualizaciones realizadas por los expertos coincide con lo descrito en la secci\'on \ref{sec:genGrafFromImage}. En este caso, el  primer experto realiza la individualizaci\'on de 12 filamentos, mientras que el segundo experto identifica 19. En base a lo anterior se tienen casos de filamentos encontrados solo por un experto, filamentos encontrados por ambos, as\'i como filamentos con un calce parcial entre lo que individualiza cada experto. Lo anterior se resume en la Figura \ref{fig:experts-compared-slice6-spinning}.
 
-%
+Entre todas las pruebas realizadas al algoritmo propuesto, solo la muestra MT-A es evaluada por 2 expertos, con el riesgo asociado de que exista un sesgo del algoritmo propuesto a la forma en que un experto individualiza filamentos. Sin embargo, el uso de dos tipos de c\'elulas, as\'i como la posibilidad de ajustar los par\'ametros de ejecuci\'on del algoritmo propuesto son mecanismos que permiten acotar un posible sesgo.
+
 
 Tanto la evaluaci\'on de la muestra MT-A por parte de un segundo experto, como la combinaci\'on de las individualizaciones de filamentos realizada por cada experto permitem a\~nadir 2 nuevas muestra a evaluar por el algoritmo propuesto. La segunda evaluaci\'on de la muestra MT-A, que contiene 19 filamentos se denomina MT-A2, mientras que la combinaci\'on de las individualizaciones que consta de 23 filamentos se denomina MT-A3. La muestra MT-A2 corresponde a la Figura \ref{fig:slice6-spinning-PL-gtruth}, y por su parte la muestra MT-A3 corresponde a la Figura \ref{fig:slice6-spinning-both-gtruth}.
+
 
 % Experts comparing spinning
  \begin{figure*}[h!]
@@ -240,7 +242,7 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
          DeFiNe 30\textdegree & 1 & 0.65 & - & 0.45 & - & 0.53 & - & 8/16 & - & 8/12 & - & 4.1 \\
          DeFiNe 60\textdegree & 1& 0.28 & - & 0.21 & - & 0.24 & - & 3/12 &- & 3/12 & - & 3.6\\
-        AP MtP & 5 & 0.44 & 0.45 & 0.34 & 0.35 & 0.38 & 0.4 & 7.2/12.4 & 8/13 & 7.2/12 & 8/12 & 0.3\\
+        AP MtP & 10 & 0.44 & 0.45 & 0.34 & 0.35 & 0.38 & 0.4 & 7.2/12.4 & 8/13 & 7.2/12 & 8/12 & 0.3\\
          \hline
     \end{tabular}
     \caption[Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}.]{Resultados de individualizaci\'on de filamentos para la muestra MT-A en la Figura \ref{fig:SpinningMarchantia}. El n\'umero de filamentos en el {\it ground truth} es 12, en un grafo de 29 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio.}
@@ -312,10 +314,13 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
     \label{fig:SpinningMarchantiaResults}
 \end{figure*}
 
-\clearpage
-\newpage
+%\clearpage
+%\newpage
 
 \subsubsection{Muestra MT-A2}
+La evaluaci\'on de la muestra MT-A2 (Figura \ref{fig:slice6-spinning-PL-gtruth}) que corresponde al an\'alisis realizado por un segundo experto sobre los filamentos en la Figura \ref{fig:SpinningMarchantia}, tiene como resultado la individualizaci\'on de 9 filamentos por parte de DeFiNe con su configuraci\'on DeFiNe 60\textdegree, mientras que se identifican 11.9 filamentos en promedio mediante el algoritmo propuesto, con la configuraci\'on para microt\'ubulos de planta o MtP. 
+
+En cuanto a los filamentos propuestos por cada m\'etodo y su respectiva configuraci\'on, el algoritmo propuesto identifica un total de 21 filamentos en todas sus iteraciones, mientras que DeFiNe indica 25 o 19 filamentos totales, dependiendo de la configuraci\'on usada, como se indica en la tabla \ref{tab:Slice6SpinningMTA2}. El tiempo promedio de las ejecuciones del algoritmo propuesto es menor al de DeFiNe con cualquier configuraci\'on.
 
 \begin{table}[h]
     \centering
@@ -325,10 +330,10 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
          DeFiNe 30\textdegree & 1 & 0.37 & - & 0.25 & - & 0.3 & - & 8/25 & - & 8/19 & - & 2.0 \\
          DeFiNe 60\textdegree &1 & 0.29 & - & 0.3 & - & 0.3 & - & 9/19 & - & 9/19 & - & 4.7\\
-        AP MtP & 5 & 0.46 & 0.46 & 0.41 & 0.44 & 0.43 & 0.45 & 11.9/21 & 12/21 & 11.9/19 & 12/19 & 1.6\\
+        AP MtP & 10 & 0.46 & 0.46 & 0.41 & 0.44 & 0.43 & 0.45 & 11.9/21 & 12/21 & 11.9/19 & 12/19 & 1.6\\
         \hline
     \end{tabular}
-    \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-A2 (Figura \ref{fig:slice6-spinning-PL-gtruth}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-A2 (Figura \ref{fig:slice6-spinning-PL-gtruth}). 19 son los filamentos definidos por un experto, para un grafo de 39 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. El algoritmo propuesto (AP) presenta un comportamiento favorable, presentando un n\'umero de filamentos propuestos cercano a la cantidad de filamentos correctos, as\'i como un mayor n\'umero de filamentos correctos, en un menor tiempo.}
+    \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-A2 (Figura \ref{fig:slice6-spinning-PL-gtruth}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-A2 (Figura \ref{fig:slice6-spinning-PL-gtruth}). 19 son los filamentos definidos por un experto, para un grafo de 39 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. El algoritmo propuesto (AP) presenta un comportamiento estable, proponiendo un n\'umero de filamentos cercano al n\'umero de filamentos correctos, as\'i como individualizando un mayor n\'umero de filamentos correctos, en un menor tiempo.}
     \label{tab:Slice6SpinningMTA2}
 \end{table}
 
@@ -363,11 +368,14 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
         \label{fig:MTA2-best-phil}
     \end{subfigure}
         
-    \caption[Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:slice6-spinning-PL-gtruth}.]{Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:slice6-spinning-PL-gtruth}. El algoritmo propuesto individualiza correctamente 3 filamentos con la configuraci\'on para microt\'ubulos de planta, mejorando a 4 filamentos con una configuraci\'on m\'as simple.}
+    \caption[Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:slice6-spinning-PL-gtruth} (Muestra MT-A2).]{Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:slice6-spinning-PL-gtruth} (Muestra MT-A2). El algoritmo propuesto individualiza correctamente 12 filamentos con la configuraci\'on para microt\'ubulos de planta, en un menor tiempo.}
     \label{fig:slice6-spinning-PL-gtruth-MTA2-results}
 \end{figure*}
 
 \subsubsection{Muestra MT-A3}
+La muestra MT-A3 se obtiene al superponer las individualizaciones de filamentos realizadas por distintos expertos para la Figura \ref{fig:SpinningMarchantia}. Esta fusi\'on permite obtener un grafo de 59 aristas a trav\'es del cual se deben identificar los 23 filamentos indicados como {\it ground truth}. A pesar de encontrar solo 12 filamentos de forma exacta, el algoritmo propuesto encuentra el filamento m\'as extenso, identificado en color rojo en la Figura \ref{fig:slice6-spinning-both-gtruth-MTA3-results}, que consiste en 12 aristas. La relevancia de lo anterior radica en la dificultad de encontrar un filamento que contiene m\'ultiples aristas cortas de forma consecutiva.
+
+
 
 \begin{table}[h]
     \centering
@@ -377,10 +385,11 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
          DeFiNe 30\textdegree & 1 & 0.38 & - & 0.17 & - & 0.23 & - & 9/37 & - & 9/23 & - & 4.1 \\
          DeFiNe 60\textdegree &1 & 0.25 & - & 0.19 & - & 0.22 & - & 8/24 & - & 8/23 & - & 19.6\\
-        AP MtP & 5 & 0.32 & 0.37 & 0.18 & 0.25 & 0.23 & 0.3 & 10.9/29.4 & 12/27 & 10.9/23 & 12/23 & 1.9\\
+        AP MtP & 10 & 0.32 & 0.37 & 0.18 & 0.25 & 0.23 & 0.3 & 10.9/29.4 & 12/27 & 10.9/23 & 12/23 & 1.9\\
         \hline
     \end{tabular}
-    \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-A3 (Figura \ref{fig:slice6-spinning-both-gtruth}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-A3 (Figura \ref{fig:slice6-spinning-both-gtruth}). 23 son los filamentos definidos por la superposici\'on de 2 individualizaciones de filamentos realizadas por distintos expertos, para un grafo de 59 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. El algoritmo propuesto (AP) presenta un comportamiento favorable, presentando un n\'umero de filamentos propuestos cercano a la cantidad de filamentos correctos, as\'i como un mayor n\'umero de filamentos correctos, en un menor tiempo.}
+    \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-A3 (Figura \ref{fig:slice6-spinning-both-gtruth}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-A3 (Figura \ref{fig:slice6-spinning-both-gtruth}). 23 son los filamentos definidos por la superposici\'on de 2 individualizaciones de filamentos realizadas por distintos expertos, para un grafo de 59 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. El algoritmo propuesto (AP)
+    presenta 29.4 filamentos en promedio, alej\'andose de los 23 filamentos correctos. Sin embargo, presenta un n\'umero mayor de filamentos correctos, en un menor tiempo.}
     \label{tab:Slice6SpinningMTA3}
 \end{table}
 
@@ -390,7 +399,7 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/Slice6-Spinning-MergedGTruths-thick-graph.png}
-        \caption{Grafo que representa la red de filamentos de la muestra MT-A3.}
+        \caption{Grafo de 59 aristas que representa la red de filamentos de la muestra MT-A3.}
         \label{fig:MTA3-graph}
     \end{subfigure}
     \begin{subfigure}[t]{0.48\textwidth}
@@ -414,7 +423,7 @@ Otros aspecto de estos resultados es que todas las evaluaciones logran una cober
         \label{fig:MTA2-best-phil}
     \end{subfigure}
         
-    \caption[Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:slice6-spinning-both-gtruth}.]{Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:slice6-spinning-both-gtruth}. El algoritmo propuesto individualiza correctamente 12 filamentos con la configuraci\'on para microt\'ubulos de planta, ...}
+    \caption[Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:slice6-spinning-both-gtruth} (Muestra MT-A3).]{Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:slice6-spinning-both-gtruth} (Muestra MT-A3). El algoritmo propuesto individualiza correctamente 12 de 23 filamentos con la configuraci\'on para microt\'ubulos de planta, }
     \label{fig:slice6-spinning-both-gtruth-MTA3-results}
 \end{figure*}
 
@@ -432,7 +441,7 @@ Un aspecto a destacar del algoritmo propuesto radica que 4 de las 5 iteraciones 
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
          DeFiNe 30\textdegree & 1 & 0.51 & - & 0.17 & - & 0.26 & - & 5/23 & - & 5/12 & - & 5.0 \\
          DeFiNe 60\textdegree &1 & 0.42 & - & 0.31 & - & 0.36 & - & 5/16 & - & 5/12 & - & 16.2\\
-        AP MtP & 5 & 0.5 & 0.52 & 0.32 & 0.40 & 0.39 & 0.45 & 8.8/15 & 9/14 & 8.8/12 & 9/12 & 0.9\\
+        AP MtP & 10 & 0.5 & 0.52 & 0.32 & 0.40 & 0.39 & 0.45 & 8.8/15 & 9/14 & 8.8/12 & 9/12 & 0.9\\
         \hline
     \end{tabular}
     \caption[Resultados de la individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}).]{Resultados de la individualizaci\'on de filamentos para la muestra MT-B (Figura \ref{fig:field3t0filtered1}). 12 son los filamentos definidos por un experto, para un grafo de 40 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. El algoritmo propuesto (AP) presenta un comportamiento favorable, presentando un n\'umero de filamentos propuestos cercano a la cantidad de filamentos correctos.}
@@ -474,8 +483,8 @@ Un aspecto a destacar del algoritmo propuesto radica que 4 de las 5 iteraciones 
     \caption[Filamentos correctamente individualizados en la figura \ref{fig:field3t0filtered1} correspondiente a la muestra MT-B.]{Filamentos correctamente individualizados en la figura \ref{fig:field3t0filtered1} correspondiente a la muestra MT-B, mediante el DeFiNe y el algoritmo propuesto. Segmentos marcados en negro representan aristas no asignadas correctamente. El mejor resultado del algoritmo propuesto permite encontrar filamentos no encontrados en a) o b).}
     \label{fig:field3t0filtered1Results}
 \end{figure*}
-\clearpage
-\newpage
+%\clearpage
+%\newpage
 
 %Valor m\'ax de VI para \ref{tab:field3t0filtered2} es 1.9459.
 %N\'umero de filamentos en el {\it Ground Truth} de la figura field3t0 es 5.
@@ -498,7 +507,7 @@ El filamento faltante para el algoritmo propuesto corresponde a una sobre-asigna
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
          DeFiNe 30\textdegree & 1 & 0.5 & - & 0.5 & - & 0.5 & - & 3/5 & - & 3/5 & - & 2.82 \\
          DeFiNe 60\textdegree & 1& 0.66 & - & 0.5 & - & 0.57 & - & 4/5 & - & 4/5 & - & 2.65\\
-        AP MtP & 5 &0.66 & 0.66 & 0.5 & 0.5 & 0.57 & 0.57 & 4/5 & 4/5 & 4/5 & 4/5 & 0.29\\
+        AP MtP & 10 &0.66 & 0.66 & 0.5 & 0.5 & 0.57 & 0.57 & 4/5 & 4/5 & 4/5 & 4/5 & 0.29\\
         \hline
     \end{tabular}
     \caption[Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C.]{Resultados de individualizaci\'on de filamentos para Figura \ref{fig:field3t0filtered2}, de la muestra MT-C. Existen 7 aristas en el grafo que representa la red de filamentos, y a su vez el n\'umero de filamentos correctos es 5. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. Para esta muestra, todas las iteraciones del algoritmo propuesto (AP) obtienen el mismo resultado, los que tambi\'en sucede en la ejecuci\'on de DeFiNe con 60\textdegree, siendo la \'unica diferencia que el algoritmo propuesto realiza la individualizaci\'on en menor tiempo.}
@@ -559,7 +568,14 @@ El filamento faltante para el algoritmo propuesto corresponde a una sobre-asigna
 
 \subsubsection{Muestra MT-D}
 \label{subsubsec:fieldt4t0}
-Adicionalmente a lo informado en la seccion antecedentes ...
+La muestra MT-D corresponde a la imagen en la Figura \ref{fig:MTD-raw}, en la que un an\'alisis experto identifica 13 filamentos, y de la que se extrae un grafo de 19 aristas. Al realizar la individualizaci\'on de filamentos mediante la herramienta DeFiNe con la configuraci\'on de 60\textdegree, se obtienen 12 filamentos correctamente identificados, siendo el mejor resultado entre las 2 configuraciones de DeFine y las 10 iteraciones del algoritmo propuesto. Por su parte, el algoritmo propuesto obtiene solo 11 de los 13 filamentos indicados por el experto, pudiendo encontrar un filamento que no encuentra DeFiNe con 30\textdegree, pero no encontrando 2 filamentos que si encuentra esa herramienta. 
+
+
+Estos 2 filamentos no encontrados corresponden a casos simples, donde la heur\'istica del algoritmo propuesto para construir soluciones prefiere una soluci\'on m\'as compleja que se aleja de lo indicado por el experto. 
+Por otra parte, el filamento encontrado solamente por el algoritmo propuesto, indicado en naranjo en la Figura \ref{fig:MTD-best-phil}, es individualizado correctamente a pesar de tener una arista bastante corta, lo cual puede introducir problemas en el calculo de \'angulos entre aristas. 
+
+Debido a que el grafo utilizado para individualizar filamentos no contiene ciclos as\'i como presenta una baja cantidad de cruces o intersecciones, los tiempos de computo de los m\'etodos evaluados son inferiores al segundo, como se indica en la tabla \ref{tab:field4t0}.
+
 
 \begin{table}[h]
     \centering
@@ -569,10 +585,11 @@ Adicionalmente a lo informado en la seccion antecedentes ...
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
          DeFiNe 30\textdegree & 1 & 0.66 & - & 0.72 & - & 0.69 & - & 12/14 & - & 12/13 & - & 0.4 \\
          DeFiNe 60\textdegree & 1& 0.35 & - & 0.3 & - & 0.32 & - & 9/13 & - & 9/13 & - & 0.5\\
-        AP MtP & 5 &0.46 & 0.46 & 0.28 & 0.26 & 0.35 & 0.33 & 10.4/14 & 11/14 & 10.4/13 & 11/13 & 0.8\\
+        AP MtP & 10 & 0.46 & 0.46 & 0.28 & 0.26 & 0.35 & 0.33 & 10.4/14 & 11/14 & 10.4/13 & 11/13 & 0.8\\
         \hline
     \end{tabular}
-    \caption[Resultados de individualizaci\'on de filamentos para Figura \ref{fig:MTD-raw}, de la muestra MT-D.]{Resultados de individualizaci\'on de filamentos para Figura \ref{fig:}, de la muestra MT-D. Existen 19 aristas en el grafo que representa la red de filamentos, y a su vez el n\'umero de filamentos correctos es 13. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.......................Para esta muestra, todas las iteraciones del algoritmo propuesto (AP) obtienen el mismo resultado, los que tambi\'en sucede en la ejecuci\'on de DeFiNe con 60\textdegree, siendo la \'unica diferencia que el algoritmo propuesto realiza la individualizaci\'on en menor tiempo.}
+    \caption[Resultados de individualizaci\'on de filamentos para Figura \ref{fig:MTD-raw}, de la muestra MT-D.]{Resultados de individualizaci\'on de filamentos para Figura \ref{fig:MTD-raw}, de la muestra MT-D. Existen 19 aristas en el grafo que representa la red de filamentos, y a su vez el n\'umero de filamentos correctos es 13. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. Para esta muestra,
+    el m\'etodo DeFiNe con la configuraci\'on de 30\textdegree~ logra identificar un filamento m\'as que el mejor resultado del algoritmo propuesto.}
     \label{tab:field4t0}
 \end{table}
 
@@ -606,11 +623,17 @@ Adicionalmente a lo informado en la seccion antecedentes ...
         \label{fig:MTD-best-phil}
     \end{subfigure}
         
-    \caption[Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:MTD-raw}.]{Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:MTD-raw}. El algoritmo propuesto individualiza correctamente 3 filamentos con la configuraci\'on para microt\'ubulos de planta, mejorando a 4 filamentos con una configuraci\'on m\'as simple.}
+    \caption[Individualizaci\'on de filamentos para la Figura \ref{fig:MTD-raw} (Muestra MT-D).]{Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:MTD-raw} (Muestra MT-D). El mejor resultado del algoritmo propuesto encuentra un filamento menos que la mejor configuraci\'on de DeFiNe. Cada m\'etodo identifica al menos un filamento que no es encontrado por el otro m\'etodo, debido a la diferencia en como realizan la individualizaci\'on.}
     \label{fig:MTD-results}
 \end{figure*}
 
 \subsubsection{Muestra MT-E}
+
+Una segunda muestra adicional a lo indicado en la secci\'on \ref{sec:imagenes-reales} corresponde a la imagen en la Figura \ref{fig:MTE-raw}, en la cual un experto individualiza 12 filamentos. El grafo asociado a la red de filamentos de esta muestra esta compuesto por 23 aristas, a partir de las que la herramienta DeFiNe individualiza 8 filamentos correctamente, mientras que el mejor resultado del algoritmo propuesto logra el mejor resultado, con un resultado promedio de las 10 iteraciones de 7.9 filamentos correctamente identificados. 
+
+En cuanto al n\'umero de filamentos propuestos por cada m\'etodo, la configuraci\'on DeFiNe 60\textdegree~ indica que en la red de filamentos existen 13 filamentos (8 de los cuales son correctos), en tanto que el algoritmo propuesto indica en su mejor resultado que son 12 filamentos (8 de los cuales son correctos). Es decir, el comportamiento de ambos m\'etodos es similar, lo que puede ser atribuible a que esta muestra no presenta mayores complejidades en el grafo que representa la red de filamentos. 
+
+Una diferencia en la forma en que ambos m\'etodos individualizan filamentos puede observarse a trav\'es del filamento identificado por el algoritmo propuesto, de color cafe oscuro, en la Figura \ref{fig:MTE-best-phil}. La herramienta DeFiNe, al privilegiar el criterio angular entre aristas del grafo no encuentra aquel filamento. De forma inversa, filamentos simples no son encontrados por el algoritmo propuesto lo cual puede asociarse a una mayor complejidad de las heur\'isticas y l\'ogicas utilizadas.
 
 \begin{table}[h]
     \centering
@@ -620,50 +643,50 @@ Adicionalmente a lo informado en la seccion antecedentes ...
           Config & Iters & P & P* & R & R* & F1 & F1* & C/P & C/P* & C/GT & C/GT* & T[s] \\ \hline
          DeFiNe 30\textdegree & 1 & 0.51 & - & 0.3 & - & 0.38 & - & 8/15 & - & 8/12 & - & 0.7 \\
          DeFiNe 60\textdegree & 1& 0.48 & - & 0.37 & - & 0.42 & - & 8/13 &- & 8/12 & - & 1.0\\
-        AP MtP & 5 & 0.44 & 0.45 & 0.35 & 0.48 & 0.39 & 0.47 & 7.9/13.1 & 8/12 & 7.9/12 & 8/12 & 0.9\\
+        AP MtP & 10 & 0.44 & 0.45 & 0.35 & 0.48 & 0.39 & 0.47 & 7.9/13.1 & 8/12 & 7.9/12 & 8/12 & 0.9\\
          \hline
     \end{tabular}
-    \caption[Resultados de individualizaci\'on de filamentos para la muestra MT-E en la Figura \ref{fig:MTE-raw}.]{Resultados de individualizaci\'on de filamentos para la muestra MT-E en la Figura \ref{fig:MTE-raw}. El n\'umero de filamentos en el {\it ground truth} es 12, en un grafo de 23 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio.}
+    \caption[Resultados de individualizaci\'on de filamentos para la muestra MT-E en la Figura \ref{fig:MTE-raw}.]{Resultados de individualizaci\'on de filamentos para la muestra MT-E en la Figura \ref{fig:MTE-raw}. El n\'umero de filamentos en el {\it ground truth} es 12, en un grafo de 23 aristas. La columna Iters indica el n\'umero de ejecuciones de cada configuraci\'on, las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la columna T indica el tiempo de ejecuci\'on. (*) Las columnas con asterisco representan el mejor resultado obtenido en la configuraci\'on con m\'as de una iteraci\'on, mientras que las columnas sin asterisco representan el promedio. Tanto el algoritmo propuesto (AP) como DeFiNe presentan resultados similares, lo que puede atribuirse a que la muestra no presenta una mayor complejidad.}
     \label{tab:fieldt4t2}
 \end{table}
 
 \begin{figure*}[h!]
     \centering
     \hspace{0.2cm}
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.47\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/field4-t2-gtruth.png}
         \caption{Imagen de microt\'ubulos de la planta {\it Arabidopsis Marchantia} con 12 filamentos individualizados por un experto, se\~nalado mediante las áreas de interes en amarillo. Esta imagen se identifica como la muestra MT-E.}
         \label{fig:MTE-raw}
     \end{subfigure}
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.47\textwidth}
         \centering
         \includegraphics[height=1.5in]{benchImages/field4-t2-ground-truth-no-labels-ants.png}
         \caption{Representaci\'on coloreada de la individualizaci\'on manual de un experto para la muestra MT-E.}
         \label{fig:MTE-gtruth}
     \end{subfigure}
     \vskip\baselineskip
-     \begin{subfigure}[t]{0.48\textwidth}
+     \begin{subfigure}[t]{0.47\textwidth}
         \centering
         \includegraphics[height=1.5in]{resultImages/field4-t2-DeFiNeExactMatch-30.png}
         \caption{Representaci\'on de 8 filamentos correctamente individualizados por ambas configuraciones utilizadas con la herramienta DeFiNe, identificados mediante colores.}
         \label{fig:MTE-best-define}
     \end{subfigure}
     \hspace{0.2cm}
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.47\textwidth}
         \centering
         \includegraphics[height=1.5in]{resultImages/field4-t2-phil-s1271-v05-exactMatch-no-label-ants.png}
         \caption{Mejor resultado del algoritmo propuesto para la muestra MT-E, con la configuraci\'on MtP, individualizando 8 filamentos correctamente.}
         \label{fig:MTE-best-phil}
     \end{subfigure}
         
-    \caption[Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:MTE-raw}.]{Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:MTE-raw}. El algoritmo propuesto individualiza correctamente 3 filamentos con la configuraci\'on para microt\'ubulos de planta, mejorando a 4 filamentos con una configuraci\'on m\'as simple.}
+    \caption[Individualizaci\'on de filamentos para la Figura \ref{fig:MTE-raw} (Muestra MT-E).]{Individualizaci\'on de filamentos correctos respecto a la evaluaci\'on de un experto para la Figura \ref{fig:MTE-raw} (Muestra MT-E). El algoritmo propuesto (AP) y DeFiNe presentan un comportamiento similar, atribuible a la simpleza de la muestra.}
     \label{fig:MTE-results}
 \end{figure*}
 
 \subsection{Neuronas}
 \label{subsec:neuronTest}
-En esta secci\'on se muestran los resultados de la evaluaci\'on del algoritmo propuesto para las 3 muestras de neurona, obtenidas desde \citet{ampuero2019chronic}, y que se denominan N1, N2 y N3. Para estas 3 muestras se utiliza la configuraci\'on predeterminada de neurona (AP N), ejecutando el algoritmo propuesto 5 veces para obtener un comportamiento promediado. A diferencia de la secci\'on \ref{subsec:mtTest}, en estas evaluaciones las pruebas ejecutadas con DeFiNe presentan cantidades de filamentos propuestos 2 a 6 veces mayores que el n\'umero de filamentos individualizados por un experto. Este comportamiento puede atribuirse a la obligaci\'on que DeFiNe tiene de asignar todas las aristas al menos a un filamento. En comparaci\'on, el algoritmo propuesto al tener mayor flexibilidad, asigna en promedio un 57\% de las aristas a filamentos.
+En esta secci\'on se muestran los resultados de la evaluaci\'on del algoritmo propuesto para las 3 muestras de neurona, obtenidas desde \citet{ampuero2019chronic}, y que se denominan N1, N2 y N3. Para estas 3 muestras se utiliza la configuraci\'on predeterminada de neurona (AP N), ejecutando el algoritmo propuesto 10 veces para obtener un comportamiento promediado. A diferencia de la secci\'on \ref{subsec:mtTest}, en estas evaluaciones las pruebas ejecutadas con DeFiNe presentan cantidades de filamentos propuestos 2 a 6 veces mayores que el n\'umero de filamentos individualizados por un experto. Este comportamiento puede atribuirse a la obligaci\'on que DeFiNe tiene de asignar todas las aristas al menos a un filamento. En comparaci\'on, el algoritmo propuesto al tener mayor flexibilidad, asigna en promedio un 57\% de las aristas a filamentos.
 
 Adicionalmente, los tiempos de ejecuci\'on de las pruebas con DeFiNe son sustancialmente mayores, encontr\'andose en el rango de los minutos a las 4 horas, dependiendo de los par\'ametros utilizados. Lo anterior puede asociarse al n\'umero de aristas que las muestras de neurona tienen en su respectivo grafo, las que son 414 para N1 y 161 para N2. En el caso de la muestra N3, representada por un grafo de 67 aristas, esta no pudo ser calculada con DeFiNe ya que el programa arroja un error de falla cr\'itica, impidiendo su ejecuci\'on. La informaci\'on respecto al n\'umero de filamentos propuestos como de los tiempos de ejecuci\'on se encuentra en la Tabla \ref{tab:FilPropyTiemposNeuronasDefine}.
 
@@ -706,7 +729,7 @@ En las neuronas es observable la existencia de una dendrita de mayor longitud qu
         \hline
     \end{tabular}
     
-    \caption[Resultados de la individualizaci\'on de filamentos mediante el algoritmo propuesto para las muestra N1, N2 y N3.]{Resultados de la individualizaci\'on de filamentos mediante el algoritmo propuesto con los par\'ametros para neuronas, para las muestra N1, N2 y N3, en las Figuras \ref{fig:Porta6-4a1}, \ref{fig:Porta10-5b} y \ref{fig:Porta18-3a1} respectivamente. Las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la La columna F.S. indica el n\'umero de filamentos cuya diferencia con respecto a ser un calce exacto es a lo m\'as de 3 aristas. (*) Las columnas con asterisco representan el m\'aximo obtenido tras las 5 ejecuciones del algoritmo propuesto, mientras que las sin asterisco representan el promedio.}
+    \caption[Resultados de la individualizaci\'on de filamentos mediante el algoritmo propuesto para las muestra N1, N2 y N3.]{Resultados de la individualizaci\'on de filamentos mediante el algoritmo propuesto con los par\'ametros para neuronas, para las muestra N1, N2 y N3, en las Figuras \ref{fig:Porta6-4a1}, \ref{fig:Porta10-5b} y \ref{fig:Porta18-3a1} respectivamente. Las columnas P y R representan {\it Precision} y {\it Recall} respectivamente, la columna C/P refleja el n\'umero de filamentos correctos con respecto a los propuestos por cada m\'etodo, mientras que la columna C/GT indica la relaci\'on entre los filamentos correctamente individualizados por el m\'etodo y el criterio del experto. Finalmente la La columna F.S. indica el n\'umero de filamentos cuya diferencia con respecto a ser un calce exacto es a lo m\'as de 3 aristas. (*) Las columnas con asterisco representan el m\'aximo obtenido tras las 10 ejecuciones del algoritmo propuesto, mientras que las sin asterisco representan el promedio.}
     % Los valores m\'aximos de VI para cada muestra son 6.0258, 5.0814 y 4.2046, basados en el n\'umero de aristas de los grafos respectivos, que son 414 para N1, 161 para N2 y 67 para N3.
     \label{tab:neuronResults}
 \end{table}
@@ -783,7 +806,14 @@ Figura & Config. de Par\'ametros & VI Max & VI & Rand & Jaccard \\ \hline
  \ref{fig:field3t0filtered2} & MtP & 1.9459 & 0.4286 & 0.8929 & 0.40 \\
  \ref{fig:Porta6-4a1} & N & 6.0258 & 1.7950 & 0.8864 & 0.1389 \\
  \ref{fig:Porta10-5b} & N & 5.0814 & 3.7256 & 0.8775 & 0.0703 \\
- \ref{fig:Porta18-3a1} & N & 4.2046 & 1.0060 & 0.8794 & 0.2157 \\ \hline
+ \ref{fig:Porta18-3a1} & N & 4.2046 & 1.0060 & 0.8794 & 0.2157 \\ 
+  \ref{fig:slice6-spinning-PL-gtruth} & MtP & 3.6635 & 1.4749 & 0.9305 & 0.2781\\
+ \ref{fig:slice6-spinning-both-gtruth} & MtP & 4.0775 & 3.5850 & 0.8994 & 0.1331 \\
+ \ref{fig:MTD-raw} & MtP & 2.9444 & 1.1781 & 0.8739 & 0.2144\\
+ \ref{fig:MTE-raw} & MtP & 3.1354 & 1.4533 & 0.2446 & 0.4477\\
+ 
+ 
+ \hline
 \end{tabular}
 \caption[Resultados de la m\'etrica VI y los \'indices Rand y Jaccard para las evaluaciones del algoritmo propuesto.]{Resultados de la m\'etrica VI y los \'indices Rand y Jaccard para las evaluaciones del algoritmo propuesto en im\'agenes sint\'eticas y reales, para diferentes configuraci\'ones de par\'ametros. Los valores de los \'indices Rand y Jaccard se encuentran en el rango $[0,1]$, siendo 1 el valor ideal. Se observa que los resultados del \'indice Rand se contradicen con los del \'indice Jaccard. Por su parte, la m\'etrica VI penaliza los casos en que una aristas pertenece a m\'as de un filamento propuesto, lo que dificulta la evaluaci\'on mediante esta m\'etrica para los casos de superposici\'on de filamentos.}
 \label{tab:VI-R-J-inconclu}
@@ -792,7 +822,7 @@ Figura & Config. de Par\'ametros & VI Max & VI & Rand & Jaccard \\ \hline
 
 \section{Resultados Generales}
 
-Con la finalidad de comprender el comportamiento general del algoritmo propuesto, se realiza una evaluaci\'on estad\'istica de los resultados para determinar la similitud entre el n\'umero de filamentos propuestos con respecto a la cantidad de filamentos indicada por un experto. A cada figura previamente evaluada, se le realizan nuevas ejecuciones mediante el algoritmo propuesto, llegando a un total de 10 iteraciones por figura. Si estos resultados se comportan de acuerdo a una distribuci\'on normal, se evalúa su similitud con respecto a lo indicado por un experto a trav\'es de la prueba t de Student, de lo contrario se utiliza una prueba de rangos con signo de Wilcoxon. La hip\'otesis nula (H0) consiste en que no existe diferencia estad\'isticamente significativa entre el n\'umero de filamentos individualizados por el algoritmo propuesto y lo definido por un experto. En el caso de que el valor $p$ o {\it p-value} sea menor al 5\%, se rechaza H0. 
+Con la finalidad de comprender el comportamiento general del algoritmo propuesto, se realiza una evaluaci\'on estad\'istica de los resultados para determinar la similitud entre el n\'umero de filamentos propuestos con respecto a la cantidad de filamentos indicada por un experto. Para realizar la medici\'on, se consideran las 10 iteraciones de cada figura mediante el algoritmo propuesto. Si estos resultados se comportan de acuerdo a una distribuci\'on normal, se evalúa su similitud con respecto a lo indicado por un experto a trav\'es de la prueba t de Student, de lo contrario se utiliza una prueba de rangos con signo de Wilcoxon. La hip\'otesis nula (H0) consiste en que no existe diferencia estad\'isticamente significativa entre el n\'umero de filamentos individualizados por el algoritmo propuesto y lo definido por un experto. En el caso de que el valor $p$ o {\it p-value} sea menor al 5\%, se rechaza H0. 
 
 \begin{table}[h]
 \centering
