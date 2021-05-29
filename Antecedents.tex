@@ -1,6 +1,6 @@
 \chapter{Antecedentes}
 \label{chap:stateoftheart}
-La individualizaci\'on de filamentos en una imagen es un problema derivado de la obtenci\'on de informaci\'on de filamentos en base a una imagen. Este \'ultimo ha ido variando a medida que la tecnolog\'ia en microscopios ha mejorado, lo que a su vez ha permitido el desarrollo de nuevos m\'etodos. Estos m\'etodos pueden a su vez diferir entre s\'i dependiendo del foco de la informaci\'on que buscan obtener a partir de la imagen, existiendo m\'etodos que se enfocan en reconstruir filamentos discontinuos, a la identificaci\'on de segmentos de filamento para la construcci\'on de las redes que estos conforman, o la individualizaci\'on en s\'i. Independientemente del objetivo de cada m\'etodo, es posible agruparlos en dos categor\'ias: M\'etodos basados en procesamiento de im\'agenes de bajo nivel y m\'etodos basados en optimizaci\'on. Los primeros realizan mayoritariamente operaciones de filtrado sobre la imagen, mientras que los segundos plantean parte de la obtenci\'on de la informaci\'on mediante la resoluci\'on de problemas de asignaci\'on o de minimizaci\'on de funciones.
+La individualizaci\'on de filamentos en una imagen es un problema derivado de la obtenci\'on de informaci\'on de filamentos en base a una imagen. Este \'ultimo ha ido variando a medida que la tecnolog\'ia en microscopios ha mejorado, lo que a su vez ha permitido el desarrollo de nuevos m\'etodos. Estos m\'etodos pueden a su vez diferir entre s\'i dependiendo del foco de la informaci\'on que buscan obtener a partir de la imagen, existiendo m\'etodos que se enfocan en reconstruir filamentos discontinuos, a la identificaci\'on de segmentos de filamento para la construcci\'on de las redes que estos conforman, o la individualizaci\'on en s\'i. Independientemente del objetivo de cada m\'etodo, es posible agruparlos en dos categor\'ias: m\'etodos basados en procesamiento de im\'agenes de bajo nivel y m\'etodos basados en optimizaci\'on. Los primeros realizan mayoritariamente operaciones de filtrado sobre la imagen, mientras que los segundos plantean parte de la obtenci\'on de la informaci\'on mediante la resoluci\'on de problemas de asignaci\'on o de minimizaci\'on de funciones.
 
 Entre las herramientas disponibles para los m\'etodos basados en optimizaci\'on, se encuentra la metaheur\'istica {\it Ant Colony Optimization} (ACO), que se basa en el comportamiento de las hormigas al buscar alimento. Esta metaheur\'istica corresponde a la estrategia utilizada en esta investigaci\'on para individualizar filamentos.
 
@@ -50,8 +50,8 @@ Luego, a partir de la matriz $n$ (ecuaci\'on \ref{eq:fibritoolComps}) se obtiene
 \begin{equation}
 n =
 \begin{bmatrix}
-(t_x)^2 & t_x \times t_y \\
-t_x \times t_y & (t_y)^2 
+(t_x)^2 & t_x t_y \\
+t_x t_y & (t_y)^2 
 \end{bmatrix}
 \label{eq:fibritoolComps}
 \end{equation}
@@ -153,7 +153,17 @@ Otras investigaciones similares que siguen un enfoque basado principalmente en p
 \label{sec:OptiMethods}
 
 \subsection{Restricciones Geometricas para Segmentar Estructuras Alargadas}
-En la segunda categor\'ia, \citet{cerda2014geometrical} plantea la identificaci\'on de segmentos de filamentos como un problema de asignaci\'on, utilizando las medidas de distancia Euclidiana y angular como restricciones, y el algoritmo h\'ungaro para su resoluci\'on.
+En la segunda categor\'ia, \citet{cerda2014geometrical} plantea un algoritmo de 2 etapas para identificar y fusionar segmentos de filamentos. La primera etapa se enfoca en la detecci\'on de segmentos mediante un filtro de umbral autom\'atico y su posterior esqueletonizaci\'on, permitiendo identificar los segmentos resultantes en base a los nodos en sus extremos. A partir de los segmentos de filamentos, la segunda etapa consiste en generar una matriz de costos para determinar que segmentos es posible fusionar. El funcionamiento del m\'etodo propuesto por los autores se refleja en la Figura \ref{fig:segment-fusion}.
+
+\begin{figure}[h]
+        %\centering
+        \includegraphics[scale=0.7]{imagenes/mcerda-121.png}
+        \caption[Ejemplo del m\'etodo Restricciones Geometricas para Segmentar Estructuras Alargadas.]{Ejemplo del m\'etodo Restricciones Geometricas para Segmentar Estructuras Alargadas. La l\'inea punteada refleja la fusi\'on entre dos segmentos de filamentos, representados por l\'ineas continuas. En ambos casos se fusionan los segmentos utilizando criterios de curvatura y distancia euclidiana. Fuente: \citet{cerda2014geometrical}.}
+        \label{fig:segment-fusion}
+\end{figure}
+
+La construcci\'on de la matriz de costos, de tamaño $n$ x $2n$ con $n$ como el n\'umero de nodos, se basa en la distancia euclidiana y la curvatura entre segmentos. Los autores plantean que es posible tratar el problema de fusi\'on de segmentos de filamentos como un problema de asignaci\'on, al que se le encuentra una soluci\'on \'optima al resolver la matriz utilizando el algoritmo h\'ungaro, con un costo computacional de $\mathcal{O}{(n^{3})}$.
+
 
 \subsection{SOAX}
 %SOAX, extraccion y cuantifiacion de la red
