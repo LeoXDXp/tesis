@@ -16,13 +16,13 @@
 \author{Leonardo Enrique Pizarro Baeza}
 \title{Individualizaci\'on de filamentos en una red extra\'ida desde una imagen de microscop\'ia, mediante optimizaci\'on}
 \auspicio{el Fondo Nacional de Desarrollo Cient\'ifico y Tecnol\'ogico (FONDECYT 1180906 y 1190806) y la ICM (P09-015-F)}
-\date{Septiembre 2020}
+\date{2021}
 \guia{Mauricio Cerda Villablanca \break Jacques Dumais}
 \carrera{Magíster en Ciencias, Mención Computación}
 \memoria{Tesis para optar al Grado de \break  Magíster en Ciencias, Mención Computación}
 \comision{Alexandre Bergel \break
-        Jose Manuel Saavedra \break
-        Violeta Chang}
+        Jos\'e Manuel Saavedra Rondo\break
+        Violeta Chang Camacho}
 
 \usepackage{lipsum}
 \usepackage[numbers]{natbib}
@@ -31,6 +31,8 @@
 \usepackage{gensymb}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+%\usepackage{appendix}
+%\usepackage[toc,page, title, titletoc]{appendix}
 
 \begin{document}
 \newcommand{\citepxl}[2][]{(#1\unskip \citet{#2})}
@@ -41,6 +43,7 @@
 
 \begin{abstract}
 %\addcontentsline{toc}{chapter}{Resumen}
+%\setlength\parindent{24pt} 
 En la naturaleza, es posible encontrar de forma ubicua, estructuras alargadas (filamentos), las que conforman redes entre s\'i.  La conformaci\'on de estas estructuras complejas y din\'amicas se puede observar en ejemplos
 particulares como en una red de prote\'inas de una c\'elula eucariota, as\'i como en bacterias, ya que a pesar que pertenecer a distintas familias, ambas tienen estructuras formada por filamentos. La individualizaci\'on de filamentos permite cuantificar las propiedades de la red tales como n\'umero de filamentos, largo de estos, volumen, o curvatura, y  puede ser categorizado en: basado en procesamiento de im\'agenes de bajo nivel o como un problema de optimizaci\'on.
 
@@ -69,9 +72,12 @@ A mis padres, a mi amada Camila y a mis perros
 \begin{thanks} % opcional
 A todos
 \end{thanks}
-\cleardoublepage
+%\cleardoublepage
 
 \tableofcontents
+%\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+
+%\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 \listoftables % opcional
 \listoffigures % opcional
 %\listofalgorithms
@@ -86,9 +92,17 @@ A todos
 \input{resultados.tex}
 \input{conclu.tex}
 % \input{glosario.tex} % opcional
+\addcontentsline{toc}{chapter}{Bibliografía}
 \bibliographystyle{IEEEtranN}
 \bibliography{bibliografia}
+
+\addcontentsline{toc}{chapter}{Ap\'endice A. Material Suplementario}
 \appendix
-\chapter{Material Suplementario}
+
+%\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+
+
+%\renewcommand{\thechapter}{Apéndice \Alph{chapter}}
+\renewcommand{\thesection}{A.\arabic{section}}
 \input{anexo} %opcionales
 \end{document}
