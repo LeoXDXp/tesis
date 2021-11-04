@@ -1,4 +1,3 @@
-\chapter{Material Suplementario}
 \chapter{Antecedentes}
 \label{chap:stateoftheart}
 La individualizaci\'on de filamentos en una imagen es un problema derivado de la obtenci\'on de informaci\'on de filamentos en base a una imagen. Este \'ultimo ha ido variando a medida que la tecnolog\'ia en microscopios ha mejorado, lo que a su vez ha permitido el desarrollo de nuevos m\'etodos. Estos m\'etodos pueden a su vez diferir entre s\'i dependiendo del foco de la informaci\'on que buscan obtener a partir de la imagen, existiendo m\'etodos que se enfocan en reconstruir filamentos discontinuos, a la identificaci\'on de segmentos de filamento para la construcci\'on de las redes que estos conforman, o la individualizaci\'on en s\'i. Independientemente del objetivo de cada m\'etodo, es posible agruparlos en dos categor\'ias: m\'etodos basados en procesamiento de im\'agenes de bajo nivel y m\'etodos basados en optimizaci\'on. Los primeros realizan mayoritariamente operaciones de filtrado sobre la imagen, mientras que los segundos plantean parte de la obtenci\'on de la informaci\'on mediante la resoluci\'on de problemas de asignaci\'on o de minimizaci\'on de funciones.
@@ -99,7 +98,7 @@ Debido a que el proceso para obtener un resultado a partir de FibrilTool conside
 
 \subsection{IFS}
 % Quantitative IFS
-Una investigaci\'on que propone la individualizaci\'on de segmentos de filamentos es \citet{qiu2014quantitative}, la que plantea un filtro de detecci\'on de caracter\'isticas de 6 pasos m\'as un algoritmo llamado \textit{SBDA} que busca eliminar segmentos de filamentos menores a 2 p\'ixeles (Figura \ref{fig:IFS}), cuya implementaci\'on de denomina {\it IFS}. La individualizaci\'on de segmentos de filamentos entrega informaci\'on morfol\'ogica de un segmento con respecto a su entorno, se\~nalando si se encuentra en estado de aislaci\'on, intersectado, bifurcado o en superposici\'on con otro segmento de filamento.
+Una investigaci\'on que propone la individualizaci\'on de segmentos de filamentos es \citet{qiu2014quantitative}, la que plantea un filtro de detecci\'on de caracter\'isticas de 6 pasos m\'as un algoritmo llamado \textit{SBDA} que busca eliminar segmentos de filamentos menores a 2 p\'ixeles (Figura \ref{fig:IFS}), cuya implementaci\'on se denomina {\it IFS}. La individualizaci\'on de segmentos de filamentos entrega informaci\'on morfol\'ogica de un segmento con respecto a su entorno, se\~nalando si se encuentra en estado de aislaci\'on, intersectado, bifurcado o en superposici\'on con otro segmento de filamento.
 
 %describir filtros, intensidad es con fibre coefficient
 Las 6 etapas del filtro consideradas en este m\'etodo consisten en 4 etapas de an\'alisis de la imagen y 2 de an\'alisis topol\'ogico que se resumen en lo siguiente:
